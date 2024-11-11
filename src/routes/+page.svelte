@@ -1,4 +1,9 @@
 <script>
+  import Intro from "../sections/Intro.svelte";
+  import Title from "../sections/Title/Title.svelte";
 </script>
 
-<h1 class="text-accent">Seinfeld Digital!</h1>
+<main>
+  <Intro />
+  <Title />
+</main>
