@@ -1,0 +1,55 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  html {
+    font-family: "new-science", system-ui, sans-serif;
+    font-size: 62.5%;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+  body{
+    margin: 0;
+    font-size: 2.2rem;
+    line-height: 1.4;
+    font-weight: 400;
+    color: #12020A;
+    fill: #12020A;
+    background: #F9F5F7;
+  }
+  h1, h2, h3, h4, h5 {
+    line-height: 1.2;
+  }
+  h1 {
+    margin: 0;
+    font-size: 10rem;
+    font-weight: 700;
+  }
+  h2 {
+    margin: 0;
+    font-size: 9rem;
+    font-weight: 700;
+  }
+  h3 {
+    margin: 0;
+    font-size: 6.5rem;
+    font-weight: 600;
+  }
+  h4 {
+    margin: 0;
+    font-size: 4.2rem;
+    font-weight: 600;
+  }
+  h5 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 600;
+  }
+  ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+  }
+}
