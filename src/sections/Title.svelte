@@ -42,13 +42,26 @@
           toggleActions: 'play reverse play reverse'
       }
     })
-    tl.from('.season-rect', {
+    tl
+      .from('.season-rect', {
         width: 0,
         height: 0,
+        stagger: 0.15,
         duration: 2,
         ease: 'power3.out',
-        stagger: 0.15
       })
+      .to('.name', {
+        webkitTextFillColor: 'transparent',
+        backgroundPosition: '200% center',
+        duration: 2,
+        stagger: .6,
+        ease: 'power3.out',
+      }, "-=.5")
+      .to('.name', {
+        webkitTextFillColor: 'inherit',
+        duration: 5,
+        ease: 'sine.out',
+      }, "+=.3")
 	});
 </script>
 
@@ -64,7 +77,7 @@
       </svg>
     </div>
     <h1>The Seinfield Chronicles</h1>
-    <p class="subtitle max-w-4xl">An unnecessary data exploration by <span>Andy Kirk</span>, Anne-Marie Dufour, and Loud Numbers</p>
+    <p class="subtitle max-w-4xl">An unnecessary data exploration by <span class="name">Andy Kirk</span>, <span class="name">Anne-Marie Dufour</span>, and <span class="name">Loud Numbers</span></p>
   </div>
 </section>
 
@@ -74,5 +87,11 @@
   }
   .subtitle {
     font-size: 2.1rem;
+  }
+  .name {
+    background: rgb(253,232,36);
+    background: linear-gradient(90deg, rgba(253,232,36,1) 0%, rgba(184,206,50,1) 12.5%, rgba(125,186,87,1) 25%, rgba(76,178,120,1) 37.5%, rgba(29,163,136,1) 50%, rgba(34,138,141,1) 62.5%, rgba(47,112,142,1) 75%, rgba(57,87,141,1) 87.5%, rgba(69,55,130,1) 100%);
+    background-size: 200% auto;
+    background-clip: text;
   }
 </style>
