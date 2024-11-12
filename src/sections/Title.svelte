@@ -29,6 +29,7 @@
     ? (innerWidth - gridContainer) / 2
     : padding
 
+  let seasonScale
   $: seasonScale = scaleLinear()
     .domain([0, max(seasons, (/** @type {{ numEpisodes: any; }} */ d) => d.numEpisodes)])
     .range([0, svgWidth])
@@ -67,8 +68,8 @@
 
 <svelte:window bind:innerWidth />
 
-<section id="title-screen" class="bg-black text-white h-screen">
-  <div class="max-w-screen-xl mx-auto h-full">
+<section id="title-screen" class="h-screen">
+  <div class="max-w-screen-2xl mx-auto px-8 h-full">
     <div style="margin-left: -{marginLeft}px">
       <svg width={svgWidth} height="132">
         {#each seasons as season, i}
@@ -77,7 +78,7 @@
       </svg>
     </div>
     <h1>The Seinfield Chronicles</h1>
-    <p class="subtitle max-w-4xl">An unnecessary data exploration by <span class="name">Andy Kirk</span>, <span class="name">Anne-Marie Dufour</span>, and <span class="name">Loud Numbers</span></p>
+    <p class="subtitle max-w-5xl">An unnecessary data exploration by <span class="name">Andy Kirk</span>, <span class="name">Anne-Marie Dufour</span>, and <span class="name">Loud Numbers</span></p>
   </div>
 </section>
 
@@ -86,7 +87,8 @@
     padding-top: 100px
   }
   .subtitle {
-    font-size: 2.1rem;
+    font-size: 1.125rem;
+    line-height: 1.4;
   }
   .name {
     background: rgb(253,232,36);
@@ -97,5 +99,15 @@
   .name:hover {
     -webkit-text-fill-color: transparent !important;
     background-size: 100% auto;
+  }
+  @media screen and (min-width: 768px) {
+    .subtitle {
+    font-size: 1.75rem;
+  }
+  }
+  @media screen and (min-width: 996px) {
+    .subtitle {
+    font-size: 2.1rem;
+  }
   }
 </style>

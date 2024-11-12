@@ -1,5 +1,5 @@
-<section class="bg-black h-screen">
-<h2 class="text-white">Intro goes here</h2>
+<section class="h-screen">
+<h2>Intro goes here</h2>
 </section>
 
 <style>
