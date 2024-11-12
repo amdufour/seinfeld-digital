@@ -94,4 +94,8 @@
     background-size: 200% auto;
     background-clip: text;
   }
+  .name:hover {
+    -webkit-text-fill-color: transparent !important;
+    background-size: 100% auto;
+  }
 </style>
