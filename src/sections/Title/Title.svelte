@@ -3,22 +3,18 @@
 </script>
 
 <section class="bg-black text-white h-screen">
-  <div class="max-w-screen-xl mx-auto flex flex-col justify-between h-full">
-    <div>
-      <TitleViz />
+  <div class="max-w-screen-xl mx-auto h-full">
+    <TitleViz />
       <h1>The Seinfield Chronicles</h1>
-      <p class="subtitle">An unnecessary data exploration by <span>Andy Kirk</span></p>
-    </div>
-    <p class="font-mono text-sm">Brought to the web by Anne-Marie Dufour and to your ears by Miriam Quick and Duncan Geere</p>
+      <p class="subtitle max-w-4xl">An unnecessary data exploration by <span>Andy Kirk</span>, Anne-Marie Dufour, and Loud Numbers</p>
   </div>
 </section>
 
 <style>
   section {
-    padding: 130px 0 50px;
+    padding-top: 100px
   }
   .subtitle {
-    padding-top: 5px;
-    font-size: 2.5rem;
+    font-size: 2.1rem;
   }
 </style>
