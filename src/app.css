@@ -59,6 +59,15 @@
     padding-left: 0;
     list-style: none;
   }
+  .container {
+    width: 100%;
+    max-width: 1536px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .mask {
+    overflow: hidden;
+  }
   @media screen and (min-width: 768px) {
     h1 {
       font-size: 5rem;

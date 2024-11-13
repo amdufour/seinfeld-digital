@@ -69,7 +69,7 @@
 <svelte:window bind:innerWidth />
 
 <section id="title-screen" class="h-screen">
-  <div class="max-w-screen-2xl mx-auto px-8 h-full">
+  <div class="container h-full">
     <div style="margin-left: -{marginLeft}px">
       <svg width={svgWidth} height="132">
         {#each seasons as season, i}

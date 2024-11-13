@@ -15,7 +15,7 @@
   ]
 </script>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 max-w-screen-2xl mx-auto px-8">
+<div class="grid grid-cols-1 lg:grid-cols-3 container">
   <div class="col-span-2 px-4 mb-10">
     <h3>Methodology</h3>
     <div>
