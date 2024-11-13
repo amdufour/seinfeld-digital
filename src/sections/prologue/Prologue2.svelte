@@ -19,7 +19,7 @@
     ScrollTrigger.create({
       trigger: "#timeline-container",
       start: "top top", 
-      end: "bottom top",
+      end: "bottom center",
       pin: "#timeline"
     });
 
