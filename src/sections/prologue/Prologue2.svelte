@@ -8,6 +8,7 @@
   /**
 	 * @type {number}
 	 */
+   $: innerWidth = 0
    $: innerHeight = 0
 
   onMount(() => {
@@ -15,13 +16,15 @@
       .domain([1989, 2012])
       .range([0, innerHeight - 240])
 
-    // Pin timeline
-    ScrollTrigger.create({
-      trigger: "#timeline-container",
-      start: "top top", 
-      end: "bottom center",
-      pin: "#timeline"
-    });
+    if (innerWidth >= 768) {
+      // Pin timeline
+      ScrollTrigger.create({
+        trigger: "#timeline-container",
+        start: "top top", 
+        end: "bottom center",
+        pin: "#timeline"
+      });
+    }
 
     // Reveal text 1 and timeline
     const tl1 = gsap.timeline({
@@ -89,9 +92,9 @@
   });
 </script>
 
-<svelte:window bind:innerHeight />
+<svelte:window bind:innerWidth bind:innerHeight />
 
-<div id="timeline-container" class="grid grid-cols-1 lg:grid-cols-2 container mt-20">
+<div id="timeline-container" class="grid grid-cols-1 md:grid-cols-2 container mt-20">
   <div class="col-span-1 px-4">
     <div class="h-screen flex flex-col justify-center">
       <p id="prologue-2">Though the first episode aired in the US in 1989 it wasn't broadcast in the UK until 1993.</p>
@@ -102,25 +105,25 @@
     </div>
   </div>
   <div id="timeline" class="col-span-1 px-4 relative">
-    <div id="timeline-line" class="bg-white absolute" style={`width: 2px; height: ${innerHeight - 120}px; border-radius: 1px; top: 60px; left: 213px`}></div>
+    <div id="timeline-line" class="bg-white absolute" style={`width: 2px; height: ${innerHeight - 120}px; border-radius: 1px; top: 60px;`}></div>
     <div id="date-1" class="absolute w-full" style={`top: ${(innerHeight - 120) / 3 + 30}px; left: 0`}>
       <div id="date-us" class="flex items-center">
-        <div id="year-us" class="text-3xl font-semibold relative text-right" style={`width: 176px; margin-right: 24px`}>1989</div>
-        <div id="circle-us" class="bg-white" style={`width: 28px; height: 28px; border-radius: 50%;`}></div>
+        <div id="year-us" class="year" style={`width: 176px; margin-right: 24px`}>1989</div>
+        <div id="circle-us" class="bg-white circle"></div>
         <div id="desc-us" class="text-lg" style={`margin-left: 24px`}>Seinfeld first aired on NBC in the USA</div>
       </div>
     </div>
     <div id="date-2" class="absolute w-full" style={`top: ${(innerHeight - 120) / 3 * 2 + 30}px; left: 0`}>
       <div id="date-uk" class="flex items-center">
-        <div id="year-uk" class="text-3xl font-semibold relative text-right" style={`width: 176px; margin-right: 24px`}>1993</div>
-        <div id="circle-uk" class="bg-white" style={`width: 28px; height: 28px; border-radius: 50%;`}></div>
+        <div id="year-uk" class="year" style={`width: 176px; margin-right: 24px`}>1993</div>
+        <div id="circle-uk" class="bg-white circle"></div>
         <div id="desc-uk" class="text-lg" style={`margin-left: 24px`}>Seinfeld first aired on BBC2 in the UK</div>
       </div>
     </div>
     <div id="date-3" class="absolute w-full" style={`top: ${innerHeight - 120 + 30}px; left: 0`}>
       <div id="date-andy" class="flex items-center" style="opacity: 0">
-        <div id="year-andy" class="text-3xl font-semibold relative text-right" style={`width: 176px; min-width: 176px; margin-right: 24px`}>2012</div>
-        <div id="circle-andy" class="bg-accent pulse" style={`width: 28px; min-width: 28px; height: 28px; border-radius: 50%;`}></div>
+        <div id="year-andy" class="year">2012</div>
+        <div id="circle-andy" class="bg-accent pulse circle"></div>
         <div id="desc-andy" class="text-lg" style={`margin-left: 24px`}>Seinfeld returns to prime-time on Sky TV in the UK</div>
       </div>
     </div>
@@ -128,6 +131,32 @@
 </div>
 
 <style>
+  #timeline-line {
+    left: 137px
+  }
+  .year {
+    width: 100px;
+    min-width: 100px;
+    margin-right: 24px;
+    text-align: right;
+    font-size: 1.875rem;
+    font-weight: 600;
+  }
+  @media screen and (min-width: 996px) {
+    #timeline-line {
+      left: 213px
+    }
+    .year {
+      width: 176px;
+      min-width: 176px;
+    }
+  }
+  .circle {
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+  }
   .pulse {
     animation: pulse-animation 2s infinite;
   }
