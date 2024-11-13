@@ -18,22 +18,23 @@
         delay: 1
       })
       .to('#down-icon', {
-        translateY: 70,
+        translateY: 0,
         opacity: 1,
-        duration: 2,
-        ease: 'elastic.out(1,0.4)'
-      }, "+=.3")
+        duration: 1,
+        ease: 'power3.out'
+      }, "-=.5")
 
     // Hide down icon
-    // TODO: Animation doesn't work?
-    gsap.to('#down-icon', {
-      opacity: 0,
-      duration: 5,
-      ease: 'power3.out',
+    const tl2 = gsap.timeline({
       scrollTrigger: {
-        trigger: '#down-icon',
-        start: 'top center'
+        trigger: '#prologue-1',
+        start: 'top top'
       }
+    })
+    tl2.to('#down-icon', {
+      translateY: -40,
+      duration: 1,
+      ease: 'power3.out',
     })
   });
 </script>
@@ -42,8 +43,10 @@
   <div class="container">
     <div id="prologue-1">I was a late arrival to Seinfeld.</div>
   </div>
-  <div id="down-icon">
-    <DownIcon />
+  <div class="down-icon-container mask">
+    <div id="down-icon">
+      <DownIcon />
+    </div>
   </div>
 </div>
 
@@ -52,11 +55,14 @@
     opacity: 0;
     transform: translateY(30px);
   }
-  #down-icon {
+  .down-icon-container {
     position: absolute;
-    bottom: 100px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
+  }
+  #down-icon {
     opacity: 0;
+    transform: translateY(-40px);
   }
 </style>
