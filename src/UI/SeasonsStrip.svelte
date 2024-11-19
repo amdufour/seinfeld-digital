@@ -7,14 +7,12 @@
 	 * @type {number}
 	 */
   const width = 25
-   $: innerHeight = 0
-  console.log(seasons)
-  console.log(sum(seasons.slice(0, 3), d => d.numEpisodes))
+   $: innerHeight = 0;
 
   let seasonScale
   $: seasonScale = scaleLinear()
     .domain([0, totalNumEpisodes])
-    .range([0, innerHeight])
+    .range([0, innerHeight]);
 </script>
 
 <svelte:window bind:innerHeight />
