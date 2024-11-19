@@ -1,3 +1,5 @@
+import { sum } from "d3-array"
+
 export const seasons = [
   { id: 's1', color: '#FDE824', numEpisodes: 5 },
   { id: 's2', color: '#B8CE32', numEpisodes: 12 },
@@ -9,3 +11,5 @@ export const seasons = [
   { id: 's8', color: '#39578D', numEpisodes: 22 },
   { id: 's9', color: '#453782', numEpisodes: 24 }
 ]
+
+export const totalNumEpisodes = sum(seasons, d => d.numEpisodes) as number

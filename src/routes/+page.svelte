@@ -2,6 +2,7 @@
   // @ts-ignore
   import Prologue from "../sections/prologue/Prologue.svelte";
   import Title from "../sections/Title.svelte";
+  import Catalog from "../sections/catalog/Catalog.svelte";
   import MethodologyAndCredits from "../sections/MethodologyAndCredits.svelte";
   import Footer from "../sections/Footer.svelte";
 </script>
@@ -11,7 +12,7 @@
     <Prologue />
     <Title />
   </div>
-  <section class="h-screen"></section>
+  <Catalog />
   <MethodologyAndCredits />
   <Footer />
 </main>
