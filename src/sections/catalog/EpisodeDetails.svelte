@@ -1,8 +1,9 @@
 <script>
   import StarIcon from "../../icons/StarIcon.svelte";
   import TvIcon from "../../icons/TvIcon.svelte";
+  import EpisodeControls from "./EpisodeControls.svelte";
 
-  let { episode } = $props();
+  let { episodes, episode } = $props();
 </script>
 
 <div class="flex items-end">
@@ -13,7 +14,10 @@
   />
   <div>
     <div>
-      <h2>{episode.title}</h2>
+      <div class="flex items-center">
+        <h2 class="mr-4">{episode.title}</h2>
+        <EpisodeControls episodes={episodes} episode={episode} />
+      </div>
       <div class="small flex">
         <div class="mr-4 max-w-lg">{episode.description}</div>
         <div>

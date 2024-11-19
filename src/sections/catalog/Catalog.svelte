@@ -11,6 +11,9 @@
 <div class="w-screen h-screen flex">
   <SeasonsStrip />
   <div>
-    <EpisodeDetails episode={currentEpisodeInfo}  />
+    <EpisodeDetails 
+      episodes={episodesInfo}
+      episode={currentEpisodeInfo}  
+    />
   </div>
 </div>
