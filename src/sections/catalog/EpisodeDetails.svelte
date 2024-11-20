@@ -43,13 +43,13 @@
 
 <style>
   img {
-    height: 200px;
+    height: 220px;
   }
   h2 {
     width: 800px;
     font-size: 4rem;
   }
   .description {
-    width: 476px;
+    width: 550px;
   }
 </style>
