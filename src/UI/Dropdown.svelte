@@ -1,7 +1,7 @@
 <script>
   import UpDownCarets from "$lib/assets/UpDownCarets.svg";
 
-  let { options, value, prefix = $bindable() } = $props();
+  let { options, value = $bindable(), prefix } = $props();
 </script>
 
 <div class="dropdown">
