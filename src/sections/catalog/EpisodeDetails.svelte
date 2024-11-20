@@ -14,8 +14,8 @@
   />
   <div>
     <div>
-      <div class="flex items-center">
-        <h2 class="mr-4">{episodeInfo.title}</h2>
+      <div class="flex items-end">
+        <h2 class="mr-4 mt-2 mb-1">{episodeInfo.title}</h2>
         <EpisodeControls 
           episodes={episodes} 
           bind:currentSeason={currentSeason} 
@@ -46,10 +46,10 @@
     height: 200px;
   }
   h2 {
+    width: 800px;
     font-size: 4rem;
   }
-  h2,
   .description {
-    width: 800px;
+    width: 476px;
   }
 </style>
