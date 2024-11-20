@@ -1,5 +1,5 @@
 <script>
-  import { episodesInfo } from "../../data/EpisodesInfo";
+  import { episodesInfo } from "../../data/episodesInfo";
   import SeasonsStrip from "../../UI/SeasonsStrip.svelte";
   import EpisodeDetails from "./EpisodeDetails.svelte";
   import EpisodeData from "./EpisodeData.svelte";
