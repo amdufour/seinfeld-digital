@@ -13,32 +13,32 @@
     alt="Episode cover"  
   />
   <div>
-    <div>
-      <div class="flex items-end">
+    <div class="flex">
+      <div>
         <h2 class="mr-4 mt-2 mb-1">{episodeInfo.title}</h2>
-        <EpisodeControls 
-          episodes={episodes} 
-          bind:currentSeason={currentSeason} 
-          bind:currentEpisode={currentEpisode} 
-        />
-      </div>
-      <div class="small flex">
-        <div class="description mr-4">{episodeInfo.description}</div>
-        <div>
-          <div class="flex items-center mb-1">
-            <StarIcon />
-            <span class="font-semibold mx-1">IMDb rating:</span>
-            <span>{episodeInfo.IMDB_rating}/10</span>
-          </div>
-          <div class="flex items-center">
-            <TvIcon />
-            <span class="font-semibold mx-1">First aired:</span>
-            <span>{episodeInfo.date_aired}</span>
+        <div class="small flex">
+          <div class="description mr-4">{episodeInfo.description}</div>
+          <div>
+            <div class="flex items-center mb-1">
+              <StarIcon />
+              <span class="font-semibold mx-1">IMDb rating:</span>
+              <span>{episodeInfo.IMDB_rating}/10</span>
+            </div>
+            <div class="flex items-center">
+              <TvIcon />
+              <span class="font-semibold mx-1">First aired:</span>
+              <span>{episodeInfo.date_aired}</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+    <EpisodeControls 
+      episodes={episodes} 
+      bind:currentSeason={currentSeason} 
+      bind:currentEpisode={currentEpisode} 
+    />
 </div>
 
 <style>
