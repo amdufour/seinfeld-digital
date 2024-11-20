@@ -5,7 +5,7 @@
 
   let currentSeason = $state(1);
   let currentEpisode = $state(1);
-  let currentEpisodeInfo = episodesInfo.find(e => e.season === currentSeason && e.episode === currentEpisode);
+  let currentEpisodeInfo = $derived(episodesInfo.find(e => e.season === currentSeason && e.episode === currentEpisode));
 </script>
 
 <div class="w-screen h-screen flex">
@@ -13,7 +13,9 @@
   <div>
     <EpisodeDetails 
       episodes={episodesInfo}
-      episode={currentEpisodeInfo}  
+      bind:currentSeason={currentSeason}
+      bind:currentEpisode={currentEpisode}
+      episodeInfo={currentEpisodeInfo}  
     />
   </div>
 </div>

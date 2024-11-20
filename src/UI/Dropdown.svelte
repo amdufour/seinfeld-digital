@@ -19,7 +19,7 @@
   .dropdown select {
     appearance: none;
     outline: none;
-    min-width: 80px;
+    min-width: 100px;
     padding: 0px 8px;
     font-size: 1.5625rem;
     font-weight: 600;

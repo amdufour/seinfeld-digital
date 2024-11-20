@@ -2,12 +2,10 @@
   import { seasons } from "../../data/seasons";
   import Dropdown from "../../UI/Dropdown.svelte";
 
-  let { episodes, episode } = $props()
+  let { episodes, currentSeason = $bindable(), currentEpisode = $bindable() } = $props()
   const seasonNums = seasons.map(s => s.seasonNum)
 
-  let selectedSeason = $state(episode.season)
-  let availableEpisodes = $derived(episodes.filter((/** @type {{ season: any; }} */ e) => e.season === selectedSeason).map((/** @type {{ episode: any; }} */ e) => e.episode))
-  let selectedEpisode = $state(1)
+  let availableEpisodes = $derived(episodes.filter((/** @type {{ season: any; }} */ e) => e.season === currentSeason).map((/** @type {{ episode: any; }} */ e) => e.episode))
 </script>
 
 <div class="flex items-center mt-1">
@@ -15,7 +13,7 @@
   <div class="px-2">
     <Dropdown
       options={seasonNums}
-      bind:value={selectedSeason}
+      bind:value={currentSeason}
       prefix="s"
     />
   </div>
@@ -24,7 +22,7 @@
   <div class="px-2">
     <Dropdown
       options={availableEpisodes}
-      bind:value={selectedEpisode}
+      bind:value={currentEpisode}
       prefix="e"
     />
   </div>
