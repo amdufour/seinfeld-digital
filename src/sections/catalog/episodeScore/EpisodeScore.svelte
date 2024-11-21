@@ -6,5 +6,5 @@
 </script>
 
 <div style="width: {width}px">
-	<Characters />
+	<Characters {width} {episodeData} />
 </div>

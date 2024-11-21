@@ -1,5 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
 	// @ts-ignore
 	import { csv } from 'd3-fetch';
 	// @ts-ignore
@@ -9,17 +8,8 @@
 	import MethodologyAndCredits from '../sections/MethodologyAndCredits.svelte';
 	import Footer from '../sections/Footer.svelte';
 
-	/**
-	 * @type {any}
-	 */
-	let promise = $state(getEpisodesData());
-
-	async function getEpisodesData() {
-		const res = await csv(
-			'https://d3js-in-action-third-edition.github.io/hosted-data/apis/episodesData.csv'
-		);
-		return res;
-	}
+	const episodesDataUrl =
+		'https://d3js-in-action-third-edition.github.io/hosted-data/apis/episodesData.csv';
 </script>
 
 <main>
@@ -27,7 +17,7 @@
 		<Prologue />
 		<Title />
 	</div>
-	{#await promise then episodesData}
+	{#await csv(episodesDataUrl) then episodesData}
 		<Catalog {episodesData} />
 	{/await}
 	<MethodologyAndCredits />

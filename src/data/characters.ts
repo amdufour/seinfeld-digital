@@ -11,5 +11,6 @@ export const characters = [
   { id: "George's family", label: "George's family" },
   { id: "Elaine's family", label: "Elaine's family" },
   { id: "Kramer's family", label: "Kramer's family" },
-  { id: "Other", label: "Other persons" }
+  { id: "Other", label: "Other persons" },
+  { id: "The situation", label: "The situation" }
 ]

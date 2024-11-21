@@ -53,6 +53,10 @@
   .small {
     font-size: 0.9375rem;
   }
+  .number {
+    font-size: 0.9375rem;
+    font-family: "new-science-mono", system-ui, sans-serif;
+  }
   .accent {
     color: #E71D80;
   }
