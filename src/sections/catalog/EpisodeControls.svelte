@@ -32,12 +32,8 @@
 			newEpisode = currentEpisode - 1;
 		}
 
-		if (isEpisodeValid(newSeason, newEpisode)) {
-			currentSeason = newSeason;
-			currentEpisode = newEpisode;
-		} else {
-			handleGoToPrevEpisode();
-		}
+		currentSeason = newSeason;
+		currentEpisode = isEpisodeValid(newSeason, newEpisode) ? newEpisode : newEpisode - 2;
 	};
 
 	const handleGoToNextEpisode = () => {
@@ -58,12 +54,8 @@
 			newEpisode = currentEpisode + 1;
 		}
 
-		if (isEpisodeValid(newSeason, newEpisode)) {
-			currentSeason = newSeason;
-			currentEpisode = newEpisode;
-		} else {
-			handleGoToNextEpisode();
-		}
+		currentSeason = newSeason;
+		currentEpisode = isEpisodeValid(newSeason, newEpisode) ? newEpisode : newEpisode + 2;
 	};
 
 	const handleGoToRandomEpisode = () => {
