@@ -5,9 +5,9 @@
 </script>
 
 <div class="relative">
-	<svg width={scenesWidth} height="80px">
-		<line x1={0} y1="40" x2={scenesWidth} y2="40" stroke="#BEBABC" />
-		<g transform="translate(0, 40)">
+	<svg width={scenesWidth} height="96px">
+		<line x1={0} y1="48" x2={scenesWidth} y2="48" stroke="#BEBABC" />
+		<g transform="translate(0, 48)">
 			{#each scenes as scene}
 				<line
 					x1={xScale(scene.startTime)}

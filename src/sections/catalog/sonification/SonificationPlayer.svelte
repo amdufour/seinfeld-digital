@@ -5,7 +5,7 @@
 	let { labelsWidth, scenesWidth, scenes, xScale } = $props();
 </script>
 
-<div class="flex h-20 items-center">
+<div class="flex h-24 items-center">
 	<SonificationControls {labelsWidth} />
 	<SonificationTrack {scenesWidth} {scenes} {xScale} />
 </div>
