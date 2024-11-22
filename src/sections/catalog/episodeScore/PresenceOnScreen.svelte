@@ -1,19 +1,10 @@
 <script>
 	// @ts-nocheck
 
-	import { characters } from '../../../data/characters';
-
-	let { episodeData } = $props();
+	let { characters } = $props();
 
 	const charactersData = $derived.by(() => {
-		const data = episodeData.filter((e) => e.eventCategory === 'CHARACTERS');
-		const charactersArray = characters.map((c) => {
-			return { id: c.id, color: c.color, timesOnScreen: [] };
-		});
-		data.forEach((d) => {
-			charactersArray.find((c) => c.id === d.eventAttribute).timesOnScreen.push(d.eventTimeSeconds);
-		});
-
+		const charactersArray = structuredClone(characters);
 		charactersArray.forEach((char) => {
 			char.momentsOnScreen = [];
 			let startTime;
@@ -42,9 +33,9 @@
 			}
 		});
 
-		return charactersArray;
+		return charactersArray.filter((c) => c.timesOnScreen.length > 0);
 	});
-	console.log(episodeData, charactersData);
+	console.log(charactersData);
 </script>
 
-<g></g>
+<g> </g>

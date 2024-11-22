@@ -1,7 +1,9 @@
 <script>
-	import { characters } from '../../../data/characters';
+	// @ts-nocheck
+
 	import { getCharacterImagePath } from '../../../utils/getCharacterImagePath';
-	let { labelsWidth } = $props();
+
+	let { labelsWidth, characters } = $props();
 </script>
 
 <ul class="shrink-0 pr-4 pt-8" style="width: {labelsWidth}px;">
