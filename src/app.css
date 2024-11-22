@@ -51,10 +51,12 @@
     margin: 1.5rem 0;
   }
   .small {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
+    line-height: 1.2;
   }
   .number {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
+    line-height: 1.2;
     font-family: "new-science-mono", system-ui, sans-serif;
   }
   .accent {

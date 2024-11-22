@@ -4,12 +4,11 @@
 
 	const { scenesData, width, height } = $props();
 
-	const lastSceneNumber = $state(+scenesData[scenesData.length - 2].sceneNumber);
 	const scenes = $derived.by(() => {
 		const scenesArray = [];
+		const lastSceneNumber = +scenesData[scenesData.length - 2].sceneNumber;
 		for (let i = 1; i <= lastSceneNumber; i++) {
 			const sceneData = scenesData.filter((/** @type { any } */ d) => +d.sceneNumber === i);
-			console.log(sceneData);
 			const startTime = sceneData[0].eventTime;
 			const endTime = sceneData[sceneData.length - 1].eventTime;
 			scenesArray.push({

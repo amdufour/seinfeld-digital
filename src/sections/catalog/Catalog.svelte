@@ -5,7 +5,6 @@
 	import EpisodeData from './EpisodeData.svelte';
 
 	const { episodesData } = $props();
-	console.log(episodesData);
 
 	let currentSeason = $state(1);
 	let currentEpisode = $state(1);
