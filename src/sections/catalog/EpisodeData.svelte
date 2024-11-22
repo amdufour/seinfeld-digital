@@ -4,8 +4,8 @@
 
 	const { episodeData } = $props();
 
-	let innerWidth = $state(0);
-	let innerHeight = $state(0);
+	let innerWidth = $state(1600);
+	let innerHeight = $state(800);
 	const statsWidth = 200;
 	let vizWidth = $derived(innerWidth - statsWidth - 25 - 20);
 	let vizHeight = $derived(innerHeight - 220 - 80 - 25);

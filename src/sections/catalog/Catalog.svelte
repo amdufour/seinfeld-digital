@@ -15,7 +15,7 @@
 	let currentEpisodeData = $derived(
 		episodesData.filter(
 			(/** @type { any } */ e) =>
-				e.season === `Season${currentSeason}` && e.episode === currentEpisode.toString()
+				e.season === `Season${currentSeason}` && +e.episode === currentEpisode
 		)
 	);
 </script>
