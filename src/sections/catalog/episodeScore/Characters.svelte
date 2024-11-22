@@ -1,6 +1,7 @@
 <script>
 	// @ts-nocheck
 
+	import { scaleBand } from 'd3-scale';
 	import { characters } from '../../../data/characters';
 	import CharactersList from './CharactersList.svelte';
 	import Scenes from './Scenes.svelte';
@@ -11,7 +12,7 @@
 	const charactersOnScreen = $derived.by(() => {
 		const data = episodeData.filter((e) => e.eventCategory === 'CHARACTERS');
 		const charactersArray = characters.map((c) => {
-			return { id: c.id, color: c.color, timesOnScreen: [] };
+			return { id: c.id, label: c.label, color: c.color, timesOnScreen: [] };
 		});
 		data.forEach((d) => {
 			charactersArray.find((c) => c.id === d.eventAttribute).timesOnScreen.push(d.eventTimeSeconds);
@@ -19,13 +20,21 @@
 
 		return charactersArray.filter((c) => c.timesOnScreen.length > 0);
 	});
-	const vizHeight = $derived(charactersOnScreen.length * 48 + 32 + 20);
+
+	const vizHeight = $derived(charactersOnScreen.length * 48 + 32);
+
+	const yScale = $derived(
+		scaleBand()
+			.domain(charactersOnScreen.map((char) => char.id))
+			.range([32, vizHeight])
+			.padding(0.4)
+	);
 </script>
 
 <div class="flex">
-	<CharactersList {labelsWidth} characters={charactersOnScreen} />
+	<CharactersList {labelsWidth} characters={charactersOnScreen} {yScale} />
 	<svg {width} height={vizHeight}>
 		<Scenes {scenes} {xScale} height={vizHeight} />
-		<PresenceOnScreen characters={charactersOnScreen} />
+		<PresenceOnScreen characters={charactersOnScreen} {xScale} {yScale} />
 	</svg>
 </div>

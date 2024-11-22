@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	let { characters } = $props();
+	let { characters, xScale, yScale } = $props();
 
 	const charactersData = $derived.by(() => {
 		const charactersArray = structuredClone(characters);
@@ -18,9 +18,10 @@
 							break;
 						case i === char.timesOnScreen.length - 1:
 						case time - currentTime > 5:
+							const addedTime = i === char.timesOnScreen.length - 1 ? 10 : 5;
 							char.momentsOnScreen.push({
 								startTime: startTime,
-								duration: currentTime - startTime + 5
+								duration: currentTime - startTime + addedTime
 							});
 							startTime = time;
 							currentTime = time;
@@ -38,4 +39,18 @@
 	console.log(charactersData);
 </script>
 
-<g> </g>
+<g>
+	{#each charactersData as char}
+		<g transform={`translate(0, ${yScale(char.id)})`}>
+			{#each char.momentsOnScreen as moment}
+				<rect
+					x={xScale(moment.startTime)}
+					y={0}
+					width={xScale(moment.duration)}
+					height={yScale.bandwidth()}
+					fill={char.color}
+				/>
+			{/each}
+		</g>
+	{/each}
+</g>
