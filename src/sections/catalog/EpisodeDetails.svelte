@@ -16,8 +16,8 @@
 	<div>
 		<div class="flex">
 			<div>
-				<h2 class="mb-1 mr-4 mt-2">{episodeInfo.title}</h2>
-				<div class="small flex">
+				<h2 class="mb-3 mr-4 mt-2">{episodeInfo.title}</h2>
+				<div class="small flex leading-normal">
 					<div class="description mr-4">{episodeInfo.description}</div>
 					<div>
 						<div class="mb-1 flex items-center">

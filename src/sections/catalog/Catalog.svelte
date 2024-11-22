@@ -1,10 +1,19 @@
 <script>
 	import { episodesInfo } from '../../data/episodesInfo';
+	import { formatTime } from '../../utils/formatTime';
+	import { scaleLinear } from 'd3-scale';
 	import SeasonsStrip from '../../UI/SeasonsStrip.svelte';
 	import EpisodeDetails from './EpisodeDetails.svelte';
+	import SonificationPlayer from './sonification/SonificationPlayer.svelte';
 	import EpisodeData from './EpisodeData.svelte';
 
-	const { episodesData } = $props();
+	let { episodesData } = $props();
+
+	let innerWidth = $state(1600);
+	const statsWidth = 200;
+	const labelsWidth = 176;
+	let vizWidth = $derived(innerWidth - statsWidth - 25 - 20);
+	let scenesWidth = $derived(vizWidth - labelsWidth - 32);
 
 	let currentSeason = $state(1);
 	let currentEpisode = $state(1);
@@ -17,7 +26,35 @@
 				e.season === `Season${currentSeason}` && +e.episode === currentEpisode
 		)
 	);
+
+	const scenesData = $derived(
+		currentEpisodeData.filter((/** @type { any } */ d) => d.eventCategory === 'SCENE')
+	);
+	const scenes = $derived.by(() => {
+		const scenesArray = [];
+		const lastSceneNumber = +scenesData[scenesData.length - 2].sceneNumber;
+		for (let i = 1; i <= lastSceneNumber; i++) {
+			const sceneData = scenesData.filter((/** @type { any } */ d) => +d.sceneNumber === i);
+			const startTime = sceneData[0].eventTime;
+			const endTime = sceneData[sceneData.length - 1].eventTime;
+			scenesArray.push({
+				sceneNum: i,
+				startTime: formatTime(startTime),
+				endTime: formatTime(endTime) + 5
+			});
+		}
+
+		return scenesArray;
+	});
+
+	const xScale = $derived(
+		scaleLinear()
+			.domain([0, scenes[scenes.length - 1].endTime])
+			.range([0, scenesWidth])
+	);
 </script>
+
+<svelte:window bind:innerWidth />
 
 <div class="flex w-screen">
 	<SeasonsStrip />
@@ -31,9 +68,16 @@
 		/>
 
 		<!-- Sonification player -->
-		<div class="h-20"></div>
+		<SonificationPlayer {labelsWidth} {scenesWidth} {scenes} {xScale} />
 
 		<!-- Episode data -->
-		<EpisodeData episodeData={currentEpisodeData} />
+		<EpisodeData
+			episodeData={currentEpisodeData}
+			width={vizWidth}
+			{labelsWidth}
+			{statsWidth}
+			{scenes}
+			{xScale}
+		/>
 	</div>
 </div>

@@ -2,18 +2,10 @@
 	import EpisodeScore from './episodeScore/EpisodeScore.svelte';
 	import EpisodeStats from './EpisodeStats.svelte';
 
-	const { episodeData } = $props();
-
-	let innerWidth = $state(1600);
-	let innerHeight = $state(800);
-	const statsWidth = 200;
-	let vizWidth = $derived(innerWidth - statsWidth - 25 - 20);
-	let vizHeight = $derived(innerHeight - 220 - 80 - 25);
+	const { episodeData, width, labelsWidth, statsWidth, scenes, xScale } = $props();
 </script>
 
-<svelte:window bind:innerWidth bind:innerHeight />
-
 <div class="flex">
-	<EpisodeScore width={vizWidth} {episodeData} />
+	<EpisodeScore {width} {labelsWidth} {scenes} {xScale} />
 	<EpisodeStats width={statsWidth} />
 </div>
