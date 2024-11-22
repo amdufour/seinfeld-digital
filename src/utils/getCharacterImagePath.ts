@@ -38,7 +38,9 @@ export const getCharacterImagePath = (/** @type {string} */ id) => {
       return ElaineFamilyIcon;
     case "Kramer's family":
       return KramerFamilyIcon;
-    default:
+    case "Other":
       return OtherPersonIcon;
+    default:
+      return null;
   }
 }

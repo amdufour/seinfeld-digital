@@ -7,7 +7,7 @@
 <ul class="shrink-0 pr-4 pt-8" style="width: {labelsWidth}px;">
 	{#each characters as character}
 		<li class="my-4 flex justify-end">
-			<div class="small pr-2 text-right">{character.label}</div>
+			<div class="small flex items-center justify-end pr-2">{character.label}</div>
 			<div
 				class="image h-8 w-8 rounded-full"
 				style="background-image: url({getCharacterImagePath(character.id)});"
