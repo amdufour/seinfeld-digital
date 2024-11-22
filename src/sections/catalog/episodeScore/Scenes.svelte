@@ -39,14 +39,16 @@
 			fill={j % 2 ? '#DDDBDC' : '#EEECED'}
 			fill-opacity={0.7}
 		/>
-		<text
-			class="number"
-			x={xScale(scene.startTime) + (xScale(scene.endTime) - xScale(scene.startTime)) / 2}
-			y={8}
-			text-anchor="middle"
-			dominant-baseline="hanging"
-		>
-			{scene.sceneNum}
-		</text>
+		{#if xScale(scene.endTime) - xScale(scene.startTime) >= 20}
+			<text
+				class="number"
+				x={xScale(scene.startTime) + (xScale(scene.endTime) - xScale(scene.startTime)) / 2}
+				y={8}
+				text-anchor="middle"
+				dominant-baseline="hanging"
+			>
+				{scene.sceneNum}
+			</text>
+		{/if}
 	{/each}
 </g>
