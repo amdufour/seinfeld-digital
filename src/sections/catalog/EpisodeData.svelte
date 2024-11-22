@@ -6,6 +6,6 @@
 </script>
 
 <div class="flex">
-	<EpisodeScore {width} {labelsWidth} {scenes} {xScale} />
+	<EpisodeScore {width} {labelsWidth} {scenes} {xScale} {episodeData} />
 	<EpisodeStats width={statsWidth} />
 </div>

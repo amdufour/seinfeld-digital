@@ -2,8 +2,9 @@
 	import { characters } from '../../../data/characters';
 	import CharactersList from './CharactersList.svelte';
 	import Scenes from './Scenes.svelte';
+	import PresenceOnScreen from './PresenceOnScreen.svelte';
 
-	let { width, labelsWidth, scenes, xScale } = $props();
+	let { width, labelsWidth, scenes, xScale, episodeData } = $props();
 
 	const vizHeight = characters.length * 48 + 32 + 20;
 </script>
@@ -12,5 +13,6 @@
 	<CharactersList {labelsWidth} />
 	<svg {width} height={vizHeight}>
 		<Scenes {scenes} {xScale} height={vizHeight} />
+		<PresenceOnScreen {episodeData} />
 	</svg>
 </div>
