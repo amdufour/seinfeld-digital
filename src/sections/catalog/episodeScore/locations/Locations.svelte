@@ -35,6 +35,6 @@
 <div class="flex">
 	<LocationsList {labelsWidth} locations={locationsOnScreen} {yScale} />
 	<svg {width} height={vizHeight}>
-		<Scenes {scenes} {xScale} height={vizHeight} />
+		<Scenes {scenes} {xScale} height={vizHeight} isNumbersUp={false} />
 	</svg>
 </div>

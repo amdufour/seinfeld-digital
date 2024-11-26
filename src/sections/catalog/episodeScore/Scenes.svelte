@@ -1,5 +1,5 @@
 <script>
-	let { scenes, xScale, height } = $props();
+	let { scenes, xScale, height, isNumbersUp = true } = $props();
 </script>
 
 <g>
@@ -16,9 +16,9 @@
 			<text
 				class="number"
 				x={xScale(scene.startTime) + (xScale(scene.endTime) - xScale(scene.startTime)) / 2}
-				y={8}
+				y={isNumbersUp ? 15 : height - 15}
 				text-anchor="middle"
-				dominant-baseline="hanging"
+				dominant-baseline="middle"
 			>
 				{scene.sceneNum}
 			</text>

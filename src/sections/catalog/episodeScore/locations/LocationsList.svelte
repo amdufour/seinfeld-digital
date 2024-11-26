@@ -1,5 +1,5 @@
 <script>
-	// @ts-nocheck
+	import { getLocationIconPath } from '../../../../utils/getLocationIconPath';
 
 	let { labelsWidth, locations, yScale } = $props();
 </script>
@@ -11,10 +11,10 @@
 			style="top: {yScale(location.id) + yScale.bandwidth() / 2 - 16}px; right: 16px;"
 		>
 			<div class="small flex items-center justify-end pr-2">{location.label}</div>
-			<!-- <div
+			<div
 				class="image h-8 w-8 rounded-full"
-				style="background-image: url({getCharacterImagePath(char.id)});"
-			></div> -->
+				style="background-image: url({getLocationIconPath(location.id)});"
+			></div>
 		</li>
 	{/each}
 </ul>
