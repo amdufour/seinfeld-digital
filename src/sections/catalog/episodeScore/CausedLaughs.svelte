@@ -15,7 +15,6 @@
 					height={yScale.bandwidth() + 20}
 					fill={char.color}
 					stroke="#F9F5F7"
-					stroke-width={1.5}
 				/>
 			{/each}
 		</g>
