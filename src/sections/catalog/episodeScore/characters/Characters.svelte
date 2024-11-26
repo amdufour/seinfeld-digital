@@ -2,9 +2,9 @@
 	// @ts-nocheck
 
 	import { scaleBand } from 'd3-scale';
-	import { characters } from '../../../data/characters';
+	import { characters } from '../../../../data/characters';
 	import CharactersList from './CharactersList.svelte';
-	import Scenes from './Scenes.svelte';
+	import Scenes from '../Scenes.svelte';
 	import PresenceOnScreen from './PresenceOnScreen.svelte';
 	import CausedLaughs from './CausedLaughs.svelte';
 

@@ -13,19 +13,23 @@
 		<line x1={0} y1={0} x2={xScale(numMinutes * 60)} y2={0} />
 		<line x1={0} y1={height} x2={xScale(numMinutes * 60)} y2={40} />
 
-		{#each minutesArray as min}
+		{#each minutesArray as min, i}
 			<!-- Top ticks -->
 			<line x1={xScale(min * 60)} y1={0} x2={xScale(min * 60)} y2={5} />
-			<line x1={xScale((min + 0.5) * 60)} y1={0} x2={xScale((min + 0.5) * 60)} y2={3} />
+			{#if i !== minutesArray.length - 1}
+				<line x1={xScale((min + 0.5) * 60)} y1={0} x2={xScale((min + 0.5) * 60)} y2={3} />
+			{/if}
 
 			<!-- Bottom ticks -->
 			<line x1={xScale(min * 60)} y1={height - 5} x2={xScale(min * 60)} y2={height} />
-			<line
-				x1={xScale((min + 0.5) * 60)}
-				y1={height - 3}
-				x2={xScale((min + 0.5) * 60)}
-				y2={height}
-			/>
+			{#if i !== minutesArray.length - 1}
+				<line
+					x1={xScale((min + 0.5) * 60)}
+					y1={height - 3}
+					x2={xScale((min + 0.5) * 60)}
+					y2={height}
+				/>
+			{/if}
 
 			<!-- Labels -->
 			{#if min % 2 == 0}
