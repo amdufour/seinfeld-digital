@@ -27,7 +27,7 @@
 	const yScale = $derived(
 		scaleBand()
 			.domain(locationsOnScreen.map((char) => char.id))
-			.range([32, vizHeight])
+			.range([0, vizHeight - 32])
 			.padding(0.6)
 	);
 </script>

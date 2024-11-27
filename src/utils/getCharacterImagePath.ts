@@ -12,7 +12,7 @@ import ElaineFamilyIcon from "$lib/assets/characters/ElaineFamilyIcon.jpg"
 import KramerFamilyIcon from "$lib/assets/characters/KramerFamilyIcon.jpg"
 import OtherPersonIcon from "$lib/assets/characters/OtherPersonIcon.jpg"
 
-export const getCharacterImagePath = (/** @type {string} */ id) => {
+export const getCharacterImagePath = (id: string) => {
   switch (id) {
     case "JERRY":
       return JerryIcon;
