@@ -5,15 +5,16 @@
 	import { locations } from '../../../../data/locations';
 	import Scenes from '../Scenes.svelte';
 	import LocationsList from './LocationsList.svelte';
+	import LocationsOnScreen from './LocationsOnScreen.svelte';
 
 	let { width, labelsWidth, xScale, scenes, episodeData } = $props();
 
+	const locationsData = $derived(episodeData.filter((e) => e.eventCategory === 'LOCATION'));
 	const locationsOnScreen = $derived.by(() => {
-		const data = episodeData.filter((e) => e.eventCategory === 'LOCATION');
 		const locationsArray = locations.map((c) => {
 			return { id: c.id, label: c.label, timesOnScreen: [] };
 		});
-		data.forEach((d) => {
+		locationsData.forEach((d) => {
 			locationsArray.find((c) => c.id === d.eventAttribute).timesOnScreen.push(+d.eventTimeSeconds);
 		});
 
@@ -36,5 +37,6 @@
 	<LocationsList {labelsWidth} locations={locationsOnScreen} {yScale} />
 	<svg {width} height={vizHeight}>
 		<Scenes {scenes} {xScale} height={vizHeight} isNumbersUp={false} />
+		<LocationsOnScreen locations={locationsOnScreen} {xScale} {yScale} />
 	</svg>
 </div>
