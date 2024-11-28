@@ -7,9 +7,10 @@
 	import Scenes from '../Scenes.svelte';
 	import PresenceOnScreen from './PresenceOnScreen.svelte';
 	import CausedLaughs from './CausedLaughs.svelte';
+	import CharactersStats from './CharactersStats.svelte';
 
-	let { width, labelsWidth, scenes, xScale, episodeData } = $props();
-	console.log(episodeData);
+	let { width, statsWidth, labelsWidth, scenes, xScale, episodeData, episodeDuration } = $props();
+
 	const charactersOnScreen = $derived.by(() => {
 		const data = episodeData.filter((e) => e.eventCategory === 'CHARACTERS');
 		const charactersArray = characters.map((c) => {
@@ -63,4 +64,12 @@
 		<PresenceOnScreen characters={charactersOnScreen} {xScale} {yScale} />
 		<CausedLaughs characters={charactersCausedLaughs} {xScale} {yScale} />
 	</svg>
+	<CharactersStats
+		width={statsWidth}
+		height={vizHeight}
+		{yScale}
+		{charactersOnScreen}
+		{charactersCausedLaughs}
+		{episodeDuration}
+	/>
 </div>

@@ -5,15 +5,14 @@
 	import SeasonsStrip from '../../UI/SeasonsStrip.svelte';
 	import EpisodeDetails from './EpisodeDetails.svelte';
 	import SonificationPlayer from './sonification/SonificationPlayer.svelte';
-	import EpisodeData from './EpisodeData.svelte';
-
+	import EpisodeScore from './episodeScore/EpisodeScore.svelte';
 	let { episodesData } = $props();
 
 	let innerWidth = $state(1600);
-	const statsWidth = 200;
+	const statsWidth = 230;
 	const labelsWidth = 176;
-	let vizWidth = $derived(innerWidth - statsWidth - 25 - 20);
-	let scenesWidth = $derived(vizWidth - labelsWidth - 32);
+	let vizWidth = $derived(innerWidth - statsWidth - 60 - 20);
+	let scenesWidth = $derived(vizWidth - labelsWidth);
 
 	let currentSeason = $state(1);
 	let currentEpisode = $state(1);
@@ -71,7 +70,7 @@
 		<SonificationPlayer {labelsWidth} {scenesWidth} {scenes} {xScale} />
 
 		<!-- Episode data -->
-		<EpisodeData
+		<EpisodeScore
 			episodeData={currentEpisodeData}
 			width={vizWidth}
 			{labelsWidth}
