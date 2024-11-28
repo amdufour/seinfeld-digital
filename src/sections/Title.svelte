@@ -8,32 +8,39 @@
 
 	import { seasons } from '../data/seasons';
 
-	/**
-	 * @type {number}
-	 */
-	$: innerWidth = 0;
-	const gridContainer = 1280;
+	let innerWidth = $state(1600);
+	const gridContainer = $derived.by(() => {
+		switch (true) {
+			case innerWidth >= 1536:
+				return 1536;
+			case innerWidth >= 1280:
+				return 1280;
+			case innerWidth >= 1024:
+				return 1024;
+			case innerWidth >= 768:
+				return 768;
+			default:
+				return 640;
+		}
+	});
 	const padding = 30;
 
 	/**
 	 * @type {number}
 	 */
-	$: svgWidth =
+	let svgWidth = $derived(
 		innerWidth >= gridContainer
 			? gridContainer + (innerWidth - gridContainer) / 2
 			: innerWidth > 0
 				? innerWidth - 2 * padding
-				: 0;
+				: 0
+	);
 
-	/**
-	 * @type {number}
-	 */
-	$: marginLeft = innerWidth >= gridContainer ? (innerWidth - gridContainer) / 2 : padding;
-
-	let seasonScale;
-	$: seasonScale = scaleLinear()
-		.domain([0, max(seasons, (/** @type {{ numEpisodes: any; }} */ d) => d.numEpisodes)])
-		.range([0, svgWidth]);
+	let seasonScale = $derived(
+		scaleLinear()
+			.domain([0, max(seasons, (/** @type {{ numEpisodes: any; }} */ d) => d.numEpisodes)])
+			.range([0, svgWidth])
+	);
 
 	onMount(() => {
 		const tl = gsap.timeline({
@@ -51,13 +58,23 @@
 			duration: 2,
 			ease: 'power3.out'
 		})
+			.from(
+				['h1', 'p'],
+				{
+					yPercent: 140,
+					duration: 1.5,
+					stagger: 0.15,
+					ease: 'power3.out'
+				},
+				'-=1.5'
+			)
 			.to(
 				'.name',
 				{
 					webkitTextFillColor: 'transparent',
 					backgroundPosition: '200% center',
 					duration: 2,
-					stagger: 0.6,
+					stagger: 0.3,
 					ease: 'power3.out'
 				},
 				'-=.5'
@@ -77,26 +94,28 @@
 <svelte:window bind:innerWidth />
 
 <section id="title-screen" class="h-screen">
+	<svg width={svgWidth} height="132">
+		{#each seasons as season, i}
+			<rect
+				class="season-rect"
+				x={0}
+				y={i * 15}
+				width={seasonScale(season.numEpisodes)}
+				height={12}
+				fill={season.color}
+			/>
+		{/each}
+	</svg>
 	<div class="container h-full">
-		<div style="margin-left: -{marginLeft}px">
-			<svg width={svgWidth} height="132">
-				{#each seasons as season, i}
-					<rect
-						class="season-rect"
-						x={0}
-						y={i * 15}
-						width={seasonScale(season.numEpisodes)}
-						height={12}
-						fill={season.color}
-					/>
-				{/each}
-			</svg>
+		<div class="mask">
+			<h1>The Seinfield Chronicles</h1>
 		</div>
-		<h1>The Seinfield Chronicles</h1>
-		<p class="subtitle max-w-5xl">
-			An unnecessary data exploration by <span class="name">Andy Kirk</span>,
-			<span class="name">Anne-Marie Dufour</span>, and <span class="name">Loud Numbers</span>
-		</p>
+		<div class="mask">
+			<p class="subtitle mask max-w-5xl">
+				An unnecessary data exploration by <span class="name">Andy Kirk</span>,
+				<span class="name">Anne-Marie Dufour</span>, and <span class="name">Loud Numbers</span>
+			</p>
+		</div>
 	</div>
 </section>
 
