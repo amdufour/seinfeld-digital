@@ -56,14 +56,15 @@
 			.range([0, scenesWidth])
 	);
 
+	// TODO: The scroll trigger markers don't adjust
+	// when changing episode...
 	onMount(() => {
 		// Pin seasons strip
 		ScrollTrigger.create({
 			trigger: '#catalog',
 			start: 'top top',
 			end: 'bottom bottom',
-			pin: '#seasons-strip',
-			markers: true
+			pin: '#seasons-strip'
 		});
 	});
 </script>
@@ -74,7 +75,7 @@
 	<div id="seasons-strip">
 		<SeasonsStrip />
 	</div>
-	<div>
+	<div style="width: calc(100vw - 25px);">
 		<!-- Episode details and controls -->
 		<EpisodeDetails
 			episodes={episodesInfo}

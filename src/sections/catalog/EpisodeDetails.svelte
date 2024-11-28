@@ -11,25 +11,23 @@
 	} = $props();
 </script>
 
-<div class="flex items-end">
+<div class="flex items-end pr-12">
 	<img class="mr-4" src={episodeInfo.img_src} alt="Episode cover" />
 	<div>
-		<div class="flex">
-			<div>
-				<h2 class="mb-3 mr-4 mt-2">{episodeInfo.title}</h2>
-				<div class="small flex leading-normal">
-					<div class="description mr-4">{episodeInfo.description}</div>
-					<div>
-						<div class="mb-1 flex items-center">
-							<StarIcon />
-							<span class="mx-1 font-semibold">IMDb rating:</span>
-							<span>{episodeInfo.IMDB_rating}/10</span>
-						</div>
-						<div class="flex items-center">
-							<TvIcon />
-							<span class="mx-1 font-semibold">First aired:</span>
-							<span>{episodeInfo.date_aired}</span>
-						</div>
+		<div>
+			<h2 class="mb-3 mr-4 mt-2">{episodeInfo.title}</h2>
+			<div class="small flex leading-normal">
+				<div class="description mr-4">{episodeInfo.description}</div>
+				<div>
+					<div class="mb-1 flex items-center">
+						<StarIcon />
+						<span class="mx-1 font-semibold">IMDb rating:</span>
+						<span>{episodeInfo.IMDB_rating.replace(',', '.')}/10</span>
+					</div>
+					<div class="flex items-center">
+						<TvIcon />
+						<span class="mx-1 font-semibold">First aired:</span>
+						<span>{episodeInfo.date_aired}</span>
 					</div>
 				</div>
 			</div>
@@ -43,10 +41,10 @@
 		height: 220px;
 	}
 	h2 {
-		width: 800px;
+		max-width: 800px;
 		font-size: 4rem;
 	}
 	.description {
-		width: 550px;
+		max-width: 550px;
 	}
 </style>
