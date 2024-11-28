@@ -1,8 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	gsap.registerPlugin(ScrollTrigger);
 	import { episodesInfo } from '../../data/episodesInfo';
 	import { formatTime } from '../../utils/formatTime';
 	import { scaleLinear } from 'd3-scale';
@@ -55,18 +51,6 @@
 			.domain([0, scenes[scenes.length - 1].endTime])
 			.range([0, scenesWidth])
 	);
-
-	// TODO: The scroll trigger markers don't adjust
-	// when changing episode...
-	onMount(() => {
-		// Pin seasons strip
-		ScrollTrigger.create({
-			trigger: '#catalog',
-			start: 'top top',
-			end: 'bottom bottom',
-			pin: '#seasons-strip'
-		});
-	});
 </script>
 
 <svelte:window bind:innerWidth />
