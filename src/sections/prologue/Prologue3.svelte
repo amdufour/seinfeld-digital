@@ -104,3 +104,9 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	p {
+		transform: none !important;
+	}
+</style>

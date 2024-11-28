@@ -63,7 +63,7 @@
 				{
 					yPercent: 140,
 					duration: 1.5,
-					stagger: 0.15,
+					stagger: 0.07,
 					ease: 'power3.out'
 				},
 				'-=1.5'
