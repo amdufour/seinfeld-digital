@@ -9,8 +9,6 @@
 	const barHeight = 10;
 	const xScale = $derived(scaleLinear().domain([0, 1]).range([0, columnWidth]));
 	const numLaughs = $derived(sum(charactersCausedLaughs, (d) => d.causedLaughs.length));
-	console.log('charactersCausedLaughs', charactersCausedLaughs);
-	console.log(numLaughs);
 </script>
 
 <div class="flex pl-6" style="width: {width}px;">

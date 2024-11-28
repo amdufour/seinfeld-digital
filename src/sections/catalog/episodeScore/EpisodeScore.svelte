@@ -19,5 +19,5 @@
 		{episodeDuration}
 	/>
 	<Timeline {labelsWidth} {xScale} {episodeDuration} />
-	<Locations {width} {labelsWidth} {scenes} {xScale} {episodeData} />
+	<Locations {width} {statsWidth} {labelsWidth} {scenes} {xScale} {episodeData} {episodeDuration} />
 </div>

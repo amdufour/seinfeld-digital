@@ -6,8 +6,9 @@
 	import Scenes from '../Scenes.svelte';
 	import LocationsList from './LocationsList.svelte';
 	import LocationsOnScreen from './LocationsOnScreen.svelte';
+	import LocationsStats from './LocationsStats.svelte';
 
-	let { width, labelsWidth, xScale, scenes, episodeData } = $props();
+	let { width, statsWidth, labelsWidth, xScale, scenes, episodeData, episodeDuration } = $props();
 
 	const locationsData = $derived(episodeData.filter((e) => e.eventCategory === 'LOCATION'));
 	const locationsOnScreen = $derived.by(() => {
@@ -39,4 +40,11 @@
 		<Scenes {scenes} {xScale} height={vizHeight} isNumbersUp={false} />
 		<LocationsOnScreen locations={locationsOnScreen} {xScale} {yScale} />
 	</svg>
+	<LocationsStats
+		width={statsWidth}
+		height={vizHeight}
+		{yScale}
+		{locationsOnScreen}
+		{episodeDuration}
+	/>
 </div>
