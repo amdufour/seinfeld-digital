@@ -112,8 +112,9 @@
 		</div>
 		<div class="mask">
 			<p id="subtitle" class="subtitle mask max-w-5xl">
-				An unnecessary data exploration by <span class="name">Andy Kirk</span>,
-				<span class="name">Anne-Marie Dufour</span>, and <span class="name">Loud Numbers</span>
+				An unnecessary data exploration by <span class="highlight name">Andy Kirk</span>,
+				<span class="highlight name">Anne-Marie Dufour</span>, and
+				<span class="highlight name">Loud Numbers</span>
 			</p>
 		</div>
 	</div>
@@ -126,23 +127,6 @@
 	.subtitle {
 		font-size: 1.125rem;
 		line-height: 1.4;
-	}
-	.name {
-		background: rgb(253, 232, 36);
-		background: linear-gradient(
-			90deg,
-			rgba(253, 232, 36, 1) 0%,
-			rgba(184, 206, 50, 1) 12.5%,
-			rgba(125, 186, 87, 1) 25%,
-			rgba(76, 178, 120, 1) 37.5%,
-			rgba(29, 163, 136, 1) 50%,
-			rgba(34, 138, 141, 1) 62.5%,
-			rgba(47, 112, 142, 1) 75%,
-			rgba(57, 87, 141, 1) 87.5%,
-			rgba(69, 55, 130, 1) 100%
-		);
-		background-size: 200% auto;
-		background-clip: text;
 	}
 	.name:hover {
 		-webkit-text-fill-color: transparent !important;
