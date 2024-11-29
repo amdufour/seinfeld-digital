@@ -59,7 +59,7 @@
 			ease: 'power3.out'
 		})
 			.from(
-				['h1', 'p'],
+				['h1', '#subtitle'],
 				{
 					yPercent: 140,
 					duration: 1.5,
@@ -111,7 +111,7 @@
 			<h1>The Seinfield Chronicles</h1>
 		</div>
 		<div class="mask">
-			<p class="subtitle mask max-w-5xl">
+			<p id="subtitle" class="subtitle mask max-w-5xl">
 				An unnecessary data exploration by <span class="name">Andy Kirk</span>,
 				<span class="name">Anne-Marie Dufour</span>, and <span class="name">Loud Numbers</span>
 			</p>

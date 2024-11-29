@@ -17,7 +17,24 @@
 			pin: '#prologue-videos-text'
 		});
 
-		// Add parallax effect
+		// Highlight keywords
+		const tl = gsap.timeline({
+			scrollTrigger: {
+				trigger: '#prologue-videos-text',
+				start: 'top center',
+				toggleActions: 'play reverse play reverse'
+			}
+		});
+		tl.to('.highlight', {
+			webkitTextFillColor: 'transparent',
+			backgroundPosition: '200% center',
+			duration: 2,
+			delay: 1,
+			stagger: 0.5,
+			ease: 'power3.out'
+		});
+
+		// Add parallax effect to videos
 		let videos = gsap.utils.toArray('.parallax');
 		videos.forEach((video) => {
 			const speed = video.dataset.speed;
@@ -56,9 +73,11 @@
 					musicality/texture.]
 				</p>
 				<p>
-					Like music, situation comedy has rhythm and it has texture. The rhythm is shaped by its
-					temporal structures and pacing. Textures are formed from the arrangements of characters
-					and locations, which amalgamate into the comedy.
+					Like music, situation comedy has rhythm and it has texture. The <span class="highlight"
+						>rhythm</span
+					>
+					is shaped by its temporal structures and pacing. <span class="highlight">Textures</span> are
+					formed from the arrangements of characters and locations, which amalgamate into the comedy.
 				</p>
 			</div>
 		</div>
@@ -106,7 +125,21 @@
 </div>
 
 <style>
-	p {
-		transform: none !important;
+	.highlight {
+		background: rgb(253, 232, 36);
+		background: linear-gradient(
+			90deg,
+			rgba(253, 232, 36, 1) 0%,
+			rgba(184, 206, 50, 1) 12.5%,
+			rgba(125, 186, 87, 1) 25%,
+			rgba(76, 178, 120, 1) 37.5%,
+			rgba(29, 163, 136, 1) 50%,
+			rgba(34, 138, 141, 1) 62.5%,
+			rgba(47, 112, 142, 1) 75%,
+			rgba(57, 87, 141, 1) 87.5%,
+			rgba(69, 55, 130, 1) 100%
+		);
+		background-size: 200% auto;
+		background-clip: text;
 	}
 </style>
