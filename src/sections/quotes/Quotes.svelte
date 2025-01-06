@@ -41,12 +41,18 @@
 					{#if i > 0}
 						<span class="px-4">{'•'}</span>
 					{/if}
-					<span>
+					<span
+						class="quote relative cursor-default"
+						style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.color}`}
+					>
 						{#if quote.revised_quote_text.length > 0}
 							{quote.revised_quote_text}
 						{:else}
 							{quote.quote}
 						{/if}
+						<span class="quote-info small absolute left-0 top-7 w-96"
+							>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
+						>
 					</span>
 				</li>
 			{/each}
@@ -57,5 +63,14 @@
 <style>
 	.quotes-list {
 		line-height: 2.5;
+	}
+	.quote-info {
+		transform: translateY(-10px);
+		opacity: 0;
+		transition: all 250ms ease-out;
+	}
+	.quote:hover .quote-info {
+		transform: translateY(0);
+		opacity: 1;
 	}
 </style>

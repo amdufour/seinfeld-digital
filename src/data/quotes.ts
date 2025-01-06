@@ -891,24 +891,6 @@ export const quotes = [
     "revised_quote_text": ""
   },
   {
-    "audio_clip_id": 100,
-    "season": 6,
-    "episode": 14,
-    "episode_title": "The Highlights of 100 (Part 1)",
-    "who": "",
-    "quote": "",
-    "revised_quote_text": ""
-  },
-  {
-    "audio_clip_id": 101,
-    "season": 6,
-    "episode": 15,
-    "episode_title": "The Highlights of 100 (Part 2)",
-    "who": "",
-    "quote": "",
-    "revised_quote_text": ""
-  },
-  {
     "audio_clip_id": 102,
     "season": 6,
     "episode": 16,
@@ -1581,24 +1563,6 @@ export const quotes = [
     "episode_title": "The Puerto Rican Day",
     "who": "George",
     "quote": "That's gotta hurt!",
-    "revised_quote_text": ""
-  },
-  {
-    "audio_clip_id": 177,
-    "season": 9,
-    "episode": 21,
-    "episode_title": "The Chronicle/Clip Show (Part 1)",
-    "who": "",
-    "quote": "",
-    "revised_quote_text": ""
-  },
-  {
-    "audio_clip_id": 178,
-    "season": 9,
-    "episode": 22,
-    "episode_title": "The Chronicle/Clip Show (Part 2)",
-    "who": "",
-    "quote": "",
     "revised_quote_text": ""
   },
   {
