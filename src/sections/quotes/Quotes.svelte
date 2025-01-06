@@ -19,19 +19,40 @@
 		return result;
 	}
 
-	const numQuotes = 3;
 	/**
-	 * @type {any[]}
+	 * @type {number}
 	 */
-	const quotesToDisplay = [];
-
-	seasons.forEach((season) => {
-		const allQuotes = quotes.filter((quote) => quote.season === season.seasonNum);
-		const randomQuotes = getRandom(allQuotes, numQuotes).sort((a, b) => a.episode - b.episode);
-		quotesToDisplay.push(...randomQuotes);
+	let innerWidth = $state(1600);
+	const numQuotes = $derived.by(() => {
+		switch (true) {
+			case innerWidth >= 1536:
+				return 4;
+			case innerWidth >= 1024:
+				return 3;
+			case innerWidth >= 768:
+				return 2;
+			default:
+				return 1;
+		}
 	});
-	console.log(quotesToDisplay);
+
+	const quotesToDisplay = $derived.by(() => {
+		/**
+		 * @type {any[]}
+		 */
+		const quotesToKeep = [];
+
+		seasons.forEach((season) => {
+			const allQuotes = quotes.filter((quote) => quote.season === season.seasonNum);
+			const randomQuotes = getRandom(allQuotes, numQuotes).sort((a, b) => a.episode - b.episode);
+			quotesToKeep.push(...randomQuotes);
+		});
+
+		return quotesToKeep;
+	});
 </script>
+
+<svelte:window bind:innerWidth />
 
 <div class="bg-black text-white">
 	<div class="container flex h-screen items-center">
