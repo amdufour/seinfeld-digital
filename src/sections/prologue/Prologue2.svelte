@@ -118,7 +118,7 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div id="timeline-container" class="container mt-20 grid grid-cols-1 md:grid-cols-2">
+<div id="timeline-container" class="container mt-20 grid grid-cols-2">
 	<div class="col-span-1 px-4">
 		<div class="flex h-screen flex-col justify-center">
 			<p id="prologue-2">
