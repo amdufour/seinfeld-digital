@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import { soundAuthModaleIsOpen } from '../stores/soundAuthStore';
 	// @ts-ignore
+	import Navbar from '../UI/Navbar.svelte';
 	import Prologue from '../sections/prologue/Prologue.svelte';
 	import SoundAuthPopup from '../UI/SoundAuthPopup.svelte';
 	import Title from '../sections/Title.svelte';
@@ -28,6 +29,7 @@
 </script>
 
 <main>
+	<Navbar />
 	<div class="bg-black text-white">
 		<Prologue />
 		{#if $soundAuthModaleIsOpen}

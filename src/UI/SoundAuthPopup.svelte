@@ -20,7 +20,7 @@
 <div
 	in:slide={{ duration: 800 }}
 	out:fade={{ duration: 200 }}
-	class="backdrop fixed left-0 top-0 flex h-screen w-screen items-center justify-center"
+	class="backdrop fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center"
 >
 	<div class="popup flex bg-white text-black">
 		<SoundIcon width={200} height={165} />
