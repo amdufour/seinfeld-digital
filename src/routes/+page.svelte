@@ -2,6 +2,7 @@
 	// @ts-ignore
 	import { csv } from 'd3-fetch';
 	import { onMount } from 'svelte';
+	import { soundAuthModaleIsOpen } from '../stores/soundAuthStore';
 	// @ts-ignore
 	import Prologue from '../sections/prologue/Prologue.svelte';
 	import SoundAuthPopup from '../UI/SoundAuthPopup.svelte';
@@ -13,31 +14,25 @@
 
 	const episodesDataUrl = 'https://amdufour.github.io/hosted-data/apis/episodesData.csv';
 
-	let showPopup = $state(false);
 	const openModale = () => {
-		showPopup = true;
+		$soundAuthModaleIsOpen = true;
 		document.body.style.position = 'fixed';
 		document.body.style.top = `-${window.scrollY}px`;
-	};
-	const closeModale = () => {
-		showPopup = false;
-		const scrollY = document.body.style.top;
-		document.body.style.position = '';
-		document.body.style.top = '';
-		window.scrollTo(0, parseInt(scrollY || '0') * -1);
 	};
 
 	onMount(() => {
 		setTimeout(() => {
 			openModale();
-		}, 1000);
+		}, 4000);
 	});
 </script>
 
 <main>
 	<div class="bg-black text-white">
 		<Prologue />
-		<SoundAuthPopup />
+		{#if $soundAuthModaleIsOpen}
+			<SoundAuthPopup />
+		{/if}
 		<Title />
 	</div>
 	<Quotes />

@@ -1,6 +1,7 @@
 <script>
 	import { quotes } from '../../data/quotes';
 	import { seasons } from '../../data/seasons';
+	import { soundIsAuth } from '../../stores/soundAuthStore';
 
 	/**
 	 * @param {any[]} arr
@@ -53,6 +54,7 @@
 
 	const playQuote = (/** @type {number} */ id) => {
 		const audio = new Audio(`https://amdufour.github.io/hosted-data/apis/audio_quotes/${id}.m4a`);
+		audio.muted = !$soundIsAuth;
 		audio.play();
 	};
 </script>
