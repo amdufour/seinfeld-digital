@@ -9,8 +9,7 @@
 	import MethodologyAndCredits from '../sections/MethodologyAndCredits.svelte';
 	import Footer from '../sections/Footer.svelte';
 
-	const episodesDataUrl =
-		'https://d3js-in-action-third-edition.github.io/hosted-data/apis/episodesData.csv';
+	const episodesDataUrl = 'https://amdufour.github.io/hosted-data/apis/episodesData.csv';
 </script>
 
 <main>
@@ -22,6 +21,7 @@
 	{#await csv(episodesDataUrl) then episodesData}
 		<Catalog {episodesData} />
 	{/await}
+	<Quotes />
 	<MethodologyAndCredits />
 	<Footer />
 </main>

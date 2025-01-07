@@ -36,7 +36,7 @@
 				<text
 					class="number"
 					x={xScale(min * 60)}
-					y={height / 2}
+					y={height / 2 + 1}
 					text-anchor="middle"
 					dominant-baseline="middle"
 					fill="#BEBABC"

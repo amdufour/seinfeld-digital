@@ -25,7 +25,7 @@
 	let innerWidth = $state(1600);
 	const numQuotes = $derived.by(() => {
 		switch (true) {
-			case innerWidth >= 1536:
+			case innerWidth >= 1700:
 				return 4;
 			case innerWidth >= 1024:
 				return 3;
@@ -50,10 +50,16 @@
 
 		return quotesToKeep;
 	});
+
+	const playQuote = (/** @type {number} */ id) => {
+		const audio = new Audio(`https://amdufour.github.io/hosted-data/apis/audio_quotes/${id}.m4a`);
+		audio.play();
+	};
 </script>
 
 <svelte:window bind:innerWidth />
 
+<button>Allow sound</button>
 <div class="bg-black text-white">
 	<div class="container flex h-screen items-center">
 		<ul class="quotes-list">
@@ -71,7 +77,11 @@
 						{:else}
 							{quote.quote}
 						{/if}
-						<span class="quote-info small absolute left-0 top-7 w-96"
+						<span
+							class="quote-info small absolute left-0 top-7 w-96"
+							role="contentinfo"
+							onmouseover={() => playQuote(quote.audio_clip_id)}
+							onfocus={() => {}}
 							>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
 						>
 					</span>
