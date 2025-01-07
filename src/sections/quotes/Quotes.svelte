@@ -53,8 +53,7 @@
 	});
 
 	let canPlayQuote = $state(true);
-	const playQuote = (/** @type {number} */ id) => {
-		console.log(id, canPlayQuote);
+	const playQuote = (/** @type {number} */ id, /** @type {number} */ duration) => {
 		if (canPlayQuote) {
 			canPlayQuote = false;
 			var quote = document.getElementsByClassName(`quote-${id}`);
@@ -64,10 +63,13 @@
 			audio.muted = !$soundIsAuth;
 			audio.play();
 
-			setTimeout(() => {
-				canPlayQuote = true;
-				quote[0].classList.remove('playing');
-			}, 5000);
+			setTimeout(
+				() => {
+					canPlayQuote = true;
+					quote[0].classList.remove('playing');
+				},
+				(duration + 1) * 1000
+			);
 		}
 	};
 </script>
@@ -94,7 +96,7 @@
 						<span
 							class="quote-info small absolute left-0 top-7 w-96"
 							role="contentinfo"
-							onmouseenter={() => playQuote(quote.audio_clip_id)}
+							onmouseenter={() => playQuote(quote.audio_clip_id, quote.duration)}
 							onfocus={() => {}}
 							>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
 						>
