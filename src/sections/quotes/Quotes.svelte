@@ -52,11 +52,20 @@
 		return quotesToKeep;
 	});
 
+	let canPlayQuote = $state(true);
 	const playQuote = (/** @type {number} */ id) => {
-		const audio = new Audio(`https://amdufour.github.io/hosted-data/apis/audio_quotes/${id}.m4a`);
-		audio.muted = !$soundIsAuth;
-		audio.play();
+		if (canPlayQuote) {
+			canPlayQuote = false;
+			const audio = new Audio(`https://amdufour.github.io/hosted-data/apis/audio_quotes/${id}.m4a`);
+			audio.muted = !$soundIsAuth;
+			audio.play();
+
+			setTimeout(() => {
+				canPlayQuote = true;
+			}, 5000);
+		}
 	};
+	$inspect(canPlayQuote);
 </script>
 
 <svelte:window bind:innerWidth />
