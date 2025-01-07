@@ -59,7 +59,6 @@
 
 <svelte:window bind:innerWidth />
 
-<button>Allow sound</button>
 <div class="bg-black text-white">
 	<div class="container flex h-screen items-center">
 		<ul class="quotes-list">
