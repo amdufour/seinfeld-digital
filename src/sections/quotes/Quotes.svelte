@@ -54,18 +54,22 @@
 
 	let canPlayQuote = $state(true);
 	const playQuote = (/** @type {number} */ id) => {
+		console.log(id, canPlayQuote);
 		if (canPlayQuote) {
 			canPlayQuote = false;
+			var quote = document.getElementsByClassName(`quote-${id}`);
+			quote[0].classList.add('playing');
+
 			const audio = new Audio(`https://amdufour.github.io/hosted-data/apis/audio_quotes/${id}.m4a`);
 			audio.muted = !$soundIsAuth;
 			audio.play();
 
 			setTimeout(() => {
 				canPlayQuote = true;
+				quote[0].classList.remove('playing');
 			}, 5000);
 		}
 	};
-	$inspect(canPlayQuote);
 </script>
 
 <svelte:window bind:innerWidth />
@@ -78,8 +82,8 @@
 					{#if i > 0}
 						<span class="px-4">{'•'}</span>
 					{/if}
-					<span
-						class="quote relative cursor-default"
+					<div
+						class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
 						style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.color}`}
 					>
 						{#if quote.revised_quote_text.length > 0}
@@ -90,11 +94,11 @@
 						<span
 							class="quote-info small absolute left-0 top-7 w-96"
 							role="contentinfo"
-							onmouseover={() => playQuote(quote.audio_clip_id)}
+							onmouseenter={() => playQuote(quote.audio_clip_id)}
 							onfocus={() => {}}
 							>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
 						>
-					</span>
+					</div>
 				</li>
 			{/each}
 		</ul>
@@ -105,12 +109,19 @@
 	.quotes-list {
 		line-height: 2.5;
 	}
+	.quote {
+		transition: color 250ms ease-out;
+	}
+	.quote.playing {
+		color: #e71d80 !important;
+	}
 	.quote-info {
 		transform: translateY(-10px);
 		opacity: 0;
 		transition: all 250ms ease-out;
 	}
-	.quote:hover .quote-info {
+	.quote:hover .quote-info,
+	.quote.playing .quote-info {
 		transform: translateY(0);
 		opacity: 1;
 	}
