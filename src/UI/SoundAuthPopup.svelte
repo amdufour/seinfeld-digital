@@ -1,4 +1,5 @@
 <script>
+	import { fade, slide } from 'svelte/transition';
 	import SoundIcon from '../icons/SoundIcon.svelte';
 	import { soundIsAuth, soundAuthModaleIsOpen } from '../stores/soundAuthStore';
 
@@ -16,7 +17,11 @@
 	};
 </script>
 
-<div class="backdrop fixed left-0 top-0 flex h-screen w-screen items-center justify-center">
+<div
+	in:slide={{ duration: 800 }}
+	out:fade={{ duration: 200 }}
+	class="backdrop fixed left-0 top-0 flex h-screen w-screen items-center justify-center"
+>
 	<div class="popup flex bg-white text-black">
 		<SoundIcon width={200} height={165} />
 		<div class="w-96 pl-6">
