@@ -9,6 +9,7 @@
 	import SoundAuthPopup from '../UI/SoundAuthPopup.svelte';
 	import Title from '../sections/Title.svelte';
 	import Quotes from '../sections/quotes/Quotes.svelte';
+	import SupportingCharTitle from '../sections/supporting_characters/SupportingCharTitle.svelte';
 	import Catalog from '../sections/catalog/Catalog.svelte';
 	import MethodologyAndCredits from '../sections/MethodologyAndCredits.svelte';
 	import Footer from '../sections/Footer.svelte';
@@ -38,6 +39,7 @@
 		<Title />
 	</div>
 	<Quotes />
+	<SupportingCharTitle />
 	{#await csv(episodesDataUrl) then episodesData}
 		<Catalog {episodesData} />
 	{/await}
