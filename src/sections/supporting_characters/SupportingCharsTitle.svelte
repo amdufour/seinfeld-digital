@@ -39,7 +39,7 @@
 	// Play video on hover
 	let videoIsPlaying = $state(false);
 	const handlePlayVideo = (/** @type {string} */ tileId, /** @type {number} */ index) => {
-		if (index <= numColumns) {
+		if (index < numColumns) {
 			videoIsPlaying = true;
 		}
 
@@ -71,7 +71,10 @@
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#tiles-container-supporting-chars',
-				start: 'top bottom-=50%'
+				start: 'top center',
+				end: 'bottom center',
+				toggleActions: 'play reverse play reverse',
+				markers: true
 			}
 		});
 		tl.from('.tile-container', {
