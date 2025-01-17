@@ -1,6 +1,7 @@
 <script>
 	import { supportingCharacterTiles, characters } from '../../data/characters';
 	import { getRandom } from '../../utils/getRandom';
+	import { soundIsAuth } from '../../stores/soundAuthStore';
 
 	let innerWidth = $state(1600);
 	let innerHeight = $state(800);
@@ -40,6 +41,8 @@
 		 * @type {HTMLVideoElement | null}
 		 */
 		const video = document.querySelector(`#${tileId} video`);
+		// @ts-ignore
+		video.muted = !$soundIsAuth;
 		video?.play();
 	};
 	const handlePauseVideo = (/** @type {string} */ tileId) => {
@@ -165,7 +168,7 @@
 
 	/* Title */
 	.section-title {
-		top: 143px;
+		top: 144px;
 		height: 228px;
 		background: rgb(18, 2, 10);
 		background: linear-gradient(
