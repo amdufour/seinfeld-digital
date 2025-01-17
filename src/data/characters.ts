@@ -18,8 +18,8 @@ export const characters = [
 export const supportingCharacterTiles = [
   { id: "supp_char_1", name: "Susan Ross", category: "Love interest", thumbnail: "25.GeorgeSusanPrenup-min.jpg", video: "25.GeorgeSusanPrenup.mp4", season: 7, episode: 22, episodeTitle: "The Invitations" },
   { id: "supp_char_2", name: "Puddy", category: "Love interest", thumbnail: "9.Puddy-min.jpg", video: "9.Puddy.mp4", season: 6, episode: 22, episodeTitle: "The Face Painter" },
-  { id: "supp_char_3", name: "Elaine's friends", category: "Friends", thumbnail: "16.ElaineFriends-min.jpg", video: "16.ElaineFriends.mp4", season: 8, episode: 2, episodeTitle: "The Soul Mate" },
-  { id: "supp_char_4", name: "Bryan Cranston", category: "Friends", thumbnail: "28.FriendCranston-min.jpg", video: "28.FriendCranston.mp4", season: 6, episode: 8, episodeTitle: "The Mom and Pop Store" },
+  { id: "supp_char_3", name: "Elaine's friends", category: "Friend", thumbnail: "16.ElaineFriends-min.jpg", video: "16.ElaineFriends.mp4", season: 8, episode: 2, episodeTitle: "The Soul Mate" },
+  { id: "supp_char_4", name: "Bryan Cranston", category: "Friend", thumbnail: "28.FriendCranston-min.jpg", video: "28.FriendCranston.mp4", season: 6, episode: 8, episodeTitle: "The Mom and Pop Store" },
   { id: "supp_char_5", name: "Newman", category: "Neighbour", thumbnail: "4a.Newman-min.jpg", video: "24a.Newman.mp4", season: 4, episode: 3, episodeTitle: "The Pitch" },
   { id: "supp_char_6", name: "Mr. Pitt", category: "Colleague", thumbnail: "27.ElaineColleague-min.jpg", video: "27.ElaineColleague.mp4", season: 6, episode: 8, episodeTitle: "The Mom and Pop Store" },
   { id: "supp_char_7", name: "Kenny Bania", category: "Colleague", thumbnail: "37b.Bania-min.jpg", video: "37b.Bania.mp4", season: 6, episode: 7, episodeTitle: "The Soup" },
