@@ -31,14 +31,19 @@
 
 <main>
 	<Navbar />
-	<div class="bg-black text-white">
+	<div class="h-screen w-screen">
+		{#if $soundAuthModaleIsOpen}
+			<SoundAuthPopup />
+		{/if}
+	</div>
+	<!-- <div class="bg-black text-white">
 		<Prologue />
 		{#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
 		{/if}
 		<Title />
-	</div>
-	<Quotes />
+	</div> -->
+	<!-- <Quotes /> -->
 	<SupportingCharTitle />
 	{#await csv(episodesDataUrl) then episodesData}
 		<Catalog {episodesData} />
