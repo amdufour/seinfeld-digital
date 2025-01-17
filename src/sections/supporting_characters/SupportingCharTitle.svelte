@@ -61,12 +61,12 @@
 			onmouseleave={() => handlePauseVideo(tile.id)}
 		>
 			<div
-				class="tile"
+				class="tile relative z-10"
 				style="width: {tilesWidth}px; height: {tilesHeight}px; background-image: url('https://amdufour.github.io/hosted-data/apis/thumbnails/{tile.thumbnail}');"
 			></div>
 			<!-- svelte-ignore a11y_media_has_caption -->
 			<video
-				class="absolute bottom-0 bottom-0 left-0 right-0"
+				class="absolute bottom-0 bottom-0 left-0 right-0 z-0"
 				playsinline
 				preload="auto"
 				data-object-fit="cover"
@@ -78,18 +78,21 @@
 					type="video/mp4"
 				/>
 			</video>
-			<div class="info absolute bottom-0 left-0 right-0">
+			<div class="info absolute bottom-0 left-0 right-0 z-20">
 				<div
 					class="details px-4"
 					style="background-color: {characters.find((char) => char.label === tile.category)
 						?.color};"
 				>
-					<span class="name">{tile.name}</span>,
-					<span class="category small">{tile.category}</span>
+					<div>
+						<span class="name">{tile.name}</span>,
+						<span class="category small">{tile.category}</span>
+					</div>
+					<div class="small">{`s${tile.season}e${tile.episode} ${tile.episodeTitle}`}</div>
 				</div>
 			</div>
 			<div
-				class="overlay absolute left-0 right-0 top-0"
+				class="overlay absolute left-0 right-0 top-0 z-30"
 				style="background-color: {characters.find((char) => char.label === tile.category)?.color};"
 			></div>
 		</div>
@@ -125,6 +128,7 @@
 		max-height: 0;
 		overflow: hidden;
 		font-size: 1.125rem;
+		line-height: 1.1;
 	}
 	.info .details .name {
 		font-weight: 600;
@@ -138,6 +142,6 @@
 	.tile-container:hover .info .details {
 		padding-top: 8px;
 		padding-bottom: 8px;
-		max-height: 44px;
+		max-height: 54px;
 	}
 </style>
