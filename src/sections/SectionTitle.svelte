@@ -5,6 +5,7 @@
 	gsap.registerPlugin(ScrollTrigger);
 
 	import { supportingCharacterTiles, characters } from '../data/characters';
+	import { locationsTiles } from '../data/locations';
 	import { getRandom } from '../utils/getRandom';
 	import { soundIsAuth } from '../stores/soundAuthStore';
 
@@ -34,7 +35,19 @@
 	});
 
 	const numTiles = $derived(numColumns * numRows);
-	const tiles = $derived(getRandom(supportingCharacterTiles, numTiles));
+	const tilesData = $derived.by(() => {
+		switch (section) {
+			case 'supp_char':
+				return supportingCharacterTiles;
+			case 'locations':
+				return locationsTiles;
+			// default
+			// 	return
+		}
+	});
+
+	// @ts-ignore
+	const tiles = $derived(getRandom(tilesData, numTiles));
 	const tilesWidth = $derived(innerWidth / numColumns);
 	const tilesHeight = $derived(innerHeight / numRows);
 
@@ -63,12 +76,7 @@
 		video?.pause();
 	};
 
-	let enterAnimationCompleted = $state(false);
 	onMount(() => {
-		setTimeout(() => {
-			enterAnimationCompleted = true;
-		}, 2000);
-
 		// Reveal section title
 		const tl = gsap.timeline({
 			scrollTrigger: {
@@ -98,6 +106,15 @@
 			'-=1'
 		);
 	});
+
+	const getOverlayColor = (/** @type {{ category: string; }} */ tile) => {
+		switch (section) {
+			case 'supp_char':
+				return characters.find((char) => char.label === tile.category)?.color;
+			default:
+				return '#12020A';
+		}
+	};
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -120,39 +137,39 @@
 					class="tile relative z-10"
 					style="width: {tilesWidth}px; height: {tilesHeight}px; background-image: url('https://amdufour.github.io/hosted-data/apis/thumbnails/{tile.thumbnail}');"
 				></div>
-				{#if enterAnimationCompleted}
-					<!-- svelte-ignore a11y_media_has_caption -->
-					<video
-						class="absolute bottom-0 bottom-0 left-0 right-0 z-0"
-						playsinline
-						preload="auto"
-						data-object-fit="cover"
-						style="width: {tilesWidth}px; height: {tilesHeight}px;"
-						poster="https://amdufour.github.io/hosted-data/apis/thumbnails/{tile.thumbnail}"
-					>
-						<source
-							src="https://amdufour.github.io/hosted-data/apis/videos/{tile.video}"
-							type="video/mp4"
-						/>
-					</video>
-				{/if}
+				<!-- svelte-ignore a11y_media_has_caption -->
+				<video
+					class="absolute bottom-0 bottom-0 left-0 right-0 z-0"
+					playsinline
+					preload="none"
+					data-object-fit="cover"
+					style="width: {tilesWidth}px; height: {tilesHeight}px;"
+					poster="https://amdufour.github.io/hosted-data/apis/thumbnails/{tile.thumbnail}"
+				>
+					<source
+						src="https://amdufour.github.io/hosted-data/apis/videos/{tile.video}"
+						type="video/mp4"
+					/>
+				</video>
 				<div class="info absolute bottom-0 left-0 right-0 z-20">
 					<div
 						class="details px-4"
-						style="background-color: {characters.find((char) => char.label === tile.category)
-							?.color};"
+						style="color: {section === 'locations'
+							? '#F9F5F7'
+							: '#12020A'}; background-color: {getOverlayColor(tile)};"
 					>
 						<div>
-							<span class="name">{tile.name}</span>,
-							<span class="category small">{tile.category}</span>
+							<span class="name">{tile.name}</span>
+							{#if tile.category}
+								<span class="category small">{tile.category}</span>
+							{/if}
 						</div>
 						<div class="small">{`s${tile.season}e${tile.episode} ${tile.episodeTitle}`}</div>
 					</div>
 				</div>
 				<div
 					class="overlay absolute left-0 right-0 top-0 z-30"
-					style="background-color: {characters.find((char) => char.label === tile.category)
-						?.color};"
+					style="background-color: {getOverlayColor(tile)};"
 				></div>
 			</div>
 		{/each}
