@@ -3,10 +3,10 @@
 </script>
 
 <section>
-	<SectionTitle section="supp_char" title="Supporting Characters" />
+	<SectionTitle section="locations" title="Locations" />
 	<div class="flex h-screen w-screen items-center">
 		<div class="container">
-			<div>PLACEHOLDER Supporting Characters section</div>
+			<div>PLACEHOLDER Locations section</div>
 		</div>
 	</div>
 </section>

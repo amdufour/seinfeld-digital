@@ -10,6 +10,7 @@
 	import Title from '../sections/Title.svelte';
 	import Quotes from '../sections/quotes/Quotes.svelte';
 	import SupportingCharsSection from '../sections/supporting_characters/SupportingCharsSection.svelte';
+	import LocationsSection from '../sections/locations/locationsSection.svelte';
 	import Catalog from '../sections/catalog/Catalog.svelte';
 	import MethodologyAndCredits from '../sections/MethodologyAndCredits.svelte';
 	import Footer from '../sections/Footer.svelte';
@@ -45,6 +46,7 @@
 	</div> -->
 	<!-- <Quotes /> -->
 	<SupportingCharsSection />
+	<LocationsSection />
 	{#await csv(episodesDataUrl) then episodesData}
 		<Catalog {episodesData} />
 	{/await}

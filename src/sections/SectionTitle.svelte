@@ -4,9 +4,11 @@
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
 
-	import { supportingCharacterTiles, characters } from '../../data/characters';
-	import { getRandom } from '../../utils/getRandom';
-	import { soundIsAuth } from '../../stores/soundAuthStore';
+	import { supportingCharacterTiles, characters } from '../data/characters';
+	import { getRandom } from '../utils/getRandom';
+	import { soundIsAuth } from '../stores/soundAuthStore';
+
+	let { section, title } = $props();
 
 	let innerWidth = $state(1600);
 	let innerHeight = $state(800);
@@ -70,14 +72,13 @@
 		// Reveal section title
 		const tl = gsap.timeline({
 			scrollTrigger: {
-				trigger: '#tiles-container-supporting-chars',
+				trigger: `#tiles-container-${section}`,
 				start: 'top center',
 				end: 'bottom center',
-				toggleActions: 'play reverse play reverse',
-				markers: true
+				toggleActions: 'play reverse play reverse'
 			}
 		});
-		tl.from('.tile-container', {
+		tl.from(`.tile-container-${section}`, {
 			scale: 0,
 			opacity: 0,
 			ease: 'power3.out',
@@ -87,7 +88,7 @@
 				amount: 0.4
 			}
 		}).from(
-			'#section-title-supporting-chars h2',
+			`#section-title-${section} h2`,
 			{
 				translateY: 100,
 				opacity: 0,
@@ -102,14 +103,14 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <div
-	id="tiles-container-supporting-chars"
+	id={`tiles-container-${section}`}
 	class="tiles-container relative h-screen w-screen bg-black text-white"
 >
 	<div class="tiles absolute z-0 flex flex-wrap">
 		{#each tiles as tile, i}
 			<div
 				id={tile.id}
-				class="tile-container relative"
+				class={`tile-container tile-container-${section} relative`}
 				role="group"
 				onfocus={() => handlePlayVideo(tile.id)}
 				onmouseover={() => handlePlayVideo(tile.id, i)}
@@ -157,12 +158,12 @@
 		{/each}
 	</div>
 	<div
-		id="section-title-supporting-chars"
+		id={`section-title-${section}`}
 		class={`section-title absolute left-0 right-0 z-10 flex items-center ${videoIsPlaying ? 'hide-title' : ''}`}
 		style="top: {tilesHeight - 146}px;"
 	>
 		<div class="container">
-			<h2 class="mask">Supporting Characters</h2>
+			<h2 class="mask">{title}</h2>
 		</div>
 	</div>
 </div>
