@@ -38,7 +38,7 @@
 			<SoundAuthPopup />
 		{/if}
 	</div> -->
-	<div class="bg-black text-white">
+	<!-- <div class="bg-black text-white">
 		<Prologue />
 		{#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
@@ -48,11 +48,11 @@
 	<Quotes />
 	<MainCharsSection />
 	<SupportingCharsSection />
-	<LocationsSection />
+	<LocationsSection /> -->
 	{#await csv(episodesDataUrl) then episodesData}
 		<Catalog {episodesData} />
 	{/await}
-	<Quotes />
+	<!-- <Quotes />
 	<MethodologyAndCredits />
-	<Footer />
+	<Footer /> -->
 </main>
