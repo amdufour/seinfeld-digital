@@ -9,6 +9,7 @@
 	import SoundAuthPopup from '../UI/SoundAuthPopup.svelte';
 	import Title from '../sections/Title.svelte';
 	import Quotes from '../sections/quotes/Quotes.svelte';
+	import MainCharsSection from '../sections/main_characters/MainCharsSection.svelte';
 	import SupportingCharsSection from '../sections/supporting_characters/SupportingCharsSection.svelte';
 	import LocationsSection from '../sections/locations/locationsSection.svelte';
 	import Catalog from '../sections/catalog/Catalog.svelte';
@@ -32,19 +33,20 @@
 
 <main>
 	<Navbar />
-	<div class="h-screen w-screen">
+	<!-- <div class="h-screen w-screen">
 		{#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
 		{/if}
-	</div>
-	<!-- <div class="bg-black text-white">
+	</div> -->
+	<div class="bg-black text-white">
 		<Prologue />
 		{#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
 		{/if}
 		<Title />
-	</div> -->
-	<!-- <Quotes /> -->
+	</div>
+	<Quotes />
+	<MainCharsSection />
 	<SupportingCharsSection />
 	<LocationsSection />
 	{#await csv(episodesDataUrl) then episodesData}

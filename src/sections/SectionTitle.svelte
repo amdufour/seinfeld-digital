@@ -4,7 +4,7 @@
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
 
-	import { supportingCharacterTiles, characters } from '../data/characters';
+	import { supportingCharacterTiles, characters, mainCharacterTiles } from '../data/characters';
 	import { locationsTiles } from '../data/locations';
 	import { getRandom } from '../utils/getRandom';
 	import { soundIsAuth } from '../stores/soundAuthStore';
@@ -41,8 +41,8 @@
 				return supportingCharacterTiles;
 			case 'locations':
 				return locationsTiles;
-			// default
-			// 	return
+			default:
+				return mainCharacterTiles;
 		}
 	});
 
@@ -54,6 +54,9 @@
 	// Play video on hover
 	let videoIsPlaying = $state(false);
 	const handlePlayVideo = (/** @type {string} */ tileId, /** @type {number} */ index) => {
+		// Pause all loading videos
+		document.querySelectorAll('video').forEach((video) => video.pause());
+
 		if (index < numColumns) {
 			videoIsPlaying = true;
 		}
@@ -107,10 +110,12 @@
 		);
 	});
 
-	const getOverlayColor = (/** @type {{ category: string; }} */ tile) => {
+	const getOverlayColor = (/** @type {{ category: string; name: string }} */ tile) => {
 		switch (section) {
 			case 'supp_char':
 				return characters.find((char) => char.label === tile.category)?.color;
+			case 'main_char':
+				return characters.find((char) => char.label === tile.name)?.color;
 			default:
 				return '#12020A';
 		}
