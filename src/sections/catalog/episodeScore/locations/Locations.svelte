@@ -49,7 +49,7 @@
 	<LocationsList {labelsWidth} locations={locationsOnScreen} {yScale} />
 	<svg {width} height={vizHeight}>
 		<Scenes {scenes} {xScale} height={vizHeight} isNumbersUp={false} {isHover} {hoveredTime} />
-		<LocationsOnScreen locations={locationsOnScreen} {xScale} {yScale} />
+		<LocationsOnScreen locations={locationsOnScreen} {xScale} {yScale} {isHover} {hoveredTime} />
 		{#if isHover}
 			<line x1={hoveredPosition} y1={0} x2={hoveredPosition} y2={vizHeight} stroke="#12020A" />
 		{/if}

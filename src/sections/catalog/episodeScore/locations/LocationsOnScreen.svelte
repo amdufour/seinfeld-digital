@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	let { locations, xScale, yScale } = $props();
+	let { locations, xScale, yScale, isHover, hoveredTime } = $props();
 
 	const locationsData = $derived.by(() => {
 		const locationsArray = structuredClone(locations);
@@ -48,8 +48,20 @@
 					width={xScale(moment.duration)}
 					height={yScale.bandwidth()}
 					fill="#12020A"
+					fill-opacity={!isHover ||
+					(isHover &&
+						hoveredTime >= moment.startTime &&
+						hoveredTime <= moment.startTime + moment.duration)
+						? 1
+						: 0.2}
 				/>
 			{/each}
 		</g>
 	{/each}
 </g>
+
+<style>
+	rect {
+		transition: all 150ms ease-out;
+	}
+</style>

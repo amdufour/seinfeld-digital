@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	let { characters, xScale, yScale } = $props();
+	let { characters, xScale, yScale, isHover, hoveredTime } = $props();
 
 	const charactersData = $derived.by(() => {
 		const charactersArray = structuredClone(characters);
@@ -50,8 +50,20 @@
 					width={xScale(moment.duration)}
 					height={yScale.bandwidth()}
 					fill={char.color}
+					fill-opacity={!isHover ||
+					(isHover &&
+						hoveredTime >= moment.startTime &&
+						hoveredTime <= moment.startTime + moment.duration)
+						? 1
+						: 0.2}
 				/>
 			{/each}
 		</g>
 	{/each}
 </g>
+
+<style>
+	rect {
+		transition: all 150ms ease-out;
+	}
+</style>

@@ -72,8 +72,8 @@
 	<CharactersList {labelsWidth} characters={charactersOnScreen} {yScale} />
 	<svg {width} height={vizHeight}>
 		<Scenes {scenes} {xScale} height={vizHeight} {isHover} {hoveredTime} />
-		<PresenceOnScreen characters={charactersOnScreen} {xScale} {yScale} />
-		<CausedLaughs characters={charactersCausedLaughs} {xScale} {yScale} />
+		<PresenceOnScreen characters={charactersOnScreen} {xScale} {yScale} {isHover} {hoveredTime} />
+		<CausedLaughs characters={charactersCausedLaughs} {xScale} {yScale} {isHover} {hoveredTime} />
 		{#if isHover}
 			<line x1={hoveredPosition} y1={0} x2={hoveredPosition} y2={vizHeight} stroke="#12020A" />
 		{/if}
