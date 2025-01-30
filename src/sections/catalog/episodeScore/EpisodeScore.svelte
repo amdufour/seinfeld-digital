@@ -41,6 +41,7 @@
 		{episodeDuration}
 		{isHover}
 		{hoveredPosition}
+		{hoveredTime}
 	/>
 	<Timeline {labelsWidth} {xScale} {episodeDuration} {isHover} {hoveredTime} {hoveredPosition} />
 	<Locations
@@ -53,5 +54,6 @@
 		{episodeDuration}
 		{isHover}
 		{hoveredPosition}
+		{hoveredTime}
 	/>
 </div>

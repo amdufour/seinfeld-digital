@@ -17,7 +17,8 @@
 		episodeData,
 		episodeDuration,
 		isHover,
-		hoveredPosition
+		hoveredPosition,
+		hoveredTime
 	} = $props();
 
 	const locationsData = $derived(episodeData.filter((e) => e.eventCategory === 'LOCATION'));
@@ -47,7 +48,7 @@
 <div class="flex">
 	<LocationsList {labelsWidth} locations={locationsOnScreen} {yScale} />
 	<svg {width} height={vizHeight}>
-		<Scenes {scenes} {xScale} height={vizHeight} isNumbersUp={false} />
+		<Scenes {scenes} {xScale} height={vizHeight} isNumbersUp={false} {isHover} {hoveredTime} />
 		<LocationsOnScreen locations={locationsOnScreen} {xScale} {yScale} />
 		{#if isHover}
 			<line x1={hoveredPosition} y1={0} x2={hoveredPosition} y2={vizHeight} stroke="#12020A" />

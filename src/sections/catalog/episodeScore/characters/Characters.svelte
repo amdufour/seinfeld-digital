@@ -18,7 +18,8 @@
 		episodeData,
 		episodeDuration,
 		isHover,
-		hoveredPosition
+		hoveredPosition,
+		hoveredTime
 	} = $props();
 
 	const charactersOnScreen = $derived.by(() => {
@@ -70,7 +71,7 @@
 <div class="flex">
 	<CharactersList {labelsWidth} characters={charactersOnScreen} {yScale} />
 	<svg {width} height={vizHeight}>
-		<Scenes {scenes} {xScale} height={vizHeight} />
+		<Scenes {scenes} {xScale} height={vizHeight} {isHover} {hoveredTime} />
 		<PresenceOnScreen characters={charactersOnScreen} {xScale} {yScale} />
 		<CausedLaughs characters={charactersCausedLaughs} {xScale} {yScale} />
 		{#if isHover}
