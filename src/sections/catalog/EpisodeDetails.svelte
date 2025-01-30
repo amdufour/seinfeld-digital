@@ -18,7 +18,7 @@
 			<h2 class="mb-3 mr-4 mt-2">{episodeInfo.title}</h2>
 			<div class="small flex leading-normal">
 				<div class="description mr-4">{episodeInfo.description}</div>
-				<div>
+				<div class="stats">
 					<div class="mb-1 flex items-center">
 						<StarIcon />
 						<span class="mx-1 font-semibold">IMDb rating:</span>
@@ -46,5 +46,8 @@
 	}
 	.description {
 		max-width: 550px;
+	}
+	.stats {
+		width: 260px;
 	}
 </style>

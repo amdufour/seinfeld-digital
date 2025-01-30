@@ -24,11 +24,11 @@
 		document.body.style.top = `-${window.scrollY}px`;
 	};
 
-	onMount(() => {
-		setTimeout(() => {
-			openModale();
-		}, 4000);
-	});
+	// onMount(() => {
+	// 	setTimeout(() => {
+	// 		openModale();
+	// 	}, 4000);
+	// });
 </script>
 
 <main>
@@ -52,7 +52,7 @@
 	{#await csv(episodesDataUrl) then episodesData}
 		<Catalog {episodesData} />
 	{/await}
-	<!-- <Quotes />
+	<Quotes />
 	<MethodologyAndCredits />
-	<Footer /> -->
+	<Footer />
 </main>

@@ -1,6 +1,7 @@
 <script>
 	import { seasons } from '../../data/seasons';
 	import { isEpisodeValid } from '../../utils/isEpisodeValid';
+	import { getRandomEpisode } from '../../utils/getRandom';
 	import Dropdown from '../../UI/Dropdown.svelte';
 	import Prev from '../../icons/Prev.svelte';
 	import Next from '../../icons/Next.svelte';
@@ -59,17 +60,9 @@
 	};
 
 	const handleGoToRandomEpisode = () => {
-		const newSeason = Math.floor(Math.random() * 9) + 1;
-		// @ts-ignore
-		const numEpisodes = seasons.find((s) => s.seasonNum === newSeason).numEpisodes;
-		const newEpisode = Math.floor(Math.random() * numEpisodes) + 1;
-
-		if (isEpisodeValid(newSeason, newEpisode)) {
-			currentSeason = newSeason;
-			currentEpisode = newEpisode;
-		} else {
-			handleGoToRandomEpisode();
-		}
+		const randomEpisode = getRandomEpisode();
+		currentSeason = randomEpisode?.newSeason;
+		currentEpisode = randomEpisode?.newEpisode;
 	};
 </script>
 

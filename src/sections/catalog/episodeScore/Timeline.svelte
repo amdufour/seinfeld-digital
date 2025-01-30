@@ -9,7 +9,7 @@
 </script>
 
 <svg width={xScale(numMinutes * 60) + 100} {height} style="margin-left: {labelsWidth - 50}px">
-	<g transform="translate(50, 0)" stroke="#BEBABC">
+	<g transform="translate(50, 0)" stroke="#928D90">
 		<line x1={0} y1={0} x2={xScale(numMinutes * 60)} y2={0} />
 		<line x1={0} y1={height} x2={xScale(numMinutes * 60)} y2={40} />
 
@@ -39,7 +39,7 @@
 					y={height / 2 + 1}
 					text-anchor="middle"
 					dominant-baseline="middle"
-					fill="#BEBABC"
+					fill="#928D90"
 					stroke="none"
 				>
 					{`${min < 10 ? '0' : ''}${min}:00`}

@@ -2,6 +2,7 @@
 	import { episodesInfo } from '../../data/episodesInfo';
 	import { formatTime } from '../../utils/formatTime';
 	import { scaleLinear } from 'd3-scale';
+	import { getRandomEpisode } from '../../utils/getRandom';
 	import SeasonsStrip from '../../UI/SeasonsStrip.svelte';
 	import EpisodeDetails from './EpisodeDetails.svelte';
 	import SonificationPlayer from './sonification/SonificationPlayer.svelte';
@@ -14,8 +15,9 @@
 	let vizWidth = $derived(innerWidth - statsWidth - 60 - 20);
 	let scenesWidth = $derived(vizWidth - labelsWidth);
 
-	let currentSeason = $state(1);
-	let currentEpisode = $state(1);
+	const randomEpisode = getRandomEpisode();
+	let currentSeason = $state(randomEpisode?.newSeason);
+	let currentEpisode = $state(randomEpisode?.newEpisode);
 	let currentEpisodeInfo = $derived(
 		episodesInfo.find((e) => e.season === currentSeason && e.episode === currentEpisode)
 	);

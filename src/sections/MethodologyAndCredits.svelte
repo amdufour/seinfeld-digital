@@ -8,10 +8,10 @@
 
 	const credits = [
 		{ name: 'Andy Kirk', role: 'Ideation, Data Analysis, Data Visualisation & Original Design' },
-		{ name: 'Rob Barker', role: 'Data Collection & Research' },
 		{ name: 'Anne-Marie Dufour', role: 'Digital Design & Development' },
 		{ name: 'Loud Numbers', role: 'Sonification' },
-		{ name: 'Mark Knott', role: 'Illustrations' }
+		{ name: 'Mark Knott', role: 'Illustrations' },
+		{ name: 'Rob Barker', role: 'Data Collection & Research' }
 	];
 </script>
 
@@ -63,13 +63,13 @@
 						{#if i === 0}
 							<BrainIcon />
 						{:else if i === 1}
-							<TableIcon />
-						{:else if i === 2}
 							<CodeIcon />
-						{:else if i === 3}
+						{:else if i === 2}
 							<SoundIcon />
-						{:else}
+						{:else if i === 3}
 							<PaintIcon />
+						{:else}
+							<TableIcon />
 						{/if}
 					</div>
 					<div class="pl-4">
