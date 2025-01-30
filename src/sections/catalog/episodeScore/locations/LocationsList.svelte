@@ -1,14 +1,19 @@
 <script>
 	import { getLocationIconPath } from '../../../../utils/getLocationIconPath';
 
-	let { labelsWidth, locations, yScale } = $props();
+	let { labelsWidth, locations, yScale, isHover, hoveredLocations } = $props();
 </script>
 
 <ul class="relative shrink-0 pt-4" style="width: {labelsWidth}px;">
 	{#each locations as location}
 		<li
 			class="absolute flex w-full justify-end"
-			style="top: {yScale(location.id) + yScale.bandwidth() / 2 - 16}px; right: 16px;"
+			style="top: {yScale(location.id) +
+				yScale.bandwidth() / 2 -
+				16}px; right: 16px; opacity: {!isHover ||
+			(isHover && hoveredLocations.includes(location.id))
+				? 1
+				: 0.2}"
 		>
 			<div class="small flex items-center justify-end pr-2">{location.label}</div>
 			<div
@@ -20,6 +25,9 @@
 </ul>
 
 <style>
+	li {
+		transition: opacity 150ms ease-out;
+	}
 	.image {
 		background-repeat: no-repeat;
 		background-position: center;

@@ -3,14 +3,18 @@
 
 	import { getCharacterImagePath } from '../../../../utils/getCharacterImagePath';
 
-	let { labelsWidth, characters, yScale } = $props();
+	let { labelsWidth, characters, yScale, isHover, hoveredCharacters } = $props();
 </script>
 
 <ul class="relative shrink-0 pt-8" style="width: {labelsWidth}px;">
 	{#each characters as char}
 		<li
 			class="absolute flex w-full justify-end"
-			style="top: {yScale(char.id) + yScale.bandwidth() / 2 - 16}px; right: 16px;"
+			style="top: {yScale(char.id) +
+				yScale.bandwidth() / 2 -
+				16}px; right: 16px; opacity: {!isHover || (isHover && hoveredCharacters.includes(char.id))
+				? 1
+				: 0.2}"
 		>
 			<div class="small flex items-center justify-end pr-2">{char.label}</div>
 			<div
@@ -22,6 +26,9 @@
 </ul>
 
 <style>
+	li {
+		transition: opacity 150ms ease-out;
+	}
 	.image {
 		background-repeat: no-repeat;
 		background-position: center;

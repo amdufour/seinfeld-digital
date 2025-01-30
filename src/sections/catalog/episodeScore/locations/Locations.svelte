@@ -35,6 +35,19 @@
 		return locationsOnScreen;
 	});
 
+	const hoveredLocations = $derived.by(() => {
+		const time = Math.floor(hoveredTime / 5) * 5;
+		const hoveredLocationsArray = [];
+
+		locationsOnScreen.forEach((location) => {
+			if (location.timesOnScreen && location.timesOnScreen.includes(time)) {
+				hoveredLocationsArray.push(location.id);
+			}
+		});
+
+		return hoveredLocationsArray;
+	});
+
 	const vizHeight = $derived(locationsOnScreen.length * 48 + 32);
 
 	const yScale = $derived(
@@ -46,7 +59,13 @@
 </script>
 
 <div class="flex">
-	<LocationsList {labelsWidth} locations={locationsOnScreen} {yScale} />
+	<LocationsList
+		{labelsWidth}
+		locations={locationsOnScreen}
+		{yScale}
+		{isHover}
+		{hoveredLocations}
+	/>
 	<svg {width} height={vizHeight}>
 		<Scenes {scenes} {xScale} height={vizHeight} isNumbersUp={false} {isHover} {hoveredTime} />
 		<LocationsOnScreen locations={locationsOnScreen} {xScale} {yScale} {isHover} {hoveredTime} />

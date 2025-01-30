@@ -58,6 +58,26 @@
 		return charactersArray.filter((c) => c.causedLaughs.length > 0);
 	});
 
+	const hoveredCharacters = $derived.by(() => {
+		const time = Math.floor(hoveredTime / 5) * 5;
+		const hoveredCharactersArray = [];
+
+		charactersOnScreen.forEach((char) => {
+			if (char.timesOnScreen && char.timesOnScreen.includes(time)) {
+				hoveredCharactersArray.push(char.id);
+			}
+		});
+
+		const situationLaughs = charactersCausedLaughs.find(
+			(char) => char.id === 'The situation'
+		).causedLaughs;
+		if (situationLaughs && situationLaughs.includes(time)) {
+			hoveredCharactersArray.push('The situation');
+		}
+
+		return hoveredCharactersArray;
+	});
+
 	const vizHeight = $derived(charactersOnScreen.length * 48 + 32);
 
 	const yScale = $derived(
@@ -69,7 +89,13 @@
 </script>
 
 <div class="flex">
-	<CharactersList {labelsWidth} characters={charactersOnScreen} {yScale} />
+	<CharactersList
+		{labelsWidth}
+		characters={charactersOnScreen}
+		{yScale}
+		{isHover}
+		{hoveredCharacters}
+	/>
 	<svg {width} height={vizHeight}>
 		<Scenes {scenes} {xScale} height={vizHeight} {isHover} {hoveredTime} />
 		<PresenceOnScreen characters={charactersOnScreen} {xScale} {yScale} {isHover} {hoveredTime} />
