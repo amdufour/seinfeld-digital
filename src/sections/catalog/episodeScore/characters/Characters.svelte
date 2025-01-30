@@ -70,7 +70,7 @@
 
 		const situationLaughs = charactersCausedLaughs.find(
 			(char) => char.id === 'The situation'
-		).causedLaughs;
+		)?.causedLaughs;
 		if (situationLaughs && situationLaughs.includes(time)) {
 			hoveredCharactersArray.push('The situation');
 		}
