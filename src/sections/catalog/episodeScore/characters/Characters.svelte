@@ -96,7 +96,7 @@
 		{isHover}
 		{hoveredCharacters}
 	/>
-	<svg {width} height={vizHeight}>
+	<svg class="flex-shrink-0" {width} height={vizHeight}>
 		<Scenes {scenes} {xScale} height={vizHeight} {isHover} {hoveredTime} />
 		<PresenceOnScreen characters={charactersOnScreen} {xScale} {yScale} {isHover} {hoveredTime} />
 		<CausedLaughs characters={charactersCausedLaughs} {xScale} {yScale} {isHover} {hoveredTime} />

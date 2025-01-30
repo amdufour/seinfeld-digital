@@ -53,7 +53,7 @@
 						hoveredTime >= moment.startTime &&
 						hoveredTime <= moment.startTime + moment.duration)
 						? 1
-						: 0.2}
+						: 0.1}
 				/>
 			{/each}
 		</g>

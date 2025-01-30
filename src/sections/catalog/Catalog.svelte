@@ -12,7 +12,7 @@
 	let innerWidth = $state(1600);
 	const statsWidth = 240;
 	const labelsWidth = 176;
-	let vizWidth = $derived(innerWidth - statsWidth - 60 - 20);
+	let vizWidth = $derived(innerWidth - statsWidth - 60 - 25);
 	let scenesWidth = $derived(vizWidth - labelsWidth);
 
 	const randomEpisode = getRandomEpisode();
@@ -76,7 +76,7 @@
 		<!-- Episode data -->
 		<EpisodeScore
 			episodeData={currentEpisodeData}
-			width={vizWidth}
+			width={scenesWidth}
 			{labelsWidth}
 			{statsWidth}
 			{scenes}

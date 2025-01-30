@@ -66,7 +66,7 @@
 		{isHover}
 		{hoveredLocations}
 	/>
-	<svg {width} height={vizHeight}>
+	<svg class="flex-shrink-0" {width} height={vizHeight}>
 		<Scenes {scenes} {xScale} height={vizHeight} isNumbersUp={false} {isHover} {hoveredTime} />
 		<LocationsOnScreen locations={locationsOnScreen} {xScale} {yScale} {isHover} {hoveredTime} />
 		{#if isHover}
