@@ -1,11 +1,17 @@
 <script>
 	import { range } from 'd3-array';
 
-	let { labelsWidth, xScale, episodeDuration } = $props();
+	let { labelsWidth, xScale, episodeDuration, isHover, hoveredTime, hoveredPosition } = $props();
 
 	const height = 40;
 	const numMinutes = $derived(Math.ceil(episodeDuration / 60));
 	let minutesArray = $derived(range(0, numMinutes + 1));
+
+	const minHoveredTime = $derived(Math.floor(hoveredTime / 60));
+	const secHoveredTime = $derived(Math.floor(hoveredTime - minHoveredTime * 60));
+	const formattedHoveredTime = $derived(
+		`${minHoveredTime < 10 ? '0' : ''}${minHoveredTime}:${secHoveredTime < 10 ? '0' : ''}${secHoveredTime}`
+	);
 </script>
 
 <svg width={xScale(numMinutes * 60) + 100} {height} style="margin-left: {labelsWidth - 50}px">
@@ -46,5 +52,26 @@
 				</text>
 			{/if}
 		{/each}
+		{#if isHover}
+			<rect
+				x={hoveredPosition - 25}
+				y={height / 2 - 9}
+				width={50}
+				height={20}
+				fill="#F9F5F7"
+				stroke="none"
+			/>
+			<text
+				class="number"
+				x={hoveredPosition}
+				y={height / 2 + 1}
+				text-anchor="middle"
+				dominant-baseline="middle"
+				fill="#12020A"
+				stroke="none"
+			>
+				{formattedHoveredTime}
+			</text>
+		{/if}
 	</g>
 </svg>

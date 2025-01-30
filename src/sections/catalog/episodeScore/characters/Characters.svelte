@@ -9,7 +9,17 @@
 	import CausedLaughs from './CausedLaughs.svelte';
 	import CharactersStats from './CharactersStats.svelte';
 
-	let { width, statsWidth, labelsWidth, scenes, xScale, episodeData, episodeDuration } = $props();
+	let {
+		width,
+		statsWidth,
+		labelsWidth,
+		scenes,
+		xScale,
+		episodeData,
+		episodeDuration,
+		isHover,
+		hoveredPosition
+	} = $props();
 
 	const charactersOnScreen = $derived.by(() => {
 		const data = episodeData.filter((e) => e.eventCategory === 'CHARACTERS');
@@ -63,6 +73,9 @@
 		<Scenes {scenes} {xScale} height={vizHeight} />
 		<PresenceOnScreen characters={charactersOnScreen} {xScale} {yScale} />
 		<CausedLaughs characters={charactersCausedLaughs} {xScale} {yScale} />
+		{#if isHover}
+			<line x1={hoveredPosition} y1={0} x2={hoveredPosition} y2={vizHeight} stroke="#12020A" />
+		{/if}
 	</svg>
 	<CharactersStats
 		width={statsWidth}
