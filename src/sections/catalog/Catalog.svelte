@@ -7,7 +7,8 @@
 	import EpisodeDetails from './EpisodeDetails.svelte';
 	import SonificationPlayer from './sonification/SonificationPlayer.svelte';
 	import EpisodeScore from './episodeScore/EpisodeScore.svelte';
-	let { episodesData } = $props();
+
+	let { episodesData, sonificationData } = $props();
 
 	let innerWidth = $state(1600);
 	const statsWidth = 240;
@@ -25,6 +26,13 @@
 		episodesData.filter(
 			(/** @type { any } */ e) =>
 				e.season === `Season${currentSeason}` && +e.episode === currentEpisode
+		)
+	);
+
+	let currentEpisodeSonificationData = $derived(
+		sonificationData.filter(
+			(/** @type { any } */ d) =>
+				d.Season === `Season${currentSeason}` && +d.Episode === currentEpisode
 		)
 	);
 
@@ -71,7 +79,13 @@
 		/>
 
 		<!-- Sonification player -->
-		<SonificationPlayer {labelsWidth} {scenesWidth} {scenes} {xScale} />
+		<SonificationPlayer
+			{labelsWidth}
+			{scenesWidth}
+			{scenes}
+			{xScale}
+			sonificationData={currentEpisodeSonificationData}
+		/>
 
 		<!-- Episode data -->
 		<EpisodeScore

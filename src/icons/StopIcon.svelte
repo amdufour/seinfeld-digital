@@ -9,5 +9,9 @@
 	stroke-width="1.5"
 	stroke={color}
 >
-	<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+	<path
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"
+	/>
 </svg>

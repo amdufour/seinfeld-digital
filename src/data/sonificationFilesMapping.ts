@@ -1,7 +1,7 @@
 const host = 'https://amdufour.github.io/hosted-data/apis/sonification/';
 const ext = '.mp3';
 
-export const sonification = {
+export const sonificationFiles = {
 	char_jerry_mild_1: `${host}20250120_Seinfeld_Clips_Character_Jerry_Mild_1${ext}`,
 	char_jerry_mild_2: `${host}20250120_Seinfeld_Clips_Character_Jerry_Mild_2${ext}`,
 	char_jerry_mild_3: `${host}20250120_Seinfeld_Clips_Character_Jerry_Mild_3${ext}`,

@@ -4,22 +4,30 @@
 
 	import SonificationControls from './SonificationControls.svelte';
 	import SonificationTrack from './SonificationTrack.svelte';
-	import { sonification } from '../../../data/sonification';
+	import { sonificationFiles } from '../../../data/sonificationFilesMapping';
 
-	let { labelsWidth, scenesWidth, scenes, xScale } = $props();
+	let { labelsWidth, scenesWidth, scenes, xScale, sonificationData } = $props();
+	$inspect(scenes);
+	$inspect(sonificationData);
 
 	/**
 	 * @type {Tone.Players}
 	 */
 	let soundtrack;
 	const preload = () => {
-		soundtrack = new Tone.Players(sonification).toDestination(); //connects to the system sound output
+		soundtrack = new Tone.Players(sonificationFiles).toDestination(); //connects to the system sound output
 	};
 
+	// const getCharSoundFileName = (char, laughBin) => {};
+
 	const play = () => {
-		// soundtrack.player('jerry').start();
-		// soundtrack.player('location_workplace').start();
-		// soundtrack.player('char_other_mild').start(5);
+		let scene = 1;
+		let chars = sonificationData.filter(
+			(/** @type {{ SceneNum: string; }} */ d) => +d.SceneNum === scene
+		);
+
+		soundtrack.player('start').start();
+		// Play locations here
 	};
 
 	const pause = () => {

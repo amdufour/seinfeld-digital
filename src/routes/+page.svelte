@@ -17,6 +17,7 @@
 	import Footer from '../sections/Footer.svelte';
 
 	const episodesDataUrl = 'https://amdufour.github.io/hosted-data/apis/episodesData.csv';
+	const sonificationDataUrl = 'https://amdufour.github.io/hosted-data/apis/sonificationData.csv';
 
 	const openModale = () => {
 		$soundAuthModaleIsOpen = true;
@@ -50,7 +51,9 @@
 	<SupportingCharsSection />
 	<LocationsSection /> -->
 	{#await csv(episodesDataUrl) then episodesData}
-		<Catalog {episodesData} />
+		{#await csv(sonificationDataUrl) then sonificationData}
+			<Catalog {episodesData} {sonificationData} />
+		{/await}
 	{/await}
 	<!-- <Quotes />
 	<MethodologyAndCredits />
