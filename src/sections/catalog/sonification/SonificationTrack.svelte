@@ -1,35 +1,44 @@
 <script>
-	import SoundIconWhite from '../../../icons/SoundIconWhite.svelte';
-
 	let { scenesWidth, scenes, xScale } = $props();
+
+	const height = 20;
 </script>
 
 <div class="relative">
-	<svg width={scenesWidth} height="96px">
+	<svg class="mt-6" width={scenesWidth} {height}>
 		<line x1={0} y1="48" x2={scenesWidth} y2="48" stroke="#BEBABC" />
-		<g transform="translate(0, 48)">
-			{#each scenes as scene}
+		<g transform="translate(0, {height / 2})">
+			{#each scenes as scene, i}
 				<line
+					class="scene-player"
 					x1={xScale(scene.startTime)}
-					y1={-5}
-					x2={xScale(scene.startTime)}
-					y2={5}
-					stroke="#BEBABC"
+					y1={0}
+					x2={xScale(scene.endTime)}
+					y2={0}
+					stroke-width={6}
 				/>
+				{#if i > 0}
+					<line
+						x1={xScale(scene.startTime)}
+						y1={-10}
+						x2={xScale(scene.startTime)}
+						y2={10}
+						stroke="#BEBABC"
+						stroke-width={2}
+					/>
+				{/if}
 			{/each}
 		</g>
-		<line x1={scenesWidth} y1={-5} x2={scenesWidth} y2={5} stroke="#BEBABC" />
 	</svg>
-	<div class="play-ref absolute flex h-9 w-9 items-center justify-center rounded-full">
-		<SoundIconWhite />
-	</div>
 </div>
 
 <style>
-	.play-ref {
-		top: 50%;
-		left: -18px;
-		transform: translateY(-50%);
-		background-color: #bebabc;
+	.scene-player {
+		stroke: #bebabc;
+		cursor: pointer;
+		transition: stroke 150ms ease-out;
+	}
+	.scene-player:hover {
+		stroke: #e71d80;
 	}
 </style>

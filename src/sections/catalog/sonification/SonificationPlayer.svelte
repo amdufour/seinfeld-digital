@@ -32,7 +32,7 @@
 	});
 </script>
 
-<div class="flex h-24 items-center">
-	<SonificationControls {labelsWidth} {play} />
+<div class="h-16" style="margin-left: {labelsWidth}px;">
 	<SonificationTrack {scenesWidth} {scenes} {xScale} />
+	<SonificationControls {scenesWidth} {play} />
 </div>

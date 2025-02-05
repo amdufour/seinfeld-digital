@@ -52,7 +52,7 @@
 	{#await csv(episodesDataUrl) then episodesData}
 		<Catalog {episodesData} />
 	{/await}
-	<Quotes />
+	<!-- <Quotes />
 	<MethodologyAndCredits />
-	<Footer />
+	<Footer /> -->
 </main>
