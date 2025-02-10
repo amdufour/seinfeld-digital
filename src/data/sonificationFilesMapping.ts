@@ -69,3 +69,66 @@ export const sonificationFiles = {
 	start: `${host}20250120_Seinfeld_Clips_Start${ext}`,
 	end: `${host}20250120_Seinfeld_Clips_End${ext}`
 };
+
+const getLevel = (laughBin: string) => {
+	switch (laughBin) {
+		case '2':
+			return 'mid';
+		case '3':
+			return 'wild';
+		default:
+			return 'mild';
+	}
+};
+
+export const getCharSoundFileName = (char: string, laughBin: string) => {
+	const randomNum = Math.floor(Math.random() * 3) + 1;
+
+	if (char === 'Situation') {
+		return 'char_situation';
+	}
+
+	const level = getLevel(laughBin);
+
+	switch (char) {
+		case 'Jerry':
+			return `char_jerry_${level}_${randomNum}`;
+		case 'George':
+			return `char_george_${level}_${randomNum}`;
+		case 'Elaine':
+			return `char_elaine_${level}_${randomNum}`;
+		case 'Kramer':
+			return `char_kramer_${level}_${randomNum}`;
+		case 'LoveInterest':
+			return `char_love_interest_${level}_${randomNum}`;
+		case 'Families':
+			return `char_families_${level}`;
+		case 'FNC':
+			return `char_fnc_${level}`;
+		case 'Other':
+			return `char_other_${level}`;
+		default:
+			return null;
+	}
+};
+
+export const getLocationSoundFileName = (location: string) => {
+	switch (location) {
+		case 'CharacterHome':
+			return 'loc_home';
+		case 'Diner':
+			return 'loc_diner';
+		case 'Leisure':
+			return 'loc_leisure';
+		case 'OtherFamilyHome':
+			return 'loc_family_home';
+		case 'Outside':
+			return 'loc_outside';
+		case 'Transport':
+			return 'loc_transport';
+		case 'Workplace':
+			return 'loc_workplace';
+		default:
+			return 'loc_other';
+	}
+};

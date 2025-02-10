@@ -4,11 +4,24 @@
 
 	import SonificationControls from './SonificationControls.svelte';
 	import SonificationTrack from './SonificationTrack.svelte';
-	import { sonificationFiles } from '../../../data/sonificationFilesMapping';
+	import {
+		sonificationFiles,
+		getCharSoundFileName,
+		getLocationSoundFileName
+	} from '../../../data/sonificationFilesMapping';
 
-	let { labelsWidth, scenesWidth, scenes, xScale, sonificationData } = $props();
-	$inspect(scenes);
-	$inspect(sonificationData);
+	let {
+		labelsWidth,
+		scenesWidth,
+		scenes,
+		xScale,
+		episodeData,
+		sonificationCharactersData,
+		sonificationLocationData
+	} = $props();
+	$inspect('scenes', scenes);
+	$inspect('sonificationCharactersData', sonificationCharactersData);
+	$inspect('episodeData', episodeData);
 
 	/**
 	 * @type {Tone.Players}
@@ -18,16 +31,31 @@
 		soundtrack = new Tone.Players(sonificationFiles).toDestination(); //connects to the system sound output
 	};
 
-	// const getCharSoundFileName = (char, laughBin) => {};
-
 	const play = () => {
 		let scene = 1;
-		let chars = sonificationData.filter(
-			(/** @type {{ SceneNum: string; }} */ d) => +d.SceneNum === scene
+		let chars = sonificationCharactersData.filter(
+			(/** @type {{ SceneNumber: string; }} */ d) => +d.SceneNumber === scene
 		);
+		let locations = sonificationLocationData.filter(
+			(/** @type {{ SceneNumber: string; }} */ d) => +d.SceneNumber === scene
+		);
+		console.log('chars', chars);
+		console.log('locations', locations);
 
 		soundtrack.player('start').start();
-		// Play locations here
+		soundtrack.player('rythm').start();
+		chars.forEach((/** @type {{ Character: string; laughBinFull: string; }} */ charData) => {
+			const player = getCharSoundFileName(charData.Character, charData.laughBinFull);
+			if (player) {
+				soundtrack.player(player).start();
+			}
+		});
+		locations.forEach((/** @type {{ Location: string; }} */ locData) => {
+			const player = getLocationSoundFileName(locData.Location);
+			if (player) {
+				soundtrack.player(player).start();
+			}
+		});
 	};
 
 	const pause = () => {
