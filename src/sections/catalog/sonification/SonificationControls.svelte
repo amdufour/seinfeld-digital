@@ -4,7 +4,7 @@
 	import BackwardIcon from '../../../icons/BackwardIcon.svelte';
 	import ForwardIcon from '../../../icons/ForwardIcon.svelte';
 
-	let { scenesWidth, play } = $props();
+	let { scenesWidth, play, stop } = $props();
 
 	let isPlaying = $state(false);
 
@@ -15,6 +15,7 @@
 
 	const handleStop = () => {
 		isPlaying = false;
+		stop();
 	};
 </script>
 

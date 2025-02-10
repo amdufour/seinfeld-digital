@@ -19,9 +19,6 @@
 		sonificationCharactersData,
 		sonificationLocationData
 	} = $props();
-	$inspect('scenes', scenes);
-	$inspect('sonificationCharactersData', sonificationCharactersData);
-	$inspect('episodeData', episodeData);
 
 	/**
 	 * @type {Tone.Players}
@@ -31,18 +28,14 @@
 		soundtrack = new Tone.Players(sonificationFiles).toDestination(); //connects to the system sound output
 	};
 
-	const play = () => {
-		let scene = 1;
+	const playScene = (/** @type {number} */ sceneNum) => {
 		let chars = sonificationCharactersData.filter(
-			(/** @type {{ SceneNumber: string; }} */ d) => +d.SceneNumber === scene
+			(/** @type {{ SceneNumber: string; }} */ d) => +d.SceneNumber === sceneNum
 		);
 		let locations = sonificationLocationData.filter(
-			(/** @type {{ SceneNumber: string; }} */ d) => +d.SceneNumber === scene
+			(/** @type {{ SceneNumber: string; }} */ d) => +d.SceneNumber === sceneNum
 		);
-		console.log('chars', chars);
-		console.log('locations', locations);
 
-		soundtrack.player('start').start();
 		soundtrack.player('rythm').start();
 		chars.forEach((/** @type {{ Character: string; laughBinFull: string; }} */ charData) => {
 			const player = getCharSoundFileName(charData.Character, charData.laughBinFull);
@@ -56,9 +49,25 @@
 				soundtrack.player(player).start();
 			}
 		});
+
+		setTimeout(() => {
+			if (sceneNum < scenes.length) {
+				playScene(sceneNum + 1);
+			} else {
+				soundtrack.player('end').start();
+			}
+		}, 8727.272727);
 	};
 
-	const pause = () => {
+	const play = () => {
+		let sceneNum = 1;
+		soundtrack.player('start').start();
+		setTimeout(() => {
+			playScene(sceneNum);
+		}, 500);
+	};
+
+	const stop = () => {
 		soundtrack.stopAll();
 	};
 
@@ -70,5 +79,5 @@
 
 <div class="h-16" style="margin-left: {labelsWidth}px;">
 	<SonificationTrack {scenesWidth} {scenes} {xScale} />
-	<SonificationControls {scenesWidth} {play} />
+	<SonificationControls {scenesWidth} {play} {stop} />
 </div>
