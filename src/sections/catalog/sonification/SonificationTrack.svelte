@@ -1,7 +1,7 @@
 <script>
 	import { soundIsAuth } from '../../../stores/soundAuthStore';
 
-	let { scenesWidth, scenes, xScale, handleClickOnScene } = $props();
+	let { scenesWidth, scenes, xScale, playingScene, handleClickOnScene } = $props();
 
 	const height = 20;
 </script>
@@ -13,7 +13,9 @@
 			{#each scenes as scene, i}
 				<!-- svelte-ignore a11y_click_events_have_key_events -->
 				<line
-					class="scene-player {$soundIsAuth ? 'sound-is-auth' : ''}"
+					class="scene-player {playingScene === i + 1 ? 'playing' : ''} {$soundIsAuth
+						? 'sound-is-auth'
+						: ''}"
 					x1={xScale(scene.startTime)}
 					y1={0}
 					x2={xScale(scene.endTime)}
@@ -47,6 +49,7 @@
 	.scene-player.sound-is-auth {
 		cursor: pointer;
 	}
+	.scene-player.sound-is-auth.playing,
 	.scene-player.sound-is-auth:hover {
 		stroke: #e71d80;
 	}

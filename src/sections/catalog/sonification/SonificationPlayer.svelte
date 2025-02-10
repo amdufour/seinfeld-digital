@@ -31,6 +31,10 @@
 		soundtrack = new Tone.Players(sonificationFiles).toDestination(); //connects to the system sound output
 	};
 
+	/**
+	 * @type {number | undefined}
+	 */
+	let playSceneTimeout;
 	const playScene = (/** @type {number} */ sceneNum) => {
 		if (isPlaying && $soundIsAuth && playingScene === sceneNum) {
 			let chars = sonificationCharactersData.filter(
@@ -55,11 +59,13 @@
 				}
 			});
 
-			setTimeout(() => {
+			playSceneTimeout = setTimeout(() => {
 				if (sceneNum < scenes.length) {
+					playingScene = sceneNum + 1;
 					playScene(sceneNum + 1);
 				} else {
 					soundtrack.player('end').start();
+					playingScene = 0;
 				}
 			}, 8727.272727);
 		}
@@ -81,12 +87,14 @@
 	const stop = () => {
 		isPlaying = false;
 		playingScene = 0;
+		clearTimeout(playSceneTimeout);
 		soundtrack.stopAll();
 	};
 
 	const handleClickOnScene = (/** @type {number} */ sceneNum) => {
 		isPlaying = true;
 		playingScene = sceneNum;
+		clearTimeout(playSceneTimeout);
 		soundtrack.stopAll(); // Stop currently playing scenes
 
 		if (sceneNum === 1) {
@@ -103,6 +111,13 @@
 </script>
 
 <div class="h-16" style="margin-left: {labelsWidth}px;">
-	<SonificationTrack {scenesWidth} {scenes} {xScale} {handleClickOnScene} />
-	<SonificationControls {scenesWidth} {play} {stop} {isPlaying} />
+	<SonificationTrack {scenesWidth} {scenes} {xScale} {playingScene} {handleClickOnScene} />
+	<SonificationControls
+		{scenesWidth}
+		{isPlaying}
+		{playingScene}
+		numScenes={scenes.length}
+		{play}
+		{stop}
+	/>
 </div>
