@@ -91,7 +91,6 @@
 			{scenesWidth}
 			{scenes}
 			{xScale}
-			episodeData={currentEpisodeData}
 			sonificationCharactersData={currentEpisodeSonificationCharactersData}
 			sonificationLocationData={currentEpisodeSonificationLocationData}
 		/>

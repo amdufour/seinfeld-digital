@@ -9,16 +9,19 @@
 		getCharSoundFileName,
 		getLocationSoundFileName
 	} from '../../../data/sonificationFilesMapping';
+	import { soundIsAuth } from '../../../stores/soundAuthStore';
 
 	let {
 		labelsWidth,
 		scenesWidth,
 		scenes,
 		xScale,
-		episodeData,
 		sonificationCharactersData,
 		sonificationLocationData
 	} = $props();
+
+	let isPlaying = $state(false);
+	let playingScene = $state(0);
 
 	/**
 	 * @type {Tone.Players}
@@ -29,46 +32,68 @@
 	};
 
 	const playScene = (/** @type {number} */ sceneNum) => {
-		let chars = sonificationCharactersData.filter(
-			(/** @type {{ SceneNumber: string; }} */ d) => +d.SceneNumber === sceneNum
-		);
-		let locations = sonificationLocationData.filter(
-			(/** @type {{ SceneNumber: string; }} */ d) => +d.SceneNumber === sceneNum
-		);
+		if (isPlaying && $soundIsAuth && playingScene === sceneNum) {
+			let chars = sonificationCharactersData.filter(
+				(/** @type {{ SceneNumber: string; }} */ d) => +d.SceneNumber === sceneNum
+			);
+			let locations = sonificationLocationData.filter(
+				(/** @type {{ SceneNumber: string; }} */ d) => +d.SceneNumber === sceneNum
+			);
 
-		soundtrack.player('rythm').start();
-		chars.forEach((/** @type {{ Character: string; laughBinFull: string; }} */ charData) => {
-			const player = getCharSoundFileName(charData.Character, charData.laughBinFull);
-			if (player) {
-				soundtrack.player(player).start();
-			}
-		});
-		locations.forEach((/** @type {{ Location: string; }} */ locData) => {
-			const player = getLocationSoundFileName(locData.Location);
-			if (player) {
-				soundtrack.player(player).start();
-			}
-		});
+			// Play audio files
+			soundtrack.player('rythm').start();
+			chars.forEach((/** @type {{ Character: string; laughBinFull: string; }} */ charData) => {
+				const player = getCharSoundFileName(charData.Character, charData.laughBinFull);
+				if (player) {
+					soundtrack.player(player).start();
+				}
+			});
+			locations.forEach((/** @type {{ Location: string; }} */ locData) => {
+				const player = getLocationSoundFileName(locData.Location);
+				if (player) {
+					soundtrack.player(player).start();
+				}
+			});
 
-		setTimeout(() => {
-			if (sceneNum < scenes.length) {
-				playScene(sceneNum + 1);
-			} else {
-				soundtrack.player('end').start();
-			}
-		}, 8727.272727);
+			setTimeout(() => {
+				if (sceneNum < scenes.length) {
+					playScene(sceneNum + 1);
+				} else {
+					soundtrack.player('end').start();
+				}
+			}, 8727.272727);
+		}
 	};
 
-	const play = () => {
-		let sceneNum = 1;
+	const playFirstScene = () => {
 		soundtrack.player('start').start();
 		setTimeout(() => {
-			playScene(sceneNum);
+			playScene(1);
 		}, 500);
 	};
 
+	const play = () => {
+		isPlaying = true;
+		playingScene = 1;
+		playFirstScene();
+	};
+
 	const stop = () => {
+		isPlaying = false;
+		playingScene = 0;
 		soundtrack.stopAll();
+	};
+
+	const handleClickOnScene = (/** @type {number} */ sceneNum) => {
+		isPlaying = true;
+		playingScene = sceneNum;
+		soundtrack.stopAll(); // Stop currently playing scenes
+
+		if (sceneNum === 1) {
+			playFirstScene();
+		} else {
+			playScene(sceneNum);
+		}
 	};
 
 	onMount(() => {
@@ -78,6 +103,6 @@
 </script>
 
 <div class="h-16" style="margin-left: {labelsWidth}px;">
-	<SonificationTrack {scenesWidth} {scenes} {xScale} />
-	<SonificationControls {scenesWidth} {play} {stop} />
+	<SonificationTrack {scenesWidth} {scenes} {xScale} {handleClickOnScene} />
+	<SonificationControls {scenesWidth} {play} {stop} {isPlaying} />
 </div>
