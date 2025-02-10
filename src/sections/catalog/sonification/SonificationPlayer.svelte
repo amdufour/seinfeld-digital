@@ -17,11 +17,11 @@
 		scenes,
 		xScale,
 		sonificationCharactersData,
-		sonificationLocationData
+		sonificationLocationData,
+		isPlaying,
+		playingScene,
+		updatePlayingData
 	} = $props();
-
-	let isPlaying = $state(false);
-	let playingScene = $state(0);
 
 	/**
 	 * @type {Tone.Players}
@@ -61,11 +61,11 @@
 
 			playSceneTimeout = setTimeout(() => {
 				if (sceneNum < scenes.length) {
-					playingScene = sceneNum + 1;
+					updatePlayingData(true, sceneNum + 1);
 					playScene(sceneNum + 1);
 				} else {
+					updatePlayingData(false, 0);
 					soundtrack.player('end').start();
-					playingScene = 0;
 				}
 			}, 8727.272727);
 		}
@@ -79,35 +79,32 @@
 	};
 
 	const play = () => {
-		isPlaying = true;
-		playingScene = 1;
+		updatePlayingData(true, 1);
 		playFirstScene();
 	};
 
 	const playNext = () => {
-		playingScene += 1;
+		updatePlayingData(true, playingScene + 1);
 		clearTimeout(playSceneTimeout);
 		soundtrack.stopAll(); // Stop currently playing scenes
 		playScene(playingScene);
 	};
 
 	const playPrev = () => {
-		playingScene -= 1;
+		updatePlayingData(true, playingScene - 1);
 		clearTimeout(playSceneTimeout);
 		soundtrack.stopAll(); // Stop currently playing scenes
 		playScene(playingScene);
 	};
 
 	const stop = () => {
-		isPlaying = false;
-		playingScene = 0;
+		updatePlayingData(false, 0);
 		clearTimeout(playSceneTimeout);
 		soundtrack.stopAll();
 	};
 
 	const handleClickOnScene = (/** @type {number} */ sceneNum) => {
-		isPlaying = true;
-		playingScene = sceneNum;
+		updatePlayingData(true, sceneNum);
 		clearTimeout(playSceneTimeout);
 		soundtrack.stopAll(); // Stop currently playing scenes
 

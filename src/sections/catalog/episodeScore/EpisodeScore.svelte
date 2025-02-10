@@ -3,7 +3,18 @@
 	import Timeline from './Timeline.svelte';
 	import Locations from './locations/Locations.svelte';
 
-	let { width, statsWidth, labelsWidth, scenes, xScale, episodeData } = $props();
+	let {
+		width,
+		statsWidth,
+		labelsWidth,
+		scenes,
+		xScale,
+		episodeData,
+		isPlaying,
+		playingScene,
+		sonificationCharactersData,
+		sonificationLocationData
+	} = $props();
 
 	let episodeDuration = $derived(+episodeData[episodeData.length - 1].eventTimeSeconds);
 
@@ -42,6 +53,9 @@
 		{isHover}
 		{hoveredPosition}
 		{hoveredTime}
+		{isPlaying}
+		{playingScene}
+		{sonificationCharactersData}
 	/>
 	<Timeline {labelsWidth} {xScale} {episodeDuration} {isHover} {hoveredTime} {hoveredPosition} />
 	<Locations

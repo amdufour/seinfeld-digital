@@ -3,7 +3,12 @@
 
 	import { getCharacterImagePath } from '../../../../utils/getCharacterImagePath';
 
-	let { labelsWidth, characters, yScale, isHover, hoveredCharacters } = $props();
+	let { labelsWidth, characters, yScale, isHover, hoveredCharacters, isPlaying } = $props();
+
+	const isHighlight = $derived.by(() => {
+		return !isPlaying && !isHover ? false : true;
+	});
+	$inspect(isPlaying, isHover, isHighlight, hoveredCharacters);
 </script>
 
 <ul class="relative shrink-0 pt-8" style="width: {labelsWidth}px;">
@@ -12,7 +17,8 @@
 			class="absolute flex w-full justify-end"
 			style="top: {yScale(char.id) +
 				yScale.bandwidth() / 2 -
-				16}px; right: 16px; opacity: {!isHover || (isHover && hoveredCharacters.includes(char.id))
+				16}px; right: 16px; opacity: {!isHighlight ||
+			(isHighlight && hoveredCharacters.includes(char.id))
 				? 1
 				: 0.2}"
 		>

@@ -3,6 +3,7 @@
 
 	import { scaleBand } from 'd3-scale';
 	import { characters } from '../../../../data/characters';
+	import { getId } from '../../../../utils/sonificationToIds';
 	import CharactersList from './CharactersList.svelte';
 	import Scenes from '../Scenes.svelte';
 	import PresenceOnScreen from './PresenceOnScreen.svelte';
@@ -19,7 +20,10 @@
 		episodeDuration,
 		isHover,
 		hoveredPosition,
-		hoveredTime
+		hoveredTime,
+		isPlaying,
+		playingScene,
+		sonificationCharactersData
 	} = $props();
 
 	const charactersOnScreen = $derived.by(() => {
@@ -59,20 +63,31 @@
 	});
 
 	const hoveredCharacters = $derived.by(() => {
-		const time = Math.floor(hoveredTime / 5) * 5;
 		const hoveredCharactersArray = [];
 
-		charactersOnScreen.forEach((char) => {
-			if (char.timesOnScreen && char.timesOnScreen.includes(time)) {
-				hoveredCharactersArray.push(char.id);
-			}
-		});
+		if (isPlaying) {
+			const playingChars = sonificationCharactersData
+				.filter((d) => +d.SceneNumber === playingScene)
+				.map((d) => d.Character);
+			playingChars.forEach((char) => {
+				const id = getId(char);
+				hoveredCharactersArray.push(id);
+			});
+		} else {
+			const time = Math.floor(hoveredTime / 5) * 5;
 
-		const situationLaughs = charactersCausedLaughs.find(
-			(char) => char.id === 'The situation'
-		)?.causedLaughs;
-		if (situationLaughs && situationLaughs.includes(time)) {
-			hoveredCharactersArray.push('The situation');
+			charactersOnScreen.forEach((char) => {
+				if (char.timesOnScreen && char.timesOnScreen.includes(time)) {
+					hoveredCharactersArray.push(char.id);
+				}
+			});
+
+			const situationLaughs = charactersCausedLaughs.find(
+				(char) => char.id === 'The situation'
+			)?.causedLaughs;
+			if (situationLaughs && situationLaughs.includes(time)) {
+				hoveredCharactersArray.push('The situation');
+			}
 		}
 
 		return hoveredCharactersArray;
@@ -94,6 +109,7 @@
 		characters={charactersOnScreen}
 		{yScale}
 		{isHover}
+		{isPlaying}
 		{hoveredCharacters}
 	/>
 	<svg class="flex-shrink-0" {width} height={vizHeight}>

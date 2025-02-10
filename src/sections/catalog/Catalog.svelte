@@ -16,6 +16,13 @@
 	let vizWidth = $derived(innerWidth - statsWidth - 60 - 25);
 	let scenesWidth = $derived(vizWidth - labelsWidth);
 
+	let isPlaying = $state(false);
+	let playingScene = $state(0);
+	const updatePlayingData = (/** @type {boolean} */ playing, /** @type {number} */ sceneNum) => {
+		isPlaying = playing;
+		playingScene = sceneNum;
+	};
+
 	const randomEpisode = getRandomEpisode();
 	let currentSeason = $state(randomEpisode?.newSeason);
 	let currentEpisode = $state(randomEpisode?.newEpisode);
@@ -93,6 +100,9 @@
 			{xScale}
 			sonificationCharactersData={currentEpisodeSonificationCharactersData}
 			sonificationLocationData={currentEpisodeSonificationLocationData}
+			{isPlaying}
+			{playingScene}
+			{updatePlayingData}
 		/>
 
 		<!-- Episode data -->
@@ -103,6 +113,10 @@
 			{statsWidth}
 			{scenes}
 			{xScale}
+			sonificationCharactersData={currentEpisodeSonificationCharactersData}
+			sonificationLocationData={currentEpisodeSonificationLocationData}
+			{isPlaying}
+			{playingScene}
 		/>
 	</div>
 </div>
