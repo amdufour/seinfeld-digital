@@ -5,7 +5,8 @@
 	import ForwardIcon from '../../../icons/ForwardIcon.svelte';
 	import { soundIsAuth } from '../../../stores/soundAuthStore';
 
-	let { scenesWidth, isPlaying, playingScene, numScenes, play, stop } = $props();
+	let { scenesWidth, isPlaying, playingScene, numScenes, play, playNext, playPrev, stop } =
+		$props();
 </script>
 
 <div class="relative" style="width: {scenesWidth}px; margin-top: -4px;">
@@ -16,7 +17,10 @@
 		Listen to this episode's data
 	</div>
 	<div class="mr-8 mt-2 flex justify-center">
-		<button class="mx-1 h-6 w-6" disabled={!isPlaying || !$soundIsAuth || playingScene <= 1}
+		<button
+			class="mx-1 h-6 w-6"
+			onclick={playPrev}
+			disabled={!isPlaying || !$soundIsAuth || playingScene <= 1}
 			><BackwardIcon
 				color={isPlaying && $soundIsAuth && playingScene > 1 ? '#E71D80' : '#BEBABC'}
 			/></button
@@ -28,7 +32,10 @@
 				><PlayIcon color={$soundIsAuth ? '#E71D80' : '#BEBABC'} /></button
 			>
 		{/if}
-		<button class="mx-1 h-6 w-6" disabled={!isPlaying || !$soundIsAuth || playingScene == numScenes}
+		<button
+			class="mx-1 h-6 w-6"
+			onclick={playNext}
+			disabled={!isPlaying || !$soundIsAuth || playingScene == numScenes}
 			><ForwardIcon
 				color={isPlaying && $soundIsAuth && playingScene < numScenes ? '#E71D80' : '#BEBABC'}
 			/></button

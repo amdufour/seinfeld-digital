@@ -84,6 +84,20 @@
 		playFirstScene();
 	};
 
+	const playNext = () => {
+		playingScene += 1;
+		clearTimeout(playSceneTimeout);
+		soundtrack.stopAll(); // Stop currently playing scenes
+		playScene(playingScene);
+	};
+
+	const playPrev = () => {
+		playingScene -= 1;
+		clearTimeout(playSceneTimeout);
+		soundtrack.stopAll(); // Stop currently playing scenes
+		playScene(playingScene);
+	};
+
 	const stop = () => {
 		isPlaying = false;
 		playingScene = 0;
@@ -118,6 +132,8 @@
 		{playingScene}
 		numScenes={scenes.length}
 		{play}
+		{playNext}
+		{playPrev}
 		{stop}
 	/>
 </div>
