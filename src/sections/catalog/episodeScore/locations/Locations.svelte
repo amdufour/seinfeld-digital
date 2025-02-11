@@ -3,6 +3,7 @@
 
 	import { scaleBand } from 'd3-scale';
 	import { locations } from '../../../../data/locations';
+	import { getLocationId } from '../../../../utils/sonificationToIds';
 	import Scenes from '../Scenes.svelte';
 	import LocationsList from './LocationsList.svelte';
 	import LocationsOnScreen from './LocationsOnScreen.svelte';
@@ -18,7 +19,10 @@
 		episodeDuration,
 		isHover,
 		hoveredPosition,
-		hoveredTime
+		hoveredTime,
+		isPlaying,
+		playingScene,
+		sonificationLocationData
 	} = $props();
 
 	const locationsData = $derived(episodeData.filter((e) => e.eventCategory === 'LOCATION'));
@@ -36,14 +40,24 @@
 	});
 
 	const hoveredLocations = $derived.by(() => {
-		const time = Math.floor(hoveredTime / 5) * 5;
-		const hoveredLocationsArray = [];
+		let hoveredLocationsArray = [];
 
-		locationsOnScreen.forEach((location) => {
-			if (location.timesOnScreen && location.timesOnScreen.includes(time)) {
-				hoveredLocationsArray.push(location.id);
-			}
-		});
+		if (isPlaying) {
+			const playingLocations = sonificationLocationData
+				.filter((d) => +d.SceneNumber === playingScene)
+				.map((d) => d.Location);
+			playingLocations.forEach((loc) => {
+				const ids = getLocationId(loc);
+				hoveredLocationsArray = hoveredLocationsArray.concat(ids);
+			});
+		} else {
+			const time = Math.floor(hoveredTime / 5) * 5;
+			locationsOnScreen.forEach((location) => {
+				if (location.timesOnScreen && location.timesOnScreen.includes(time)) {
+					hoveredLocationsArray.push(location.id);
+				}
+			});
+		}
 
 		return hoveredLocationsArray;
 	});
@@ -65,10 +79,29 @@
 		{yScale}
 		{isHover}
 		{hoveredLocations}
+		{isPlaying}
 	/>
 	<svg class="flex-shrink-0" {width} height={vizHeight}>
-		<Scenes {scenes} {xScale} height={vizHeight} isNumbersUp={false} {isHover} {hoveredTime} />
-		<LocationsOnScreen locations={locationsOnScreen} {xScale} {yScale} {isHover} {hoveredTime} />
+		<Scenes
+			{scenes}
+			{xScale}
+			height={vizHeight}
+			isNumbersUp={false}
+			{isHover}
+			{hoveredTime}
+			{isPlaying}
+			{playingScene}
+		/>
+		<LocationsOnScreen
+			locations={locationsOnScreen}
+			{xScale}
+			{yScale}
+			{isHover}
+			{hoveredTime}
+			{scenes}
+			{isPlaying}
+			{playingScene}
+		/>
 		{#if isHover}
 			<line x1={hoveredPosition} y1={0} x2={hoveredPosition} y2={vizHeight} stroke="#12020A" />
 		{/if}

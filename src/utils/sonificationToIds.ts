@@ -1,4 +1,4 @@
-export const getId = (sonificationId: string) => {
+export const getCharacterId = (sonificationId: string) => {
   switch (sonificationId) {
     case 'Jerry':
       return ['JERRY'];
@@ -20,3 +20,24 @@ export const getId = (sonificationId: string) => {
       return 'Other';
   }
 };
+
+export const getLocationId = (sonificationId: string) => {
+  switch (sonificationId) {
+    case 'CharacterHome':
+      return ["Jerry's home", "George's home", "Elaine's home", "Kramer's home"];
+    case 'Diner':
+      return ['Diner'];
+    case 'Leisure':
+      return ["Place of leisure"];
+    case 'OtherFamilyHome':
+      return ["Other family home"];
+    case 'Outside':
+      return ["Outside"];
+    case 'Transport':
+      return ["Transport"];
+    case 'Workplace':
+      return ["Workplace"];
+    default:
+      return ['Other location'];
+  }
+}

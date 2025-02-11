@@ -3,7 +3,7 @@
 
 	import { scaleBand } from 'd3-scale';
 	import { characters } from '../../../../data/characters';
-	import { getId } from '../../../../utils/sonificationToIds';
+	import { getCharacterId } from '../../../../utils/sonificationToIds';
 	import CharactersList from './CharactersList.svelte';
 	import Scenes from '../Scenes.svelte';
 	import PresenceOnScreen from './PresenceOnScreen.svelte';
@@ -70,7 +70,7 @@
 				.filter((d) => +d.SceneNumber === playingScene)
 				.map((d) => d.Character);
 			playingChars.forEach((char) => {
-				const ids = getId(char);
+				const ids = getCharacterId(char);
 				hoveredCharactersArray = hoveredCharactersArray.concat(ids);
 			});
 		} else {

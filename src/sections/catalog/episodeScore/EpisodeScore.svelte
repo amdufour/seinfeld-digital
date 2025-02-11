@@ -69,5 +69,8 @@
 		{isHover}
 		{hoveredPosition}
 		{hoveredTime}
+		{isPlaying}
+		{playingScene}
+		{sonificationLocationData}
 	/>
 </div>
