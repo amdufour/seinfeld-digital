@@ -113,7 +113,15 @@
 		{hoveredCharacters}
 	/>
 	<svg class="flex-shrink-0" {width} height={vizHeight}>
-		<Scenes {scenes} {xScale} height={vizHeight} {isHover} {hoveredTime} />
+		<Scenes
+			{scenes}
+			{xScale}
+			height={vizHeight}
+			{isHover}
+			{hoveredTime}
+			{isPlaying}
+			{playingScene}
+		/>
 		<PresenceOnScreen
 			characters={charactersOnScreen}
 			{xScale}
@@ -124,7 +132,16 @@
 			{isPlaying}
 			{playingScene}
 		/>
-		<CausedLaughs characters={charactersCausedLaughs} {xScale} {yScale} {isHover} {hoveredTime} />
+		<CausedLaughs
+			characters={charactersCausedLaughs}
+			{xScale}
+			{yScale}
+			{isHover}
+			{hoveredTime}
+			{isPlaying}
+			{playingScene}
+			{scenes}
+		/>
 		{#if isHover}
 			<line x1={hoveredPosition} y1={0} x2={hoveredPosition} y2={vizHeight} stroke="#12020A" />
 		{/if}

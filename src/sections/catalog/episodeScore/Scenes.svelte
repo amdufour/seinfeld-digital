@@ -1,5 +1,14 @@
 <script>
-	let { scenes, xScale, height, isNumbersUp = true, isHover, hoveredTime } = $props();
+	let {
+		scenes,
+		xScale,
+		height,
+		isNumbersUp = true,
+		isHover,
+		hoveredTime,
+		isPlaying,
+		playingScene
+	} = $props();
 </script>
 
 <g>
@@ -9,12 +18,14 @@
 			y={0}
 			width={xScale(scene.endTime) - xScale(scene.startTime)}
 			{height}
-			fill={(j % 2 && !isHover) ||
-			(isHover && hoveredTime >= scene.startTime && hoveredTime <= scene.endTime)
+			fill={(j % 2 && !isHover && !isPlaying) ||
+			(isHover && hoveredTime >= scene.startTime && hoveredTime <= scene.endTime) ||
+			(isPlaying && playingScene === scene.sceneNum)
 				? '#DDDBDC'
 				: '#EEECED'}
-			fill-opacity={(isHover && hoveredTime >= scene.startTime && hoveredTime <= scene.endTime) ||
-			!isHover
+			fill-opacity={(!isHover && !isPlaying) ||
+			(isHover && hoveredTime >= scene.startTime && hoveredTime <= scene.endTime) ||
+			(isPlaying && playingScene === scene.sceneNum)
 				? 0.7
 				: 0.2}
 		/>
