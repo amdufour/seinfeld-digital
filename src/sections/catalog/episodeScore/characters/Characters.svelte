@@ -63,15 +63,15 @@
 	});
 
 	const hoveredCharacters = $derived.by(() => {
-		const hoveredCharactersArray = [];
+		let hoveredCharactersArray = [];
 
 		if (isPlaying) {
 			const playingChars = sonificationCharactersData
 				.filter((d) => +d.SceneNumber === playingScene)
 				.map((d) => d.Character);
 			playingChars.forEach((char) => {
-				const id = getId(char);
-				hoveredCharactersArray.push(id);
+				const ids = getId(char);
+				hoveredCharactersArray = hoveredCharactersArray.concat(ids);
 			});
 		} else {
 			const time = Math.floor(hoveredTime / 5) * 5;
@@ -114,7 +114,16 @@
 	/>
 	<svg class="flex-shrink-0" {width} height={vizHeight}>
 		<Scenes {scenes} {xScale} height={vizHeight} {isHover} {hoveredTime} />
-		<PresenceOnScreen characters={charactersOnScreen} {xScale} {yScale} {isHover} {hoveredTime} />
+		<PresenceOnScreen
+			characters={charactersOnScreen}
+			{xScale}
+			{yScale}
+			{scenes}
+			{isHover}
+			{hoveredTime}
+			{isPlaying}
+			{playingScene}
+		/>
 		<CausedLaughs characters={charactersCausedLaughs} {xScale} {yScale} {isHover} {hoveredTime} />
 		{#if isHover}
 			<line x1={hoveredPosition} y1={0} x2={hoveredPosition} y2={vizHeight} stroke="#12020A" />

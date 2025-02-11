@@ -8,7 +8,6 @@
 	const isHighlight = $derived.by(() => {
 		return !isPlaying && !isHover ? false : true;
 	});
-	$inspect(isPlaying, isHover, isHighlight, hoveredCharacters);
 </script>
 
 <ul class="relative shrink-0 pt-8" style="width: {labelsWidth}px;">

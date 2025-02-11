@@ -1,34 +1,21 @@
 export const getId = (sonificationId: string) => {
   switch (sonificationId) {
     case 'Jerry':
-      return 'JERRY';
-      break;
+      return ['JERRY'];
     case 'George':
-      return 'GEORGE';
-      break;
+      return ['GEORGE'];
     case 'Elaine':
-      return 'ELAINE';
-      break;
+      return ['ELAINE'];
     case 'Kramer':
-      return 'KRAMER';
-      break;
+      return ['KRAMER'];
     case 'FNC':
-      return 'Friend/Acquaintance';
-      return 'Neighbour';
-      return 'Work colleague';
-      break;
+      return ['Friend/Acquaintance', 'Neighbour', 'Work colleague'];
     case 'LoveInterest':
-      return 'Love interest';
-      break;
+      return ['Love interest'];
     case 'Families':
-      return "Jerry's family";
-      return "George's family";
-      return "Elaine's family";
-      return "Kramer's family";
-      break;
+      return ["Jerry's family", "George's family", "Elaine's family", "Kramer's family"];
     case 'Situation':
-      return 'The situation';
-      break;
+      return ['The situation'];
     default:
       return 'Other';
   }
