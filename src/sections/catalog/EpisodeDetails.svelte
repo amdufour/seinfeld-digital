@@ -53,17 +53,21 @@
 						? 'flex'
 						: 'block'};"
 				>
-					<div class="mid mr-4 mt-2" style="max-width: 700px">{episodeInfo.description}</div>
+					<div class="description mid mr-4 mt-2">{episodeInfo.description}</div>
 					<div class="mid mt-2 shrink-0">
 						<div class="mb-2 flex items-center">
 							<StarIcon />
-							<span class="mx-1 font-semibold">IMDb rating:</span>
-							<span>{episodeInfo.IMDB_rating.replace(',', '.')}/10</span>
+							<span class="relative" style="top: 2px;">
+								<span class="mx-1 font-semibold">IMDb rating:</span>
+								<span>{episodeInfo.IMDB_rating.replace(',', '.')}/10</span>
+							</span>
 						</div>
 						<div class="flex items-center">
 							<TvIcon />
-							<span class="mx-1 font-semibold">First aired:</span>
-							<span>{episodeInfo.date_aired}</span>
+							<span class="relative" style="top: 2px;">
+								<span class="mx-1 font-semibold">First aired:</span>
+								<span>{episodeInfo.date_aired}</span>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -73,4 +77,9 @@
 </div>
 
 <style>
+	.description {
+		max-width: 700px;
+		max-height: 70px;
+		overflow: hidden;
+	}
 </style>

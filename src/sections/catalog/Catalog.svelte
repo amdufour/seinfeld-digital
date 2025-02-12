@@ -95,7 +95,7 @@
 		/>
 
 		<!-- Sonification player -->
-		<!-- <SonificationPlayer
+		<SonificationPlayer
 			{labelsWidth}
 			{scenesWidth}
 			{scenes}
@@ -105,7 +105,7 @@
 			{isPlaying}
 			{playingScene}
 			{updatePlayingData}
-		/> -->
+		/>
 
 		<!-- Episode data -->
 		<!-- <EpisodeScore

@@ -3,12 +3,11 @@
 
 	let { scenesWidth, scenes, xScale, playingScene, handleClickOnScene } = $props();
 
-	const height = 20;
+	const height = 24;
 </script>
 
 <div class="relative">
 	<svg class="mt-6" width={scenesWidth} {height}>
-		<line x1={0} y1="48" x2={scenesWidth} y2="48" stroke="#BEBABC" />
 		<g transform="translate(0, {height / 2})">
 			{#each scenes as scene, i}
 				<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -20,7 +19,7 @@
 					y1={0}
 					x2={xScale(scene.endTime)}
 					y2={0}
-					stroke-width={6}
+					stroke-width={10}
 					role="button"
 					tabindex={0}
 					onclick={() => handleClickOnScene(i + 1)}
@@ -32,7 +31,8 @@
 						x2={xScale(scene.startTime)}
 						y2={10}
 						stroke="#BEBABC"
-						stroke-width={2}
+						stroke-width={3}
+						stroke-linecap="round"
 					/>
 				{/if}
 			{/each}
