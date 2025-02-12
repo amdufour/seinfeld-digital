@@ -29,7 +29,7 @@
   }
   h2 {
     margin: 0;
-    font-size: 5.625rem;
+    font-size: 3rem;
     font-weight: 700;
   }
   h3 {
@@ -49,6 +49,10 @@
   }
   p {
     margin: 1.5rem 0;
+  }
+  .mid {
+    font-size: 1.125rem;
+    line-height: 1.2;
   }
   .small {
     font-size: 0.9375rem;
@@ -120,6 +124,9 @@
     h1 {
       font-size: 5rem;
     }
+    h1 {
+      font-size: 4rem;
+    }
     h3 {
       font-size: 3.5rem;
     }
@@ -130,6 +137,9 @@
     }
     h1 {
       font-size: 6.25rem;
+    }
+    h2 {
+      font-size: 4rem;
     }
     h3 {
       font-size: 4.0625rem;

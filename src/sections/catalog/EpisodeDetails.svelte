@@ -1,6 +1,8 @@
 <script>
 	import StarIcon from '../../icons/StarIcon.svelte';
 	import TvIcon from '../../icons/TvIcon.svelte';
+	import MoreIcon from '../../icons/More.svelte';
+	import LessIcon from '../../icons/Less.svelte';
 	import EpisodeControls from './EpisodeControls.svelte';
 
 	let {
@@ -9,45 +11,66 @@
 		currentEpisode = $bindable(),
 		episodeInfo
 	} = $props();
+
+	let innerWidth = $state(1200);
+	let showMore = $state(false);
+
+	const toggleShowMore = () => {
+		showMore = !showMore;
+	};
 </script>
 
-<div class="flex items-end pr-12">
-	<img class="mr-4" src={episodeInfo.img_src} alt="Episode cover" />
-	<div>
-		<div>
-			<h2 class="mb-3 mr-4 mt-2">{episodeInfo.title}</h2>
-			<div class="small flex leading-normal">
-				<div class="description mr-4">{episodeInfo.description}</div>
-				<div class="stats">
-					<div class="mb-1 flex items-center">
-						<StarIcon />
-						<span class="mx-1 font-semibold">IMDb rating:</span>
-						<span>{episodeInfo.IMDB_rating.replace(',', '.')}/10</span>
-					</div>
-					<div class="flex items-center">
-						<TvIcon />
-						<span class="mx-1 font-semibold">First aired:</span>
-						<span>{episodeInfo.date_aired}</span>
+<svelte:window bind:innerWidth />
+
+<div style="display: {innerWidth >= 1280 ? 'flex' : 'block'}">
+	{#if innerWidth >= 1280}
+		<div class="shrink-0" style="width: 450px;">
+			<img src={episodeInfo.img_src} alt="Episode cover" />
+		</div>
+	{/if}
+	<div style="margin-top: {innerWidth > 540 ? 0 : 56}px;">
+		<EpisodeControls {episodes} bind:currentSeason bind:currentEpisode />
+		<div class="mx-4">
+			<div class="mt-4 flex" style="margin-left: {innerWidth >= 1280 ? 16 : 0}px;">
+				<h2>{episodeInfo.title}</h2>
+				{#if innerWidth < 1280}
+					<button class="ml-4" onclick={toggleShowMore}>
+						{#if showMore}
+							<LessIcon />
+						{:else}
+							<MoreIcon />
+						{/if}
+					</button>
+				{/if}
+			</div>
+			{#if (showMore && innerWidth < 1280) || innerWidth >= 1280}
+				<!-- Episode details -->
+				{#if innerWidth < 1280}
+					<img class="mt-2" src={episodeInfo.img_src} alt="Episode cover" />
+				{/if}
+				<div
+					style="margin-left: {innerWidth >= 1280 ? 16 : 0}px; display: {innerWidth >= 1280
+						? 'flex'
+						: 'block'};"
+				>
+					<div class="mid mr-4 mt-2" style="max-width: 700px">{episodeInfo.description}</div>
+					<div class="mid mt-2 shrink-0">
+						<div class="mb-2 flex items-center">
+							<StarIcon />
+							<span class="mx-1 font-semibold">IMDb rating:</span>
+							<span>{episodeInfo.IMDB_rating.replace(',', '.')}/10</span>
+						</div>
+						<div class="flex items-center">
+							<TvIcon />
+							<span class="mx-1 font-semibold">First aired:</span>
+							<span>{episodeInfo.date_aired}</span>
+						</div>
 					</div>
 				</div>
-			</div>
+			{/if}
 		</div>
 	</div>
-	<EpisodeControls {episodes} bind:currentSeason bind:currentEpisode />
 </div>
 
 <style>
-	img {
-		height: 220px;
-	}
-	h2 {
-		max-width: 800px;
-		font-size: 4rem;
-	}
-	.description {
-		max-width: 550px;
-	}
-	.stats {
-		width: 260px;
-	}
 </style>

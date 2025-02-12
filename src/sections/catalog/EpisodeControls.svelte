@@ -8,6 +8,8 @@
 	import Random from '../../icons/Random.svelte';
 
 	let { episodes, currentSeason = $bindable(), currentEpisode = $bindable() } = $props();
+
+	let innerWidth = $state(1200);
 	const seasonNums = seasons.map((s) => s.seasonNum);
 
 	let availableEpisodes = $derived(
@@ -66,50 +68,57 @@
 	};
 </script>
 
-<div class="flex items-center pb-3">
+<svelte:window bind:innerWidth />
+
+<div
+	class="flex flex-wrap items-center px-4 py-3"
+	style="width: {innerWidth >= 1280 ? 'calc(100vw - 425px)' : '100vw'}; background-color: #E71D80;"
+>
 	<!-- Previous episode -->
 	<button
-		class="p-2"
+		class="my-1 pr-1"
 		onclick={handleGoToPrevEpisode}
 		disabled={currentSeason === 1 && currentEpisode === 1}
+		style="opacity: {currentSeason === 1 && currentEpisode === 1 ? 0.3 : 1};"
 	>
-		<Prev color={currentSeason === 1 && currentEpisode === 1 ? '#BEBABC' : '#E71D80'} />
+		<Prev />
 	</button>
 
 	<!-- Seasons dropdown -->
-	<div class="mx-2">
+	<div class="mx-1 my-1">
 		<Dropdown options={seasonNums} bind:value={currentSeason} prefix="s" />
 	</div>
 
 	<!-- Episodes dropdown -->
-	<div class="mx-2">
+	<div class="mx-1 my-1">
 		<Dropdown options={availableEpisodes} bind:value={currentEpisode} prefix="e" />
 	</div>
 
 	<!-- Next episode -->
 	<button
-		class="p-2"
+		class="my-1 px-1"
 		onclick={handleGoToNextEpisode}
 		disabled={currentSeason === 9 && currentEpisode === 24}
+		style="opacity: {currentSeason === 9 && currentEpisode === 24 ? 0.3 : 1};"
 	>
-		<Next color={currentSeason === 9 && currentEpisode === 24 ? '#BEBABC' : '#E71D80'} />
+		<Next />
 	</button>
 
 	<!-- Random episode -->
-	<div class="flex items-center">
-		<div class="small">OR</div>
-		<button class="ml-3 flex items-center" onclick={handleGoToRandomEpisode}>
-			<div class="icon flex items-center justify-center"><Random /></div>
-			<div class="small accent ml-2 w-28 text-left leading-tight">Go to a random episode</div>
+	<div class="flex items-center" style="color: #F9F5F7; font-weight: 600;">
+		{#if innerWidth >= 1280}
+			<div class="small">OR</div>
+		{/if}
+		<button class="ml-3 flex items-center lg:ml-5" onclick={handleGoToRandomEpisode}>
+			<div class="flex items-center justify-center"><Random /></div>
+			{#if innerWidth >= 1280}
+				<div class="small ml-2 text-left leading-tight" style="width: 120px;">
+					Go to a random episode
+				</div>
+			{/if}
 		</button>
 	</div>
 </div>
 
 <style>
-	.icon {
-		width: 36px;
-		height: 36px;
-		background-color: #e71d80;
-		border-radius: 50%;
-	}
 </style>

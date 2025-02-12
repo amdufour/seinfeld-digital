@@ -10,7 +10,7 @@
 
 	let { episodesData, sonificationCharactersData, sonificationLocationData } = $props();
 
-	let innerWidth = $state(1600);
+	let innerWidth = $state(1200);
 	const statsWidth = 240;
 	const labelsWidth = 176;
 	let vizWidth = $derived(innerWidth - statsWidth - 60 - 25);
@@ -79,11 +79,13 @@
 
 <svelte:window bind:innerWidth />
 
-<div id="catalog" class="flex w-screen pb-12">
-	<div id="seasons-strip">
-		<SeasonsStrip />
-	</div>
-	<div style="width: calc(100vw - 25px);">
+<div id="catalog" class="flex h-screen w-screen pb-12">
+	{#if innerWidth >= 1280}
+		<div id="seasons-strip">
+			<SeasonsStrip />
+		</div>
+	{/if}
+	<div style="width: calc(100vw - {innerWidth >= 1280 ? 25 : 0}px);">
 		<!-- Episode details and controls -->
 		<EpisodeDetails
 			episodes={episodesInfo}
@@ -93,7 +95,7 @@
 		/>
 
 		<!-- Sonification player -->
-		<SonificationPlayer
+		<!-- <SonificationPlayer
 			{labelsWidth}
 			{scenesWidth}
 			{scenes}
@@ -103,10 +105,10 @@
 			{isPlaying}
 			{playingScene}
 			{updatePlayingData}
-		/>
+		/> -->
 
 		<!-- Episode data -->
-		<EpisodeScore
+		<!-- <EpisodeScore
 			episodeData={currentEpisodeData}
 			width={scenesWidth}
 			{labelsWidth}
@@ -117,6 +119,6 @@
 			sonificationLocationData={currentEpisodeSonificationLocationData}
 			{isPlaying}
 			{playingScene}
-		/>
+		/> -->
 	</div>
 </div>
