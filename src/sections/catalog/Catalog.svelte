@@ -11,9 +11,10 @@
 	let { episodesData, sonificationCharactersData, sonificationLocationData } = $props();
 
 	let innerWidth = $state(1200);
-	const statsWidth = 240;
-	const labelsWidth = 176;
-	let vizWidth = $derived(innerWidth - statsWidth - 60 - 25);
+	const statsWidth = $derived(innerWidth >= 1280 ? 240 : 0);
+	const labelsWidth = $derived(innerWidth >= 1280 ? 176 : 60);
+	const extraPadding = $derived(innerWidth >= 1280 ? 60 : 10);
+	let vizWidth = $derived(innerWidth - statsWidth - 25 - extraPadding);
 	let scenesWidth = $derived(vizWidth - labelsWidth);
 
 	let isPlaying = $state(false);
@@ -108,7 +109,7 @@
 		/>
 
 		<!-- Episode data -->
-		<!-- <EpisodeScore
+		<EpisodeScore
 			episodeData={currentEpisodeData}
 			width={scenesWidth}
 			{labelsWidth}
@@ -119,6 +120,6 @@
 			sonificationLocationData={currentEpisodeSonificationLocationData}
 			{isPlaying}
 			{playingScene}
-		/> -->
+		/>
 	</div>
 </div>

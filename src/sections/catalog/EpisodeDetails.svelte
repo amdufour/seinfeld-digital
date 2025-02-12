@@ -46,12 +46,14 @@
 			{#if (showMore && innerWidth < 1280) || innerWidth >= 1280}
 				<!-- Episode details -->
 				{#if innerWidth < 1280}
-					<img class="mt-2" src={episodeInfo.img_src} alt="Episode cover" />
+					<div style="width: 450px;">
+						<img class="mt-2" src={episodeInfo.img_src} alt="Episode cover" />
+					</div>
 				{/if}
 				<div
-					style="margin-left: {innerWidth >= 1280 ? 16 : 0}px; display: {innerWidth >= 1280
-						? 'flex'
-						: 'block'};"
+					style="margin-left: {innerWidth >= 1280 ? 16 : 0}px; margin-bottom: {innerWidth >= 1280
+						? 0
+						: 42}px; display: {innerWidth >= 1280 ? 'flex' : 'block'};"
 				>
 					<div class="description mid mr-4 mt-2">{episodeInfo.description}</div>
 					<div class="mid mt-2 shrink-0">

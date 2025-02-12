@@ -121,7 +121,7 @@
 	});
 </script>
 
-<div class="h-16" style="margin-left: {labelsWidth}px;">
+<div class="mb-4" style="margin-left: {labelsWidth}px;">
 	<SonificationTrack {scenesWidth} {scenes} {xScale} {playingScene} {handleClickOnScene} />
 	<SonificationControls
 		{scenesWidth}

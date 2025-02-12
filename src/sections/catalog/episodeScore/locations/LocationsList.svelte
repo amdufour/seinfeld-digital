@@ -2,7 +2,11 @@
 	import { getLocationIconPath } from '../../../../utils/getLocationIconPath';
 
 	let { labelsWidth, locations, yScale, isHover, hoveredLocations, isPlaying } = $props();
+
+	let innerWidth = $state(1200);
 </script>
+
+<svelte:window bind:innerWidth />
 
 <ul class="relative shrink-0 pt-4" style="width: {labelsWidth}px;">
 	{#each locations as location}
@@ -15,7 +19,9 @@
 				? 1
 				: 0.2}"
 		>
-			<div class="small flex items-center justify-end pr-2">{location.label}</div>
+			{#if innerWidth >= 1280}
+				<div class="small flex items-center justify-end pr-2">{location.label}</div>
+			{/if}
 			<div
 				class="image h-8 w-8 rounded-full"
 				style="background-image: url({getLocationIconPath(location.id, true)});"

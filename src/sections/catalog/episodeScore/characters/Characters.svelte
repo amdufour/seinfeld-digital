@@ -26,6 +26,8 @@
 		sonificationCharactersData
 	} = $props();
 
+	let innerWidth = $state(1200);
+
 	const charactersOnScreen = $derived.by(() => {
 		const data = episodeData.filter((e) => e.eventCategory === 'CHARACTERS');
 		const charactersArray = characters.map((c) => {
@@ -103,6 +105,8 @@
 	);
 </script>
 
+<svelte:window bind:innerWidth />
+
 <div class="flex">
 	<CharactersList
 		{labelsWidth}
@@ -146,12 +150,14 @@
 			<line x1={hoveredPosition} y1={0} x2={hoveredPosition} y2={vizHeight} stroke="#12020A" />
 		{/if}
 	</svg>
-	<CharactersStats
-		width={statsWidth}
-		height={vizHeight}
-		{yScale}
-		{charactersOnScreen}
-		{charactersCausedLaughs}
-		{episodeDuration}
-	/>
+	{#if innerWidth >= 1280}
+		<CharactersStats
+			width={statsWidth}
+			height={vizHeight}
+			{yScale}
+			{charactersOnScreen}
+			{charactersCausedLaughs}
+			{episodeDuration}
+		/>
+	{/if}
 </div>
