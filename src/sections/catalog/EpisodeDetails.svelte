@@ -43,7 +43,7 @@
 					{episodeInfo.title}
 				</h2>
 				{#if innerWidth < 1280}
-					<button class="ml-4" onclick={toggleShowMore}>
+					<button class="ml-4 mt-9" onclick={toggleShowMore}>
 						{#if showMore}
 							<LessIcon />
 						{:else}
@@ -64,7 +64,12 @@
 						? 0
 						: 42}px; display: {innerWidth >= 1280 ? 'flex' : 'block'};"
 				>
-					<div class="description mid mr-4 mt-2">{episodeInfo.description}</div>
+					<div
+						class="description mid mr-4 mt-2"
+						style="width: {innerWidth >= 1280 ? innerWidth - 25 - 450 - 225 - 100 : 450}px;"
+					>
+						{episodeInfo.description}
+					</div>
 					<div class="mid mt-2 shrink-0">
 						<div class="mb-2 flex items-center">
 							<StarIcon />
@@ -89,9 +94,11 @@
 
 <style>
 	.description {
-		max-width: 700px;
 		max-height: 70px;
 		overflow: hidden;
+	}
+	h2 {
+		line-height: 1.4;
 	}
 	@media (max-width: 540px) {
 		h2 {
