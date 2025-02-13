@@ -28,7 +28,7 @@ jobs:
 
       - name: build
         env:
- BASE_PATH: '/${{ github.amdufour.seinfeld-digital }}'
+ BASE_PATH: '/${{ seinfeld-digital }}'
         run: |
  npm run build
 
