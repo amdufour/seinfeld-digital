@@ -14,15 +14,15 @@
 			{#each locationsOnScreen as location}
 				<rect
 					x={0}
-					y={yScale(location.id) + yScale.bandwidth() / 2 - barHeight / 2}
-					width={columnWidth}
+					y={Math.max(yScale(location.id) + yScale.bandwidth() / 2 - barHeight / 2, 0)}
+					width={columnWidth > 0 ? columnWidth : 0}
 					height={barHeight}
 					fill="#EEECED"
 				/>
 				<rect
 					x={0}
-					y={yScale(location.id) + yScale.bandwidth() / 2 - barHeight / 2}
-					width={xScale((location.timesOnScreen.length * 5) / episodeDuration)}
+					y={Math.max(yScale(location.id) + yScale.bandwidth() / 2 - barHeight / 2, 0)}
+					width={Math.max(xScale((location.timesOnScreen.length * 5) / episodeDuration), 0)}
 					height={barHeight}
 					fill="#12020A"
 				/>

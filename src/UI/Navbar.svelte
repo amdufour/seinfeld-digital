@@ -1,23 +1,33 @@
 <script>
 	import { soundIsAuth } from '../stores/soundAuthStore';
+	import { catalogIsInView } from '../stores/catalogIsInView';
 	import AudioOn from '../icons/AudioOn.svelte';
 	import AudioOff from '../icons/AudioOff.svelte';
 	import Burger from '../icons/Burger.svelte';
+
+	let innerWidth = $state(1200);
 
 	const toggleSound = () => {
 		$soundIsAuth = !$soundIsAuth;
 	};
 </script>
 
-<div class="fixed left-0 top-0 z-10 flex h-14 w-screen items-center">
-	<div class="container flex justify-end">
+<svelte:window bind:innerWidth />
+
+<div
+	class="fixed right-0 top-0 z-10 flex h-14 items-center"
+	style="height: {catalogIsInView && innerWidth >= 540 ? 82 : 56}px;"
+>
+	<div class="flex" style="padding-right: {innerWidth > 1600 ? (innerWidth - 1600) / 2 : 32}px;">
 		<button onclick={toggleSound}>
 			{#if $soundIsAuth}
-				<AudioOn />
+				<AudioOn color={catalogIsInView && innerWidth >= 540 ? '#F9F5F7' : '#E71D80'} />
 			{:else}
-				<AudioOff />
+				<AudioOff color={catalogIsInView && innerWidth >= 540 ? '#F9F5F7' : '#BEBABC'} />
 			{/if}
 		</button>
-		<button class="ml-4"><Burger /></button>
+		<button disabled class="ml-4"
+			><Burger color={catalogIsInView && innerWidth >= 540 ? '#F9F5F7' : '#E71D80'} /></button
+		>
 	</div>
 </div>

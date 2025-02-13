@@ -1,4 +1,6 @@
 <script>
+	import { inview } from 'svelte-inview';
+	import { catalogIsInView } from '../../stores/catalogIsInView';
 	import { episodesInfo } from '../../data/episodesInfo';
 	import { formatTime } from '../../utils/formatTime';
 	import { scaleLinear } from 'd3-scale';
@@ -86,11 +88,21 @@
 			.domain([0, scenes[scenes.length - 1].endTime])
 			.range([0, scenesWidth])
 	);
+
+	const options = {};
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div id="catalog" class="flex h-screen w-screen overflow-hidden pb-12">
+<div
+	id="catalog"
+	class="flex h-screen w-screen overflow-hidden pb-12"
+	use:inview={options}
+	oninview_change={(/** @type {{ detail: { inView: any; }; }} */ event) => {
+		const { inView } = event.detail;
+		$catalogIsInView = inView;
+	}}
+>
 	{#if innerWidth >= 1280}
 		<div id="seasons-strip">
 			<SeasonsStrip />

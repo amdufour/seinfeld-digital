@@ -13,7 +13,7 @@
 			let currentScene;
 			if (location.timesOnScreen) {
 				location.timesOnScreen.forEach((time, i) => {
-					const scene = scenes.find((s) => time >= s.startTime && time < s.endTime).sceneNum;
+					const scene = scenes.find((s) => time >= s.startTime && time < s.endTime)?.sceneNum;
 
 					switch (true) {
 						case i === 0:

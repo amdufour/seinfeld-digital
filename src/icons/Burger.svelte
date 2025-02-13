@@ -1,3 +1,7 @@
+<script>
+	let { color } = $props();
+</script>
+
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	width="24"
@@ -5,7 +9,7 @@
 	viewBox="0 0 24 24"
 	fill="none"
 	stroke-width="1.5"
-	stroke="#E71D80"
+	stroke={color}
 >
 	<path
 		stroke-linecap="round"
