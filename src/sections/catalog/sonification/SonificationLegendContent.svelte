@@ -91,6 +91,14 @@
 		playLegend();
 	};
 
+	const clearAll = () => {
+		clearTimeout(playLegendTimeout);
+		soundtrack.stopAll();
+
+		characters.forEach((char) => (char.currentLevel = 0));
+		locations.forEach((loc) => (loc.currentLevel = 0));
+	};
+
 	onMount(() => {
 		// Preload audio files
 		preload();
@@ -104,7 +112,10 @@
 		<div>Click again to bump intensity or stop.</div>
 	</div>
 </div>
-<div class="mt-6 flex text-black">
+<div class="mt-2 flex justify-end">
+	<button class="btn btn-primary small clear-btn" onclick={clearAll}>Clear selection</button>
+</div>
+<div class="mt-2 flex text-black">
 	<div class="pr-16">
 		<div class="mb-4">Characters</div>
 		<ul>
@@ -171,5 +182,8 @@
 		width: 20px;
 		height: 20px;
 		border-radius: 10px;
+	}
+	.clear-btn {
+		padding: 4px 8px;
 	}
 </style>
