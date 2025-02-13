@@ -1,9 +1,16 @@
 <script>
 	// @ts-nocheck
+	import { onMount } from 'svelte';
+	import * as Tone from 'tone';
 
 	import HelpIcon from '../../../icons/HelpIcon.svelte';
 	import { getCharacterImagePath } from '../../../utils/getCharacterImagePath';
 	import { getLocationIconPath } from '../../../utils/getLocationIconPath';
+	import {
+		sonificationFiles,
+		getCharSoundFileName,
+		getLocationSoundFileName
+	} from '../../../data/sonificationFilesMapping';
 
 	const characters = $state([
 		{ id: 'Jerry', imageId: 'JERRY', currentLevel: 0 },
@@ -26,6 +33,38 @@
 		{ id: 'Other', imageId: 'Other', currentLevel: 0 }
 	]);
 
+	/**
+	 * @type {Tone.Players}
+	 */
+	let soundtrack;
+	const preload = () => {
+		soundtrack = new Tone.Players(sonificationFiles).toDestination(); //connects to the system sound output
+	};
+
+	let playLegendTimeout;
+	const playLegend = () => {
+		characters
+			.filter((char) => char.currentLevel > 0)
+			.forEach((char) => {
+				const player = getCharSoundFileName(char.id, char.currentLevel.toString());
+				if (player) {
+					soundtrack.player(player).start();
+				}
+			});
+		locations
+			.filter((loc) => loc.currentLevel > 0)
+			.forEach((loc) => {
+				const player = getLocationSoundFileName(loc.id);
+				if (player) {
+					soundtrack.player(player).start();
+				}
+			});
+
+		playLegendTimeout = setTimeout(() => {
+			playLegend();
+		}, 8727.272727);
+	};
+
 	const handleClickOnChar = (/** @type {string} */ id) => {
 		const char = characters.find((char) => char.id === id);
 		if (char.currentLevel === 3) {
@@ -33,6 +72,10 @@
 		} else {
 			char.currentLevel += 1;
 		}
+
+		clearTimeout(playLegendTimeout);
+		soundtrack.stopAll();
+		playLegend();
 	};
 
 	const handleClickOnLocation = (/** @type {string} */ id) => {
@@ -42,7 +85,16 @@
 		} else {
 			loc.currentLevel += 1;
 		}
+
+		clearTimeout(playLegendTimeout);
+		soundtrack.stopAll();
+		playLegend();
 	};
+
+	onMount(() => {
+		// Preload audio files
+		preload();
+	});
 </script>
 
 <div class="mt-12 flex items-center">
