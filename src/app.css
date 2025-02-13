@@ -123,6 +123,9 @@
   .btn-primary:hover {
     background-color: #af1761;
   }
+  .btn-primary:disabled {
+    background-color: #BEBABC;
+  }
   .btn-secondary {
     background-color: transparent;
   }

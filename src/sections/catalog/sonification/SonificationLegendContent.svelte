@@ -32,6 +32,12 @@
 		{ id: 'Workplace', imageId: 'Workplace', currentLevel: 0 },
 		{ id: 'Other', imageId: 'Other', currentLevel: 0 }
 	]);
+	let isSelection = $derived.by(() => {
+		const playingChars = characters.filter((char) => char.currentLevel > 0);
+		const playingLocations = locations.filter((loc) => loc.currentLevel > 0);
+
+		return playingChars.length > 0 || playingLocations.length > 0;
+	});
 
 	/**
 	 * @type {Tone.Players}
@@ -113,7 +119,9 @@
 	</div>
 </div>
 <div class="mt-2 flex justify-end">
-	<button class="btn btn-primary small clear-btn" onclick={clearAll}>Clear selection</button>
+	<button class="btn btn-primary small clear-btn" disabled={!isSelection} onclick={clearAll}
+		>Clear selection</button
+	>
 </div>
 <div class="mt-2 flex text-black">
 	<div class="pr-16">
