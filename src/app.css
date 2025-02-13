@@ -84,6 +84,15 @@
   .mask {
     overflow: hidden;
   }
+  .backdrop {
+    position: fixed;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+		background-color: rgba(48, 56, 67, 0.9);
+	}
   .highlight {
 		background: rgb(253, 232, 36);
 		background: linear-gradient(

@@ -20,7 +20,7 @@
 <div
 	in:slide={{ duration: 800 }}
 	out:fade={{ duration: 200 }}
-	class="backdrop fixed left-0 top-0 z-20 flex h-screen w-screen items-center justify-center"
+	class="backdrop flex items-center justify-center"
 >
 	<div class="popup flex bg-white text-black">
 		<SoundIcon width={200} height={165} />
@@ -38,9 +38,6 @@
 </div>
 
 <style>
-	.backdrop {
-		background-color: rgba(48, 56, 67, 0.9);
-	}
 	.popup {
 		padding: 40px 32px;
 		box-shadow: rgba(48, 56, 67, 0.15) 0px 8px 24px;

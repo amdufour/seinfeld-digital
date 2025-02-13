@@ -4,11 +4,17 @@
 	import AudioOn from '../icons/AudioOn.svelte';
 	import AudioOff from '../icons/AudioOff.svelte';
 	import Burger from '../icons/Burger.svelte';
+	import MainMenu from './MainMenu.svelte';
 
 	let innerWidth = $state(1200);
+	let showMenu = $state(false);
 
 	const toggleSound = () => {
 		$soundIsAuth = !$soundIsAuth;
+	};
+
+	const toggleMenu = () => {
+		showMenu = !showMenu;
 	};
 </script>
 
@@ -26,8 +32,11 @@
 				<AudioOff color={catalogIsInView && innerWidth >= 540 ? '#F9F5F7' : '#BEBABC'} />
 			{/if}
 		</button>
-		<button disabled class="ml-4"
+		<button class="ml-4" onclick={toggleMenu} disabled={showMenu}
 			><Burger color={catalogIsInView && innerWidth >= 540 ? '#F9F5F7' : '#E71D80'} /></button
 		>
 	</div>
 </div>
+{#if showMenu}
+	<MainMenu {toggleMenu} />
+{/if}
