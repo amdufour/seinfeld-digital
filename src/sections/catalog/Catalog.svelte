@@ -11,11 +11,15 @@
 	let { episodesData, sonificationCharactersData, sonificationLocationData } = $props();
 
 	let innerWidth = $state(1200);
+	let innerHeight = $state(800);
 	const statsWidth = $derived(innerWidth >= 1280 ? 240 : 0);
 	const labelsWidth = $derived(innerWidth >= 1280 ? 176 : 60);
 	const extraPadding = $derived(innerWidth >= 1280 ? 60 : 10);
 	let vizWidth = $derived(innerWidth - statsWidth - 25 - extraPadding);
 	let scenesWidth = $derived(vizWidth - labelsWidth);
+	const detailsHeight = $derived(innerWidth >= 1280 ? 254 : 173);
+	const sonificationPlayerHeight = 100;
+	const vizHeight = $derived(innerHeight - detailsHeight - sonificationPlayerHeight - 40);
 
 	let isPlaying = $state(false);
 	let playingScene = $state(0);
@@ -78,7 +82,7 @@
 	);
 </script>
 
-<svelte:window bind:innerWidth />
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <div id="catalog" class="flex h-screen w-screen pb-12">
 	{#if innerWidth >= 1280}
@@ -109,17 +113,37 @@
 		/>
 
 		<!-- Episode data -->
-		<EpisodeScore
-			episodeData={currentEpisodeData}
-			width={scenesWidth}
-			{labelsWidth}
-			{statsWidth}
-			{scenes}
-			{xScale}
-			sonificationCharactersData={currentEpisodeSonificationCharactersData}
-			sonificationLocationData={currentEpisodeSonificationLocationData}
-			{isPlaying}
-			{playingScene}
-		/>
+		<div class="score-wrapper">
+			<div style="max-height: {vizHeight}px; overflow: scroll;">
+				<EpisodeScore
+					episodeData={currentEpisodeData}
+					width={scenesWidth}
+					{labelsWidth}
+					{statsWidth}
+					{scenes}
+					{xScale}
+					sonificationCharactersData={currentEpisodeSonificationCharactersData}
+					sonificationLocationData={currentEpisodeSonificationLocationData}
+					{isPlaying}
+					{playingScene}
+				/>
+			</div>
+		</div>
 	</div>
 </div>
+
+<style>
+	.score-wrapper {
+		position: relative;
+	}
+	.score-wrapper:after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 50px;
+		background: rgb(249, 245, 247);
+		background: linear-gradient(0deg, rgba(249, 245, 247, 1) 0%, rgba(249, 245, 247, 0) 100%);
+	}
+</style>
