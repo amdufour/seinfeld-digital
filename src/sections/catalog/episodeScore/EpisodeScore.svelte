@@ -36,7 +36,7 @@
 </script>
 
 <div
-	style="width: {width + statsWidth}px"
+	style="width: {width + statsWidth}px; max-width: 100vw;"
 	role="document"
 	onmouseenter={handleMouseEnter}
 	onmouseleave={handleMouseLeave}
@@ -57,7 +57,9 @@
 		{playingScene}
 		{sonificationCharactersData}
 	/>
-	<Timeline {labelsWidth} {xScale} {episodeDuration} {isHover} {hoveredTime} {hoveredPosition} />
+	<div style="max-width: {innerWidth}px; overflow: scroll;">
+		<Timeline {labelsWidth} {xScale} {episodeDuration} {isHover} {hoveredTime} {hoveredPosition} />
+	</div>
 	<Locations
 		{width}
 		{statsWidth}

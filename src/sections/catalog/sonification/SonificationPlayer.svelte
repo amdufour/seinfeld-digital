@@ -23,6 +23,8 @@
 		updatePlayingData
 	} = $props();
 
+	let innerWidth = $state(1200);
+
 	/**
 	 * @type {Tone.Players}
 	 */
@@ -121,8 +123,12 @@
 	});
 </script>
 
+<svelte:window bind:innerWidth />
+
 <div class="mb-4" style="margin-left: {labelsWidth}px;">
-	<SonificationTrack {scenesWidth} {scenes} {xScale} {playingScene} {handleClickOnScene} />
+	<div style="max-width: {innerWidth - 63}px; overflow: scroll;">
+		<SonificationTrack {scenesWidth} {scenes} {xScale} {playingScene} {handleClickOnScene} />
+	</div>
 	<SonificationControls
 		{scenesWidth}
 		{isPlaying}

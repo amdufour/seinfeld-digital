@@ -15,9 +15,15 @@
 	const statsWidth = $derived(innerWidth >= 1280 ? 240 : 0);
 	const labelsWidth = $derived(innerWidth >= 1280 ? 176 : 60);
 	const extraPadding = $derived(innerWidth >= 1280 ? 60 : 10);
-	let vizWidth = $derived(innerWidth - statsWidth - 25 - extraPadding);
+	let vizWidth = $derived(
+		innerWidth > 1000
+			? innerWidth - statsWidth - 25 - extraPadding
+			: Math.max(innerWidth - 25 - extraPadding, 1000)
+	);
 	let scenesWidth = $derived(vizWidth - labelsWidth);
-	const detailsHeight = $derived(innerWidth >= 1280 ? 254 : 173);
+
+	const navHeight = $derived(innerWidth > 540 ? 0 : 56);
+	const detailsHeight = $derived(innerWidth >= 1280 ? 254 : 230 - navHeight);
 	const sonificationPlayerHeight = 100;
 	const vizHeight = $derived(innerHeight - detailsHeight - sonificationPlayerHeight - 40);
 
@@ -84,7 +90,7 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div id="catalog" class="flex h-screen w-screen pb-12">
+<div id="catalog" class="flex h-screen w-screen overflow-hidden pb-12">
 	{#if innerWidth >= 1280}
 		<div id="seasons-strip">
 			<SeasonsStrip />
@@ -114,7 +120,7 @@
 
 		<!-- Episode data -->
 		<div class="score-wrapper">
-			<div style="max-height: {vizHeight}px; overflow: scroll;">
+			<div style="max-height: {vizHeight}px; overflow: scroll; padding-bottom: 20px;">
 				<EpisodeScore
 					episodeData={currentEpisodeData}
 					width={scenesWidth}

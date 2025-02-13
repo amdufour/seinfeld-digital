@@ -17,8 +17,8 @@
 		appearance: none;
 		outline: none;
 		min-width: 100px;
-		height: 60px;
-		padding: 0px 12px;
+		height: 50px;
+		padding: 0px 8px;
 		font-size: 1.625rem;
 		font-weight: 600;
 		color: #f9f5f7;

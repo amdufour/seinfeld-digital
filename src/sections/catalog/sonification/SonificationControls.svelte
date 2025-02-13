@@ -14,9 +14,12 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="relative" style="width: {scenesWidth}px; margin-top: -4px;">
+<div
+	class="relative"
+	style="max-width: {innerWidth >= 1280 ? scenesWidth : innerWidth - 75}px; margin-top: -4px;"
+>
 	<div
-		class="mid absolute left-0"
+		class="small absolute left-0"
 		style="margin-top: {innerWidth >= 1280 ? 0 : 16}px; top: {innerWidth >= 1280
 			? 0
 			: -67}px; line-height: 24px; color: {$soundIsAuth ? '#E71D80' : '#BEBABC'};"

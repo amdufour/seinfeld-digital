@@ -81,31 +81,36 @@
 		{hoveredLocations}
 		{isPlaying}
 	/>
-	<svg class="flex-shrink-0" {width} height={vizHeight}>
-		<Scenes
-			{scenes}
-			{xScale}
-			height={vizHeight}
-			isNumbersUp={false}
-			{isHover}
-			{hoveredTime}
-			{isPlaying}
-			{playingScene}
-		/>
-		<LocationsOnScreen
-			locations={locationsOnScreen}
-			{xScale}
-			{yScale}
-			{isHover}
-			{hoveredTime}
-			{scenes}
-			{isPlaying}
-			{playingScene}
-		/>
-		{#if isHover}
-			<line x1={hoveredPosition} y1={0} x2={hoveredPosition} y2={vizHeight} stroke="#12020A" />
-		{/if}
-	</svg>
+	<div
+		class="flex-shrink-0"
+		style="max-width: {innerWidth >= 1280 ? width : innerWidth - 63}px; overflow: scroll;"
+	>
+		<svg {width} height={vizHeight}>
+			<Scenes
+				{scenes}
+				{xScale}
+				height={vizHeight}
+				isNumbersUp={false}
+				{isHover}
+				{hoveredTime}
+				{isPlaying}
+				{playingScene}
+			/>
+			<LocationsOnScreen
+				locations={locationsOnScreen}
+				{xScale}
+				{yScale}
+				{isHover}
+				{hoveredTime}
+				{scenes}
+				{isPlaying}
+				{playingScene}
+			/>
+			{#if isHover}
+				<line x1={hoveredPosition} y1={0} x2={hoveredPosition} y2={vizHeight} stroke="#12020A" />
+			{/if}
+		</svg>
+	</div>
 	<LocationsStats
 		width={statsWidth}
 		height={vizHeight}

@@ -71,52 +71,56 @@
 <svelte:window bind:innerWidth />
 
 <div
-	class="flex flex-wrap items-center px-4 py-3"
 	style="width: {innerWidth >= 1280 ? 'calc(100vw - 425px)' : '100vw'}; background-color: #E71D80;"
 >
-	<!-- Previous episode -->
-	<button
-		class="my-1 pr-1"
-		onclick={handleGoToPrevEpisode}
-		disabled={currentSeason === 1 && currentEpisode === 1}
-		style="opacity: {currentSeason === 1 && currentEpisode === 1 ? 0.3 : 1};"
+	<div
+		class="flex flex-nowrap items-center justify-between px-4 py-3"
+		style="max-width: {innerWidth >= 750 ? 600 : 400}px; "
 	>
-		<Prev />
-	</button>
-
-	<!-- Seasons dropdown -->
-	<div class="mx-1 my-1">
-		<Dropdown options={seasonNums} bind:value={currentSeason} prefix="s" />
-	</div>
-
-	<!-- Episodes dropdown -->
-	<div class="mx-1 my-1">
-		<Dropdown options={availableEpisodes} bind:value={currentEpisode} prefix="e" />
-	</div>
-
-	<!-- Next episode -->
-	<button
-		class="my-1 px-1"
-		onclick={handleGoToNextEpisode}
-		disabled={currentSeason === 9 && currentEpisode === 24}
-		style="opacity: {currentSeason === 9 && currentEpisode === 24 ? 0.3 : 1};"
-	>
-		<Next />
-	</button>
-
-	<!-- Random episode -->
-	<div class="flex items-center" style="color: #F9F5F7; font-weight: 600;">
-		{#if innerWidth >= 1280}
-			<div class="small">OR</div>
-		{/if}
-		<button class="ml-3 flex items-center lg:ml-5" onclick={handleGoToRandomEpisode}>
-			<div class="flex items-center justify-center"><Random /></div>
-			{#if innerWidth >= 1280}
-				<div class="small ml-2 text-left leading-tight" style="width: 120px;">
-					Go to a random episode
-				</div>
-			{/if}
+		<!-- Previous episode -->
+		<button
+			class="my-1"
+			onclick={handleGoToPrevEpisode}
+			disabled={currentSeason === 1 && currentEpisode === 1}
+			style="opacity: {currentSeason === 1 && currentEpisode === 1 ? 0.3 : 1};"
+		>
+			<Prev />
 		</button>
+
+		<!-- Seasons dropdown -->
+		<div class="my-1">
+			<Dropdown options={seasonNums} bind:value={currentSeason} prefix="s" />
+		</div>
+
+		<!-- Episodes dropdown -->
+		<div class="my-1">
+			<Dropdown options={availableEpisodes} bind:value={currentEpisode} prefix="e" />
+		</div>
+
+		<!-- Next episode -->
+		<button
+			class="my-1"
+			onclick={handleGoToNextEpisode}
+			disabled={currentSeason === 9 && currentEpisode === 24}
+			style="opacity: {currentSeason === 9 && currentEpisode === 24 ? 0.3 : 1};"
+		>
+			<Next />
+		</button>
+
+		<!-- Random episode -->
+		<div class="flex items-center" style="color: #F9F5F7; font-weight: 600;">
+			{#if innerWidth >= 750}
+				<div class="small">OR</div>
+			{/if}
+			<button class="ml-1 flex items-center lg:ml-5" onclick={handleGoToRandomEpisode}>
+				<div class="flex items-center justify-center"><Random /></div>
+				{#if innerWidth >= 750}
+					<div class="small ml-2 text-left leading-tight" style="width: 120px;">
+						Go to a random episode
+					</div>
+				{/if}
+			</button>
+		</div>
 	</div>
 </div>
 

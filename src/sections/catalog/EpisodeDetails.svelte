@@ -31,8 +31,17 @@
 	<div style="margin-top: {innerWidth > 540 ? 0 : 56}px;">
 		<EpisodeControls {episodes} bind:currentSeason bind:currentEpisode />
 		<div class="mx-4">
-			<div class="mt-4 flex" style="margin-left: {innerWidth >= 1280 ? 16 : 0}px;">
-				<h2>{episodeInfo.title}</h2>
+			<div
+				class="mt-4 flex items-start justify-between"
+				style="margin-left: {innerWidth >= 1280 ? 16 : 0}px;"
+			>
+				<h2
+					style="overflow: {showMore ? 'visible' : 'hidden'}; white-space: {showMore
+						? 'auto'
+						: 'nowrap'}"
+				>
+					{episodeInfo.title}
+				</h2>
 				{#if innerWidth < 1280}
 					<button class="ml-4" onclick={toggleShowMore}>
 						{#if showMore}
@@ -46,7 +55,7 @@
 			{#if (showMore && innerWidth < 1280) || innerWidth >= 1280}
 				<!-- Episode details -->
 				{#if innerWidth < 1280}
-					<div style="width: 450px;">
+					<div style="max-width: 450px; width: 100%;">
 						<img class="mt-2" src={episodeInfo.img_src} alt="Episode cover" />
 					</div>
 				{/if}
@@ -83,5 +92,11 @@
 		max-width: 700px;
 		max-height: 70px;
 		overflow: hidden;
+	}
+	@media (max-width: 540px) {
+		h2 {
+			font-size: 2.1rem !important;
+			text-overflow: ellipsis;
+		}
 	}
 </style>

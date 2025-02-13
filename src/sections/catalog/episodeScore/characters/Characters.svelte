@@ -116,40 +116,45 @@
 		{isPlaying}
 		{hoveredCharacters}
 	/>
-	<svg class="flex-shrink-0" {width} height={vizHeight}>
-		<Scenes
-			{scenes}
-			{xScale}
-			height={vizHeight}
-			{isHover}
-			{hoveredTime}
-			{isPlaying}
-			{playingScene}
-		/>
-		<PresenceOnScreen
-			characters={charactersOnScreen}
-			{xScale}
-			{yScale}
-			{scenes}
-			{isHover}
-			{hoveredTime}
-			{isPlaying}
-			{playingScene}
-		/>
-		<CausedLaughs
-			characters={charactersCausedLaughs}
-			{xScale}
-			{yScale}
-			{isHover}
-			{hoveredTime}
-			{isPlaying}
-			{playingScene}
-			{scenes}
-		/>
-		{#if isHover}
-			<line x1={hoveredPosition} y1={0} x2={hoveredPosition} y2={vizHeight} stroke="#12020A" />
-		{/if}
-	</svg>
+	<div
+		class="flex-shrink-0"
+		style="max-width: {innerWidth >= 1280 ? width : innerWidth - 63}px; overflow: scroll;"
+	>
+		<svg {width} height={vizHeight}>
+			<Scenes
+				{scenes}
+				{xScale}
+				height={vizHeight}
+				{isHover}
+				{hoveredTime}
+				{isPlaying}
+				{playingScene}
+			/>
+			<PresenceOnScreen
+				characters={charactersOnScreen}
+				{xScale}
+				{yScale}
+				{scenes}
+				{isHover}
+				{hoveredTime}
+				{isPlaying}
+				{playingScene}
+			/>
+			<CausedLaughs
+				characters={charactersCausedLaughs}
+				{xScale}
+				{yScale}
+				{isHover}
+				{hoveredTime}
+				{isPlaying}
+				{playingScene}
+				{scenes}
+			/>
+			{#if isHover}
+				<line x1={hoveredPosition} y1={0} x2={hoveredPosition} y2={vizHeight} stroke="#12020A" />
+			{/if}
+		</svg>
+	</div>
 	{#if innerWidth >= 1280}
 		<CharactersStats
 			width={statsWidth}
