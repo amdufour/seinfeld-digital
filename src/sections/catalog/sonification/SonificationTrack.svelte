@@ -3,11 +3,24 @@
 
 	let { scenesWidth, scenes, xScale, playingScene, handleClickOnScene } = $props();
 
+	let innerWidth = $state(1200);
 	const height = 24;
 </script>
 
+<svelte:window bind:innerWidth />
+
 <div class="relative">
-	<svg class="mt-6" width={scenesWidth} {height}>
+	<svg
+		class="mt-6"
+		width={scenesWidth}
+		{height}
+		style="transform: translateX({playingScene && innerWidth <= 1000
+			? xScale(
+					scenes.find((/** @type {{ sceneNum: number; }} */ s) => s.sceneNum === playingScene)
+						.startTime
+				) * -1
+			: 0}px);"
+	>
 		<g transform="translate(0, {height / 2})">
 			{#each scenes as scene, i}
 				<!-- svelte-ignore a11y_click_events_have_key_events -->

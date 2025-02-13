@@ -1,7 +1,18 @@
 <script>
 	import { range } from 'd3-array';
 
-	let { labelsWidth, xScale, episodeDuration, isHover, hoveredTime, hoveredPosition } = $props();
+	let {
+		labelsWidth,
+		xScale,
+		episodeDuration,
+		isHover,
+		hoveredTime,
+		hoveredPosition,
+		scenes,
+		playingScene
+	} = $props();
+
+	let innerWidth = $state(1200);
 
 	const height = 40;
 	const numMinutes = $derived(Math.ceil(episodeDuration / 60));
@@ -14,7 +25,19 @@
 	);
 </script>
 
-<svg width={xScale(numMinutes * 60) + 100} {height} style="margin-left: {labelsWidth - 50}px">
+<svelte:window bind:innerWidth />
+
+<svg
+	width={xScale(numMinutes * 60) + 100}
+	{height}
+	style="margin-left: {labelsWidth - 50}px; transform: translateX({playingScene &&
+	innerWidth <= 1000
+		? xScale(
+				scenes.find((/** @type {{ sceneNum: number; }} */ s) => s.sceneNum === playingScene)
+					.startTime
+			) * -1
+		: 0}px);"
+>
 	<g transform="translate(50, 0)" stroke="#928D90">
 		<line x1={0} y1={0} x2={xScale(numMinutes * 60)} y2={0} />
 		<line x1={0} y1={height} x2={xScale(numMinutes * 60)} y2={40} />

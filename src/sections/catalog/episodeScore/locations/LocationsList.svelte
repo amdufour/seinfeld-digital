@@ -8,7 +8,7 @@
 
 <svelte:window bind:innerWidth />
 
-<ul class="relative shrink-0 pt-4" style="width: {labelsWidth}px;">
+<ul class="relative z-10 shrink-0 pt-4" style="width: {labelsWidth}px; background-color: #F9F5F7;">
 	{#each locations as location}
 		<li
 			class="absolute flex w-full justify-end"

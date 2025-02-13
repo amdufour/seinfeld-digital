@@ -14,7 +14,7 @@
 
 <svelte:window bind:innerWidth />
 
-<ul class="relative shrink-0 pt-8" style="width: {labelsWidth}px;">
+<ul class="relative z-10 shrink-0 pt-8" style="width: {labelsWidth}px; background-color: #F9F5F7;">
 	{#each characters as char}
 		<li
 			class="absolute flex w-full justify-end"

@@ -16,6 +16,8 @@
 		sonificationLocationData
 	} = $props();
 
+	let innerWidth = $state(1200);
+
 	let episodeDuration = $derived(+episodeData[episodeData.length - 1].eventTimeSeconds);
 
 	let isHover = $state(false);
@@ -23,17 +25,25 @@
 	let hoveredTime = $state(0);
 
 	const handleMouseEnter = () => {
-		isHover = true;
+		if (innerWidth > 1000) {
+			isHover = true;
+		}
 	};
 	const handleMouseLeave = () => {
 		isHover = false;
 	};
 	const handleMouseOver = (/** @type {MouseEvent} */ e) => {
-		const x = e.clientX - 198;
-		hoveredPosition = x >= 0 ? x : 0;
-		hoveredTime = xScale.invert(hoveredPosition);
+		{
+		}
+		if (innerWidth > 1000) {
+			const x = e.clientX - 198;
+			hoveredPosition = x >= 0 ? x : 0;
+			hoveredTime = xScale.invert(hoveredPosition);
+		}
 	};
 </script>
+
+<svelte:window bind:innerWidth />
 
 <div
 	style="width: {width + statsWidth}px; max-width: 100vw;"
@@ -58,7 +68,16 @@
 		{sonificationCharactersData}
 	/>
 	<div style="max-width: {innerWidth}px; overflow: scroll;">
-		<Timeline {labelsWidth} {xScale} {episodeDuration} {isHover} {hoveredTime} {hoveredPosition} />
+		<Timeline
+			{labelsWidth}
+			{xScale}
+			{episodeDuration}
+			{isHover}
+			{hoveredTime}
+			{hoveredPosition}
+			{scenes}
+			{playingScene}
+		/>
 	</div>
 	<Locations
 		{width}

@@ -120,7 +120,13 @@
 		class="flex-shrink-0"
 		style="max-width: {innerWidth >= 1280 ? width : innerWidth - 63}px; overflow: scroll;"
 	>
-		<svg {width} height={vizHeight}>
+		<svg
+			{width}
+			height={vizHeight}
+			style="transform: translateX({playingScene && innerWidth <= 1000
+				? xScale(scenes.find((s) => s.sceneNum === playingScene).startTime) * -1
+				: 0}px);"
+		>
 			<Scenes
 				{scenes}
 				{xScale}
