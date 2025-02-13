@@ -32,7 +32,7 @@
 		<EpisodeControls {episodes} bind:currentSeason bind:currentEpisode />
 		<div class="mx-4">
 			<div
-				class="mt-4 flex items-start justify-between"
+				class="mt-4 flex items-center justify-between"
 				style="margin-left: {innerWidth >= 1280 ? 16 : 0}px;"
 			>
 				<h2
@@ -43,7 +43,7 @@
 					{episodeInfo.title}
 				</h2>
 				{#if innerWidth < 1280}
-					<button class="ml-4 mt-9" onclick={toggleShowMore}>
+					<button class="ml-4 mt-2" onclick={toggleShowMore}>
 						{#if showMore}
 							<LessIcon />
 						{:else}

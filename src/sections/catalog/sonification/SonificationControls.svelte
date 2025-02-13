@@ -4,12 +4,18 @@
 	import BackwardIcon from '../../../icons/BackwardIcon.svelte';
 	import ForwardIcon from '../../../icons/ForwardIcon.svelte';
 	import InfoIcon from '../../../icons/Info.svelte';
+	import SonificationLegend from './SonificationLegend.svelte';
 	import { soundIsAuth } from '../../../stores/soundAuthStore';
 
 	let { scenesWidth, isPlaying, playingScene, numScenes, play, playNext, playPrev, stop } =
 		$props();
 
 	let innerWidth = $state(1200);
+	let sonificationLegendIsOpen = $state(false);
+
+	const toggleSonificationLegend = () => {
+		sonificationLegendIsOpen = !sonificationLegendIsOpen;
+	};
 </script>
 
 <svelte:window bind:innerWidth />
@@ -52,6 +58,10 @@
 		>
 	</div>
 	<div class="absolute right-0 top-1">
-		<button><InfoIcon /></button>
+		<button onclick={toggleSonificationLegend}><InfoIcon /></button>
 	</div>
 </div>
+
+{#if sonificationLegendIsOpen}
+	<SonificationLegend toggleLegend={toggleSonificationLegend} />
+{/if}
