@@ -21,8 +21,11 @@
 <svelte:window bind:innerWidth />
 
 <div
-	class="fixed right-0 top-0 z-10 flex h-14 items-center"
-	style="height: {catalogIsInView && innerWidth >= 540 ? 82 : 56}px;"
+	class="fixed right-0 top-0 flex h-14 items-center"
+	style="height: {catalogIsInView && innerWidth >= 540 ? 82 : 56}px; z-index: {catalogIsInView &&
+	innerWidth <= 539
+		? 0
+		: 10};"
 >
 	<div class="flex" style="padding-right: {innerWidth > 1600 ? (innerWidth - 1600) / 2 : 32}px;">
 		<button onclick={toggleSound}>

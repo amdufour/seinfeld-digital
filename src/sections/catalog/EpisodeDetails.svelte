@@ -22,7 +22,10 @@
 
 <svelte:window bind:innerWidth />
 
-<div style="display: {innerWidth >= 1280 ? 'flex' : 'block'}">
+<div
+	class="relative"
+	style="display: {innerWidth >= 1280 ? 'flex' : 'block'}; z-index: {innerWidth <= 539 ? 10 : 0};"
+>
 	{#if innerWidth >= 1280}
 		<div class="shrink-0" style="width: 450px;">
 			<img src={episodeInfo.img_src} alt="Episode cover" />
@@ -66,7 +69,9 @@
 				>
 					<div
 						class="description mid mr-4 mt-2"
-						style="width: {innerWidth >= 1280 ? innerWidth - 25 - 450 - 225 - 100 : 450}px;"
+						style="width: {innerWidth >= 1280
+							? Math.min(innerWidth - 25 - 450 - 225 - 100, 800)
+							: 450}px;"
 					>
 						{episodeInfo.description}
 					</div>

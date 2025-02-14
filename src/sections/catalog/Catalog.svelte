@@ -27,7 +27,9 @@
 	const navHeight = $derived(innerWidth > 540 ? 0 : 56);
 	const detailsHeight = $derived(innerWidth >= 1280 ? 254 : 230 - navHeight);
 	const sonificationPlayerHeight = 100;
-	const vizHeight = $derived(innerHeight - detailsHeight - sonificationPlayerHeight - 40);
+	const vizHeight = $derived(
+		innerHeight - detailsHeight - sonificationPlayerHeight - 40 + (innerWidth <= 539 ? 56 : 0)
+	);
 
 	let isPlaying = $state(false);
 	let playingScene = $state(0);
@@ -96,7 +98,8 @@
 
 <div
 	id="catalog"
-	class="flex h-screen w-screen overflow-hidden pb-12"
+	class="flex w-screen overflow-hidden pb-12"
+	style="height: {innerWidth <= 539 ? 'calc(100vh + 56px)' : '100vh'};"
 	use:inview={options}
 	oninview_change={(/** @type {{ detail: { inView: any; }; }} */ event) => {
 		const { inView } = event.detail;
