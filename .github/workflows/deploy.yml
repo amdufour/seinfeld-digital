@@ -35,20 +35,10 @@ jobs:
       - name: Debug - Check build output
         run: ls -l
 
-      - name: Upload coverage report artifact
-        id: upload-artifact
-        uses: actions/upload-pages-artifact@main
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages
-  
+          path: build/output  # Adjust this if your build output directory is different
+
       - name: Deploy to GitHub Pages
-        id: deployment
-        if: ${{ github.event_name == 'pull_request' }}
         uses: actions/deploy-pages@v4
-        env:
-          name: github-pages
-          url: ${{ steps.deployment.outputs.page_url }}
-        with: 
-          artifact_name: github-pages
-          token: ${{ github.token }}
-          preview: true
