@@ -75,7 +75,9 @@
 >
 	<div
 		class="flex flex-nowrap items-center justify-between px-4 py-3"
-		style="max-width: {innerWidth >= 750 ? 600 : 400}px; "
+		style="max-width: {innerWidth >= 750 ? 600 : 400}px; margin-left: {innerWidth >= 1280
+			? 12
+			: 0}px;"
 	>
 		<!-- Previous episode -->
 		<button
