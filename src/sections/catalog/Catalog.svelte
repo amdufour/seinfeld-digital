@@ -1,7 +1,7 @@
 <script>
 	import { inview } from 'svelte-inview';
 	import { catalogIsInView } from '../../stores/catalogIsInView';
-	import { episodesInfo } from '../../data/episodesInfo';
+	import { episodesInfo } from '$lib/data/episodesInfo';
 	import { formatTime } from '../../utils/formatTime';
 	import { scaleLinear } from 'd3-scale';
 	import { getRandomEpisode } from '../../utils/getRandom';

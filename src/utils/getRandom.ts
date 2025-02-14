@@ -1,4 +1,4 @@
-import { seasons } from "../data/seasons";
+import { seasons } from "$lib/data/seasons";
 import { isEpisodeValid } from "./isEpisodeValid";
 
 /**

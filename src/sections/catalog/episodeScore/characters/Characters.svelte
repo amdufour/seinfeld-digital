@@ -2,7 +2,7 @@
 	// @ts-nocheck
 
 	import { scaleBand } from 'd3-scale';
-	import { characters } from '../../../../data/characters';
+	import { characters } from '$lib/data/characters';
 	import { getCharacterId } from '../../../../utils/sonificationToIds';
 	import CharactersList from './CharactersList.svelte';
 	import Scenes from '../Scenes.svelte';

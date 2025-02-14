@@ -2,7 +2,7 @@
 	// @ts-nocheck
 
 	import { scaleBand } from 'd3-scale';
-	import { locations } from '../../../../data/locations';
+	import { locations } from '$lib/data/locations';
 	import { getLocationId } from '../../../../utils/sonificationToIds';
 	import Scenes from '../Scenes.svelte';
 	import LocationsList from './LocationsList.svelte';

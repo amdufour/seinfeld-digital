@@ -6,7 +6,7 @@
 	import { scaleLinear } from 'd3-scale';
 	import { max } from 'd3-array';
 
-	import { seasons } from '../data/seasons';
+	import { seasons } from '$lib/data/seasons';
 
 	let innerWidth = $state(1600);
 	const gridContainer = $derived.by(() => {

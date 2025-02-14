@@ -3,5 +3,10 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	base: "/seinfeld-digital/",
-	plugins: [sveltekit()]
+	plugins: [sveltekit()],
+	resolve: {
+		alias: {
+			$data: '/src/data'
+		}
+	}
 });

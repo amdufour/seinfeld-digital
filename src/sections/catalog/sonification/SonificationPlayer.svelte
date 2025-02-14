@@ -8,7 +8,7 @@
 		sonificationFiles,
 		getCharSoundFileName,
 		getLocationSoundFileName
-	} from '../../../data/sonificationFilesMapping';
+	} from '$lib/data/sonificationFilesMapping';
 	import { soundIsAuth } from '../../../stores/soundAuthStore';
 
 	let {

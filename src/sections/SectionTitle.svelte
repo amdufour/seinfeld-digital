@@ -4,8 +4,8 @@
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
 
-	import { supportingCharacterTiles, characters, mainCharacterTiles } from '../data/characters';
-	import { locationsTiles } from '../data/locations';
+	import { supportingCharacterTiles, characters, mainCharacterTiles } from '$lib/data/characters';
+	import { locationsTiles } from '$lib/data/locations';
 	import { getRandom } from '../utils/getRandom';
 	import { soundIsAuth } from '../stores/soundAuthStore';
 

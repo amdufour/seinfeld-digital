@@ -1,6 +1,6 @@
 <script>
-	import { quotes } from '../../data/quotes';
-	import { seasons } from '../../data/seasons';
+	import { quotes } from '$lib/data/quotes';
+	import { seasons } from '$lib/data/seasons';
 	import { soundIsAuth } from '../../stores/soundAuthStore';
 	import { getRandom } from '../../utils/getRandom';
 

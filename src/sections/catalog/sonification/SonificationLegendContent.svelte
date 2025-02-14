@@ -10,7 +10,7 @@
 		sonificationFiles,
 		getCharSoundFileName,
 		getLocationSoundFileName
-	} from '../../../data/sonificationFilesMapping';
+	} from '$lib/data/sonificationFilesMapping';
 
 	const characters = $state([
 		{ id: 'Jerry', imageId: 'JERRY', currentLevel: 0 },
