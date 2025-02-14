@@ -8,8 +8,5 @@ export default defineConfig({
 		alias: {
 			$data: '/src/data'
 		}
-	},
-	build: {
-		outDir: 'build' // Ensure this matches what your GitHub Actions uses
 	}
 });
