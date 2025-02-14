@@ -41,7 +41,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/output  # Adjust this if your build output directory is different
+          path: build  # Adjust this if your build output directory is different
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
