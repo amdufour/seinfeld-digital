@@ -27,7 +27,7 @@ jobs:
         run: npm install
 
       - name: Build Svelte app
-        run: npm run build
+        run: npm run build && mkdir -p build && cp -r .svelte-kit/output build
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v3
@@ -35,7 +35,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .svelte-kit/output  # Adjust this if your build output directory is different
+          path: build  # Adjust this if your build output directory is different
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
