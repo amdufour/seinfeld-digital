@@ -1,0 +1,288 @@
+{
+  ".svelte-kit/generated/client-optimized/app.js": {
+    "file": "_app/immutable/entry/app.D3-zXQpw.js",
+    "name": "entry/app",
+    "src": ".svelte-kit/generated/client-optimized/app.js",
+    "isEntry": true,
+    "imports": [
+      "_Krh8yu2i.js",
+      "_ywYxyxe_.js",
+      "_AnnM38rF.js",
+      "_cbXI22fa.js",
+      "_B8PFditG.js"
+    ],
+    "dynamicImports": [
+      ".svelte-kit/generated/client-optimized/nodes/0.js",
+      ".svelte-kit/generated/client-optimized/nodes/1.js",
+      ".svelte-kit/generated/client-optimized/nodes/2.js"
+    ]
+  },
+  ".svelte-kit/generated/client-optimized/nodes/0.js": {
+    "file": "_app/immutable/nodes/0.BkMwevYT.js",
+    "name": "nodes/0",
+    "src": ".svelte-kit/generated/client-optimized/nodes/0.js",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_AnnM38rF.js",
+      "_Krh8yu2i.js"
+    ],
+    "css": [
+      "_app/immutable/assets/0.6ifv2cRQ.css"
+    ]
+  },
+  ".svelte-kit/generated/client-optimized/nodes/1.js": {
+    "file": "_app/immutable/nodes/1.CWMKiquP.js",
+    "name": "nodes/1",
+    "src": ".svelte-kit/generated/client-optimized/nodes/1.js",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_AnnM38rF.js",
+      "_DwHWoQaY.js",
+      "_Krh8yu2i.js",
+      "_ywYxyxe_.js",
+      "_DEKdIo6p.js"
+    ]
+  },
+  ".svelte-kit/generated/client-optimized/nodes/2.js": {
+    "file": "_app/immutable/nodes/2.BvTtBHou.js",
+    "name": "nodes/2",
+    "src": ".svelte-kit/generated/client-optimized/nodes/2.js",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_AnnM38rF.js",
+      "_DwHWoQaY.js",
+      "_Krh8yu2i.js",
+      "_cbXI22fa.js",
+      "_ywYxyxe_.js",
+      "_-9xANnOf.js",
+      "_B8PFditG.js"
+    ],
+    "css": [
+      "_app/immutable/assets/2.Do3R3i0p.css"
+    ],
+    "assets": [
+      "_app/immutable/assets/JerryIcon.CWxgjMvj.jpg",
+      "_app/immutable/assets/GeorgeIcon.F9EVhRXZ.jpg",
+      "_app/immutable/assets/ElaineIcon.C4_nGvvx.jpg",
+      "_app/immutable/assets/KramerIcon.u9mQvZjQ.jpg",
+      "_app/immutable/assets/LoveInterestIcon.rUzzO44U.jpg",
+      "_app/immutable/assets/FriendIcon.gzJWnkEH.jpg",
+      "_app/immutable/assets/NeighbourIcon.DbFgxVL_.jpg",
+      "_app/immutable/assets/ColleagueIcon.CZ3Di25P.jpg",
+      "_app/immutable/assets/JerryFamilyIcon.DQguu6y4.jpg",
+      "_app/immutable/assets/GeorgeFamilyIcon.DgHR8fCo.jpg",
+      "_app/immutable/assets/ElaineFamilyIcon.C20bJseD.jpg",
+      "_app/immutable/assets/KramerFamilyIcon.Cj-rYyuv.jpg",
+      "_app/immutable/assets/OtherPersonIcon.BQPh4vNa.jpg",
+      "_app/immutable/assets/JerryHome.CBp_ZRc9.svg",
+      "_app/immutable/assets/JerryHomeSmall.CcIUSd4l.svg",
+      "_app/immutable/assets/GeorgeHome.Bs_X2OsM.svg",
+      "_app/immutable/assets/GeorgeHomeSmall.DKBfXyUK.svg",
+      "_app/immutable/assets/ElaineHome.CVoYU9td.svg",
+      "_app/immutable/assets/ElaineHomeSmall.C-RqAldq.svg",
+      "_app/immutable/assets/KramerHome.CKbkCzCg.svg",
+      "_app/immutable/assets/KramerHomeSmall.tcTkGo0P.svg",
+      "_app/immutable/assets/Outside.CWb9iKXs.svg"
+    ]
+  },
+  "_-9xANnOf.js": {
+    "file": "_app/immutable/chunks/-9xANnOf.js",
+    "name": "index",
+    "imports": [
+      "_Krh8yu2i.js"
+    ]
+  },
+  "_AnnM38rF.js": {
+    "file": "_app/immutable/chunks/AnnM38rF.js",
+    "name": "disclose-version",
+    "imports": [
+      "_Krh8yu2i.js"
+    ]
+  },
+  "_B8PFditG.js": {
+    "file": "_app/immutable/chunks/B8PFditG.js",
+    "name": "index-client",
+    "imports": [
+      "_Krh8yu2i.js"
+    ]
+  },
+  "_DEKdIo6p.js": {
+    "file": "_app/immutable/chunks/DEKdIo6p.js",
+    "name": "entry",
+    "imports": [
+      "_Krh8yu2i.js",
+      "_-9xANnOf.js",
+      "_B8PFditG.js"
+    ]
+  },
+  "_DwHWoQaY.js": {
+    "file": "_app/immutable/chunks/DwHWoQaY.js",
+    "name": "legacy",
+    "imports": [
+      "_Krh8yu2i.js"
+    ]
+  },
+  "_Krh8yu2i.js": {
+    "file": "_app/immutable/chunks/Krh8yu2i.js",
+    "name": "runtime"
+  },
+  "_cbXI22fa.js": {
+    "file": "_app/immutable/chunks/cbXI22fa.js",
+    "name": "props",
+    "imports": [
+      "_Krh8yu2i.js"
+    ]
+  },
+  "_ywYxyxe_.js": {
+    "file": "_app/immutable/chunks/ywYxyxe_.js",
+    "name": "render",
+    "imports": [
+      "_Krh8yu2i.js",
+      "_AnnM38rF.js"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/client/entry.js": {
+    "file": "_app/immutable/entry/start.B9CRjvWX.js",
+    "name": "entry/start",
+    "src": "node_modules/@sveltejs/kit/src/runtime/client/entry.js",
+    "isEntry": true,
+    "imports": [
+      "_DEKdIo6p.js"
+    ]
+  },
+  "src/images/S5E9_The-masseuse.jpg": {
+    "file": "_app/immutable/assets/S5E9_The-masseuse.BXUA5TlE.jpg",
+    "src": "src/images/S5E9_The-masseuse.jpg"
+  },
+  "src/lib/assets/book/book_calendar.jpg": {
+    "file": "_app/immutable/assets/book_calendar.BUNIQpig.jpg",
+    "src": "src/lib/assets/book/book_calendar.jpg"
+  },
+  "src/lib/assets/book/book_catalog1.png": {
+    "file": "_app/immutable/assets/book_catalog1.DGPkPybi.png",
+    "src": "src/lib/assets/book/book_catalog1.png"
+  },
+  "src/lib/assets/book/book_catalog2.png": {
+    "file": "_app/immutable/assets/book_catalog2.DDVlmLVf.png",
+    "src": "src/lib/assets/book/book_catalog2.png"
+  },
+  "src/lib/assets/book/book_cover.jpg": {
+    "file": "_app/immutable/assets/book_cover.ChtgR2W8.jpg",
+    "src": "src/lib/assets/book/book_cover.jpg"
+  },
+  "src/lib/assets/book/book_intro.jpg": {
+    "file": "_app/immutable/assets/book_intro.BX710J_b.jpg",
+    "src": "src/lib/assets/book/book_intro.jpg"
+  },
+  "src/lib/assets/book/book_laughs.jpg": {
+    "file": "_app/immutable/assets/book_laughs.kxnFIjOP.jpg",
+    "src": "src/lib/assets/book/book_laughs.jpg"
+  },
+  "src/lib/assets/book/book_quotes.jpg": {
+    "file": "_app/immutable/assets/book_quotes.BEQDFD-q.jpg",
+    "src": "src/lib/assets/book/book_quotes.jpg"
+  },
+  "src/lib/assets/book/book_scatterplot.jpg": {
+    "file": "_app/immutable/assets/book_scatterplot.D3uuuCEK.jpg",
+    "src": "src/lib/assets/book/book_scatterplot.jpg"
+  },
+  "src/lib/assets/characters/ColleagueIcon.jpg": {
+    "file": "_app/immutable/assets/ColleagueIcon.CZ3Di25P.jpg",
+    "src": "src/lib/assets/characters/ColleagueIcon.jpg"
+  },
+  "src/lib/assets/characters/ElaineFamilyIcon.jpg": {
+    "file": "_app/immutable/assets/ElaineFamilyIcon.C20bJseD.jpg",
+    "src": "src/lib/assets/characters/ElaineFamilyIcon.jpg"
+  },
+  "src/lib/assets/characters/ElaineIcon.jpg": {
+    "file": "_app/immutable/assets/ElaineIcon.C4_nGvvx.jpg",
+    "src": "src/lib/assets/characters/ElaineIcon.jpg"
+  },
+  "src/lib/assets/characters/FriendIcon.jpg": {
+    "file": "_app/immutable/assets/FriendIcon.gzJWnkEH.jpg",
+    "src": "src/lib/assets/characters/FriendIcon.jpg"
+  },
+  "src/lib/assets/characters/GeorgeFamilyIcon.jpg": {
+    "file": "_app/immutable/assets/GeorgeFamilyIcon.DgHR8fCo.jpg",
+    "src": "src/lib/assets/characters/GeorgeFamilyIcon.jpg"
+  },
+  "src/lib/assets/characters/GeorgeIcon.jpg": {
+    "file": "_app/immutable/assets/GeorgeIcon.F9EVhRXZ.jpg",
+    "src": "src/lib/assets/characters/GeorgeIcon.jpg"
+  },
+  "src/lib/assets/characters/JerryFamilyIcon.jpg": {
+    "file": "_app/immutable/assets/JerryFamilyIcon.DQguu6y4.jpg",
+    "src": "src/lib/assets/characters/JerryFamilyIcon.jpg"
+  },
+  "src/lib/assets/characters/JerryIcon.jpg": {
+    "file": "_app/immutable/assets/JerryIcon.CWxgjMvj.jpg",
+    "src": "src/lib/assets/characters/JerryIcon.jpg"
+  },
+  "src/lib/assets/characters/KramerFamilyIcon.jpg": {
+    "file": "_app/immutable/assets/KramerFamilyIcon.Cj-rYyuv.jpg",
+    "src": "src/lib/assets/characters/KramerFamilyIcon.jpg"
+  },
+  "src/lib/assets/characters/KramerIcon.jpg": {
+    "file": "_app/immutable/assets/KramerIcon.u9mQvZjQ.jpg",
+    "src": "src/lib/assets/characters/KramerIcon.jpg"
+  },
+  "src/lib/assets/characters/LoveInterestIcon.jpg": {
+    "file": "_app/immutable/assets/LoveInterestIcon.rUzzO44U.jpg",
+    "src": "src/lib/assets/characters/LoveInterestIcon.jpg"
+  },
+  "src/lib/assets/characters/NeighbourIcon.jpg": {
+    "file": "_app/immutable/assets/NeighbourIcon.DbFgxVL_.jpg",
+    "src": "src/lib/assets/characters/NeighbourIcon.jpg"
+  },
+  "src/lib/assets/characters/OtherPersonIcon.jpg": {
+    "file": "_app/immutable/assets/OtherPersonIcon.BQPh4vNa.jpg",
+    "src": "src/lib/assets/characters/OtherPersonIcon.jpg"
+  },
+  "src/lib/assets/locations/ElaineHome.svg": {
+    "file": "_app/immutable/assets/ElaineHome.CVoYU9td.svg",
+    "src": "src/lib/assets/locations/ElaineHome.svg"
+  },
+  "src/lib/assets/locations/ElaineHomeSmall.svg": {
+    "file": "_app/immutable/assets/ElaineHomeSmall.C-RqAldq.svg",
+    "src": "src/lib/assets/locations/ElaineHomeSmall.svg"
+  },
+  "src/lib/assets/locations/GeorgeHome.svg": {
+    "file": "_app/immutable/assets/GeorgeHome.Bs_X2OsM.svg",
+    "src": "src/lib/assets/locations/GeorgeHome.svg"
+  },
+  "src/lib/assets/locations/GeorgeHomeSmall.svg": {
+    "file": "_app/immutable/assets/GeorgeHomeSmall.DKBfXyUK.svg",
+    "src": "src/lib/assets/locations/GeorgeHomeSmall.svg"
+  },
+  "src/lib/assets/locations/JerryHome.svg": {
+    "file": "_app/immutable/assets/JerryHome.CBp_ZRc9.svg",
+    "src": "src/lib/assets/locations/JerryHome.svg"
+  },
+  "src/lib/assets/locations/JerryHomeSmall.svg": {
+    "file": "_app/immutable/assets/JerryHomeSmall.CcIUSd4l.svg",
+    "src": "src/lib/assets/locations/JerryHomeSmall.svg"
+  },
+  "src/lib/assets/locations/KramerHome.svg": {
+    "file": "_app/immutable/assets/KramerHome.CKbkCzCg.svg",
+    "src": "src/lib/assets/locations/KramerHome.svg"
+  },
+  "src/lib/assets/locations/KramerHomeSmall.svg": {
+    "file": "_app/immutable/assets/KramerHomeSmall.tcTkGo0P.svg",
+    "src": "src/lib/assets/locations/KramerHomeSmall.svg"
+  },
+  "src/lib/assets/locations/Outside.svg": {
+    "file": "_app/immutable/assets/Outside.CWb9iKXs.svg",
+    "src": "src/lib/assets/locations/Outside.svg"
+  },
+  "src/videos/prologue-intro-bg.mp4": {
+    "file": "_app/immutable/assets/prologue-intro-bg.yv5TkcBY.mp4",
+    "src": "src/videos/prologue-intro-bg.mp4"
+  },
+  "src/videos/prologue-intro-bg.webm": {
+    "file": "_app/immutable/assets/prologue-intro-bg.CoxUUy-H.webm",
+    "src": "src/videos/prologue-intro-bg.webm"
+  }
+}
