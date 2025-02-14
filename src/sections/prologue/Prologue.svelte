@@ -15,6 +15,7 @@
 <svelte:window bind:innerWidth />
 
 <section>
+	<div>test</div>
 	<Prologue1 />
 	{#if innerWidth >= 768}
 		<Prologue2 />
