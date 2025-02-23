@@ -37,19 +37,14 @@
 
 <main>
 	<Navbar />
-	<!-- <div class="h-screen w-screen">
-		{#if $soundAuthModaleIsOpen}
-			<SoundAuthPopup />
-		{/if}
-	</div> -->
-	<!-- <div class="bg-black text-white">
+	<div class="bg-black text-white">
 		<Prologue />
-		{#if $soundAuthModaleIsOpen}
+		<!-- {#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
-		{/if}
-		<Title />
+		{/if} -->
+		<!-- <Title /> -->
 	</div>
-	<Quotes />
+	<!-- <Quotes />
 	<MainCharsSection />
 	<SupportingCharsSection />
 	<LocationsSection /> -->

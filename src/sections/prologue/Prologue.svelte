@@ -15,14 +15,13 @@
 <svelte:window bind:innerWidth />
 
 <section>
-	<div>test</div>
 	<Prologue1 />
-	{#if innerWidth >= 768}
+	<PrologueVideo />
+	<!-- {#if innerWidth >= 768}
 		<Prologue2 />
 	{:else}
 		<Prologue2Mobile />
 	{/if}
-	<PrologueVideo />
 	<Prologue3 />
-	<Prologue4 />
+	<Prologue4 /> -->
 </section>

@@ -4,9 +4,6 @@
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
 	import Lenis from 'lenis';
-	import video_mp4 from '../../videos/prologue-intro-bg.mp4';
-	import video_webm from '../../videos/prologue-intro-bg.webm';
-	import cover_img from '../../images/S5E9_The-masseuse.jpg';
 
 	onMount(() => {
 		// Pin text
@@ -87,7 +84,7 @@
 		class="absolute z-0"
 		style="height: 1400px; top: 100vh; left: 0; right: 0;"
 	>
-		<div class="parallax absolute w-80" data-speed="-1" style="top: 0px; right: 150px;">
+		<!-- <div class="parallax absolute w-80" data-speed="-1" style="top: 0px; right: 150px;">
 			<video playsinline autoplay muted loop poster={cover_img}>
 				<source src={video_webm} type="video/webm" />
 				<source src={video_mp4} type="video/mp4" />
@@ -104,8 +101,8 @@
 				<source src={video_webm} type="video/webm" />
 				<source src={video_mp4} type="video/mp4" />
 			</video>
-		</div>
-		<div
+		</div> -->
+		<!-- <div
 			class="parallax absolute w-80"
 			data-speed="-8"
 			style="top: 800px; left: 50%; transform: translate(-120%);"
@@ -120,6 +117,6 @@
 				<source src={video_webm} type="video/webm" />
 				<source src={video_mp4} type="video/mp4" />
 			</video>
-		</div>
+		</div> -->
 	</div>
 </div>
