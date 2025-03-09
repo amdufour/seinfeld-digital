@@ -7,6 +7,9 @@
 	import { soundIsAuth } from '../../stores/soundAuthStore';
 
 	onMount(() => {
+		// Add links
+
+		// Handle horizontal scroll
 		let sections = gsap.utils.toArray('.scroll section');
 
 		let scrollTween = gsap.to(sections, {
@@ -55,35 +58,77 @@
 		{
 			id: 'vid-container-0',
 			fileName: '6c.ShowAboutNothing',
-			description:
-				'It only took a handful of episodes for me to find myself completely hooked. Seinfeld was written in a different key, deviating from the traditional rules of sitcoms, focusing on - and amplifying of - the minutiae of daily life, earning its reputation as ‘the show about nothing’.',
+			description: [
+				{
+					type: 'text',
+					content:
+						'It only took a handful of episodes for me to find myself completely hooked. Seinfeld was written in a different key, deviating from the traditional rules of sitcoms, focusing on - and amplifying of - the minutiae of daily life, earning its reputation as ‘'
+				},
+				{
+					type: 'link',
+					href: 'https://www.latimes.com/archives/la-xpm-1993-03-04-ca-474-story.html',
+					content: 'the show about nothing'
+				},
+				{ type: 'text', content: '’.' }
+			],
 			isMuted: true
 		},
 		{
 			id: 'vid-container-1',
 			fileName: '32.Minutiae',
-			description:
-				'I loved the irreverent characters - with their absurd obsessions and neurotic tendencies - and the hilariously avoidable situations they found themselves in.',
+			description: [
+				{
+					type: 'text',
+					content:
+						'I loved the irreverent characters - with their absurd obsessions and neurotic tendencies - and the hilariously avoidable situations they found themselves in.'
+				}
+			],
 			isMuted: true
 		},
 		{
 			id: 'vid-container-2',
 			fileName: '11a.GoodSamaritan',
-			description:
-				'It rejected the classic three-act story, sidestepping sentimentality and the pursuit of resolution. With its mantra of ‘no hugging*, no learning’ the lead characters were insecure and entertainingly flawed, lacking any desire and capability for personal growth. ( * the earlier clip notwithstanding! )',
+			description: [
+				{
+					type: 'text',
+					content:
+						'It rejected the classic three-act story, sidestepping sentimentality and the pursuit of resolution. With its mantra of ‘no hugging*, no learning’ the lead characters were insecure and entertainingly flawed, lacking any desire and capability for personal growth. ( * the earlier clip notwithstanding! )'
+				}
+			],
 			isMuted: true
 		},
 		{
 			id: 'vid-container-3',
 			fileName: '13.TheNose',
-			description:
-				'As with any shows from its time, as culture and society evolves a contemporary lens exposes negative stereotypes and flashes of chauvinism and sizeism, to name but two isms. The amoral instincts of these anti-heroes was most on-show in their romantic encounters and when faced with the slightest adversity or irrational annoyance.',
+			description: [
+				{ type: 'text', content: 'As with any shows from its time, as ' },
+				{
+					type: 'link',
+					href: 'https://www.theguardian.com/culture/2024/oct/16/jerry-seinfeld-tom-papa-breaking-bad-podcast-interview-politics-comedy-extreme-left-pc-crap-#:~:text=%E2%80%9CDoes%20culture%20change,my%20skiing%20analogy.%E2%80%9D',
+					content: 'culture and society evolves'
+				},
+				{
+					type: 'text',
+					content:
+						' a contemporary lens exposes negative stereotypes and flashes of chauvinism and sizeism, to name but two isms. The amoral instincts of these '
+				},
+				{
+					type: 'link',
+					href: 'https://www.theguardian.com/tv-and-radio/2018/may/10/no-hugging-no-learning-20-years-on-seinfelds-mantra-still-looms-large',
+					content: 'anti-heroes'
+				},
+				{
+					type: 'text',
+					content:
+						' was most on-show in their romantic encounters and when faced with the slightest adversity or irrational annoyance.'
+				}
+			],
 			isMuted: true
 		},
 		{
 			id: 'vid-container-4',
 			fileName: '14.ElaineDancing',
-			description: 'And then there’s the dancing.',
+			description: [{ type: 'text', content: 'And then there’s the dancing.' }],
 			isMuted: true
 		}
 	]);
@@ -98,7 +143,6 @@
 		// @ts-ignore
 		videos.find((vid) => vid.id === e.target.classList[0]).isMuted = true;
 	};
-	$inspect(videos);
 </script>
 
 <div class="outer h-screen" style="margin-bottom: 1300vh;">
@@ -123,7 +167,15 @@
 							</video>
 							<div class="overlay"></div>
 						</div>
-						<p class="show-description">{video.description}</p>
+						<p class="show-description">
+							{#each video.description as desc}
+								{#if desc.type === 'link'}
+									<a href={desc.href} target="_blank">{desc.content}</a>
+								{:else}
+									<span>{desc.content}</span>
+								{/if}
+							{/each}
+						</p>
 					</div>
 				</div>
 			</section>
