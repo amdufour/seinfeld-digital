@@ -30,7 +30,7 @@
 					containerAnimation: scrollTween,
 					trigger: section.querySelector('h2'),
 					start: 'left center',
-					// scrub: 1,
+					scrub: 1,
 					toggleActions: 'play none none reverse'
 				}
 			});
@@ -55,14 +55,22 @@
 	<div class="scroll flex" style="width: 500vw;">
 		<section class="section-1 h-screen w-screen">
 			<div class="background"></div>
-			<p>
-				It only took a handful of episodes for me to find myself completely hooked. Seinfeld was
-				written in a different key, deviating from the traditional rules of sitcoms, focusing on -
-				and amplifying of - the minutiae of daily life, earning its reputation as ‘<a
-					href="https://www.latimes.com/archives/la-xpm-1993-03-04-ca-474-story.html"
-					target="_blank">the show about nothing</a
-				>’.
-			</p>
+			<div class="container">
+				<video playsinline autoplay muted loop>
+					<source
+						src="https://amdufour.github.io/hosted-data/apis/videos/6c.ShowAboutNothing.mp4"
+						type="video/mp4"
+					/>
+				</video>
+				<p>
+					It only took a handful of episodes for me to find myself completely hooked. Seinfeld was
+					written in a different key, deviating from the traditional rules of sitcoms, focusing on -
+					and amplifying of - the minutiae of daily life, earning its reputation as ‘<a
+						href="https://www.latimes.com/archives/la-xpm-1993-03-04-ca-474-story.html"
+						target="_blank">the show about nothing</a
+					>’.
+				</p>
+			</div>
 		</section>
 		<section class="section-2 h-screen w-screen">
 			<div class="background"></div>
@@ -157,9 +165,12 @@
 	.section-5 .background {
 		left: -400vw;
 	}
-	p {
+	.container {
 		position: relative;
 		z-index: 2;
-		max-width: 600px;
+		padding-top: 130px;
+	}
+	video {
+		max-height: 550px;
 	}
 </style>

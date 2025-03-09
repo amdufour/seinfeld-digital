@@ -166,16 +166,6 @@
 	.parallax {
 		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 	}
-	.overlay {
-		position: absolute;
-		z-index: 1;
-		top: 0;
-		left: 0;
-		z-index: 1;
-		width: 100%;
-		height: 100%;
-		background: rgba(18, 2, 10, 0.55);
-	}
 	.episode {
 		position: absolute;
 		z-index: 2;

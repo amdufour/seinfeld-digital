@@ -22,14 +22,9 @@
 	const sonificationLocationDataUrl =
 		'https://amdufour.github.io/hosted-data/apis/sonificationLocationsData.csv';
 
-	const openModale = () => {
-		$soundAuthModaleIsOpen = true;
-		document.body.style.position = 'fixed';
-	};
-
 	onMount(() => {
 		setTimeout(() => {
-			openModale();
+			$soundAuthModaleIsOpen = true;
 		}, 4000);
 	});
 </script>
