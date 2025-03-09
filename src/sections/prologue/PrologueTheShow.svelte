@@ -4,15 +4,16 @@
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
 	import Lenis from 'lenis';
+
 	import { soundIsAuth } from '../../stores/soundAuthStore';
 
 	onMount(() => {
 		// Add links
 
 		// Handle horizontal scroll
-		let sections = gsap.utils.toArray('.scroll section');
+		const sections = gsap.utils.toArray('.scroll section');
 
-		let scrollTween = gsap.to(sections, {
+		const scrollTween = gsap.to(sections, {
 			xPercent: -100 * (sections.length - 1),
 			ease: 'none',
 			scrollTrigger: {
@@ -27,15 +28,37 @@
 		});
 
 		sections.forEach((section) => {
-			gsap.from(section.querySelector('h2'), {
+			gsap.from(section.querySelector('p'), {
 				opacity: 0,
-				y: -100,
+				y: 20,
 				scrollTrigger: {
 					containerAnimation: scrollTween,
-					trigger: section.querySelector('h2'),
+					trigger: section.querySelector('p'),
 					start: 'left center',
-					scrub: 1,
-					toggleActions: 'play none none reverse'
+					// scrub: 1,
+					toggleActions: 'play reverse play reverse'
+				}
+			});
+			gsap.from(section.querySelector('.vid-container'), {
+				opacity: 0,
+				y: -50,
+				scrollTrigger: {
+					containerAnimation: scrollTween,
+					trigger: section.querySelector('p'),
+					start: 'left center',
+					// scrub: 1,
+					toggleActions: 'play reverse play reverse'
+				}
+			});
+			gsap.from(section.querySelector('.episode-title'), {
+				opacity: 0,
+				x: -100,
+				scrollTrigger: {
+					containerAnimation: scrollTween,
+					trigger: section.querySelector('p'),
+					start: 'left center',
+					// scrub: 1,
+					toggleActions: 'play reverse play reverse'
 				}
 			});
 		});
@@ -58,6 +81,7 @@
 		{
 			id: 'vid-container-0',
 			fileName: '6c.ShowAboutNothing',
+			episode: 'S4E3 - The Pitch',
 			description: [
 				{
 					type: 'text',
@@ -76,6 +100,7 @@
 		{
 			id: 'vid-container-1',
 			fileName: '32.Minutiae',
+			episode: 'S8E3 - The Bizzaro Jerry',
 			description: [
 				{
 					type: 'text',
@@ -88,6 +113,7 @@
 		{
 			id: 'vid-container-2',
 			fileName: '11a.GoodSamaritan',
+			episode: 'S9E24 - The Good Samaritan Law',
 			description: [
 				{
 					type: 'text',
@@ -99,7 +125,8 @@
 		},
 		{
 			id: 'vid-container-3',
-			fileName: '13.TheNose',
+			fileName: '13a.TheNose',
+			episode: 'S3E9 - The Nose Job',
 			description: [
 				{ type: 'text', content: 'As with any shows from its time, as ' },
 				{
@@ -128,6 +155,7 @@
 		{
 			id: 'vid-container-4',
 			fileName: '14.ElaineDancing',
+			episode: 'S8E4 - The Little Kicks',
 			description: [{ type: 'text', content: 'And then there’s the dancing.' }],
 			isMuted: true
 		}
@@ -136,23 +164,24 @@
 	const handleVideoMouseEnter = (/** @type {{ target: any; }} */ e) => {
 		if ($soundIsAuth) {
 			// @ts-ignore
-			videos.find((vid) => vid.id === e.target.classList[0]).isMuted = false;
+			videos.find((vid) => vid.id === e.target.classList[1]).isMuted = false;
 		}
 	};
 	const handleVideoMouseLeave = (/** @type {{ target: any; }} */ e) => {
 		// @ts-ignore
-		videos.find((vid) => vid.id === e.target.classList[0]).isMuted = true;
+		videos.find((vid) => vid.id === e.target.classList[1]).isMuted = true;
 	};
 </script>
 
 <div class="outer h-screen" style="margin-bottom: 1300vh;">
 	<div class="scroll flex" style="width: 500vw;">
 		{#each videos as video, i}
-			<section class={`section-${i + 1} h-screen w-screen`}>
+			<section class={`section-${i + 1} flex h-screen w-screen flex-col items-center`}>
 				<div class="background"></div>
-				<div class="content flex flex-col items-center">
+				<div class="episode-title">{video.episode}</div>
+				<div class="content">
 					<div
-						class={`vid-container-${i}`}
+						class={`vid-container vid-container-${i}`}
 						role="presentation"
 						onmouseenter={handleVideoMouseEnter}
 						onmouseleave={handleVideoMouseLeave}
@@ -199,10 +228,8 @@
 		);
 	}
 	section {
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		overflow: hidden;
+		padding-top: 120px;
 	}
 	.background {
 		position: absolute;
@@ -244,10 +271,22 @@
 	}
 	video,
 	.overlay {
-		width: 975px;
+		width: 800px;
 		max-width: 100%;
 	}
 	.show-description {
 		max-width: 800px;
+	}
+	.episode-title {
+		position: absolute;
+		z-index: 5;
+		top: 40px;
+		left: 8px;
+		font-size: 7rem;
+		line-height: 1;
+		font-weight: 600;
+		-webkit-text-fill-color: transparent;
+		-webkit-text-stroke-width: 2px;
+		-webkit-text-stroke-color: #f9f5f7;
 	}
 </style>
