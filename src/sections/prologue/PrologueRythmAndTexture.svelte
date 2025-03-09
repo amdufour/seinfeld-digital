@@ -68,26 +68,36 @@
 			id: 'parallax-2',
 			isMuted: true,
 			position: 'top: 0px; right: 150px;',
-			fileName: '8.KramerCigarette'
+			fileName: '8.KramerCigarette',
+			episode: ' S5E4 - The Sniffing Accountant'
 		},
-		{ id: 'parallax-3', isMuted: true, position: 'top: 400px; left: 50px;', fileName: 'Elaine1b' },
+		{
+			id: 'parallax-3',
+			isMuted: true,
+			position: 'top: 400px; left: 50px;',
+			fileName: 'Elaine1b',
+			episode: 'S8E12 - The Money'
+		},
 		{
 			id: 'parallax-4',
 			isMuted: true,
 			position: 'top: 600px; left: 50%;',
-			fileName: '26.JerryFriend'
+			fileName: '26.JerryFriend',
+			episode: 'S1E4 - Male Unbonding'
 		},
 		{
 			id: 'parallax-1',
 			isMuted: true,
 			position: 'top: 800px; left: 50%; transform: translate(-120%);',
-			fileName: '24b.Jerrys'
+			fileName: '24b.Jerrys',
+			episode: 'S3E2 - The Truth'
 		},
 		{
 			id: 'parallax-5',
 			isMuted: true,
 			position: 'top: 1200px; right: 50px;',
-			fileName: 'KramerJeans2'
+			fileName: 'KramerJeans2',
+			episode: 'S7E21 - The Wait Out'
 		}
 	]);
 
@@ -145,6 +155,7 @@
 							type="video/mp4"
 						/>
 					</video>
+					<div class="episode">{video.episode}</div>
 				</div>
 			{/each}
 		</div>
@@ -157,11 +168,28 @@
 	}
 	.overlay {
 		position: absolute;
+		z-index: 1;
 		top: 0;
 		left: 0;
 		z-index: 1;
 		width: 100%;
 		height: 100%;
 		background: rgba(18, 2, 10, 0.55);
+	}
+	.episode {
+		position: absolute;
+		z-index: 2;
+		right: 5px;
+		bottom: 0;
+		font-size: 1.125rem;
+		line-height: 1.2;
+		font-weight: 600;
+		transform: translateY(15px);
+		opacity: 0;
+		transition: all 350ms cubic-bezier(0.165, 0.84, 0.44, 1);
+	}
+	.parallax:hover .episode {
+		transform: translateY(0);
+		opacity: 1;
 	}
 </style>
