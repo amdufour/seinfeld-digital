@@ -6,6 +6,14 @@
 	import StrokedTitle_S4E4_TheWallet_sm from '../../images/StrokedTitle_S4E4_TheWallet_sm.svelte';
 
 	let innerWidth = $state(1200);
+	let isMuted = $state(true);
+
+	const handleMouseEnter = () => {
+		isMuted = false;
+	};
+	const handleMouseLeave = () => {
+		isMuted = true;
+	};
 
 	onMount(() => {
 		const tl = gsap.timeline({
@@ -27,8 +35,14 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="relative flex h-screen items-center">
-	<video playsinline autoplay muted loop>
+<div
+	class="relative flex h-screen items-center"
+	role="presentation"
+	onmouseenter={handleMouseEnter}
+	onmouseleave={handleMouseLeave}
+>
+	<!-- svelte-ignore a11y_media_has_caption -->
+	<video playsinline autoplay bind:muted={isMuted} loop>
 		<source
 			src="https://amdufour.github.io/hosted-data/apis/videos/1a.ElaineArrives.mp4"
 			type="video/mp4"
