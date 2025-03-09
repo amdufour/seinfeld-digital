@@ -25,23 +25,22 @@
 	const openModale = () => {
 		$soundAuthModaleIsOpen = true;
 		document.body.style.position = 'fixed';
-		document.body.style.top = `-${window.scrollY}px`;
 	};
 
-	// onMount(() => {
-	// 	setTimeout(() => {
-	// 		openModale();
-	// 	}, 4000);
-	// });
+	onMount(() => {
+		setTimeout(() => {
+			openModale();
+		}, 4000);
+	});
 </script>
 
 <main>
 	<Navbar />
 	<div class="bg-black text-white">
 		<Prologue />
-		<!-- {#if $soundAuthModaleIsOpen}
+		{#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
-		{/if} -->
+		{/if}
 		<Title />
 	</div>
 	<!-- <Quotes />

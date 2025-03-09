@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { soundIsAuth } from '../../stores/soundAuthStore';
 	gsap.registerPlugin(ScrollTrigger);
 	import Lenis from 'lenis';
 
@@ -91,8 +92,9 @@
 	]);
 
 	const handleVideoMouseEnter = (/** @type {{ target: any; }} */ e) => {
-		videos.find((vid) => vid.id === e.target.classList[1]).isMuted = false;
-		console.log(videos);
+		if ($soundIsAuth) {
+			videos.find((vid) => vid.id === e.target.classList[1]).isMuted = false;
+		}
 	};
 	const handleVideoMouseLeave = (/** @type {{ target: any; }} */ e) => {
 		videos.find((vid) => vid.id === e.target.classList[1]).isMuted = true;
