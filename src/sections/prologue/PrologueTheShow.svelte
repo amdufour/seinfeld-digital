@@ -4,6 +4,7 @@
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
 	import Lenis from 'lenis';
+	import { soundIsAuth } from '../../stores/soundAuthStore';
 
 	onMount(() => {
 		let sections = gsap.utils.toArray('.scroll section');
@@ -49,64 +50,84 @@
 
 		requestAnimationFrame(raf);
 	});
+
+	const videos = $state([
+		{
+			id: 'vid-container-0',
+			fileName: '6c.ShowAboutNothing',
+			description:
+				'It only took a handful of episodes for me to find myself completely hooked. Seinfeld was written in a different key, deviating from the traditional rules of sitcoms, focusing on - and amplifying of - the minutiae of daily life, earning its reputation as ‘the show about nothing’.',
+			isMuted: true
+		},
+		{
+			id: 'vid-container-1',
+			fileName: '32.Minutiae',
+			description:
+				'I loved the irreverent characters - with their absurd obsessions and neurotic tendencies - and the hilariously avoidable situations they found themselves in.',
+			isMuted: true
+		},
+		{
+			id: 'vid-container-2',
+			fileName: '11a.GoodSamaritan',
+			description:
+				'It rejected the classic three-act story, sidestepping sentimentality and the pursuit of resolution. With its mantra of ‘no hugging*, no learning’ the lead characters were insecure and entertainingly flawed, lacking any desire and capability for personal growth. ( * the earlier clip notwithstanding! )',
+			isMuted: true
+		},
+		{
+			id: 'vid-container-3',
+			fileName: '13.TheNose',
+			description:
+				'As with any shows from its time, as culture and society evolves a contemporary lens exposes negative stereotypes and flashes of chauvinism and sizeism, to name but two isms. The amoral instincts of these anti-heroes was most on-show in their romantic encounters and when faced with the slightest adversity or irrational annoyance.',
+			isMuted: true
+		},
+		{
+			id: 'vid-container-4',
+			fileName: '14.ElaineDancing',
+			description: 'And then there’s the dancing.',
+			isMuted: true
+		}
+	]);
+
+	const handleVideoMouseEnter = (/** @type {{ target: any; }} */ e) => {
+		if ($soundIsAuth) {
+			// @ts-ignore
+			videos.find((vid) => vid.id === e.target.classList[0]).isMuted = false;
+		}
+	};
+	const handleVideoMouseLeave = (/** @type {{ target: any; }} */ e) => {
+		// @ts-ignore
+		videos.find((vid) => vid.id === e.target.classList[0]).isMuted = true;
+	};
+	$inspect(videos);
 </script>
 
 <div class="outer h-screen" style="margin-bottom: 1300vh;">
 	<div class="scroll flex" style="width: 500vw;">
-		<section class="section-1 h-screen w-screen">
-			<div class="background"></div>
-			<div class="container">
-				<video playsinline autoplay muted loop>
-					<source
-						src="https://amdufour.github.io/hosted-data/apis/videos/6c.ShowAboutNothing.mp4"
-						type="video/mp4"
-					/>
-				</video>
-				<p>
-					It only took a handful of episodes for me to find myself completely hooked. Seinfeld was
-					written in a different key, deviating from the traditional rules of sitcoms, focusing on -
-					and amplifying of - the minutiae of daily life, earning its reputation as ‘<a
-						href="https://www.latimes.com/archives/la-xpm-1993-03-04-ca-474-story.html"
-						target="_blank">the show about nothing</a
-					>’.
-				</p>
-			</div>
-		</section>
-		<section class="section-2 h-screen w-screen">
-			<div class="background"></div>
-			<p>
-				I loved the irreverent characters - with their absurd obsessions and neurotic tendencies -
-				and the hilariously avoidable situations they found themselves in.
-			</p>
-		</section>
-		<section class="section-3 h-screen w-screen">
-			<div class="background"></div>
-			<p>
-				It rejected the classic three-act story, sidestepping sentimentality and the pursuit of
-				resolution. With its mantra of ‘no hugging*, no learning’ the lead characters were insecure
-				and entertainingly flawed, lacking any desire and capability for personal growth.
-			</p>
-		</section>
-		<section class="section-4 h-screen w-screen">
-			<div class="background"></div>
-			<p>
-				As with any shows from its time, as <a
-					href="https://www.theguardian.com/culture/2024/oct/16/jerry-seinfeld-tom-papa-breaking-bad-podcast-interview-politics-comedy-extreme-left-pc-crap-#:~:text=%E2%80%9CDoes%20culture%20change,my%20skiing%20analogy.%E2%80%9D"
-					target="_blank">culture and society evolves</a
-				>
-				a contemporary lens exposes negative stereotypes and flashes of chauvinism and sizeism, to name
-				but two isms. The amoral instincts of these
-				<a
-					href="https://www.theguardian.com/tv-and-radio/2018/may/10/no-hugging-no-learning-20-years-on-seinfelds-mantra-still-looms-large"
-					target="_blank">anti-heroes</a
-				> was most on-show in their romantic encounters and when faced with the slightest adversity or
-				irrational annoyance.
-			</p>
-		</section>
-		<section class="section-5 h-screen w-screen">
-			<div class="background"></div>
-			<p>And then there’s the dancing.</p>
-		</section>
+		{#each videos as video, i}
+			<section class={`section-${i + 1} h-screen w-screen`}>
+				<div class="background"></div>
+				<div class="content flex flex-col items-center">
+					<div
+						class={`vid-container-${i}`}
+						role="presentation"
+						onmouseenter={handleVideoMouseEnter}
+						onmouseleave={handleVideoMouseLeave}
+					>
+						<div class="relative">
+							<!-- svelte-ignore a11y_media_has_caption -->
+							<video playsinline autoplay bind:muted={video.isMuted} loop>
+								<source
+									src={`https://amdufour.github.io/hosted-data/apis/videos/${video.fileName}.mp4`}
+									type="video/mp4"
+								/>
+							</video>
+							<div class="overlay"></div>
+						</div>
+						<p class="show-description">{video.description}</p>
+					</div>
+				</div>
+			</section>
+		{/each}
 	</div>
 </div>
 
@@ -165,12 +186,16 @@
 	.section-5 .background {
 		left: -400vw;
 	}
-	.container {
+	.content {
 		position: relative;
 		z-index: 2;
-		padding-top: 130px;
 	}
-	video {
-		max-height: 550px;
+	video,
+	.overlay {
+		width: 975px;
+		max-width: 100%;
+	}
+	.show-description {
+		max-width: 800px;
 	}
 </style>
