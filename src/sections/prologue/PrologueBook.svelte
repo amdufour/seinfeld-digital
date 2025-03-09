@@ -50,7 +50,7 @@
 				.to(
 					'#book-cover',
 					{
-						scale: 1.2
+						scale: 1.08
 					},
 					0
 				)
@@ -87,7 +87,23 @@
 		style="margin-top: {innerHeight / 6}px;"
 	>
 		<div class="col-span-1 flex h-full items-center px-4">
-			<p>This project, prolonging the portfolio book published in 2020, explores both.</p>
+			<div>
+				<p>
+					My curiosity transcended just <a
+						href="https://jenniferkarmstrong.com/books/seinfeldia/"
+						target="_blank">reading more about the show</a
+					>, it was now time to go deep. I decided to immerse myself in an entirely unnecessary,
+					self-motivated, long-running, data-driven exploration of every episode of Seinfeld. Why
+					not!
+				</p>
+				<p>
+					The first product of this work was my 2020 publishing of The Seinfeld Chronicles, a
+					limited-edition printed book presenting all my extensive analysis. With 176 copies
+					released, matching the number of written episodes, this reached a small but exclusive
+					audience. In 2024 I decided it was time to work on a new product, to reach a wider
+					audience with a completely new format: The Seinfeld Chronicles digital edition.
+				</p>
+			</div>
 		</div>
 		<div class="col-span-1 px-4">
 			<img id="book-cover" src={BookCover} alt="Cover of the book The Seinfeld Chronicles." />

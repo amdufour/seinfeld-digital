@@ -42,7 +42,7 @@
 		<!-- {#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
 		{/if} -->
-		<!-- <Title /> -->
+		<Title />
 	</div>
 	<!-- <Quotes />
 	<MainCharsSection />

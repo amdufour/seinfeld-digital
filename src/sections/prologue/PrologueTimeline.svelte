@@ -34,22 +34,12 @@
 			}
 		});
 		tl1
-			.from('#prologue-2', {
+			.from('#prologue-1', {
 				translateY: 30,
 				opacity: 0,
 				ease: 'power3.out',
 				duration: 2
 			})
-			.from(
-				'#prologue-3',
-				{
-					translateY: 30,
-					opacity: 0,
-					ease: 'power3.out',
-					duration: 2
-				},
-				'-=1'
-			)
 			.from(
 				'#timeline-line',
 				{
@@ -74,12 +64,12 @@
 		// Reveal text 2 and animate timeline
 		const tl2 = gsap.timeline({
 			scrollTrigger: {
-				trigger: '#prologue-4',
+				trigger: '#prologue-2',
 				start: 'top bottom-=20%'
 			}
 		});
 		tl2
-			.from('#prologue-4', {
+			.from('#prologue-2', {
 				translateY: 30,
 				opacity: 0,
 				ease: 'power3.out',
@@ -121,23 +111,17 @@
 <div id="timeline-container" class="container mt-20 grid grid-cols-2">
 	<div class="col-span-1 px-4">
 		<div class="flex h-screen flex-col justify-center">
-			<p id="prologue-2">
-				Though the first episode aired in the US in 1989 it wasn't broadcast in the UK until 1993.
-			</p>
-			<p id="prologue-3">
-				Even then it was scheduled with such inconsistency on the BBC's night-time line-up and
-				during my university years of '95 to '99 I rarely had access to a TV with a functioning
-				aerial. Although I was aware of its pop-culture phenomenon status, it felt like it had
-				passed me by.
+			<p id="prologue-1">
+				Though the first episode was aired in the US in 1989, there would be a four-year delay until
+				it was broadcast in the UK. As a teenager, and with the show lurking in the shadows of BBC’s
+				late-night schedules, it passed me by.
 			</p>
 		</div>
 		<div class="flex h-screen flex-col justify-center">
-			<p id="prologue-4">
-				It wasn't until I was in my 30s (and was a proud owner of a television set), that the series
-				reappeared on UK TV schedules in a prime-time evening slot. I knew it was popular and I now
-				felt compelled to find out for myself. After only a handful of episodes, I was hooked. My
-				path to Seinfeld fandom was established with 9 seasons' worth of shows ahead of me to
-				savour.
+			<p id="prologue-2">
+				It wasn't until I was in my 30s when Seinfeld reappeared on UK TV in a prime-time slot.
+				Fully aware of the show's standing in the canon of popular culture this was my best
+				opportunity to tune in.
 			</p>
 		</div>
 	</div>
