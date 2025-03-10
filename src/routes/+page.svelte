@@ -2,12 +2,15 @@
 	// @ts-ignore
 	import { csv } from 'd3-fetch';
 	import { onMount } from 'svelte';
+	import { inview } from 'svelte-inview';
+	import { navBarColor } from '../stores/navbarColor';
 	import { soundAuthModaleIsOpen } from '../stores/soundAuthStore';
 	// @ts-ignore
 	import Navbar from '../UI/Navbar.svelte';
 	import Prologue from '../sections/prologue/Prologue.svelte';
 	import SoundAuthPopup from '../UI/SoundAuthPopup.svelte';
 	import Title from '../sections/Title.svelte';
+	import Calendar from '../sections/calendar/Calendar.svelte';
 	import Quotes from '../sections/quotes/Quotes.svelte';
 	import MainCharsSection from '../sections/main_characters/MainCharsSection.svelte';
 	import SupportingCharsSection from '../sections/supporting_characters/SupportingCharsSection.svelte';
@@ -27,17 +30,27 @@
 			$soundAuthModaleIsOpen = true;
 		}, 4000);
 	});
+
+	const options = {};
 </script>
 
 <main>
 	<Navbar />
-	<div class="bg-black text-white">
+	<div
+		class="bg-black text-white"
+		use:inview={options}
+		oninview_change={(/** @type {{ detail: { inView: any; }; }} */ event) => {
+			const { inView } = event.detail;
+			$navBarColor = inView ? 'white' : 'pink';
+		}}
+	>
 		<Prologue />
 		{#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
 		{/if}
 		<Title />
 	</div>
+	<Calendar />
 	<!-- <Quotes />
 	<MainCharsSection />
 	<SupportingCharsSection />

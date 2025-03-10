@@ -1,6 +1,7 @@
 <script>
 	import { soundIsAuth } from '../stores/soundAuthStore';
 	import { catalogIsInView } from '../stores/catalogIsInView';
+	import { navBarColor } from '../stores/navbarColor';
 	import AudioOn from '../icons/AudioOn.svelte';
 	import AudioOff from '../icons/AudioOff.svelte';
 	import Burger from '../icons/Burger.svelte';
@@ -16,28 +17,37 @@
 	const toggleMenu = () => {
 		showMenu = !showMenu;
 	};
+
+	let color = $derived.by(() => {
+		switch (true) {
+			// case catalogIsInView && innerWidth >= 540:
+			// 	return '#F9F5F7';
+			// case catalogIsInView && innerWidth < 540:
+			// 	return '#E71D80';
+			case $navBarColor === 'white':
+				return '#F9F5F7';
+			default:
+				return '#E71D80';
+		}
+	});
+	$inspect($navBarColor, color);
 </script>
 
 <svelte:window bind:innerWidth />
 
 <div
-	class="fixed right-0 top-0 flex h-14 items-center"
-	style="height: {catalogIsInView && innerWidth >= 540 ? 82 : 56}px; z-index: {catalogIsInView &&
-	innerWidth <= 539
-		? 0
-		: 10};"
+	class="fixed right-6 top-0 flex h-14 items-center"
+	style="height: 56px; z-index: {catalogIsInView && innerWidth <= 539 ? 0 : 10};"
 >
-	<div class="flex" style="padding-right: {innerWidth > 1600 ? (innerWidth - 1600) / 2 : 32}px;">
+	<div class="flex">
 		<button onclick={toggleSound}>
 			{#if $soundIsAuth}
-				<AudioOn color={catalogIsInView && innerWidth >= 540 ? '#F9F5F7' : '#E71D80'} />
+				<AudioOn {color} />
 			{:else}
-				<AudioOff color={catalogIsInView && innerWidth >= 540 ? '#F9F5F7' : '#BEBABC'} />
+				<AudioOff {color} />
 			{/if}
 		</button>
-		<button class="ml-4" onclick={toggleMenu} disabled={showMenu}
-			><Burger color={catalogIsInView && innerWidth >= 540 ? '#F9F5F7' : '#E71D80'} /></button
-		>
+		<button class="ml-4" onclick={toggleMenu} disabled={showMenu}><Burger {color} /></button>
 	</div>
 </div>
 {#if showMenu}

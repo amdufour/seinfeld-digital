@@ -103,6 +103,7 @@
 	use:inview={options}
 	oninview_change={(/** @type {{ detail: { inView: any; }; }} */ event) => {
 		const { inView } = event.detail;
+		console.log(event.detail);
 		$catalogIsInView = inView;
 	}}
 >
