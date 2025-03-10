@@ -11,7 +11,7 @@
 	let innerHeight = $state(800);
 	let seasonsWidth = $derived(innerWidth >= 793 ? 130 : 100);
 	let headersHeight = $derived(innerWidth >= 793 ? 68 : 36);
-	let episodeRadius = $derived(innerWidth >= 793 ? 15 : 7);
+	let episodeRadius = $derived(innerWidth >= 793 ? 15 : 10);
 
 	const tvSeasons = [
 		{
@@ -39,7 +39,9 @@
 			case 3:
 				return [new Date(1991, 8, 1), new Date(1992, 7, 31)];
 			case 4:
-				return [new Date(1992, 8, 1), new Date(1993, 7, 31)];
+				return date === 'August 12 1992' || date === 'August 19 1992'
+					? [new Date(1991, 8, 1), new Date(1992, 7, 31)]
+					: [new Date(1992, 8, 1), new Date(1993, 7, 31)];
 			case 5:
 				return [new Date(1993, 8, 1), new Date(1994, 7, 31)];
 			case 6:
@@ -64,7 +66,9 @@
 	onMount(() => {
 		getYPosition = (/** @type {number} */ season, /** @type {string} */ date) => {
 			const seasonBlock = document
-				.getElementById(`catalog-season-${season}`)
+				.getElementById(
+					`catalog-season-${date === 'August 12 1992' || date === 'August 19 1992' ? season - 1 : season}`
+				)
 				?.getBoundingClientRect();
 
 			if (!seasonBlock) return 0;
@@ -141,7 +145,9 @@
 			>
 				<circle
 					r={episodeRadius}
-					fill={seasons.find((s) => s.seasonNum === episode.season)?.color}
+					fill={episode.isSpecial
+						? '#BEBABC'
+						: seasons.find((s) => s.seasonNum === episode.season)?.color}
 				/>
 				{#if innerWidth >= 793}
 					<text
@@ -149,7 +155,8 @@
 						text-anchor="middle"
 						dominant-baseline="middle"
 						dy={1}
-						fill={episode.season > 2 ? '#F9F5F7' : '#12020A'}>{episode.episode}</text
+						fill={episode.season > 2 && !episode.isSpecial ? '#F9F5F7' : '#12020A'}
+						>{episode.episode}</text
 					>
 				{/if}
 			</g>
