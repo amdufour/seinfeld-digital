@@ -30,7 +30,6 @@
 				return '#E71D80';
 		}
 	});
-	$inspect($navBarColor, color);
 </script>
 
 <svelte:window bind:innerWidth />
