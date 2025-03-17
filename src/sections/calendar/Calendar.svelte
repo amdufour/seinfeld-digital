@@ -25,10 +25,13 @@
 		},
 		{
 			season: 'Summer',
-			months: ['May', 'Jun', 'July', 'Aug']
+			months: ['May', 'Jun', 'Jul', 'Aug']
 		}
 	];
 
+	/**
+	 * @type {any[]}
+	 */
 	let nodes = $state([]);
 
 	const getTimeDomain = (/** @type {number} */ season, /** @type {string} */ date) => {
@@ -58,6 +61,98 @@
 		}
 	};
 
+	const timeScale = $derived(
+		scaleTime()
+			.domain(getTimeDomain(1, 'July 6 1989')) // [new Date(1989, 8, 1), new Date(1990, 7, 31)]
+			.range([15, screenSize.width - seasonsWidth - 15])
+	);
+
+	const globalTimeScale = (/** @type {string} */ month) => {
+		switch (month) {
+			case 'Sep':
+				return timeScale(new Date('October 1 1989'));
+			case 'Oct':
+				return timeScale(new Date('November 1 1989'));
+			case 'Nov':
+				return timeScale(new Date('December 1 1989'));
+			case 'Dec':
+				return timeScale(new Date('January 1 1990'));
+			case 'Jan':
+				return timeScale(new Date('February 1 1990'));
+			case 'Feb':
+				return timeScale(new Date('March 1 1990'));
+			case 'Mar':
+				return timeScale(new Date('April 1 1990'));
+			case 'Apr':
+				return timeScale(new Date('May 1 1990'));
+			case 'May':
+				return timeScale(new Date('June 1 1990'));
+			case 'Jun':
+				return timeScale(new Date('July 1 1990'));
+			case 'Jul':
+				return timeScale(new Date('August 1 1990'));
+			default:
+				return timeScale(new Date('August 31 1990'));
+		}
+	};
+
+	const monthScale = (/** @type {string} */ month) => {
+		let date1;
+		let date2;
+		switch (month) {
+			case 'Sep':
+				date1 = timeScale(new Date('September 15 1989'));
+				date2 = timeScale(new Date('September 15 1989'));
+				break;
+			case 'Oct':
+				date1 = timeScale(new Date('October 15 1989'));
+				date2 = timeScale(new Date('October 16 1989'));
+				break;
+			case 'Nov':
+				date1 = timeScale(new Date('November 15 1989'));
+				date2 = timeScale(new Date('November 15 1989'));
+				break;
+			case 'Dec':
+				date1 = timeScale(new Date('December 15 1989'));
+				date2 = timeScale(new Date('December 16 1989'));
+				break;
+			case 'Jan':
+				date1 = timeScale(new Date('January 15 1990'));
+				date2 = timeScale(new Date('January 16 1990'));
+				break;
+			case 'Feb':
+				date1 = timeScale(new Date('February 14 1990'));
+				date2 = timeScale(new Date('February 14 1990'));
+				break;
+			case 'Mar':
+				date1 = timeScale(new Date('March 15 1990'));
+				date2 = timeScale(new Date('March 16 1990'));
+				break;
+			case 'Apr':
+				date1 = timeScale(new Date('April 15 1990'));
+				date2 = timeScale(new Date('April 15 1990'));
+				break;
+			case 'May':
+				date1 = timeScale(new Date('May 15 1990'));
+				date2 = timeScale(new Date('May 16 1990'));
+				break;
+			case 'Jun':
+				date1 = timeScale(new Date('June 15 1990'));
+				date2 = timeScale(new Date('June 15 1990'));
+				break;
+			case 'Jul':
+				date1 = timeScale(new Date('July 15 1990'));
+				date2 = timeScale(new Date('July 16 1990'));
+				break;
+			default:
+				date1 = timeScale(new Date('August 15 1990'));
+				date2 = timeScale(new Date('August 16 1990'));
+				break;
+		}
+
+		return date1 + (date2 - date1) / 2;
+	};
+
 	$effect(() => {
 		const getXPosition = (/** @type {number} */ season, /** @type {string} */ date) => {
 			const timeScale = scaleTime()
@@ -65,7 +160,7 @@
 				.range([15, screenSize.width - seasonsWidth - 15]);
 			return timeScale(new Date(date));
 		};
-		console.log('in effect');
+
 		const getYPosition = (/** @type {number} */ season, /** @type {string} */ date) => {
 			const seasonBlock = document
 				.getElementById(
@@ -88,7 +183,6 @@
 			nodes = simulation.nodes();
 		});
 
-		console.log('run the simulation');
 		simulation
 			.force('x', forceX((d) => getXPosition(d.season, d.date_aired)).strength(1))
 			.force('y', forceY((d) => getYPosition(d.season, d.date_aired)).strength(0.8))
@@ -118,44 +212,67 @@
 		{/each}
 	</div>
 
-	<!-- Months -->
-	<div class="flex grow">
-		{#each tvSeasons as tvSeason, i}
-			<div
-				class="flex"
-				style="width: {(innerWidth - seasonsWidth) / 3}px; background: {i === 1
-					? '#EEECED'
-					: 'transparent'};"
-			>
-				<div class="grow">
-					<div class="flex grow flex-col">
-						<div class="mt-2 flex grow justify-center">
-							<div>{tvSeason.season}</div>
-						</div>
-						{#if innerWidth >= 793}
-							<div class="flex grow">
-								{#each tvSeason.months as month}
-									<div class="flex grow justify-center text-base">
-										<div>{month}</div>
-									</div>
-								{/each}
-							</div>
-						{/if}
-					</div>
-				</div>
-			</div>
-		{/each}
-	</div>
-
-	<!-- Episodes -->
 	<svg
 		class="absolute"
 		width={innerWidth - seasonsWidth}
-		height={innerHeight - headersHeight}
-		style="top: {headersHeight}px; left: {seasonsWidth}px;"
+		height={innerHeight}
+		style="top: 0px; left: {seasonsWidth}px;"
 	>
+		<rect
+			x={timeScale(new Date('January 1 1990'))}
+			y={0}
+			width={timeScale(new Date('May 1 1990')) - timeScale(new Date('January 1 1990'))}
+			height={innerHeight}
+			fill="#EEECED"
+		/>
+		<!-- Seasons and Months -->
+		{#each tvSeasons as tvSeason, i}
+			<!-- Season labels -->
+			<text
+				x={i === 0
+					? timeScale(new Date('November 1 1989'))
+					: i === 1
+						? timeScale(new Date('March 1 1990'))
+						: timeScale(new Date('July 1 1990'))}
+				y={24}
+				text-anchor="middle"
+				dominant-baseline="middle"
+			>
+				{tvSeason.season}
+			</text>
+
+			<!-- Month labels -->
+			{#each tvSeason.months as month}
+				<text
+					class="text-base"
+					x={monthScale(month)}
+					y={56}
+					text-anchor="middle"
+					dominant-baseline="middle"
+				>
+					{month}
+				</text>
+			{/each}
+		{/each}
+
+		<!-- Month separators -->
+		{#each tvSeasons as season}
+			{#each season.months as month}
+				{#if month !== 'Aug'}
+					<line
+						x1={globalTimeScale(month)}
+						y1={44}
+						x2={globalTimeScale(month)}
+						y2={innerHeight - 44}
+						stroke="#BEBABC"
+					/>
+				{/if}
+			{/each}
+		{/each}
+
+		<!-- Episodes -->
 		{#each nodes as node}
-			<g transform={`translate(${node.x}, ${node.y})`} style="cursor: default;">
+			<g transform={`translate(${node.x}, ${node.y + headersHeight})`} style="cursor: default;">
 				<circle
 					r={episodeRadius}
 					fill={node.isSpecial
