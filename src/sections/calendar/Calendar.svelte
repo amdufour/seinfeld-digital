@@ -3,6 +3,7 @@
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 	import { seasons } from '$lib/data/seasons';
 	import { episodesInfo } from '$lib/data/episodesInfo';
+	import EpisodeTooltip from '../../UI/EpisodeTooltip.svelte';
 
 	/**
 	 * @type {number}
@@ -179,22 +180,33 @@
 
 		let simulation = forceSimulation(episodesInfo);
 		simulation.on('tick', () => {
-			console.log('tick');
 			nodes = simulation.nodes();
 		});
 
 		simulation
 			.force('x', forceX((d) => getXPosition(d.season, d.date_aired)).strength(1))
-			.force('y', forceY((d) => getYPosition(d.season, d.date_aired)).strength(0.8))
+			.force('y', forceY((d) => getYPosition(d.season, d.date_aired)).strength(0.5))
 			.force('collide', forceCollide().radius(episodeRadius).strength(1))
 			.alpha(0.5)
 			.alphaDecay(0.1);
 	});
+
+	let isTooltipVisible = $state(false);
+	let tooltipPosition = $state({ x: 0, y: 0 });
+	let hoveredEpisode = $state();
+	const handleMouseEnter = (/** @type {any} */ episode) => {
+		isTooltipVisible = true;
+		tooltipPosition = { x: episode.x, y: episode.y };
+		hoveredEpisode = episode;
+	};
+	const handleMouseLeave = () => {
+		// isTooltipVisible = false;
+	};
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div class="flex h-screen w-screen">
+<div class="relative flex h-screen w-screen">
 	<!-- Seasons -->
 	<div class="flex flex-col" style="width: {seasonsWidth}px;">
 		{#each seasons as season, i}
@@ -272,7 +284,13 @@
 
 		<!-- Episodes -->
 		{#each nodes as node}
-			<g transform={`translate(${node.x}, ${node.y + headersHeight})`} style="cursor: default;">
+			<g
+				transform={`translate(${node.x}, ${node.y + headersHeight})`}
+				style="cursor: default;"
+				role="document"
+				onmouseenter={() => handleMouseEnter(node)}
+				onmouseleave={handleMouseLeave}
+			>
 				<circle
 					r={episodeRadius}
 					fill={node.isSpecial
@@ -291,4 +309,9 @@
 			</g>
 		{/each}
 	</svg>
+
+	<!-- Tooltip -->
+	{#if isTooltipVisible}
+		<EpisodeTooltip episode={hoveredEpisode} position={tooltipPosition} />
+	{/if}
 </div>
