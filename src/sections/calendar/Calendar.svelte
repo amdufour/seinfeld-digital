@@ -1,6 +1,6 @@
 <script>
-	import { onMount } from 'svelte';
 	import { scaleTime } from 'd3-scale';
+	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 	import { seasons } from '$lib/data/seasons';
 	import { episodesInfo } from '$lib/data/episodesInfo';
 
@@ -9,9 +9,10 @@
 	 */
 	let innerWidth = $state(1600);
 	let innerHeight = $state(800);
-	let seasonsWidth = $derived(innerWidth >= 793 ? 130 : 100);
-	let headersHeight = $derived(innerWidth >= 793 ? 68 : 36);
-	let episodeRadius = $derived(innerWidth >= 793 ? 15 : 10);
+	let screenSize = $derived({ width: innerWidth, height: innerHeight });
+	let seasonsWidth = $derived(screenSize.width >= 793 ? 130 : 100);
+	let headersHeight = $derived(screenSize.width >= 793 ? 68 : 36);
+	let episodeRadius = $derived(screenSize.width >= 793 ? 15 : 10);
 
 	const tvSeasons = [
 		{
@@ -27,6 +28,8 @@
 			months: ['May', 'Jun', 'July', 'Aug']
 		}
 	];
+
+	let nodes = $state([]);
 
 	const getTimeDomain = (/** @type {number} */ season, /** @type {string} */ date) => {
 		switch (season) {
@@ -55,16 +58,15 @@
 		}
 	};
 
-	const getXPosition = (/** @type {number} */ season, /** @type {string} */ date) => {
-		const timeScale = scaleTime()
-			.domain(getTimeDomain(season, date))
-			.range([15, innerWidth - seasonsWidth - 15]);
-		return timeScale(new Date(date));
-	};
-
-	let getYPosition = $state((/** @type {number} */ season, /** @type {string} */ date) => {});
-	onMount(() => {
-		getYPosition = (/** @type {number} */ season, /** @type {string} */ date) => {
+	$effect(() => {
+		const getXPosition = (/** @type {number} */ season, /** @type {string} */ date) => {
+			const timeScale = scaleTime()
+				.domain(getTimeDomain(season, date))
+				.range([15, screenSize.width - seasonsWidth - 15]);
+			return timeScale(new Date(date));
+		};
+		console.log('in effect');
+		const getYPosition = (/** @type {number} */ season, /** @type {string} */ date) => {
 			const seasonBlock = document
 				.getElementById(
 					`catalog-season-${date === 'August 12 1992' || date === 'August 19 1992' ? season - 1 : season}`
@@ -79,6 +81,20 @@
 				return seasonBlock.top - headersHeight + seasonBlock.height / 2;
 			}
 		};
+
+		let simulation = forceSimulation(episodesInfo);
+		simulation.on('tick', () => {
+			console.log('tick');
+			nodes = simulation.nodes();
+		});
+
+		console.log('run the simulation');
+		simulation
+			.force('x', forceX((d) => getXPosition(d.season, d.date_aired)).strength(1))
+			.force('y', forceY((d) => getYPosition(d.season, d.date_aired)).strength(0.8))
+			.force('collide', forceCollide().radius(episodeRadius).strength(1))
+			.alpha(0.5)
+			.alphaDecay(0.1);
 	});
 </script>
 
@@ -138,16 +154,13 @@
 		height={innerHeight - headersHeight}
 		style="top: {headersHeight}px; left: {seasonsWidth}px;"
 	>
-		{#each episodesInfo as episode}
-			<g
-				transform={`translate(${getXPosition(episode.season, episode.date_aired)}, ${getYPosition(episode.season, episode.date_aired)})`}
-				style="cursor: default;"
-			>
+		{#each nodes as node}
+			<g transform={`translate(${node.x}, ${node.y})`} style="cursor: default;">
 				<circle
 					r={episodeRadius}
-					fill={episode.isSpecial
+					fill={node.isSpecial
 						? '#BEBABC'
-						: seasons.find((s) => s.seasonNum === episode.season)?.color}
+						: seasons.find((s) => s.seasonNum === node.season)?.color}
 				/>
 				{#if innerWidth >= 793}
 					<text
@@ -155,8 +168,7 @@
 						text-anchor="middle"
 						dominant-baseline="middle"
 						dy={1}
-						fill={episode.season > 2 && !episode.isSpecial ? '#F9F5F7' : '#12020A'}
-						>{episode.episode}</text
+						fill={node.season > 2 && !node.isSpecial ? '#F9F5F7' : '#12020A'}>{node.episode}</text
 					>
 				{/if}
 			</g>

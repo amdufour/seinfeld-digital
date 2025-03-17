@@ -20,6 +20,7 @@
 		"@tailwindcss/typography": "^0.5.15",
 		"@types/d3-array": "^3.2.1",
 		"@types/d3-fetch": "^3.0.7",
+		"@types/d3-force": "^3.0.10",
 		"@types/d3-scale": "^4.0.8",
 		"@types/eslint": "^9.6.0",
 		"autoprefixer": "^10.4.20",
@@ -40,6 +41,7 @@
 	"dependencies": {
 		"d3-array": "^3.2.4",
 		"d3-fetch": "^3.0.1",
+		"d3-force": "^3.0.0",
 		"d3-scale": "^4.0.2",
 		"gsap": "^3.12.5",
 		"lenis": "^1.1.17",
