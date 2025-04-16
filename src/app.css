@@ -19,7 +19,7 @@
     fill: #12020A;
     background: #F9F5F7;
   }
-  em {
+  .em {
     font-weight: 600;
   }
   h1, h2, h3, h4, h5 {
@@ -144,6 +144,15 @@
   }
   .btn-secondary:hover {
     background-color: #EEECED;
+  }
+  .text-overlay {
+    width: 80%;
+    max-width: 600px;
+    padding: 24px 32px;
+    color: #F9F5F7;
+    background-color: #12020A;
+    border-radius: 12px;
+    box-shadow: 0px 1px 15px 0px rgba(0, 0, 0, 0.15);
   }
   @media screen and (min-width: 768px) {
     h1 {

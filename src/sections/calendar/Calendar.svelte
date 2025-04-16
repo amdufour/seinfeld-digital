@@ -4,6 +4,7 @@
 	import { seasons } from '$lib/data/seasons';
 	import { episodesInfo } from '$lib/data/episodesInfo';
 	import EpisodeTooltip from '../../UI/EpisodeTooltip.svelte';
+	import CalendarTexts from './CalendarTexts.svelte';
 
 	/**
 	 * @type {number}
@@ -289,6 +290,7 @@
 		{#each nodes as node}
 			<g
 				transform={`translate(${node.x}, ${node.y + headersHeight})`}
+				opacity={0}
 				style="cursor: default;"
 				role="document"
 				onmouseenter={(e) => handleMouseEnter(e, node)}
@@ -314,7 +316,10 @@
 	</svg>
 
 	<!-- Tooltip -->
-	{#if isTooltipVisible}
+	{#if isTooltipVisible && innerWidth >= 793}
 		<EpisodeTooltip episode={hoveredEpisode} position={mousePosition} />
 	{/if}
 </div>
+
+<!-- Overlay Texts -->
+<CalendarTexts />
