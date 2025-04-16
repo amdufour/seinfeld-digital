@@ -192,15 +192,18 @@
 	});
 
 	let isTooltipVisible = $state(false);
-	let tooltipPosition = $state({ x: 0, y: 0 });
 	let hoveredEpisode = $state();
-	const handleMouseEnter = (/** @type {any} */ episode) => {
+	let mousePosition = $state();
+	const handleMouseEnter = (
+		/** @type {MouseEvent & { currentTarget: EventTarget & SVGGElement; }} */ e,
+		/** @type {any} */ episode
+	) => {
+		mousePosition = [e.clientX, e.clientY];
 		isTooltipVisible = true;
-		tooltipPosition = { x: episode.x, y: episode.y };
 		hoveredEpisode = episode;
 	};
 	const handleMouseLeave = () => {
-		// isTooltipVisible = false;
+		isTooltipVisible = false;
 	};
 </script>
 
@@ -288,7 +291,7 @@
 				transform={`translate(${node.x}, ${node.y + headersHeight})`}
 				style="cursor: default;"
 				role="document"
-				onmouseenter={() => handleMouseEnter(node)}
+				onmouseenter={(e) => handleMouseEnter(e, node)}
 				onmouseleave={handleMouseLeave}
 			>
 				<circle
@@ -312,6 +315,6 @@
 
 	<!-- Tooltip -->
 	{#if isTooltipVisible}
-		<EpisodeTooltip episode={hoveredEpisode} position={tooltipPosition} />
+		<EpisodeTooltip episode={hoveredEpisode} position={mousePosition} />
 	{/if}
 </div>

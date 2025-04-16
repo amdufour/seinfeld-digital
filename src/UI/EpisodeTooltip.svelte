@@ -1,13 +1,43 @@
 <script>
+	import { fade, fly } from 'svelte/transition';
 	import EpisodeIcon from '../icons/EpisodeIcon.svelte';
 	import StarIcon from '../icons/StarIcon.svelte';
 	import TvIcon from '../icons/TvIcon.svelte';
+	import { derived } from 'svelte/store';
 
 	let { episode, position } = $props();
-	$inspect(episode);
+
+	/**
+	 * @type {number}
+	 */
+	let innerWidth = $state(1600);
+	let innerHeight = $state(800);
+	let tooltip = $state();
+
+	const tooltipWidth = $derived(innerWidth < 500 ? innerWidth - 40 : 432);
+	const tooltipLeftPosition = $derived(
+		position[0] > innerWidth / 2 ? position[0] - tooltipWidth - 10 : position[0] + 10
+	);
+	const tooltipTopPosition = $derived.by(() => {
+		switch (true) {
+			case innerHeight - position[1] > tooltip?.clientHeight:
+				return position[1] - 30;
+			default:
+				return innerHeight - tooltip?.clientHeight - 10;
+		}
+	});
 </script>
 
-<div class="tooltip absolute left-0 top-0 z-10" style="width: 432px;">
+<svelte:window bind:innerWidth bind:innerHeight />
+
+<div
+	bind:this={tooltip}
+	class="tooltip absolute z-10"
+	style="width: {tooltipWidth}px; max-height: {innerHeight -
+		40}px; top: {tooltipTopPosition}px; left: {tooltipLeftPosition}px;}"
+	in:fly={{ duration: 100, y: 50 }}
+	out:fade={{ duration: 100 }}
+>
 	<div class="tooltip-image" style="background-image: url({episode.img_src});"></div>
 	<div class="tooltip-content">
 		<h4>{episode.title}</h4>
