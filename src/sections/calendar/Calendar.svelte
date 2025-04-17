@@ -1,6 +1,11 @@
 <script>
+	import { onMount } from 'svelte';
 	import { scaleTime } from 'd3-scale';
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	gsap.registerPlugin(ScrollTrigger);
+
 	import { seasons } from '$lib/data/seasons';
 	import { episodesInfo } from '$lib/data/episodesInfo';
 	import EpisodeTooltip from '../../UI/EpisodeTooltip.svelte';
@@ -206,120 +211,134 @@
 	const handleMouseLeave = () => {
 		isTooltipVisible = false;
 	};
+
+	onMount(() => {
+		// Pin calendar
+		ScrollTrigger.create({
+			trigger: '#intro-calendar-container',
+			start: 'top top',
+			end: 'bottom center',
+			pin: '#intro-calendar'
+		});
+	});
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div class="relative flex h-screen w-screen">
-	<!-- Seasons -->
-	<div class="flex flex-col" style="width: {seasonsWidth}px;">
-		{#each seasons as season, i}
-			<div
-				id={`catalog-season-${i + 1}`}
-				class="flex flex-col justify-center px-4"
-				style="flex-grow: {i === 0 ? 2 : 1}; color: {i > 1
-					? '#F9F5F7'
-					: '#12020A'}; background: {season.color};
+<div id="intro-calendar-container" class="relative">
+	<div id="intro-calendar" class="absolute flex h-screen w-screen">
+		<!-- Seasons -->
+		<div class="flex flex-col" style="width: {seasonsWidth}px;">
+			{#each seasons as season, i}
+				<div
+					id={`catalog-season-${i + 1}`}
+					class="flex flex-col justify-center px-4"
+					style="flex-grow: {i === 0 ? 2 : 1}; color: {i > 1
+						? '#F9F5F7'
+						: '#12020A'}; background: {season.color};
           font-size: {innerWidth >= 793 ? '1.125rem' : '0.875rem'};"
-			>
-				<div class="uppercase">{season.id}</div>
-				<div>{season.years}</div>
-			</div>
-		{/each}
-	</div>
+				>
+					<div class="uppercase">{season.id}</div>
+					<div>{season.years}</div>
+				</div>
+			{/each}
+		</div>
 
-	<svg
-		class="absolute"
-		width={innerWidth - seasonsWidth}
-		height={innerHeight}
-		style="top: 0px; left: {seasonsWidth}px;"
-	>
-		<rect
-			x={timeScale(new Date('January 1 1990'))}
-			y={0}
-			width={timeScale(new Date('May 1 1990')) - timeScale(new Date('January 1 1990'))}
+		<svg
+			class="absolute"
+			width={innerWidth - seasonsWidth}
 			height={innerHeight}
-			fill="#EEECED"
-		/>
-		<!-- Seasons and Months -->
-		{#each tvSeasons as tvSeason, i}
-			<!-- Season labels -->
-			<text
-				x={i === 0
-					? timeScale(new Date('November 1 1989'))
-					: i === 1
-						? timeScale(new Date('March 1 1990'))
-						: timeScale(new Date('July 1 1990'))}
-				y={24}
-				text-anchor="middle"
-				dominant-baseline="middle"
-			>
-				{tvSeason.season}
-			</text>
-
-			<!-- Month labels -->
-			{#each tvSeason.months as month}
+			style="top: 0px; left: {seasonsWidth}px;"
+		>
+			<rect
+				x={timeScale(new Date('January 1 1990'))}
+				y={0}
+				width={timeScale(new Date('May 1 1990')) - timeScale(new Date('January 1 1990'))}
+				height={innerHeight}
+				fill="#EEECED"
+			/>
+			<!-- Seasons and Months -->
+			{#each tvSeasons as tvSeason, i}
+				<!-- Season labels -->
 				<text
-					class="text-base"
-					x={monthScale(month)}
-					y={56}
+					x={i === 0
+						? timeScale(new Date('November 1 1989'))
+						: i === 1
+							? timeScale(new Date('March 1 1990'))
+							: timeScale(new Date('July 1 1990'))}
+					y={24}
 					text-anchor="middle"
 					dominant-baseline="middle"
 				>
-					{month}
+					{tvSeason.season}
 				</text>
-			{/each}
-		{/each}
 
-		<!-- Month separators -->
-		{#each tvSeasons as season}
-			{#each season.months as month}
-				{#if month !== 'Aug'}
-					<line
-						x1={globalTimeScale(month)}
-						y1={44}
-						x2={globalTimeScale(month)}
-						y2={innerHeight - 44}
-						stroke="#BEBABC"
-					/>
-				{/if}
-			{/each}
-		{/each}
-
-		<!-- Episodes -->
-		{#each nodes as node}
-			<g
-				transform={`translate(${node.x}, ${node.y + headersHeight})`}
-				opacity={0}
-				style="cursor: default;"
-				role="document"
-				onmouseenter={(e) => handleMouseEnter(e, node)}
-				onmouseleave={handleMouseLeave}
-			>
-				<circle
-					r={episodeRadius}
-					fill={node.isSpecial
-						? '#BEBABC'
-						: seasons.find((s) => s.seasonNum === node.season)?.color}
-				/>
-				{#if innerWidth >= 793}
+				<!-- Month labels -->
+				{#each tvSeason.months as month}
 					<text
-						class="number"
+						class="text-base"
+						x={monthScale(month)}
+						y={56}
 						text-anchor="middle"
 						dominant-baseline="middle"
-						dy={1}
-						fill={node.season > 2 && !node.isSpecial ? '#F9F5F7' : '#12020A'}>{node.episode}</text
 					>
-				{/if}
-			</g>
-		{/each}
-	</svg>
+						{month}
+					</text>
+				{/each}
+			{/each}
 
-	<!-- Tooltip -->
-	{#if isTooltipVisible && innerWidth >= 793}
-		<EpisodeTooltip episode={hoveredEpisode} position={mousePosition} />
-	{/if}
+			<!-- Month separators -->
+			{#each tvSeasons as season}
+				{#each season.months as month}
+					{#if month !== 'Aug'}
+						<line
+							x1={globalTimeScale(month)}
+							y1={44}
+							x2={globalTimeScale(month)}
+							y2={innerHeight - 44}
+							stroke="#BEBABC"
+						/>
+					{/if}
+				{/each}
+			{/each}
+
+			<!-- Episodes -->
+			{#each nodes as node}
+				<g
+					transform={`translate(${node.x}, ${node.y + headersHeight})`}
+					opacity={0}
+					style="cursor: default;"
+					role="document"
+					onmouseenter={(e) => handleMouseEnter(e, node)}
+					onmouseleave={handleMouseLeave}
+				>
+					<circle
+						r={episodeRadius}
+						fill={node.isSpecial
+							? '#BEBABC'
+							: seasons.find((s) => s.seasonNum === node.season)?.color}
+					/>
+					{#if innerWidth >= 793}
+						<text
+							class="number"
+							text-anchor="middle"
+							dominant-baseline="middle"
+							dy={1}
+							fill={node.season > 2 && !node.isSpecial ? '#F9F5F7' : '#12020A'}>{node.episode}</text
+						>
+					{/if}
+				</g>
+			{/each}
+		</svg>
+
+		<!-- Tooltip -->
+		{#if isTooltipVisible && innerWidth >= 793}
+			<EpisodeTooltip episode={hoveredEpisode} position={mousePosition} />
+		{/if}
+	</div>
+
+	<!-- Overlay Texts -->
+	<div class="z-1000 relative">
+		<CalendarTexts />
+	</div>
 </div>
-
-<!-- Overlay Texts -->
-<CalendarTexts />
