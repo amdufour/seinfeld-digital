@@ -4,6 +4,7 @@
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { range } from 'd3-array';
 	gsap.registerPlugin(ScrollTrigger);
 
 	import { seasons } from '$lib/data/seasons';
@@ -212,6 +213,22 @@
 		isTooltipVisible = false;
 	};
 
+	const episodesShow1 = ['s1e1'];
+	const episodesShow2 = ['s1e2', 's1e3', 's1e4', 's1e5'];
+	const twelveArray = range(1, 13);
+	const twentyTwoArray = range(1, 23);
+	const twentyThreeArray = range(1, 24);
+	const twentyFourArray = range(1, 25);
+	const episodesShow3 = twelveArray.map((e) => `s2e${e}`);
+	const episodesShow4 = twentyThreeArray.map((e) => `s3e${e}`);
+	const episodesShow5 = twentyFourArray
+		.map((e) => `s4e${e}`)
+		.concat(twentyTwoArray.map((e) => `s5e${e}`))
+		.concat(twentyFourArray.map((e) => `s6e${e}`))
+		.concat(twentyFourArray.map((e) => `s7e${e}`))
+		.concat(twentyTwoArray.map((e) => `s8e${e}`))
+		.concat(twentyFourArray.map((e) => `s9e${e}`));
+
 	onMount(() => {
 		// Pin calendar
 		ScrollTrigger.create({
@@ -220,7 +237,50 @@
 			end: 'bottom center',
 			pin: '#intro-calendar'
 		});
+
+		setTimeout(() => {
+			gsap.set('.calendar-episode', {
+				scale: 0,
+				opacity: 0,
+				transformOrigin: 'center'
+			});
+		}, 1000);
 	});
+
+	/**
+	 * @param {number} number
+	 */
+	function showEpisodes(number) {
+		let selectors = '';
+		switch (number) {
+			case 1:
+				selectors = episodesShow1.map((e) => `#calendar-${e}`).join(',');
+				break;
+			case 2:
+				selectors = episodesShow2.map((e) => `#calendar-${e}`).join(',');
+				break;
+			case 3:
+				selectors = episodesShow3.map((e) => `#calendar-${e}`).join(',');
+				break;
+			case 4:
+				selectors = episodesShow4.map((e) => `#calendar-${e}`).join(',');
+				break;
+			default:
+				selectors = episodesShow5.map((e) => `#calendar-${e}`).join(',');
+				break;
+		}
+
+		gsap.to(selectors, {
+			scale: 1,
+			opacity: 1,
+			ease: 'back.out(5)',
+			duration: 1,
+			stagger: {
+				from: 'random',
+				amount: 0.4
+			}
+		});
+	}
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -295,7 +355,7 @@
 							x1={globalTimeScale(month)}
 							y1={44}
 							x2={globalTimeScale(month)}
-							y2={innerHeight - 44}
+							y2={innerHeight}
 							stroke="#BEBABC"
 						/>
 					{/if}
@@ -305,8 +365,9 @@
 			<!-- Episodes -->
 			{#each nodes as node}
 				<g
+					id={`calendar-s${node.season}e${node.episode}`}
+					class="calendar-episode"
 					transform={`translate(${node.x}, ${node.y + headersHeight})`}
-					opacity={0}
 					style="cursor: default;"
 					role="document"
 					onmouseenter={(e) => handleMouseEnter(e, node)}
@@ -337,8 +398,8 @@
 		{/if}
 	</div>
 
-	<!-- Overlay Texts -->
-	<div class="z-1000 relative">
-		<CalendarTexts />
+	<!-- Scrolling Texts -->
+	<div class="z-1000 relative" style="pointer-events: none">
+		<CalendarTexts bind:showEpisodes />
 	</div>
 </div>
