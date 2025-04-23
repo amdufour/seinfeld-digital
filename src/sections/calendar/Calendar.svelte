@@ -336,33 +336,37 @@
 				</text>
 
 				<!-- Month labels -->
-				{#each tvSeason.months as month}
-					<text
-						class="text-base"
-						x={monthScale(month)}
-						y={56}
-						text-anchor="middle"
-						dominant-baseline="middle"
-					>
-						{month}
-					</text>
-				{/each}
+				{#if innerWidth >= 793}
+					{#each tvSeason.months as month}
+						<text
+							class="text-base"
+							x={monthScale(month)}
+							y={56}
+							text-anchor="middle"
+							dominant-baseline="middle"
+						>
+							{month}
+						</text>
+					{/each}
+				{/if}
 			{/each}
 
 			<!-- Month separators -->
-			{#each tvSeasons as season}
-				{#each season.months as month}
-					{#if month !== 'Aug'}
-						<line
-							x1={globalTimeScale(month)}
-							y1={44}
-							x2={globalTimeScale(month)}
-							y2={innerHeight}
-							stroke="#BEBABC"
-						/>
-					{/if}
+			{#if innerWidth >= 793}
+				{#each tvSeasons as season}
+					{#each season.months as month}
+						{#if month !== 'Aug'}
+							<line
+								x1={globalTimeScale(month)}
+								y1={44}
+								x2={globalTimeScale(month)}
+								y2={innerHeight}
+								stroke="#BEBABC"
+							/>
+						{/if}
+					{/each}
 				{/each}
-			{/each}
+			{/if}
 
 			<!-- Episodes -->
 			{#each nodes as node}
