@@ -242,7 +242,8 @@
 			gsap.set('.calendar-episode', {
 				scale: 0,
 				opacity: 0,
-				transformOrigin: 'center'
+				transformOrigin: 'center',
+				pointerEvents: 'none'
 			});
 		}, 1000);
 	});
@@ -275,6 +276,7 @@
 			opacity: 1,
 			ease: 'back.out(5)',
 			duration: 1,
+			pointerEvents: 'auto',
 			stagger: {
 				from: 'random',
 				amount: 0.4
