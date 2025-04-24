@@ -11,6 +11,7 @@
 	import SoundAuthPopup from '../UI/SoundAuthPopup.svelte';
 	import Title from '../sections/Title.svelte';
 	import Calendar from '../sections/calendar/Calendar.svelte';
+	import EpisodeExample from '../sections/episode_example/EpisodeExample.svelte';
 	import Quotes from '../sections/quotes/Quotes.svelte';
 	import MainCharsSection from '../sections/main_characters/MainCharsSection.svelte';
 	import SupportingCharsSection from '../sections/supporting_characters/SupportingCharsSection.svelte';
@@ -50,18 +51,20 @@
 		{/if}
 		<Title />
 	</div> -->
-	<Calendar />
-	<!-- <Quotes />
-	<MainCharsSection />
-	<SupportingCharsSection />
-	<LocationsSection /> -->
-	<!-- {#await csv(episodesDataUrl) then episodesData}
+	<!-- <Calendar /> -->
+	<!-- DATA GATHERING GOES HERE -->
+	{#await csv(episodesDataUrl) then episodesData}
 		{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 			{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
+				<EpisodeExample {episodesData} />
+				<!-- <Quotes />
+				<MainCharsSection />
+				<SupportingCharsSection />
+				<LocationsSection /> -->
 				<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} />
 			{/await}
 		{/await}
-	{/await} -->
+	{/await}
 	<!-- <Quotes />
 	<MethodologyAndCredits />
 	<Footer /> -->
