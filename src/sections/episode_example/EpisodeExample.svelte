@@ -6,8 +6,10 @@
 	gsap.registerPlugin(ScrollTrigger);
 
 	import { episodesInfo } from '$lib/data/episodesInfo';
+	import { formatTime } from '../../utils/formatTime';
 	import SeasonsStrip from '../../UI/SeasonsStrip.svelte';
 	import EpisodeDetails from '../catalog/EpisodeDetails.svelte';
+	import EpisodeScore from '../catalog/episodeScore/EpisodeScore.svelte';
 	import EpisodeTexts from './EpisodeTexts.svelte';
 
 	let { episodesData } = $props();
@@ -19,6 +21,12 @@
 	const currentEpisode = 14;
 	const episodeInfo = episodesInfo.find(
 		(e) => e.season === currentSeason && e.episode === currentEpisode
+	);
+	const episodeData = $derived(
+		episodesData.filter(
+			(/** @type {{ season: string; episode: string; eventCategory: string; }} */ d) =>
+				d.season === 'Season5' && d.episode === '14'
+		)
 	);
 	const laughData = $derived(
 		episodesData.filter(
@@ -32,6 +40,38 @@
 			.range([0, episodeWidth])
 	);
 	const laughWidth = $derived(timeScale(5));
+	const labelsWidth = $derived(innerWidth >= 1280 ? 176 : 60);
+	const extraPadding = $derived(innerWidth >= 1280 ? 60 : 10);
+	let vizWidth = $derived(
+		innerWidth > 1000
+			? innerWidth - 25 - extraPadding
+			: Math.max(innerWidth - 25 - extraPadding, 1000)
+	);
+	let scenesWidth = $derived(vizWidth - labelsWidth);
+	const scenesData = $derived(
+		episodeData.filter((/** @type { any } */ d) => d.eventCategory === 'SCENE')
+	);
+	const scenes = $derived.by(() => {
+		const scenesArray = [];
+		const lastSceneNumber = +scenesData[scenesData.length - 2].sceneNumber;
+		for (let i = 1; i <= lastSceneNumber; i++) {
+			const sceneData = scenesData.filter((/** @type { any } */ d) => +d.sceneNumber === i);
+			const startTime = sceneData[0].eventTime;
+			const endTime = sceneData[sceneData.length - 1].eventTime;
+			scenesArray.push({
+				sceneNum: i,
+				startTime: formatTime(startTime),
+				endTime: formatTime(endTime) + 5
+			});
+		}
+
+		return scenesArray;
+	});
+	const xScale = $derived(
+		scaleLinear()
+			.domain([0, scenes[scenes.length - 1].endTime])
+			.range([0, scenesWidth])
+	);
 
 	onMount(() => {
 		// Pin calendar
@@ -50,11 +90,25 @@
 			translateX: -innerWidth,
 			opacity: 0
 		});
+		gsap.set(
+			'#episode-example-container .catalog-character-on-screen, #episode-example-container .catalog-location-on-screen',
+			{
+				attr: { width: 0 },
+				opacity: 0
+			}
+		);
 		gsap.set('#duration-example .episode-start-end', {
 			translateY: 20,
 			opacity: 0
 		});
-		gsap.set('#duration-example .laugh-bar', {
+		gsap.set(
+			'#episode-example-container .catalog-character-label, #episode-example-container .catalog-location-label',
+			{
+				translateY: 35,
+				opacity: 0
+			}
+		);
+		gsap.set('#duration-example .laugh-bar, #episode-example-container .catalog-laugh-bar', {
 			translateY: 100,
 			opacity: 0
 		});
@@ -94,8 +148,11 @@
 			translateY: 0,
 			opacity: 1,
 			ease: 'power3.out',
-			duration: 0.6,
-			stagger: 0.02
+			duration: 0.4,
+			stagger: {
+				each: 0.02,
+				ease: 'power3.out'
+			}
 		});
 		gsap.to('#duration-example .label', {
 			translateY: 0,
@@ -104,6 +161,18 @@
 			duration: 1,
 			delay: 0.5
 		});
+	};
+
+	const reveal4 = () => {
+		gsap.to(
+			'#episode-length, #duration-example .episode-start-end, #duration-example .laugh-bar, #duration-example .label',
+			{
+				translateY: 100,
+				opacity: 0,
+				ease: 'power3.out',
+				duration: 1
+			}
+		);
 	};
 
 	/**
@@ -120,6 +189,9 @@
 			case 3:
 				reveal3();
 				break;
+			case 4:
+				reveal4();
+				break;
 			default:
 				return null;
 		}
@@ -132,7 +204,7 @@
 	<div id="episode-example" class="absolute flex h-screen w-screen">
 		<SeasonsStrip />
 
-		<div>
+		<div class="relative">
 			<!-- Episode details -->
 			<div class="mask self-start">
 				<div id="episode-detail-container">
@@ -140,7 +212,7 @@
 				</div>
 			</div>
 
-			<!-- Episode duration -->
+			<!-- Episode duration and laughs -->
 			<div
 				id="duration-example"
 				class="flex items-center justify-center"
@@ -187,6 +259,11 @@
 						</g>
 					</g>
 				</svg>
+			</div>
+
+			<!-- Episode data -->
+			<div class="score-wrapper absolute left-0" style="top: 270px;">
+				<EpisodeScore {episodeData} width={scenesWidth} {labelsWidth} {scenes} {xScale} />
 			</div>
 		</div>
 	</div>

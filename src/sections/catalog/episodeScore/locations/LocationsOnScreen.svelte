@@ -51,6 +51,7 @@
 		<g transform={`translate(0, ${yScale(location.id)})`}>
 			{#each location.momentsOnScreen as moment}
 				<rect
+					class="catalog-location-on-screen"
 					x={xScale(moment.startTime)}
 					y={0}
 					width={xScale(moment.duration)}

@@ -5,15 +5,15 @@
 
 	let {
 		width,
-		statsWidth,
+		statsWidth = 0,
 		labelsWidth,
 		scenes,
 		xScale,
 		episodeData,
-		isPlaying,
-		playingScene,
-		sonificationCharactersData,
-		sonificationLocationData
+		isPlaying = false,
+		playingScene = null,
+		sonificationCharactersData = null,
+		sonificationLocationData = null
 	} = $props();
 
 	let innerWidth = $state(1200);
