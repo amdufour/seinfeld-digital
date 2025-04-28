@@ -13,8 +13,6 @@
 	} = $props();
 
 	let innerWidth = $state(1200);
-	$inspect(xScale.domain());
-	$inspect(xScale.range());
 
 	const height = 40;
 	const numMinutes = $derived(Math.ceil(episodeDuration / 60));

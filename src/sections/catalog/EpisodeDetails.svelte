@@ -35,9 +35,14 @@
 		{#if episodes}
 			<EpisodeControls {episodes} bind:currentSeason bind:currentEpisode />
 		{/if}
-		<div class="mx-4" style="margin-top: {episodes ? 0 : 82}px;">
+		<div class="mx-4">
+			{#if !episodes}
+				<div class="ml-4" style="margin-top: 74px; margin-bottom: -16px; font-weight: 600;">
+					season 5 episode 14
+				</div>
+			{/if}
 			<div
-				class="mt-4 flex items-center justify-between"
+				class="flex items-center justify-between"
 				style="margin-left: {innerWidth >= 1280 ? 16 : 0}px;"
 			>
 				<h2
