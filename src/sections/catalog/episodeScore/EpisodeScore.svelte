@@ -46,7 +46,7 @@
 <svelte:window bind:innerWidth />
 
 <div
-	style="width: {width + statsWidth}px; max-width: 100vw;"
+	style="width: {statsWidth > 0 ? `${width + statsWidth}px` : 'auto'}; max-width: 100vw;"
 	role="document"
 	onmouseenter={handleMouseEnter}
 	onmouseleave={handleMouseLeave}
