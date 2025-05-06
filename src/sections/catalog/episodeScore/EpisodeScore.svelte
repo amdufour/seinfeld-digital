@@ -25,17 +25,19 @@
 	let hoveredTime = $state(0);
 
 	const handleMouseEnter = () => {
-		if (innerWidth > 1000) {
+		if (innerWidth > 1000 && sonificationCharactersData) {
 			isHover = true;
 		}
 	};
 	const handleMouseLeave = () => {
-		isHover = false;
+		if (sonificationCharactersData) {
+			isHover = false;
+		}
 	};
 	const handleMouseOver = (/** @type {MouseEvent} */ e) => {
 		{
 		}
-		if (innerWidth > 1000) {
+		if (innerWidth > 1000 && sonificationCharactersData) {
 			const x = e.clientX - 198;
 			hoveredPosition = x >= 0 ? x : 0;
 			hoveredTime = xScale.invert(hoveredPosition);

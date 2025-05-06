@@ -87,13 +87,13 @@
 			opacity: 0
 		});
 		gsap.set('#episode-length', {
-			translateX: -innerWidth,
+			translateX: -30,
 			opacity: 0
 		});
 		gsap.set(
-			'#episode-example-container .catalog-character-on-screen, #episode-example-container .catalog-location-on-screen',
+			'#episode-example-container .catalog-character-on-screen, #episode-example-container .catalog-location-on-screen, #episode-example-container .catalog-character-label, #episode-example-container .catalog-location-label',
 			{
-				attr: { width: 0 },
+				translateX: -30,
 				opacity: 0
 			}
 		);
@@ -101,18 +101,11 @@
 			translateY: 20,
 			opacity: 0
 		});
-		gsap.set(
-			'#episode-example-container .catalog-character-label, #episode-example-container .catalog-location-label',
-			{
-				translateY: 35,
-				opacity: 0
-			}
-		);
 		gsap.set('#duration-example .laugh-bar, #episode-example-container .catalog-laugh-bar', {
 			translateY: 100,
 			opacity: 0
 		});
-		gsap.set('#duration-example .label', {
+		gsap.set('#duration-example .label, .score-wrapper', {
 			translateY: -30,
 			opacity: 0
 		});
@@ -132,14 +125,14 @@
 			translateX: 0,
 			opacity: 1,
 			ease: 'power3.out',
-			duration: 3
+			duration: 1
 		});
 		gsap.to('#duration-example .episode-start-end', {
 			translateY: 0,
 			opacity: 1,
 			ease: 'power3.out',
-			duration: 1,
-			delay: 2
+			duration: 0.5,
+			delay: 0.7
 		});
 	};
 
@@ -148,10 +141,11 @@
 			translateY: 0,
 			opacity: 1,
 			ease: 'power3.out',
-			duration: 0.4,
+			duration: 0.3,
 			stagger: {
 				each: 0.02,
-				ease: 'power3.out'
+				ease: 'circ.out',
+				from: 'random'
 			}
 		});
 		gsap.to('#duration-example .label', {
@@ -173,6 +167,67 @@
 				duration: 1
 			}
 		);
+		gsap.to('.score-wrapper', {
+			translateY: 0,
+			opacity: 1,
+			ease: 'power3.out',
+			duration: 1,
+			delay: 0.7
+		});
+	};
+
+	const reveal5 = () => {
+		gsap.to('#episode-example-container .catalog-character-label', {
+			translateX: 0,
+			opacity: 1,
+			ease: 'power3.out',
+			duration: 2
+		});
+		gsap.to('#episode-example-container .catalog-character-on-screen', {
+			translateX: 0,
+			opacity: 1,
+			ease: 'power3.out',
+			duration: 0.3,
+			stagger: {
+				each: 0.02,
+				ease: 'circ.out',
+				from: 'random'
+			}
+		});
+	};
+
+	const reveal6 = () => {
+		gsap.to('#episode-example-container .catalog-laugh-bar', {
+			translateY: 0,
+			opacity: 1,
+			ease: 'power3.out',
+			duration: 0.3,
+			stagger: {
+				each: 0.02,
+				ease: 'circ.out',
+				from: 'random'
+			}
+		});
+	};
+
+	const reveal7 = () => {
+		gsap.to('#episode-example-container .catalog-location-label', {
+			translateX: 0,
+			opacity: 1,
+			ease: 'power3.out',
+			duration: 2
+		});
+		gsap.to('#episode-example-container .catalog-location-on-screen', {
+			translateX: 0,
+			opacity: 1,
+			ease: 'power3.out',
+			duration: 0.3,
+			stagger: {
+				each: 0.02,
+				ease: 'circ.out',
+				from: 'random'
+			}
+		});
 	};
 
 	/**
@@ -191,6 +246,15 @@
 				break;
 			case 4:
 				reveal4();
+				break;
+			case 5:
+				reveal5();
+				break;
+			case 6:
+				reveal6();
+				break;
+			case 7:
+				reveal7();
 				break;
 			default:
 				return null;
