@@ -108,8 +108,8 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div id="timeline-container" class="container mt-20 grid grid-cols-2">
-	<div class="col-span-1 px-4">
+<div id="timeline-container" class="container mt-20 grid grid-cols-3 md:grid-cols-2">
+	<div class="col-span-2 px-4 md:col-span-1">
 		<div class="flex h-screen flex-col justify-center">
 			<p id="prologue-1">
 				Though the first episode was aired in the US in 1989, there would be a four-year delay until
@@ -129,7 +129,8 @@
 		<div
 			id="timeline-line"
 			class="absolute bg-white"
-			style={`width: 2px; height: ${innerHeight - 120}px; border-radius: 1px; top: 60px;`}
+			style="left: {innerWidth >= 768 ? 213 : 85}px; width: 2px; height: {innerHeight -
+				120}px; border-radius: 1px; top: 60px;"
 		></div>
 		<div
 			id="date-1"
@@ -137,11 +138,13 @@
 			style={`top: ${(innerHeight - 120) / 3 + 30}px; left: 0`}
 		>
 			<div id="date-us" class="flex items-center">
-				<div id="year-us" class="year" style={`width: 176px; margin-right: 24px`}>1989</div>
+				<div id="year-us" class="year" style="width: {innerWidth >= 768 ? 176 : 60}px;">1989</div>
 				<div id="circle-us" class="circle bg-white"></div>
-				<div id="desc-us" class="text-lg" style={`margin-left: 24px`}>
-					Seinfeld first aired on NBC in the USA
-				</div>
+				{#if innerWidth >= 768}
+					<div id="desc-us" class="text-lg" style={`margin-left: 24px`}>
+						Seinfeld first aired on NBC in the USA
+					</div>
+				{/if}
 			</div>
 		</div>
 		<div
@@ -150,36 +153,41 @@
 			style={`top: ${((innerHeight - 120) / 3) * 2 + 30}px; left: 0`}
 		>
 			<div id="date-uk" class="flex items-center">
-				<div id="year-uk" class="year" style={`width: 176px; margin-right: 24px`}>1993</div>
+				<div id="year-uk" class="year" style="width: {innerWidth >= 768 ? 176 : 60}px;">1993</div>
 				<div id="circle-uk" class="circle bg-white"></div>
-				<div id="desc-uk" class="text-lg" style={`margin-left: 24px`}>
-					Seinfeld first aired on BBC2 in the UK
-				</div>
+				{#if innerWidth >= 768}
+					<div id="desc-uk" class="text-lg" style={`margin-left: 24px`}>
+						Seinfeld first aired on BBC2 in the UK
+					</div>
+				{/if}
 			</div>
 		</div>
 		<div id="date-3" class="absolute w-full" style={`top: ${innerHeight - 120 + 30}px; left: 0`}>
 			<div id="date-andy" class="flex items-center" style="opacity: 0">
-				<div id="year-andy" class="year">2012</div>
+				<div id="year-andy" class="year" style="width: {innerWidth >= 768 ? 176 : 60}px;">2012</div>
 				<div id="circle-andy" class="pulse circle bg-accent"></div>
-				<div id="desc-andy" class="text-lg" style={`margin-left: 24px`}>
-					Seinfeld returns to prime-time on Sky TV in the UK
-				</div>
+				{#if innerWidth >= 768}
+					<div id="desc-andy" class="text-lg" style={`margin-left: 24px`}>
+						Seinfeld returns to prime-time on Sky TV in the UK
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>
 </div>
 
 <style>
-	#timeline-line {
-		left: 137px;
-	}
 	.year {
-		width: 100px;
-		min-width: 100px;
-		margin-right: 24px;
+		margin-right: 12px;
 		text-align: right;
-		font-size: 1.875rem;
+		font-size: 1.5rem;
 		font-weight: 600;
+	}
+	@media screen and (min-width: 768px) {
+		.year {
+			margin-right: 24px;
+			font-size: 1.875rem;
+		}
 	}
 	@media screen and (min-width: 996px) {
 		#timeline-line {
