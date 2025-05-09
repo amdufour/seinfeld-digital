@@ -5,6 +5,7 @@
 	import tv_noise from '$lib/assets/tv_noise.png';
 
 	let innerWidth = $state(1200);
+	let innerHeight = $state(800);
 	let isMouseOn = $state(false);
 	let isMuted = $state(true);
 
@@ -37,7 +38,7 @@
 	});
 </script>
 
-<svelte:window bind:innerWidth />
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <div
 	class="relative flex h-screen items-center"
@@ -60,7 +61,10 @@
 		></div>
 	</div>
 
-	<div class="mask z-2 absolute bottom-0 left-0">
+	<div
+		class="mask z-2 absolute left-0"
+		style="bottom: {innerWidth >= 768 ? 0 : innerHeight / 2 - 0.38 * innerWidth}px;"
+	>
 		<h5 id="stroked-title-s4e4" class="p-2">S4E4 - The Wallet</h5>
 	</div>
 </div>
@@ -71,7 +75,7 @@
 		width: 100vw;
 		height: auto;
 	}
-	@media screen and (min-width: 1200px) {
+	@media screen and (min-width: 768px) {
 		video {
 			height: 100vh;
 		}

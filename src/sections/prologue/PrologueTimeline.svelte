@@ -27,34 +27,47 @@
 		}
 
 		// Reveal text 1 and timeline
+		gsap.set('#prologue-1', {
+			translateY: 30,
+			opacity: 0
+		});
+		gsap.set('#timeline-line', {
+			height: 30,
+			opacity: 0
+		});
+		gsap.set(['#date-us', '#date-uk'], {
+			translateY: 50,
+			opacity: 0
+		});
 		const tl1 = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#timeline-container',
-				start: 'top 20%'
+				start: 'top 20%',
+				toggleActions: 'play reverse play reverse'
 			}
 		});
 		tl1
-			.from('#prologue-1', {
-				translateY: 30,
-				opacity: 0,
+			.to('#prologue-1', {
+				translateY: 0,
+				opacity: 1,
 				ease: 'power3.out',
 				duration: 2
 			})
-			.from(
+			.to(
 				'#timeline-line',
 				{
-					height: 0,
-					opacity: 0,
+					height: innerHeight - 120,
+					opacity: 1,
 					ease: 'power3.out',
 					duration: 2
 				},
 				'-=2'
 			)
-			.from(
+			.to(
 				['#date-us', '#date-uk'],
 				{
-					translateY: 50,
-					opacity: 0,
+					translateY: 0,
+					opacity: 1,
 					ease: 'power3.out',
 					duration: 2
 				},
@@ -65,7 +78,8 @@
 		const tl2 = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#prologue-2',
-				start: 'top bottom-=20%'
+				start: 'top bottom',
+				toggleActions: 'play reverse play reverse'
 			}
 		});
 		tl2

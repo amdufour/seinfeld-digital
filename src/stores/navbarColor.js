@@ -1,3 +1,3 @@
 import { writable } from "svelte/store";
 
-export const navBarColor = writable('pink');
+export const navBarColor = writable('white');
