@@ -105,6 +105,9 @@
     z-index: 20;
 		background-color: rgba(48, 56, 67, 0.9);
 	}
+	.readable-layer {
+		background: rgba(18, 2, 10, 0.55);
+	}
   .highlight {
     font-weight: 600;
 		background: rgb(253, 232, 36);

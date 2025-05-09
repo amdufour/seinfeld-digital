@@ -234,7 +234,7 @@
 		ScrollTrigger.create({
 			trigger: '#intro-calendar-container',
 			start: 'top top',
-			end: 'bottom center',
+			end: 'bottom bottom',
 			pin: '#intro-calendar'
 		});
 

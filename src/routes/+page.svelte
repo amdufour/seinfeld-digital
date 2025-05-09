@@ -37,7 +37,7 @@
 
 <main>
 	<Navbar />
-	<!-- <div
+	<div
 		class="bg-black text-white"
 		use:inview={options}
 		oninview_change={(/** @type {{ detail: { inView: any; }; }} */ event) => {
@@ -49,22 +49,23 @@
 		{#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
 		{/if}
-		<Title />
-	</div> -->
+		<!-- <Title /> -->
+	</div>
 	<!-- <Calendar /> -->
-	<!-- DATA GATHERING GOES HERE -->
-	{#await csv(episodesDataUrl) then episodesData}
+	<!-- {#await csv(episodesDataUrl) then episodesData}
+		<EpisodeExample {episodesData} />
+	{/await} -->
+	<!-- <Quotes />
+	<MainCharsSection />
+	<SupportingCharsSection />
+	<LocationsSection /> -->
+	<!-- {#await csv(episodesDataUrl) then episodesData}
 		{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 			{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
-				<EpisodeExample {episodesData} />
-				<!-- <Quotes />
-				<MainCharsSection />
-				<SupportingCharsSection />
-				<LocationsSection /> -->
 				<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} />
 			{/await}
 		{/await}
-	{/await}
+	{/await} -->
 	<!-- <Quotes />
 	<MethodologyAndCredits />
 	<Footer /> -->

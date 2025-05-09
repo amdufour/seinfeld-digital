@@ -78,7 +78,7 @@
 		ScrollTrigger.create({
 			trigger: '#episode-example-container',
 			start: 'top top',
-			end: 'bottom center',
+			end: 'bottom bottom',
 			pin: '#episode-example'
 		});
 

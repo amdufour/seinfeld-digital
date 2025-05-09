@@ -1,19 +1,24 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { gsap } from 'gsap';
-
-	import StrokedTitleS4E4TheWallet from '../../images/StrokedTitle_S4E4_TheWallet.svelte';
-	import StrokedTitle_S4E4_TheWallet_sm from '../../images/StrokedTitle_S4E4_TheWallet_sm.svelte';
+	import { soundIsAuth } from '../../stores/soundAuthStore';
+	import tv_noise from '$lib/assets/tv_noise.png';
 
 	let innerWidth = $state(1200);
+	let isMouseOn = $state(false);
 	let isMuted = $state(true);
 
+	$effect(() => {
+		isMuted = !(isMouseOn && $soundIsAuth);
+	});
+
 	const handleMouseEnter = () => {
-		isMuted = false;
+		isMouseOn = true;
 	};
 	const handleMouseLeave = () => {
-		isMuted = true;
+		isMouseOn = false;
 	};
+	$inspect($soundIsAuth, isMouseOn, !(isMouseOn && $soundIsAuth), isMuted);
 
 	onMount(() => {
 		const tl = gsap.timeline({
@@ -25,7 +30,7 @@
 			}
 		});
 		tl.from('#stroked-title-s4e4', {
-			translateY: innerWidth >= 1200 ? -70 : -100,
+			translateY: -50,
 			ease: 'power3.out',
 			duration: 1,
 			delay: 1
@@ -41,22 +46,23 @@
 	onmouseenter={handleMouseEnter}
 	onmouseleave={handleMouseLeave}
 >
-	<!-- svelte-ignore a11y_media_has_caption -->
-	<video playsinline autoplay bind:muted={isMuted} loop>
-		<source
-			src="https://amdufour.github.io/hosted-data/apis/videos/1a.ElaineArrives.mp4"
-			type="video/mp4"
-		/>
-	</video>
-	<div class="readable-layer z-1 absolute left-0 top-0 h-screen w-screen"></div>
-	<div id="stroked-title-s4e4-container" class="mask z-2 absolute bottom-0 left-0">
-		<div id="stroked-title-s4e4" class="">
-			{#if innerWidth >= 1200}
-				<StrokedTitleS4E4TheWallet />
-			{:else}
-				<StrokedTitle_S4E4_TheWallet_sm />
-			{/if}
-		</div>
+	<div class="relative">
+		<!-- svelte-ignore a11y_media_has_caption -->
+		<video playsinline autoplay bind:muted={isMuted} loop>
+			<source
+				src="https://amdufour.github.io/hosted-data/apis/videos/1a.ElaineArrives.mp4"
+				type="video/mp4"
+			/>
+		</video>
+		<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
+		<div
+			class="absolute bottom-0 left-0 right-0 top-0"
+			style="background-image: url('{tv_noise}')"
+		></div>
+	</div>
+
+	<div class="mask z-2 absolute bottom-0 left-0">
+		<h5 id="stroked-title-s4e4" class="p-2">S4E4 - The Wallet</h5>
 	</div>
 </div>
 
@@ -70,8 +76,5 @@
 		video {
 			height: 100vh;
 		}
-	}
-	.readable-layer {
-		background: rgba(18, 2, 10, 0.55);
 	}
 </style>
