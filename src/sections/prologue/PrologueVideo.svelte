@@ -18,7 +18,6 @@
 	const handleMouseLeave = () => {
 		isMouseOn = false;
 	};
-	$inspect($soundIsAuth, isMouseOn, !(isMouseOn && $soundIsAuth), isMuted);
 
 	onMount(() => {
 		const tl = gsap.timeline({

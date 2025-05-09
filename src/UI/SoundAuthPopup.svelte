@@ -3,25 +3,37 @@
 	import SoundIcon from '../icons/SoundIcon.svelte';
 	import { soundIsAuth, soundAuthModaleIsOpen } from '../stores/soundAuthStore';
 
+	/**
+	 * @type {number}
+	 */
+	let innerWidth = $state(1600);
+
 	const updateSoundAuth = (/** @type {boolean} */ isAuth) => {
 		$soundIsAuth = isAuth;
 		$soundAuthModaleIsOpen = false;
 	};
 </script>
 
+<svelte:window bind:innerWidth />
+
 <div
 	class="sound-auth bg-white text-black"
 	in:fly={{ duration: 500, y: 165 }}
 	out:fly={{ duration: 500, y: 165 }}
 >
-	<div class="container flex items-center justify-between">
+	<div
+		class="m-auto flex flex-col justify-between md:flex-row md:items-center"
+		style="max-width: 1400px"
+	>
 		<div class="flex items-center">
-			<SoundIcon width={100} height={165 / 2} />
-			<div class="ml-4 mt-2">
+			<div class="shrink-0">
+				<SoundIcon width={100} height={165 / 2} />
+			</div>
+			<div class="ml-4 mt-2" style="max-width: {innerWidth >= 793 ? 'none' : '400px'}">
 				<p>This project is an immersive audio experience. Turn your sound up!</p>
 			</div>
 		</div>
-		<div class="ml-16 flex justify-end">
+		<div class="mt-8 flex leading-5 md:ml-4 md:mt-0 md:justify-end">
 			<button class="btn btn-secondary" onclick={() => updateSoundAuth(false)}>No, thanks</button>
 			<button class="btn btn-primary ml-4" onclick={() => updateSoundAuth(true)}>Allow sound</button
 			>
