@@ -1,292 +1,214 @@
 <script>
-	import { onMount } from 'svelte';
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	gsap.registerPlugin(ScrollTrigger);
-	import Lenis from 'lenis';
-
 	import { soundIsAuth } from '../../stores/soundAuthStore';
+	import tv_noise from '$lib/assets/tv_noise.png';
 
-	onMount(() => {
-		// Add links
+	let innerWidth = $state(1600);
+	let sideSpacing = $derived(innerWidth >= 1280 ? (innerWidth - 1280) / 2 + 16 : 16)
 
-		// Handle horizontal scroll
-		const sections = gsap.utils.toArray('.scroll section');
+	let isMouseOn1 = $state(false);
+	let isMouseOn2 = $state(false);
+	let isMouseOn3 = $state(false);
+	let isMouseOn4 = $state(false);
+	let isMouseOn5 = $state(false);
+	let isMuted1 = $state(true);
+	let isMuted2 = $state(true);
+	let isMuted3 = $state(true);
+	let isMuted4 = $state(true);
+	let isMuted5 = $state(true);
 
-		const scrollTween = gsap.to(sections, {
-			xPercent: -100 * (sections.length - 1),
-			ease: 'none',
-			scrollTrigger: {
-				trigger: '.scroll',
-				pin: true,
-				scrub: 1,
-				snap: 1 / (sections.length - 1),
-				// base vertical scrolling on how wide the container is so it feels more natural.
-				// @ts-ignore
-				end: () => '+=' + document.querySelector('.scroll').offsetWidth
-			}
-		});
-
-		sections.forEach((section) => {
-			gsap.from(section.querySelector('p'), {
-				opacity: 0,
-				y: 20,
-				scrollTrigger: {
-					containerAnimation: scrollTween,
-					trigger: section.querySelector('p'),
-					start: 'left center',
-					// scrub: 1,
-					toggleActions: 'play reverse play reverse'
-				}
-			});
-			gsap.from(section.querySelector('.vid-container'), {
-				opacity: 0,
-				y: -50,
-				scrollTrigger: {
-					containerAnimation: scrollTween,
-					trigger: section.querySelector('p'),
-					start: 'left center',
-					// scrub: 1,
-					toggleActions: 'play reverse play reverse'
-				}
-			});
-			gsap.from(section.querySelector('.episode-title'), {
-				opacity: 0,
-				x: -100,
-				scrollTrigger: {
-					containerAnimation: scrollTween,
-					trigger: section.querySelector('p'),
-					start: 'left center',
-					// scrub: 1,
-					toggleActions: 'play reverse play reverse'
-				}
-			});
-		});
-
-		// smooth scroll
-		const lenis = new Lenis();
-
-		/**
-		 * @param {number} time
-		 */
-		function raf(time) {
-			lenis.raf(time);
-			requestAnimationFrame(raf);
-		}
-
-		requestAnimationFrame(raf);
+	$effect(() => {
+		isMuted1 = !(isMouseOn1 && $soundIsAuth);
+		isMuted2 = !(isMouseOn2 && $soundIsAuth);
+		isMuted3 = !(isMouseOn3 && $soundIsAuth);
+		isMuted4 = !(isMouseOn4 && $soundIsAuth);
+		isMuted5 = !(isMouseOn5 && $soundIsAuth);
 	});
 
-	const videos = $state([
-		{
-			id: 'vid-container-0',
-			fileName: '6c.ShowAboutNothing',
-			episode: 'S4E3 - The Pitch',
-			description: [
-				{
-					type: 'text',
-					content:
-						'It only took a handful of episodes for me to find myself completely hooked. Seinfeld was written in a different key, deviating from the traditional rules of sitcoms, focusing on - and amplifying of - the minutiae of daily life, earning its reputation as ‘'
-				},
-				{
-					type: 'link',
-					href: 'https://www.latimes.com/archives/la-xpm-1993-03-04-ca-474-story.html',
-					content: 'the show about nothing'
-				},
-				{ type: 'text', content: '’.' }
-			],
-			isMuted: true
-		},
-		{
-			id: 'vid-container-1',
-			fileName: '32.Minutiae',
-			episode: 'S8E3 - The Bizzaro Jerry',
-			description: [
-				{
-					type: 'text',
-					content:
-						'I loved the irreverent characters - with their absurd obsessions and neurotic tendencies - and the hilariously avoidable situations they found themselves in.'
-				}
-			],
-			isMuted: true
-		},
-		{
-			id: 'vid-container-2',
-			fileName: '11a.GoodSamaritan',
-			episode: 'S9E24 - The Good Samaritan Law',
-			description: [
-				{
-					type: 'text',
-					content:
-						'It rejected the classic three-act story, sidestepping sentimentality and the pursuit of resolution. With its mantra of ‘no hugging*, no learning’ the lead characters were insecure and entertainingly flawed, lacking any desire and capability for personal growth. ( * the earlier clip notwithstanding! )'
-				}
-			],
-			isMuted: true
-		},
-		{
-			id: 'vid-container-3',
-			fileName: '13a.TheNose',
-			episode: 'S3E9 - The Nose Job',
-			description: [
-				{ type: 'text', content: 'As with any shows from its time, as ' },
-				{
-					type: 'link',
-					href: 'https://www.theguardian.com/culture/2024/oct/16/jerry-seinfeld-tom-papa-breaking-bad-podcast-interview-politics-comedy-extreme-left-pc-crap-#:~:text=%E2%80%9CDoes%20culture%20change,my%20skiing%20analogy.%E2%80%9D',
-					content: 'culture and society evolves'
-				},
-				{
-					type: 'text',
-					content:
-						' a contemporary lens exposes negative stereotypes and flashes of chauvinism and sizeism, to name but two isms. The amoral instincts of these '
-				},
-				{
-					type: 'link',
-					href: 'https://www.theguardian.com/tv-and-radio/2018/may/10/no-hugging-no-learning-20-years-on-seinfelds-mantra-still-looms-large',
-					content: 'anti-heroes'
-				},
-				{
-					type: 'text',
-					content:
-						' was most on-show in their romantic encounters and when faced with the slightest adversity or irrational annoyance.'
-				}
-			],
-			isMuted: true
-		},
-		{
-			id: 'vid-container-4',
-			fileName: '14.ElaineDancing',
-			episode: 'S8E4 - The Little Kicks',
-			description: [{ type: 'text', content: 'And then there’s the dancing.' }],
-			isMuted: true
-		}
-	]);
-
-	const handleVideoMouseEnter = (/** @type {{ target: any; }} */ e) => {
-		if ($soundIsAuth) {
-			// @ts-ignore
-			videos.find((vid) => vid.id === e.target.classList[1]).isMuted = false;
+	const handleMouseEnter = (/** @type {number} */ section) => {
+		switch (section) {
+			case 1:
+				isMouseOn1 = true;
+				return;
+			case 2:
+				isMouseOn2 = true;
+				return;
+			case 3:
+				isMouseOn3 = true;
+				return;
+			case 4:
+				isMouseOn4 = true;
+				return;
+			case 5:
+				isMouseOn5 = true;
+				return;
 		}
 	};
-	const handleVideoMouseLeave = (/** @type {{ target: any; }} */ e) => {
-		// @ts-ignore
-		videos.find((vid) => vid.id === e.target.classList[1]).isMuted = true;
+	const handleMouseLeave = (/** @type {number} */ section) => {
+		switch (section) {
+			case 1:
+				isMouseOn1 = false;
+				return;
+			case 2:
+				isMouseOn2 = false;
+				return;
+			case 3:
+				isMouseOn3 = false;
+				return;
+			case 4:
+				isMouseOn4 = false;
+				return;
+			case 5:
+				isMouseOn5 = false;
+				return;
+		}
 	};
 </script>
 
-<div class="outer h-screen" style="margin-bottom: 1300vh;">
-	<div class="scroll flex" style="width: 500vw;">
-		{#each videos as video, i}
-			<section class={`section-${i + 1} flex h-screen w-screen flex-col items-center`}>
-				<div class="background"></div>
-				<div class="episode-title">{video.episode}</div>
-				<div class="content">
-					<div
-						class={`vid-container vid-container-${i}`}
-						role="presentation"
-						onmouseenter={handleVideoMouseEnter}
-						onmouseleave={handleVideoMouseLeave}
-					>
-						<div class="relative">
-							<!-- svelte-ignore a11y_media_has_caption -->
-							<video playsinline autoplay bind:muted={video.isMuted} loop>
-								<source
-									src={`https://amdufour.github.io/hosted-data/apis/videos/${video.fileName}.mp4`}
-									type="video/mp4"
-								/>
-							</video>
-							<div class="overlay"></div>
-						</div>
-						<p class="show-description">
-							{#each video.description as desc}
-								{#if desc.type === 'link'}
-									<a href={desc.href} target="_blank">{desc.content}</a>
-								{:else}
-									<span>{desc.content}</span>
-								{/if}
-							{/each}
-						</p>
-					</div>
-				</div>
-			</section>
-		{/each}
-	</div>
-</div>
+<svelte:window bind:innerWidth />
 
-<style>
-	.scroll {
-		background: linear-gradient(
-			145deg,
-			rgba(253, 232, 36, 1) 0%,
-			rgba(184, 206, 50, 1) 12.5%,
-			rgba(125, 186, 87, 1) 25%,
-			rgba(76, 178, 120, 1) 37.5%,
-			rgba(29, 163, 136, 1) 50%,
-			rgba(34, 138, 141, 1) 62.5%,
-			rgba(47, 112, 142, 1) 75%,
-			rgba(57, 87, 141, 1) 87.5%,
-			rgba(69, 55, 130, 1) 100%
-		);
-	}
-	section {
-		overflow: hidden;
-		padding-top: 120px;
-	}
-	.background {
-		position: absolute;
-		z-index: 0;
-		top: 0;
-		width: 500vw;
-		height: 100vh;
-		background: linear-gradient(
-			145deg,
-			rgba(253, 232, 36, 1) 0%,
-			rgba(184, 206, 50, 1) 12.5%,
-			rgba(125, 186, 87, 1) 25%,
-			rgba(76, 178, 120, 1) 37.5%,
-			rgba(29, 163, 136, 1) 50%,
-			rgba(34, 138, 141, 1) 62.5%,
-			rgba(47, 112, 142, 1) 75%,
-			rgba(57, 87, 141, 1) 87.5%,
-			rgba(69, 55, 130, 1) 100%
-		);
-	}
-	.section-1 .background {
-		left: 0;
-	}
-	.section-2 .background {
-		left: -100vw;
-	}
-	.section-3 .background {
-		left: -200vw;
-	}
-	.section-4 .background {
-		left: -300vw;
-	}
-	.section-5 .background {
-		left: -400vw;
-	}
-	.content {
-		position: relative;
-		z-index: 2;
-	}
-	video,
-	.overlay {
-		width: 800px;
-		max-width: 100%;
-	}
-	.show-description {
-		max-width: 800px;
-	}
-	.episode-title {
-		position: absolute;
-		z-index: 5;
-		top: 40px;
-		left: 8px;
-		font-size: 7rem;
-		line-height: 1;
-		font-weight: 600;
-		-webkit-text-fill-color: transparent;
-		-webkit-text-stroke-width: 2px;
-		-webkit-text-stroke-color: #f9f5f7;
-	}
-</style>
+<section id="the-show">
+	<div class="container">
+		<!-- The show about nothing -->
+		<div 
+			class="grid grid-cols-12 gap-4 mb-24" role="presentation"
+			onmouseenter={() => handleMouseEnter(1)}
+			onmouseleave={() => handleMouseLeave(1)}
+		>
+			<div class="col-span-4">It only took a handful of episodes for me to find myself completely hooked. Seinfeld was written in a different key, deviating from the traditional rules of sitcoms, focusing on - and amplifying of - the minutiae of daily life, earning its reputation as <a href="https://www.latimes.com/archives/la-xpm-1993-03-04-ca-474-story.html" target="_blank">the show about nothing</a>.</div>
+			<div class="col-span-5">
+				<!-- svelte-ignore a11y_media_has_caption -->
+				 <div class="relative">
+				<video playsinline autoplay bind:muted={isMuted1} loop>
+					<source
+						src="https://amdufour.github.io/hosted-data/apis/videos/6c.ShowAboutNothing.mp4"
+						type="video/mp4"
+					/>
+				</video>
+				<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
+				<div
+					class="absolute bottom-0 left-0 right-0 top-0"
+					style="background-image: url('{tv_noise}')"
+				></div>
+				</div>
+				<h5 class="mt-2">S4E3 - The Pitch</h5>
+			</div>
+		</div>
+		
+		<!--  Irreverent characters -->
+		<div 
+			class="grid grid-cols-12 gap-4 mb-52" role="presentation"
+			style="margin-left: -{sideSpacing}px;"
+			onmouseenter={() => handleMouseEnter(2)}
+			onmouseleave={() => handleMouseLeave(2)}
+		>
+			<div class="col-span-7">
+				<!-- svelte-ignore a11y_media_has_caption -->
+				 <div class="relative">
+				<video playsinline autoplay bind:muted={isMuted2} loop>
+					<source
+						src="https://amdufour.github.io/hosted-data/apis/videos/32.Minutiae.mp4"
+						type="video/mp4"
+					/>
+				</video>
+				<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
+				<div
+					class="absolute bottom-0 left-0 right-0 top-0"
+					style="background-image: url('{tv_noise}')"
+				></div>
+				</div>
+				<h5 class="mt-2">S8E3 - The Bizzaro Jerry</h5>
+			</div>
+			<div class="col-span-4">I loved the irreverent characters - with their absurd obsessions and neurotic tendencies - and the hilariously avoidable situations they found themselves in.</div>
+		</div>
+
+		<!--  No hugging, no learning -->
+		<div 
+			class="grid grid-cols-12 gap-4 mb-52" role="presentation"
+			style="margin-left: -{sideSpacing}px;"
+			onmouseenter={() => handleMouseEnter(3)}
+			onmouseleave={() => handleMouseLeave(3)}
+		>
+			<div class="col-span-1"></div>
+			<div class="col-span-10">
+			<div>It rejected the classic three-act story, sidestepping sentimentality and the pursuit of resolution. With its mantra of <span class="em">no hugging*, no learning</span> the lead characters were insecure and entertainingly flawed, lacking any desire and capability for personal growth.</div>
+			<div class="number mt-2 mb-4">* the earlier clip not withstanding!</div>
+			<div>
+				<!-- svelte-ignore a11y_media_has_caption -->
+				 <div class="relative">
+				<video playsinline autoplay bind:muted={isMuted3} loop>
+					<source
+						src="https://amdufour.github.io/hosted-data/apis/videos/11a.GoodSamaritan.mp4"
+						type="video/mp4"
+					/>
+				</video>
+				<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
+				<div
+					class="absolute bottom-0 left-0 right-0 top-0"
+					style="background-image: url('{tv_noise}')"
+				></div>
+				</div>
+				<h5 class="mt-2">S9E24 - The Good Samaritan Law</h5>
+			</div>
+			</div>
+		</div>
+
+		<!-- Anti heroes -->
+		<div 
+			class="grid grid-cols-12 gap-4 mb-44" role="presentation"
+			style="margin-right: -{sideSpacing + 32}px;"
+			onmouseenter={() => handleMouseEnter(4)}
+			onmouseleave={() => handleMouseLeave(4)}
+		>
+			<div class="col-span-2"></div>
+			<div class="col-span-5">As with any shows from its time, as <a href="https://www.theguardian.com/culture/2024/oct/16/jerry-seinfeld-tom-papa-breaking-bad-podcast-interview-politics-comedy-extreme-left-pc-crap-#:~:text=%E2%80%9CDoes%20culture%20change,my%20skiing%20analogy.%E2%80%9D" target="_blank">culture and society evolve</a> a contemporary lens exposes negative stereotypes and flashes of chauvinism and sizeism, to name but two isms. The amoral instincts of these <a href="https://www.theguardian.com/tv-and-radio/2018/may/10/no-hugging-no-learning-20-years-on-seinfelds-mantra-still-looms-large" target="_blank">anti-heroes</a> was most on-show in their romantic encounters and when faced with the slightest adversity or irrational annoyance.</div>
+			<div class="col-span-5">
+				<!-- svelte-ignore a11y_media_has_caption -->
+				 <div class="relative">
+				<video playsinline autoplay bind:muted={isMuted4} loop>
+					<source
+						src="https://amdufour.github.io/hosted-data/apis/videos/13a.TheNose.mp4"
+						type="video/mp4"
+					/>
+				</video>
+				<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
+				<div
+					class="absolute bottom-0 left-0 right-0 top-0"
+					style="background-image: url('{tv_noise}')"
+				></div>
+				</div>
+				<h5 class="mt-2">S3E9 - The Nose Job</h5>
+			</div>
+		</div>
+
+
+		<!--  The dancing -->
+		<div 
+			class="grid grid-cols-12 gap-4 pb-52" role="presentation"
+			style="margin-left: -{sideSpacing}px;"
+			onmouseenter={() => handleMouseEnter(5)}
+			onmouseleave={() => handleMouseLeave(5)}
+		>
+			<div class="col-span-2"></div>
+			<div class="col-span-10">
+				<div class="mb-2">And then there’s the dancing.</div>
+				<div>
+					<!-- svelte-ignore a11y_media_has_caption -->
+					<div class="relative">
+					<video playsinline autoplay bind:muted={isMuted5} loop>
+						<source
+							src="https://amdufour.github.io/hosted-data/apis/videos/14.ElaineDancing.mp4"
+							type="video/mp4"
+						/>
+					</video>
+					<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
+					<div
+						class="absolute bottom-0 left-0 right-0 top-0"
+						style="background-image: url('{tv_noise}')"
+					></div>
+					</div>
+					<h5 class="mt-2">S8E4 - The Little Kicks</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
