@@ -196,7 +196,7 @@
 					</video>
 					<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
 					<div
-						class="absolute bottom-0 left-0 right-0 top-0"
+						class="absolute z-10 bottom-0 left-0 right-0 top-0"
 						style="background-image: url('{tv_noise}')"
 					></div>
 				</div>

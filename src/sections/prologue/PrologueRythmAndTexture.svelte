@@ -7,6 +7,7 @@
 	import { soundIsAuth } from '../../stores/soundAuthStore';
 	gsap.registerPlugin(ScrollTrigger);
 	import Lenis from 'lenis';
+	import tv_noise from "$lib/assets/tv_noise.png"
 
 	onMount(() => {
 		// Pin text
@@ -147,7 +148,6 @@
 					onmouseenter={handleVideoMouseEnter}
 					onmouseleave={handleVideoMouseLeave}
 				>
-					<div class="overlay"></div>
 					<!-- svelte-ignore a11y_media_has_caption -->
 					<video playsinline autoplay loop bind:muted={video.isMuted}>
 						<source
@@ -155,6 +155,11 @@
 							type="video/mp4"
 						/>
 					</video>
+					<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
+					<div
+						class="absolute z-10 bottom-0 left-0 right-0 top-0"
+						style="background-image: url('{tv_noise}')"
+					></div>
 					<div class="episode">{video.episode}</div>
 				</div>
 			{/each}
@@ -169,7 +174,7 @@
 	.episode {
 		position: absolute;
 		z-index: 2;
-		right: 5px;
+		left: 5px;
 		bottom: 0;
 		font-size: 1.125rem;
 		line-height: 1.2;

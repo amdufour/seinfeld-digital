@@ -49,7 +49,7 @@
 		{#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
 		{/if}
-		<!-- <Title /> -->
+		<Title />
 	</div>
 	<!-- <Calendar /> -->
 	<!-- {#await csv(episodesDataUrl) then episodesData}

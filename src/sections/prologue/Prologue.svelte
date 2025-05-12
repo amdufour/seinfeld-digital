@@ -19,6 +19,6 @@
 	<PrologueVideo />
 	<PrologueTimeline />
 	<PrologueTheShow />
-	<!-- <PrologueRythmAndTexture /> -->
-	<!-- <PrologueBook /> -->
+	<PrologueRythmAndTexture />
+	<PrologueBook />
 </section>
