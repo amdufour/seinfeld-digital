@@ -154,8 +154,8 @@
 			<div id="date-us" class="flex items-center">
 				<div id="year-us" class="year" style="width: {innerWidth >= 768 ? 176 : 60}px;">1989</div>
 				<div id="circle-us" class="circle bg-white"></div>
-				{#if innerWidth >= 768}
-					<div id="desc-us" class="text-lg" style={`margin-left: 24px`}>
+				{#if innerWidth >= 996}
+					<div id="desc-us" class="mid" style={`margin-left: 24px`}>
 						Seinfeld first aired on NBC in the USA
 					</div>
 				{/if}
@@ -169,8 +169,8 @@
 			<div id="date-uk" class="flex items-center">
 				<div id="year-uk" class="year" style="width: {innerWidth >= 768 ? 176 : 60}px;">1993</div>
 				<div id="circle-uk" class="circle bg-white"></div>
-				{#if innerWidth >= 768}
-					<div id="desc-uk" class="text-lg" style={`margin-left: 24px`}>
+				{#if innerWidth >= 996}
+					<div id="desc-uk" class="md" style={`margin-left: 24px`}>
 						Seinfeld first aired on BBC2 in the UK
 					</div>
 				{/if}
@@ -180,8 +180,8 @@
 			<div id="date-andy" class="flex items-center" style="opacity: 0">
 				<div id="year-andy" class="year" style="width: {innerWidth >= 768 ? 176 : 60}px;">2012</div>
 				<div id="circle-andy" class="pulse circle bg-accent"></div>
-				{#if innerWidth >= 768}
-					<div id="desc-andy" class="text-lg" style={`margin-left: 24px`}>
+				{#if innerWidth >= 996}
+					<div id="desc-andy" class="mid" style={`margin-left: 24px`}>
 						Seinfeld returns to prime-time on Sky TV in the UK
 					</div>
 				{/if}
