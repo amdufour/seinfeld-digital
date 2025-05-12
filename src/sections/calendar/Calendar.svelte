@@ -170,18 +170,21 @@
 		};
 
 		const getYPosition = (/** @type {number} */ season, /** @type {string} */ date) => {
-			const seasonBlock = document
+			const seasonBlockTop = document
 				.getElementById(
 					`catalog-season-${date === 'August 12 1992' || date === 'August 19 1992' ? season - 1 : season}`
 				)
-				?.getBoundingClientRect();
-
-			if (!seasonBlock) return 0;
-
+				?.offsetTop;
+			const seasonBlockHeight = document
+				.getElementById(
+					`catalog-season-${date === 'August 12 1992' || date === 'August 19 1992' ? season - 1 : season}`
+				)
+				?.offsetHeight;
+			
 			if (season === 1) {
-				return date === 'July 5 1989' ? seasonBlock.height / 2 - 50 : seasonBlock.height / 2 - 10;
+				return date === 'July 5 1989' ? seasonBlockHeight / 2 - 50 : seasonBlockHeight / 2 + 10;
 			} else {
-				return seasonBlock.top - headersHeight + seasonBlock.height / 2;
+				return seasonBlockTop - headersHeight + seasonBlockHeight / 2;
 			}
 		};
 
@@ -258,11 +261,9 @@
 				selectors = episodesShow1.map((e) => `#calendar-${e}`).join(',');
 				break;
 			case 2:
-				console.log("show2")
 				selectors = episodesShow2.map((e) => `#calendar-${e}`).join(',');
 				break;
 			case 3:
-				console.log("show3")
 				selectors = episodesShow3.map((e) => `#calendar-${e}`).join(',');
 				break;
 			case 4:
@@ -272,7 +273,6 @@
 				selectors = episodesShow5.map((e) => `#calendar-${e}`).join(',');
 				break;
 		}
-		console.log(selectors)
 
 		gsap.to(selectors, {
 			scale: 1,
@@ -339,7 +339,7 @@
 				</text>
 
 				<!-- Month labels -->
-				{#if innerWidth >= 793}
+				{#if innerWidth >= 768}
 					{#each tvSeason.months as month}
 						<text
 							class="text-base"
@@ -355,7 +355,7 @@
 			{/each}
 
 			<!-- Month separators -->
-			{#if innerWidth >= 793}
+			{#if innerWidth >= 768}
 				{#each tvSeasons as season}
 					{#each season.months as month}
 						{#if month !== 'Aug'}
@@ -388,7 +388,7 @@
 							? '#BEBABC'
 							: seasons.find((s) => s.seasonNum === node.season)?.color}
 					/>
-					{#if innerWidth >= 793}
+					{#if innerWidth >= 768}
 						<text
 							class="number"
 							text-anchor="middle"
