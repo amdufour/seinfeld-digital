@@ -258,9 +258,11 @@
 				selectors = episodesShow1.map((e) => `#calendar-${e}`).join(',');
 				break;
 			case 2:
+				console.log("show2")
 				selectors = episodesShow2.map((e) => `#calendar-${e}`).join(',');
 				break;
 			case 3:
+				console.log("show3")
 				selectors = episodesShow3.map((e) => `#calendar-${e}`).join(',');
 				break;
 			case 4:
@@ -270,6 +272,7 @@
 				selectors = episodesShow5.map((e) => `#calendar-${e}`).join(',');
 				break;
 		}
+		console.log(selectors)
 
 		gsap.to(selectors, {
 			scale: 1,

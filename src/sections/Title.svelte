@@ -94,7 +94,7 @@
 
 <svelte:window bind:innerWidth />
 
-<section id="title-screen" class="h-screen -mb-80" style="margin-top: 1200px;">
+<section id="title-screen" class="h-screen mb-80" style="margin-top: 1200px;">
 	<svg width={svgWidth} height="132">
 		{#each seasons as season, i}
 			<rect

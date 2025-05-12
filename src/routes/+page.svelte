@@ -38,7 +38,7 @@
 <main>
 	<Navbar />
 	<div
-		class="bg-black text-white"
+		class="text-white"
 		use:inview={options}
 		oninview_change={(/** @type {{ detail: { inView: any; }; }} */ event) => {
 			const { inView } = event.detail;
@@ -51,22 +51,24 @@
 		{/if}
 		<Title />
 	</div>
-	<!-- <Calendar /> -->
-	<!-- {#await csv(episodesDataUrl) then episodesData}
-		<EpisodeExample {episodesData} />
-	{/await} -->
-	<!-- <Quotes />
-	<MainCharsSection />
-	<SupportingCharsSection />
-	<LocationsSection /> -->
-	<!-- {#await csv(episodesDataUrl) then episodesData}
-		{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
-			{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
-				<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} />
+	<div class="bg-white text-black">
+		<Calendar />
+		<!-- {#await csv(episodesDataUrl) then episodesData}
+			<EpisodeExample {episodesData} />
+		{/await} -->
+		<!-- <Quotes />
+		<MainCharsSection />
+		<SupportingCharsSection />
+		<LocationsSection /> -->
+		<!-- {#await csv(episodesDataUrl) then episodesData}
+			{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
+				{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
+					<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} />
+				{/await}
 			{/await}
-		{/await}
-	{/await} -->
-	<!-- <Quotes />
-	<MethodologyAndCredits />
-	<Footer /> -->
+		{/await} -->
+		<!-- <Quotes />
+		<MethodologyAndCredits />
+		<Footer /> -->
+	</div>
 </main>

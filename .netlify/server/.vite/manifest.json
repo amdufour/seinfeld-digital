@@ -1,0 +1,222 @@
+{
+  ".svelte-kit/generated/server/internal.js": {
+    "file": "internal.js",
+    "name": "internal",
+    "src": ".svelte-kit/generated/server/internal.js",
+    "isEntry": true,
+    "imports": [
+      "_internal.js"
+    ]
+  },
+  "_equality.js": {
+    "file": "chunks/equality.js",
+    "name": "equality"
+  },
+  "_exports.js": {
+    "file": "chunks/exports.js",
+    "name": "exports"
+  },
+  "_index.js": {
+    "file": "chunks/index.js",
+    "name": "index"
+  },
+  "_index2.js": {
+    "file": "chunks/index2.js",
+    "name": "index",
+    "imports": [
+      "_index.js",
+      "_equality.js"
+    ]
+  },
+  "_internal.js": {
+    "file": "chunks/internal.js",
+    "name": "internal",
+    "imports": [
+      "_index.js",
+      "_equality.js"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/components/svelte-5/error.svelte": {
+    "file": "entries/fallbacks/error.svelte.js",
+    "name": "entries/fallbacks/error.svelte",
+    "src": "node_modules/@sveltejs/kit/src/runtime/components/svelte-5/error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_exports.js",
+      "_index2.js"
+    ]
+  },
+  "node_modules/@sveltejs/kit/src/runtime/server/index.js": {
+    "file": "index.js",
+    "name": "index",
+    "src": "node_modules/@sveltejs/kit/src/runtime/server/index.js",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_internal.js",
+      "_exports.js",
+      "_index2.js"
+    ]
+  },
+  "src/lib/assets/book/book_calendar.jpg": {
+    "file": "_app/immutable/assets/book_calendar.BUNIQpig.jpg",
+    "src": "src/lib/assets/book/book_calendar.jpg"
+  },
+  "src/lib/assets/book/book_catalog1.png": {
+    "file": "_app/immutable/assets/book_catalog1.DGPkPybi.png",
+    "src": "src/lib/assets/book/book_catalog1.png"
+  },
+  "src/lib/assets/book/book_catalog2.png": {
+    "file": "_app/immutable/assets/book_catalog2.DDVlmLVf.png",
+    "src": "src/lib/assets/book/book_catalog2.png"
+  },
+  "src/lib/assets/book/book_cover.jpg": {
+    "file": "_app/immutable/assets/book_cover.ChtgR2W8.jpg",
+    "src": "src/lib/assets/book/book_cover.jpg"
+  },
+  "src/lib/assets/book/book_intro.jpg": {
+    "file": "_app/immutable/assets/book_intro.BX710J_b.jpg",
+    "src": "src/lib/assets/book/book_intro.jpg"
+  },
+  "src/lib/assets/book/book_laughs.jpg": {
+    "file": "_app/immutable/assets/book_laughs.kxnFIjOP.jpg",
+    "src": "src/lib/assets/book/book_laughs.jpg"
+  },
+  "src/lib/assets/book/book_quotes.jpg": {
+    "file": "_app/immutable/assets/book_quotes.BEQDFD-q.jpg",
+    "src": "src/lib/assets/book/book_quotes.jpg"
+  },
+  "src/lib/assets/book/book_scatterplot.jpg": {
+    "file": "_app/immutable/assets/book_scatterplot.D3uuuCEK.jpg",
+    "src": "src/lib/assets/book/book_scatterplot.jpg"
+  },
+  "src/lib/assets/characters/ColleagueIcon.jpg": {
+    "file": "_app/immutable/assets/ColleagueIcon.CZ3Di25P.jpg",
+    "src": "src/lib/assets/characters/ColleagueIcon.jpg"
+  },
+  "src/lib/assets/characters/ElaineFamilyIcon.jpg": {
+    "file": "_app/immutable/assets/ElaineFamilyIcon.C20bJseD.jpg",
+    "src": "src/lib/assets/characters/ElaineFamilyIcon.jpg"
+  },
+  "src/lib/assets/characters/ElaineIcon.jpg": {
+    "file": "_app/immutable/assets/ElaineIcon.C4_nGvvx.jpg",
+    "src": "src/lib/assets/characters/ElaineIcon.jpg"
+  },
+  "src/lib/assets/characters/FriendIcon.jpg": {
+    "file": "_app/immutable/assets/FriendIcon.gzJWnkEH.jpg",
+    "src": "src/lib/assets/characters/FriendIcon.jpg"
+  },
+  "src/lib/assets/characters/GeorgeFamilyIcon.jpg": {
+    "file": "_app/immutable/assets/GeorgeFamilyIcon.DgHR8fCo.jpg",
+    "src": "src/lib/assets/characters/GeorgeFamilyIcon.jpg"
+  },
+  "src/lib/assets/characters/GeorgeIcon.jpg": {
+    "file": "_app/immutable/assets/GeorgeIcon.F9EVhRXZ.jpg",
+    "src": "src/lib/assets/characters/GeorgeIcon.jpg"
+  },
+  "src/lib/assets/characters/JerryFamilyIcon.jpg": {
+    "file": "_app/immutable/assets/JerryFamilyIcon.DQguu6y4.jpg",
+    "src": "src/lib/assets/characters/JerryFamilyIcon.jpg"
+  },
+  "src/lib/assets/characters/JerryIcon.jpg": {
+    "file": "_app/immutable/assets/JerryIcon.CWxgjMvj.jpg",
+    "src": "src/lib/assets/characters/JerryIcon.jpg"
+  },
+  "src/lib/assets/characters/KramerFamilyIcon.jpg": {
+    "file": "_app/immutable/assets/KramerFamilyIcon.Cj-rYyuv.jpg",
+    "src": "src/lib/assets/characters/KramerFamilyIcon.jpg"
+  },
+  "src/lib/assets/characters/KramerIcon.jpg": {
+    "file": "_app/immutable/assets/KramerIcon.u9mQvZjQ.jpg",
+    "src": "src/lib/assets/characters/KramerIcon.jpg"
+  },
+  "src/lib/assets/characters/LoveInterestIcon.jpg": {
+    "file": "_app/immutable/assets/LoveInterestIcon.rUzzO44U.jpg",
+    "src": "src/lib/assets/characters/LoveInterestIcon.jpg"
+  },
+  "src/lib/assets/characters/NeighbourIcon.jpg": {
+    "file": "_app/immutable/assets/NeighbourIcon.DbFgxVL_.jpg",
+    "src": "src/lib/assets/characters/NeighbourIcon.jpg"
+  },
+  "src/lib/assets/characters/OtherPersonIcon.jpg": {
+    "file": "_app/immutable/assets/OtherPersonIcon.BQPh4vNa.jpg",
+    "src": "src/lib/assets/characters/OtherPersonIcon.jpg"
+  },
+  "src/lib/assets/locations/ElaineHome.svg": {
+    "file": "_app/immutable/assets/ElaineHome.CVoYU9td.svg",
+    "src": "src/lib/assets/locations/ElaineHome.svg"
+  },
+  "src/lib/assets/locations/ElaineHomeSmall.svg": {
+    "file": "_app/immutable/assets/ElaineHomeSmall.C-RqAldq.svg",
+    "src": "src/lib/assets/locations/ElaineHomeSmall.svg"
+  },
+  "src/lib/assets/locations/GeorgeHome.svg": {
+    "file": "_app/immutable/assets/GeorgeHome.Bs_X2OsM.svg",
+    "src": "src/lib/assets/locations/GeorgeHome.svg"
+  },
+  "src/lib/assets/locations/GeorgeHomeSmall.svg": {
+    "file": "_app/immutable/assets/GeorgeHomeSmall.DKBfXyUK.svg",
+    "src": "src/lib/assets/locations/GeorgeHomeSmall.svg"
+  },
+  "src/lib/assets/locations/JerryHome.svg": {
+    "file": "_app/immutable/assets/JerryHome.CBp_ZRc9.svg",
+    "src": "src/lib/assets/locations/JerryHome.svg"
+  },
+  "src/lib/assets/locations/JerryHomeSmall.svg": {
+    "file": "_app/immutable/assets/JerryHomeSmall.CcIUSd4l.svg",
+    "src": "src/lib/assets/locations/JerryHomeSmall.svg"
+  },
+  "src/lib/assets/locations/KramerHome.svg": {
+    "file": "_app/immutable/assets/KramerHome.CKbkCzCg.svg",
+    "src": "src/lib/assets/locations/KramerHome.svg"
+  },
+  "src/lib/assets/locations/KramerHomeSmall.svg": {
+    "file": "_app/immutable/assets/KramerHomeSmall.tcTkGo0P.svg",
+    "src": "src/lib/assets/locations/KramerHomeSmall.svg"
+  },
+  "src/lib/assets/locations/Outside.svg": {
+    "file": "_app/immutable/assets/Outside.CWb9iKXs.svg",
+    "src": "src/lib/assets/locations/Outside.svg"
+  },
+  "src/lib/assets/tv_noise.png": {
+    "file": "_app/immutable/assets/tv_noise.CynwfRsk.png",
+    "src": "src/lib/assets/tv_noise.png"
+  },
+  "src/routes/+layout.svelte": {
+    "file": "entries/pages/_layout.svelte.js",
+    "name": "entries/pages/_layout.svelte",
+    "src": "src/routes/+layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_layout.D14qhZ-v.css"
+    ]
+  },
+  "src/routes/+page.svelte": {
+    "file": "entries/pages/_page.svelte.js",
+    "name": "entries/pages/_page.svelte",
+    "src": "src/routes/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index.js",
+      "_index2.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.CcZbILqO.css"
+    ],
+    "assets": [
+      "_app/immutable/assets/tv_noise.CynwfRsk.png",
+      "_app/immutable/assets/book_cover.ChtgR2W8.jpg",
+      "_app/immutable/assets/book_intro.BX710J_b.jpg",
+      "_app/immutable/assets/book_calendar.BUNIQpig.jpg",
+      "_app/immutable/assets/book_laughs.kxnFIjOP.jpg",
+      "_app/immutable/assets/book_scatterplot.D3uuuCEK.jpg",
+      "_app/immutable/assets/book_quotes.BEQDFD-q.jpg",
+      "_app/immutable/assets/book_catalog1.DGPkPybi.png",
+      "_app/immutable/assets/book_catalog2.DDVlmLVf.png"
+    ]
+  }
+}

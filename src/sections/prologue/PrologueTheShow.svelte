@@ -88,7 +88,7 @@
 		const tl3 = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#the-show-3',
-				start: 'bottom bottom-=20%',
+				start: 'top bottom-=20%',
 				end: 'top top-=20%',
 				toggleActions: 'play reverse play reverse'
 			}
