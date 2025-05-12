@@ -17,7 +17,10 @@
     font-weight: 400;
     color: #12020A;
     fill: #12020A;
-    background: #F9F5F7;
+    background: #12020A;
+  }
+  .em {
+    font-weight: 600;
   }
   h1, h2, h3, h4, h5 {
     line-height: 1;
@@ -44,7 +47,7 @@
   }
   h5 {
     margin: 0;
-    font-size: 1.5625rem;
+    font-size: 1.25rem;
     font-weight: 600;
   }
   p {
@@ -84,6 +87,15 @@
   .mask {
     overflow: hidden;
   }
+	.overlay {
+		position: absolute;
+		z-index: 1;
+		top: 0;
+		left: 0;
+    right: 0;
+    bottom: 0;
+		background: rgba(18, 2, 10, 0.55);
+	}
   .backdrop {
     position: fixed;
     top:0;
@@ -93,7 +105,11 @@
     z-index: 20;
 		background-color: rgba(48, 56, 67, 0.9);
 	}
+	.readable-layer {
+		background: rgba(18, 2, 10, 0.55);
+	}
   .highlight {
+    font-weight: 600;
 		background: rgb(253, 232, 36);
 		background: linear-gradient(
 			90deg,
@@ -111,7 +127,7 @@
 		background-clip: text;
 	}
   .btn {
-    padding: 6px 20px;
+    padding: 12px 20px;
     transition: all 250ms ease-out;
     border-radius: 8px;
   }
@@ -132,6 +148,15 @@
   .btn-secondary:hover {
     background-color: #EEECED;
   }
+  .text-overlay {
+    width: 80%;
+    max-width: 600px;
+    padding: 24px 32px;
+    color: #F9F5F7;
+    background-color: #12020A;
+    border-radius: 12px;
+    box-shadow: 0px 1px 15px 0px rgba(0, 0, 0, 0.15);
+  }
   @media screen and (min-width: 768px) {
     h1 {
       font-size: 5rem;
@@ -142,8 +167,11 @@
     h3 {
       font-size: 3.5rem;
     }
+    h5 {
+      font-size: 1.5625rem;
+    }
   }
-  @media screen and (min-width: 996px) {
+  @media screen and (min-width: 1200px) {
     body {
       font-size: 1.375rem;
     }

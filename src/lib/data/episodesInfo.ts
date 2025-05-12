@@ -3070,6 +3070,28 @@ export const episodesInfo = [
   },
   {
     "season": 6,
+    "episode": 14,
+    "episode_code": 6.14,
+    "title": "The Highlights of 100 (Part 1)",
+    "description": "For the series' 100th episode, Jerry Seinfeld hosts a one hour retrospective with clips from previous episodes: the idea for a show about nothing; the smelly car; the puffy shirt; the astronaut pen; Jerry's hair; George's lack of hair; Mulva; Jerry's virgin girlfriend; the Hernandez incident; the outing; the masters of their domain; the bubble boy - are only a few of the episodes included.",
+    "img_src": "https://m.media-amazon.com/images/M/MV5BYjBkZjAyNjEtOTdiMi00N2U2LTgzNGItMjRlMTA1ZjJhMTZhXkEyXkFqcGc@._V1_QL75_UY563_CR57,0,1000,563_.jpg",
+    "date_aired": "February 2 1995",
+    "IMDB_rating": "7,2",
+    "isSpecial": true
+  },
+  {
+    "season": 6,
+    "episode": 15,
+    "episode_code": 6.15,
+    "title": "The Highlights of 100 (Part 2)",
+    "description": "For the series' 100th episode, Jerry Seinfeld hosts a one hour retrospective with clips from previous episodes: the idea for a show about nothing; the smelly car; the puffy shirt; the astronaut pen; Jerry's hair; George's lack of hair; Mulva; Jerry's virgin girlfriend; the Hernandez incident; the outing; the masters of their domain; the bubble boy - are only a few of the episodes included.",
+    "img_src": "https://m.media-amazon.com/images/M/MV5BYjBkZjAyNjEtOTdiMi00N2U2LTgzNGItMjRlMTA1ZjJhMTZhXkEyXkFqcGc@._V1_QL75_UY563_CR57,0,1000,563_.jpg",
+    "date_aired": "February 2 1995",
+    "IMDB_rating": "7,2",
+    "isSpecial": true
+  },
+  {
+    "season": 6,
     "episode": 16,
     "order": 102,
     "episode_code": 6.16,
@@ -5392,6 +5414,28 @@ export const episodesInfo = [
     "DaysInYear": "#VALUE!",
     "ImaginedYear": "#VALUE!",
     "DoubleEpisodes?": 180
+  },
+  {
+    "season": 9,
+    "episode": 21,
+    "episode_code": 9.21,
+    "title": "The Chronicle/Clip Show (Part 1)",
+    "description": "Just as the four are about to go to the movies, Jerry looks back on the past nine years with the audience.",
+    "img_src": "https://m.media-amazon.com/images/M/MV5BN2IyMTFmMzItM2E1MC00ZjE4LWEzMzEtNjQwMzIwMzc5YjQ2XkEyXkFqcGc@._V1_QL75_UX1000_CR0,7,1000,563_.jpg",
+    "date_aired": "May 14 1998",
+    "IMDB_rating": "8,1",
+    "isSpecial": true
+  },
+  {
+    "season": 9,
+    "episode": 22,
+    "episode_code": 9.22,
+    "title": "The Chronicle/Clip Show (Part 2)",
+    "description": "Just as the four are about to go to the movies, Jerry looks back on the past nine years with the audience.",
+    "img_src": "https://m.media-amazon.com/images/M/MV5BN2IyMTFmMzItM2E1MC00ZjE4LWEzMzEtNjQwMzIwMzc5YjQ2XkEyXkFqcGc@._V1_QL75_UX1000_CR0,7,1000,563_.jpg",
+    "date_aired": "May 14 1998",
+    "IMDB_rating": "8,1",
+    "isSpecial": true
   },
   {
     "season": 9,

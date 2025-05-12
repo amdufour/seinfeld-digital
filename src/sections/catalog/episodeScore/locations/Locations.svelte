@@ -121,11 +121,13 @@
 			{/if}
 		</svg>
 	</div>
-	<LocationsStats
-		width={statsWidth}
-		height={vizHeight}
-		{yScale}
-		{locationsOnScreen}
-		{episodeDuration}
-	/>
+	{#if statsWidth > 0}
+		<LocationsStats
+			width={statsWidth}
+			height={vizHeight}
+			{yScale}
+			{locationsOnScreen}
+			{episodeDuration}
+		/>
+	{/if}
 </div>

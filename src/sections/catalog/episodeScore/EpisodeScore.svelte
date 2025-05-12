@@ -5,15 +5,15 @@
 
 	let {
 		width,
-		statsWidth,
+		statsWidth = 0,
 		labelsWidth,
 		scenes,
 		xScale,
 		episodeData,
-		isPlaying,
-		playingScene,
-		sonificationCharactersData,
-		sonificationLocationData
+		isPlaying = false,
+		playingScene = null,
+		sonificationCharactersData = null,
+		sonificationLocationData = null
 	} = $props();
 
 	let innerWidth = $state(1200);
@@ -25,17 +25,19 @@
 	let hoveredTime = $state(0);
 
 	const handleMouseEnter = () => {
-		if (innerWidth > 1000) {
+		if (innerWidth > 1000 && sonificationCharactersData) {
 			isHover = true;
 		}
 	};
 	const handleMouseLeave = () => {
-		isHover = false;
+		if (sonificationCharactersData) {
+			isHover = false;
+		}
 	};
 	const handleMouseOver = (/** @type {MouseEvent} */ e) => {
 		{
 		}
-		if (innerWidth > 1000) {
+		if (innerWidth > 1000 && sonificationCharactersData) {
 			const x = e.clientX - 198;
 			hoveredPosition = x >= 0 ? x : 0;
 			hoveredTime = xScale.invert(hoveredPosition);
@@ -46,7 +48,7 @@
 <svelte:window bind:innerWidth />
 
 <div
-	style="width: {width + statsWidth}px; max-width: 100vw;"
+	style="width: {statsWidth > 0 ? `${width + statsWidth}px` : 'auto'}; max-width: 100vw;"
 	role="document"
 	onmouseenter={handleMouseEnter}
 	onmouseleave={handleMouseLeave}

@@ -14,6 +14,7 @@
 		<g transform={`translate(0, ${yScale(char.id)})`}>
 			{#each char.causedLaughs as laugh}
 				<rect
+					class="catalog-laugh-bar"
 					x={xScale(laugh)}
 					y={-10}
 					width={laughWidth}

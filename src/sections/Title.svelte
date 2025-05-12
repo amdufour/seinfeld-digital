@@ -47,7 +47,7 @@
 			scrollTrigger: {
 				trigger: '#title-screen',
 				start: 'top 20%',
-				end: 'bottom+=40% center',
+				end: 'bottom+=40% top',
 				toggleActions: 'play reverse play reverse'
 			}
 		});
@@ -64,6 +64,7 @@
 					yPercent: 140,
 					duration: 1.5,
 					stagger: 0.07,
+					opacity: 0,
 					ease: 'power3.out'
 				},
 				'-=1.5'
@@ -72,7 +73,7 @@
 				'.name',
 				{
 					webkitTextFillColor: 'transparent',
-					backgroundPosition: '200% center',
+					backgroundPosition: '10% center',
 					duration: 2,
 					stagger: 0.3,
 					ease: 'power3.out'
@@ -93,28 +94,53 @@
 
 <svelte:window bind:innerWidth />
 
-<section id="title-screen" class="h-screen" style="margin-top: 1600px;">
+<section id="title-screen" class="h-screen -mb-80" style="margin-top: 1200px;">
 	<svg width={svgWidth} height="132">
 		{#each seasons as season, i}
 			<rect
 				class="season-rect"
 				x={0}
-				y={i * 15}
+				y={i * 12}
 				width={seasonScale(season.numEpisodes)}
-				height={12}
+				height={8}
 				fill={season.color}
 			/>
 		{/each}
 	</svg>
 	<div class="container h-full">
-		<div class="mask">
+		<div style="margin-top: -25px;">
 			<h1>The Seinfield Chronicles</h1>
 		</div>
-		<div class="mask">
-			<p id="subtitle" class="subtitle mask max-w-5xl">
-				An unnecessary data exploration by <span class="highlight name">Andy Kirk</span>,
-				<span class="highlight name">Anne-Marie Dufour</span>, and
-				<span class="highlight name">Loud Numbers</span>
+		<div>
+			<p id="subtitle" class="subtitle">
+				An unnecessary data exploration by
+				<span class="name">
+					<span class="highlight">Andy Kirk</span>
+					<img
+						id="portrait-andy"
+						class="portrait"
+						alt="Portrait of Andy Kirk"
+						src="https://amdufour.github.io/hosted-data/apis/portraits/andy.jpg"
+					/>
+				</span>,
+				<span class="name">
+					<span class="highlight">Anne-Marie Dufour</span>
+					<img
+						id="portrait-am"
+						class="portrait"
+						alt="Portrait of Anne-Marie Dufour"
+						src="https://amdufour.github.io/hosted-data/apis/portraits/annemarie_square_closeup.jpg"
+					/>
+				</span>, and
+				<span class="name">
+					<span class="highlight">Loud Numbers</span>
+					<img
+						id="portrait-ln"
+						class="portrait"
+						alt="Loud Numbers logo"
+						src="https://amdufour.github.io/hosted-data/apis/portraits/loud_numbers.jpg"
+					/>
+				</span>
 			</p>
 		</div>
 	</div>
@@ -125,21 +151,43 @@
 		padding-top: 100px;
 	}
 	.subtitle {
-		font-size: 1.125rem;
+		font-size: 1rem;
 		line-height: 1.4;
 	}
+	.name {
+		position: relative;
+		transition: color 350ms cubic-bezier(0.165, 0.84, 0.44, 1);
+	}
 	.name:hover {
-		-webkit-text-fill-color: transparent !important;
+		color: transparent;
+		webkitTextFillColor: 'transparent';
+		backgroundPosition: '100% center';
 		background-size: 100% auto;
+	}
+	.portrait {
+		position: absolute;
+		left: 50%;
+		top: -50px;
+		transform: translateX(-50%);
+		width: 80px;
+		height: auto;
+		border-radius: 50%;
+		border: 5px solid #f9f5f7;
+		opacity: 0;
+		transition: all 350ms cubic-bezier(0.165, 0.84, 0.44, 1);
+	}
+	.name:hover .portrait {
+		opacity: 1;
+		transform: translate(-50%, -40px) scale(1.2);
 	}
 	@media screen and (min-width: 768px) {
 		.subtitle {
-			font-size: 1.75rem;
+			font-size: 1.25rem;
 		}
 	}
 	@media screen and (min-width: 996px) {
 		.subtitle {
-			font-size: 2.1rem;
+			font-size: 1.5rem;
 		}
 	}
 </style>
