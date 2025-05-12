@@ -73,40 +73,35 @@
 			scrollTrigger: {
 				trigger: '#the-show-1',
 				start: 'bottom bottom',
-				end: 'top top',
-				toggleActions: 'play reverse play reverse'
+				end: 'top top'
 			}
 		});
 		const tl2 = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#the-show-2',
 				start: 'bottom bottom',
-				end: 'top top',
-				toggleActions: 'play reverse play reverse'
+				end: 'top top'
 			}
 		});
 		const tl3 = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#the-show-3',
 				start: 'top bottom-=20%',
-				end: 'top top-=20%',
-				toggleActions: 'play reverse play reverse'
+				end: 'top top-=20%'
 			}
 		});
 		const tl4 = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#the-show-4',
 				start: 'bottom bottom',
-				end: 'top top-=20%',
-				toggleActions: 'play reverse play reverse'
+				end: 'top top-=20%'
 			}
 		});
 		const tl5 = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#the-show-5',
 				start: 'top bottom',
-				end: 'bottom top-=20%',
-				toggleActions: 'play reverse play reverse'
+				end: 'bottom top-=20%'
 			}
 		});
 
