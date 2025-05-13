@@ -155,9 +155,7 @@
 				<div id="year-us" class="year" style="width: {innerWidth >= 768 ? 176 : 60}px;">1989</div>
 				<div id="circle-us" class="circle bg-white"></div>
 				{#if innerWidth >= 996}
-					<div id="desc-us" style={`margin-left: 24px`}>
-						Seinfeld first aired on NBC in the USA
-					</div>
+					<div id="desc-us" style={`margin-left: 24px`}>Seinfeld first aired on NBC in the USA</div>
 				{/if}
 			</div>
 		</div>
@@ -170,9 +168,7 @@
 				<div id="year-uk" class="year" style="width: {innerWidth >= 768 ? 176 : 60}px;">1993</div>
 				<div id="circle-uk" class="circle bg-white"></div>
 				{#if innerWidth >= 996}
-					<div id="desc-uk" style={`margin-left: 24px`}>
-						Seinfeld first aired on BBC2 in the UK
-					</div>
+					<div id="desc-uk" style={`margin-left: 24px`}>Seinfeld first aired on BBC2 in the UK</div>
 				{/if}
 			</div>
 		</div>
