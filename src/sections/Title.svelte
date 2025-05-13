@@ -160,8 +160,8 @@
 	}
 	.name:hover {
 		color: transparent;
-		webkitTextFillColor: 'transparent';
-		backgroundPosition: '100% center';
+		-webkit-text-fill-color: 'transparent';
+		background-position: '100% center';
 		background-size: 100% auto;
 	}
 	.portrait {

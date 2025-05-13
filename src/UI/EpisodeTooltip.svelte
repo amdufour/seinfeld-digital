@@ -14,11 +14,11 @@
 	let innerHeight = $state(800);
 	let tooltip = $state();
 
-	const tooltipWidth = $derived(innerWidth < 500 ? innerWidth - 40 : 432);
-	const tooltipLeftPosition = $derived(
+	let tooltipWidth = $derived(innerWidth < 500 ? innerWidth - 40 : 432);
+	let tooltipLeftPosition = $derived(
 		position[0] > innerWidth / 2 ? position[0] - tooltipWidth - 10 : position[0] + 10
 	);
-	const tooltipTopPosition = $derived.by(() => {
+	let tooltipTopPosition = $derived.by(() => {
 		switch (true) {
 			case innerHeight - position[1] > tooltip?.clientHeight:
 				return position[1] - 30;
