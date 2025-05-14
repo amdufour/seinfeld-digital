@@ -15,7 +15,7 @@
 
 <svelte:window bind:innerHeight />
 
-<div class="seasons-strip">
+<div id="seasons-strip">
 	<svg {width} height={innerHeight}>
 		{#each seasons as season, i}
 			<rect
@@ -30,7 +30,7 @@
 </div>
 
 <style>
-	.seasons-strip {
+	#seasons-strip {
 		width: 25px;
 		height: 100vh;
 	}

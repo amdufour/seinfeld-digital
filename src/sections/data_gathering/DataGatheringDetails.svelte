@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte';
+    import * as Tone from 'tone';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
@@ -10,7 +11,33 @@
     let innerWidth = $state(1600);
 	let sideSpacing = $derived(innerWidth >= 1280 ? (innerWidth - 1280) / 2 + 16 + 25 : 30)
 
+    /**
+	 * @type {Tone.Players}
+	 */
+    // TODO: Add different laugh tracks
+	let laughsTrack;
+	const preloadLaughs = () => {
+		// @ts-ignore
+		laughsTrack = new Tone.Player('https://amdufour.github.io/hosted-data/apis/videos/laugh.mp3').toDestination(); //connects to the system sound output
+	};
+
+    /**
+	 * @type {number | undefined}
+	 */
+    let playLoop;
+    const playLaughs = () => {
+        laughsTrack.start();
+
+        const pauseDuration = Math.floor(Math.random() * (10000 - 5000 + 1) + 5000);
+        console.log(pauseDuration)
+        playLoop = setTimeout(() => {
+            playLaughs();
+        }, pauseDuration);
+    };
+
     onMount(() => {
+        preloadLaughs();
+        
         const assetTransform =  {
                 scaleY: 0,
                 ease: 'power3.out',
@@ -21,7 +48,11 @@
 			scrollTrigger: {
 				trigger: '#data-gathering-1',
 				start: 'top center',
-				toggleActions: 'play reverse play reverse'
+				toggleActions: 'play reverse play reverse',
+                onEnter: () => playLaughs(),
+                onEnterBack: () => playLaughs(),
+                onLeave: () => clearTimeout(playLoop),
+                onLeaveBack: () => clearTimeout(playLoop)
 			}
 		});
 		const tl2 = gsap.timeline({
@@ -110,6 +141,7 @@
                 <img src="https://amdufour.github.io/hosted-data/apis/images/audience.jpg" alt="Jerry Seinfeld talking with the audience during taping." />
                 <div class="number text pt-2">Source: <a href="https://www.facebook.com/story.php?story_fbid=539096318663826&id=100076903884453" target="_blank">The Seinfeld World</a></div>
             </div>
+            <!-- <audio src="https://amdufour.github.io/hosted-data/apis/videos/laugh.mp3" autoplay loop></audio> -->
         </div>
 
         <div id="data-gathering-2" class="grid grid-cols-12 mb-48">
@@ -130,7 +162,7 @@
             <div class="col-span-12">
                 <!-- svelte-ignore a11y_media_has_caption -->
 				 <div class="relative video-container" data-speed="1">
-					<video playsinline autoplay loop>
+					<video playsinline autoplay loop muted>
 						<source
 							src="https://amdufour.github.io/hosted-data/apis/videos/MarineBiologist_edited.mp4"
 							type="video/mp4"
