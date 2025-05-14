@@ -196,7 +196,7 @@
 					></div>
 				</div>
 				<div class="mask">
-				<h5 class="mt-2">S4E3 - The Pitch</h5>
+					<h5 class="mt-2">S4E3 - The Pitch</h5>
 				</div>
 			</div>
 		</div>

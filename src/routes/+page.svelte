@@ -11,7 +11,8 @@
 	import SoundAuthPopup from '../UI/SoundAuthPopup.svelte';
 	import Title from '../sections/Title.svelte';
 	import Calendar from '../sections/calendar/Calendar.svelte';
-	import EpisodeExample from '../sections/episode_example/EpisodeExample.svelte';
+	import DataGathering from '../sections/data_gathering/DataGathering.svelte';
+	import EpisodeExample from '../sections/data_gathering/EpisodeExample.svelte';
 	import Quotes from '../sections/quotes/Quotes.svelte';
 	import MainCharsSection from '../sections/main_characters/MainCharsSection.svelte';
 	import SupportingCharsSection from '../sections/supporting_characters/SupportingCharsSection.svelte';
@@ -53,9 +54,9 @@
 	</div>
 	<div class="bg-white text-black">
 		<Calendar />
-		<!-- {#await csv(episodesDataUrl) then episodesData}
-			<EpisodeExample {episodesData} />
-		{/await} -->
+		{#await csv(episodesDataUrl) then episodesData}
+			<DataGathering {episodesData} />
+		{/await}
 		<!-- <Quotes />
 		<MainCharsSection />
 		<SupportingCharsSection />
