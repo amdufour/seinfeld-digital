@@ -149,12 +149,22 @@
                 delay: 1,
                 ease: 'power3.out'
             }, "-=2");
-
+$inspect(videoLaughs.map(l => l.eventTimeSeconds))
         const video = document.getElementById("demo-video");
+        const revealLaughIcon = (time) => {
+            gsap.to(`.laugh-icon-${time}`, { yPercent: 0, opacity: 1, duration: 1, ease: 'power3.out' });
+        };
         const playVideo = () => {
             video.currentTime = 0;
             video?.play();
+
+            videoLaughs.forEach((laugh) => {
+                setTimeout(() => {
+                    revealLaughIcon(laugh.eventTimeSeconds)
+                }, (+laugh.eventTimeSeconds - videoStartTime) * 1000);
+            });
         };
+        gsap.set('.laugh-icon', { yPercent: 50, opacity: 0 });
         const tlVideo = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#data-gathering-3 svg',
@@ -261,7 +271,7 @@
 						style="background-image: url('{tv_noise}')"
 					></div>
 				</div>
-                <svg class="mt-8" width={laughsBarWidth + 50} height={60} style="margin-left: -25px;">
+                <svg class="mt-8" width={laughsBarWidth + 50} height={100} style="margin-left: -25px;">
                     <g transform="translate(25, 1)">
                         <line x1={0} y1={0} x2={innerWidth - 2 * sideSpacing + 20} y2={0} stroke="#928D90" />
 
@@ -277,16 +287,9 @@
                         {/each}
                         
                         {#each videoLaughs as laugh}
-                            <!-- <rect
-								class={`video-laugh-bar video-laugh-bar-${laugh.eventTimeSeconds}`}
-								x={laughsBarScale(+laugh.eventTimeSeconds)}
-								y={-25}
-								width={laughWidth}
-								height={50}
-								fill="#12020A"
-								stroke="#F9F5F7"
-								stroke-width={innerWidth > 793 ? 1.5 : 0.5}
-							/> -->
+                            <g class={`laugh-icon laugh-icon-${laugh.eventTimeSeconds}`} transform={`translate(${laughsBarScale(+laugh.eventTimeSeconds) + 10}, 40)`}>
+                                <Laugh width={laughWidth - 20} height={laughWidth - 20} />
+                            </g>
                         {/each}
 
                         <circle cx={0} cy={40} r={10} fill="#E71D80" />
