@@ -5,35 +5,17 @@
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
 
-	import { episodesInfo } from '$lib/data/episodesInfo';
 	import { formatTime } from '../../utils/formatTime';
-	import SeasonsStrip from '../../UI/SeasonsStrip.svelte';
 	import EpisodeDetails from '../catalog/EpisodeDetails.svelte';
 	import EpisodeScore from '../catalog/episodeScore/EpisodeScore.svelte';
 	import EpisodeTexts from './EpisodeTexts.svelte';
 
-	let { episodesData } = $props();
+	let { episodeInfo, episodeData, laughData } = $props();
 
 	let innerWidth = $state(1200);
 	let innerHeight = $state(800);
 	let episodeWidth = $derived(innerWidth > 793 ? innerWidth - 273 : innerWidth - 98);
-	const currentSeason = 5;
-	const currentEpisode = 14;
-	const episodeInfo = episodesInfo.find(
-		(e) => e.season === currentSeason && e.episode === currentEpisode
-	);
-	const episodeData = $derived(
-		episodesData.filter(
-			(/** @type {{ season: string; episode: string; eventCategory: string; }} */ d) =>
-				d.season === 'Season5' && d.episode === '14'
-		)
-	);
-	const laughData = $derived(
-		episodesData.filter(
-			(/** @type {{ season: string; episode: string; eventCategory: string; }} */ d) =>
-				d.season === 'Season5' && d.episode === '14' && d.eventCategory === 'CAUSES THE LAUGH'
-		)
-	);
+	
 	const timeScale = $derived(
 		scaleLinear()
 			.domain([0, +laughData[laughData.length - 1].eventTimeSeconds + 5])
@@ -265,9 +247,7 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <div id="episode-example-container" class="relative">
-	<div id="episode-example" class="absolute flex h-screen w-screen">
-		<SeasonsStrip />
-
+	<div id="episode-example" class="absolute">
 		<div class="relative">
 			<!-- Episode details -->
 			<div class="mask self-start">

@@ -1,17 +1,42 @@
 <script>
+// @ts-nocheck
+
     import { onMount } from 'svelte';
     import * as Tone from 'tone';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
     import Lenis from 'lenis';
+    import { scaleLinear } from 'd3-scale';
+    import { flatGroup, range } from 'd3-array';
 
     import Laugh from '../../icons/Laugh.svelte';
     import tv_noise from '$lib/assets/tv_noise.png';
     import { soundIsAuth } from '../../stores/soundAuthStore'
 
+    let { laughData } = $props();
+
+    const videoStartTime = 19 * 60 + 22 // 19:22
+    const videoEndTime = 20 * 60 + 55 // 20:55
+    const videoLaughs = laughData.filter((/** @type {{ eventTimeSeconds: string; }} */ d) => +d.eventTimeSeconds >= videoStartTime && +d.eventTimeSeconds <= videoEndTime);
+    const videoDuration = videoEndTime - videoStartTime;
+    const fiveSecondsArray = range(videoStartTime + 3, videoEndTime + 10, 5);
+
     let innerWidth = $state(1600);
 	let sideSpacing = $derived(innerWidth >= 1280 ? (innerWidth - 1280) / 2 + 16 + 25 : 32)
+    
+    let isMuted = $state(true);
+    $effect(() => {
+		isMuted = !$soundIsAuth;
+	});
+
+    let laughsBarWidth = $derived(innerWidth - 2 * sideSpacing + 20);
+    let laughsBarScale = $derived(
+        scaleLinear()
+            .domain([videoStartTime, videoEndTime + 5])
+            .range([0, laughsBarWidth])
+    );
+    let laughWidth = $derived(laughsBarScale(videoStartTime + 5));
 
     /**
 	 * @type {Tone.Players}
@@ -21,7 +46,9 @@
 	const preloadLaughs = () => {
 		// @ts-ignore
 		laughsTrack = new Tone.Player('https://amdufour.github.io/hosted-data/apis/videos/laugh.mp3').toDestination(); //connects to the system sound output
-	};
+        laughsTrack.fadeIn = 1;
+        laughsTrack.fadeOut = 1;
+    };
 
     /**
 	 * @type {number | undefined}
@@ -29,6 +56,7 @@
     let playLoop;
     const playLaughs = () => {
         if ($soundIsAuth && laughsTrack) {
+            // @ts-ignore
             laughsTrack.start();
         }
 
@@ -122,9 +150,31 @@
                 ease: 'power3.out'
             }, "-=2");
 
+        const video = document.getElementById("demo-video");
+        const playVideo = () => {
+            video.currentTime = 0;
+            video?.play();
+        };
+        const tlVideo = gsap.timeline({
+			scrollTrigger: {
+				trigger: '#data-gathering-3 svg',
+				start: 'top bottom-=10%',
+				toggleActions: 'play reset play reset',
+                onEnter: () => playVideo(),
+                onLeave: () => video?.pause(),
+                onEnterBack: () => playVideo(),
+                onLeaveBack: () => video?.pause(),
+			}
+		});
+        tlVideo
+            .to('#data-gathering-3 circle', {
+                x: laughsBarWidth,
+                ease: 'none',
+                duration: videoDuration
+            })
+
         // Add parallax effect to images
 		let images = gsap.utils.toArray('.data-gathering-parallax');
-        console.log(images)
 		images.forEach((image) => {
 			const speed = image.dataset.speed;
 			gsap.to(image, {
@@ -169,7 +219,7 @@
             <div class="col-span-2 md:col-span-6"></div>
             <div class="col-span-2 md:col-span-4"></div>
             <div class="col-span-10 md:col-span-8 mt-8" style="margin-right: -{sideSpacing}px;">
-                <img class="data-gathering-parallax" src="https://amdufour.github.io/hosted-data/apis/images/audience.jpg" alt="Jerry Seinfeld talking with the audience during taping." data-speed="1.2" />
+                <img class="data-gathering-parallax" src="https://amdufour.github.io/hosted-data/apis/images/audience.jpg" alt="Jerry Seinfeld talking with the audience during taping." data-speed="0.5" />
                 <div class="number text pt-2" style="background-color: rgba(249, 245, 247, 0.6);">Source: <a href="https://www.facebook.com/story.php?story_fbid=539096318663826&id=100076903884453" target="_blank">The Seinfeld World</a></div>
             </div>
         </div>
@@ -177,10 +227,12 @@
         <div id="data-gathering-2" class="grid grid-cols-12 mb-48">
             <div class="col-auto md:col-span-1"></div>
             <div class="col-span-7" style="margin-right: -50px;">
-                <img class="data-gathering-parallax" src="https://amdufour.github.io/hosted-data/apis/images/data_gathering.png" alt="Data spreadsheet and tv during data gathering." data-speed="0.7" />
+                <img class="data-gathering-parallax" src="https://amdufour.github.io/hosted-data/apis/images/data_gathering.png" alt="Data spreadsheet and tv during data gathering." data-speed="0.3" />
             </div>
-            <div class="col-span-4 md:col-auto"></div>
-            <div class="col-span-2 md:col-auto"></div>
+            {#if innerWidth < 768}
+                <div class="col-span-4"></div>
+                <div class="col-span-2"></div>
+            {/if}
             <div class="col-span-10 md:col-span-4 relative z-10 mask" style="background-color: rgba(249, 245, 247, 0.6);">
                 <p class="text">We gathered all the data for this project by watching every Seinfeld episode and <span class="highlight">manually logging</span> the events and classifications established to serve the intention of the analysis.</p>
                 <p class="text">Laughter has a spectrum of levels, from the subtle smile characteristic of ‘inner’ laughter, through to more external titters, chuckles, chortles, and through to belly laughs or howls. To establish a standard measurement any laughter heard during the episodes counted as simply as laughter, regardless of whether it was loud or fleeting.</p>
@@ -197,7 +249,7 @@
             <div class="col-span-12" style="margin-left: {innerWidth >= 768 ? 0 : -sideSpacing + 25}px; margin-right: {innerWidth >= 768 ? 0 : -sideSpacing}px;">
                 <!-- svelte-ignore a11y_media_has_caption -->
 				 <div class="relative video-container" data-speed="1">
-					<video playsinline autoplay loop muted>
+					<video id="demo-video" playsinline bind:muted={isMuted}>
 						<source
 							src="https://amdufour.github.io/hosted-data/apis/videos/MarineBiologist_edited.mp4"
 							type="video/mp4"
@@ -209,6 +261,37 @@
 						style="background-image: url('{tv_noise}')"
 					></div>
 				</div>
+                <svg class="mt-8" width={laughsBarWidth + 50} height={60} style="margin-left: -25px;">
+                    <g transform="translate(25, 1)">
+                        <line x1={0} y1={0} x2={innerWidth - 2 * sideSpacing + 20} y2={0} stroke="#928D90" />
+
+                        {#each fiveSecondsArray as fiveSecconds, i}
+                            <g transform={`translate(${laughsBarScale(fiveSecconds)}, 0)`}>
+                                <line x1={0} y1={0} x2={0} y2={i % 2 !== 0 ? 5 : 3} stroke="#928D90" />
+                                {#if i % 2 !== 0}
+                                    <text class="number" y=22 text-anchor="middle" fill="#928D90">
+                                        {`${Math.floor(fiveSecconds/60)}:${fiveSecconds - Math.floor(fiveSecconds/60) * 60 === 0 ? '00' : fiveSecconds - Math.floor(fiveSecconds/60) * 60}`}
+                                    </text>
+                                {/if}
+                            </g>
+                        {/each}
+                        
+                        {#each videoLaughs as laugh}
+                            <!-- <rect
+								class={`video-laugh-bar video-laugh-bar-${laugh.eventTimeSeconds}`}
+								x={laughsBarScale(+laugh.eventTimeSeconds)}
+								y={-25}
+								width={laughWidth}
+								height={50}
+								fill="#12020A"
+								stroke="#F9F5F7"
+								stroke-width={innerWidth > 793 ? 1.5 : 0.5}
+							/> -->
+                        {/each}
+
+                        <circle cx={0} cy={40} r={10} fill="#E71D80" />
+                    </g>
+                </svg>
             </div>
         </div>
     </div>
