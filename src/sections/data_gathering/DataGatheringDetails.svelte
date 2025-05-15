@@ -151,18 +151,9 @@
             }, "-=2");
 $inspect(videoLaughs.map(l => l.eventTimeSeconds))
         const video = document.getElementById("demo-video");
-        const revealLaughIcon = (time) => {
-            gsap.to(`.laugh-icon-${time}`, { yPercent: 0, opacity: 1, duration: 1, ease: 'power3.out' });
-        };
         const playVideo = () => {
             video.currentTime = 0;
             video?.play();
-
-            videoLaughs.forEach((laugh) => {
-                setTimeout(() => {
-                    revealLaughIcon(laugh.eventTimeSeconds)
-                }, (+laugh.eventTimeSeconds - videoStartTime) * 1000);
-            });
         };
         gsap.set('.laugh-icon', { yPercent: 50, opacity: 0 });
         const tlVideo = gsap.timeline({
@@ -176,12 +167,28 @@ $inspect(videoLaughs.map(l => l.eventTimeSeconds))
                 onLeaveBack: () => video?.pause(),
 			}
 		});
+        const laughIconReveal = { yPercent: 0, opacity: 1, duration: 1, ease: 'power3.out' };
         tlVideo
             .to('#data-gathering-3 circle', {
                 x: laughsBarWidth,
                 ease: 'none',
                 duration: videoDuration
             })
+            .to('.laugh-icon-1165', laughIconReveal, 1165 - videoStartTime)
+            .to('.laugh-icon-1170', laughIconReveal, 1170 - videoStartTime)
+            .to('.laugh-icon-1185', laughIconReveal, 1185 - videoStartTime)
+            .to('.laugh-icon-1190', laughIconReveal, 1190 - videoStartTime)
+            .to('.laugh-icon-1195', laughIconReveal, 1195 - videoStartTime)
+            .to('.laugh-icon-1200', laughIconReveal, 1200 - videoStartTime)
+            .to('.laugh-icon-1205', laughIconReveal, 1205 - videoStartTime)
+            .to('.laugh-icon-1210', laughIconReveal, 1210 - videoStartTime)
+            .to('.laugh-icon-1215', laughIconReveal, 1215 - videoStartTime)
+            .to('.laugh-icon-1220', laughIconReveal, 1220 - videoStartTime)
+            .to('.laugh-icon-1225', laughIconReveal, 1225 - videoStartTime)
+            .to('.laugh-icon-1230', laughIconReveal, 1230 - videoStartTime)
+            .to('.laugh-icon-1245', laughIconReveal, 1245 - videoStartTime)
+            .to('.laugh-icon-1250', laughIconReveal, 1250 - videoStartTime)
+            .to('.laugh-icon-1255', laughIconReveal, 1255 - videoStartTime)
 
         // Add parallax effect to images
 		let images = gsap.utils.toArray('.data-gathering-parallax');
