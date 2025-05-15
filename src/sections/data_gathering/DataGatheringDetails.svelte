@@ -23,6 +23,8 @@
     const fiveSecondsArray = range(videoStartTime + 3, videoEndTime + 10, 5);
 
     let innerWidth = $state(1600);
+    let videoWidth = $state(800);
+    $inspect(videoWidth)
 	let sideSpacing = $derived(innerWidth >= 1280 ? (innerWidth - 1280) / 2 + 16 + 25 : 32)
     
     let isMuted = $state(true);
@@ -30,11 +32,10 @@
 		isMuted = !$soundIsAuth;
 	});
 
-    let laughsBarWidth = $derived(innerWidth - 2 * sideSpacing + 20);
     let laughsBarScale = $derived(
         scaleLinear()
             .domain([videoStartTime, videoEndTime + 5])
-            .range([0, laughsBarWidth])
+            .range([0, videoWidth])
     );
     let laughWidth = $derived(laughsBarScale(videoStartTime + 5));
 
@@ -149,11 +150,14 @@
                 delay: 1,
                 ease: 'power3.out'
             }, "-=2");
-$inspect(videoLaughs.map(l => l.eventTimeSeconds))
+
         const video = document.getElementById("demo-video");
         const playVideo = () => {
-            video.currentTime = 0;
             video?.play();
+        };
+        const pauseVideo = () => {
+            video?.pause();
+            video.currentTime = 0;
         };
         gsap.set('.laugh-icon', { yPercent: 50, opacity: 0 });
         const tlVideo = gsap.timeline({
@@ -162,15 +166,15 @@ $inspect(videoLaughs.map(l => l.eventTimeSeconds))
 				start: 'top bottom-=10%',
 				toggleActions: 'play reset play reset',
                 onEnter: () => playVideo(),
-                onLeave: () => video?.pause(),
+                onLeave: () => pauseVideo(),
                 onEnterBack: () => playVideo(),
-                onLeaveBack: () => video?.pause(),
+                onLeaveBack: () => pauseVideo(),
 			}
 		});
         const laughIconReveal = { yPercent: 0, opacity: 1, duration: 1, ease: 'power3.out' };
         tlVideo
             .to('#data-gathering-3 circle', {
-                x: laughsBarWidth,
+                x: videoWidth,
                 ease: 'none',
                 duration: videoDuration
             })
@@ -188,7 +192,7 @@ $inspect(videoLaughs.map(l => l.eventTimeSeconds))
             .to('.laugh-icon-1230', laughIconReveal, 1230 - videoStartTime)
             .to('.laugh-icon-1245', laughIconReveal, 1245 - videoStartTime)
             .to('.laugh-icon-1250', laughIconReveal, 1250 - videoStartTime)
-            .to('.laugh-icon-1255', laughIconReveal, 1255 - videoStartTime)
+            .to('.laugh-icon-1255', laughIconReveal, 1255 - videoStartTime);
 
         // Add parallax effect to images
 		let images = gsap.utils.toArray('.data-gathering-parallax');
@@ -222,7 +226,7 @@ $inspect(videoLaughs.map(l => l.eventTimeSeconds))
 
 <svelte:window bind:innerWidth />
 
-<div class="w-screen" style="margin-left: -25px;">
+<div class="w-screen" style="margin-left: {innerWidth >= 768 ? -25 : 0}px;">
     <div class="container py-96">
         <div id="data-gathering-1" class="grid grid-cols-12 mb-48">
             <div class="col-span-10 md:col-span-6 relative">
@@ -266,7 +270,7 @@ $inspect(videoLaughs.map(l => l.eventTimeSeconds))
             <div class="col-span-12" style="margin-left: {innerWidth >= 768 ? 0 : -sideSpacing + 25}px; margin-right: {innerWidth >= 768 ? 0 : -sideSpacing}px;">
                 <!-- svelte-ignore a11y_media_has_caption -->
 				 <div class="relative video-container" data-speed="1">
-					<video id="demo-video" playsinline bind:muted={isMuted}>
+					<video id="demo-video" playsinline bind:muted={isMuted} bind:clientWidth={videoWidth}>
 						<source
 							src="https://amdufour.github.io/hosted-data/apis/videos/MarineBiologist_edited.mp4"
 							type="video/mp4"
@@ -278,15 +282,15 @@ $inspect(videoLaughs.map(l => l.eventTimeSeconds))
 						style="background-image: url('{tv_noise}')"
 					></div>
 				</div>
-                <svg class="mt-8" width={laughsBarWidth + 50} height={100} style="margin-left: -25px;">
+                <svg class="mt-8" width={videoWidth + 50} height={100} style="margin-left: -25px;">
                     <g transform="translate(25, 1)">
-                        <line x1={0} y1={0} x2={innerWidth - 2 * sideSpacing + 20} y2={0} stroke="#928D90" />
+                        <line x1={0} y1={0} x2={videoWidth} y2={0} stroke="#928D90" />
 
                         {#each fiveSecondsArray as fiveSecconds, i}
                             <g transform={`translate(${laughsBarScale(fiveSecconds)}, 0)`}>
                                 <line x1={0} y1={0} x2={0} y2={i % 2 !== 0 ? 5 : 3} stroke="#928D90" />
-                                {#if i % 2 !== 0}
-                                    <text class="number" y=22 text-anchor="middle" fill="#928D90">
+                                {#if innerWidth >= 768 ? i % 2 !== 0 : i % 5 === 0 }
+                                    <text class="number" y=22 text-anchor="middle" fill="#928D90" style="font-size: {innerWidth >= 758 ? 15 : 13}px;">
                                         {`${Math.floor(fiveSecconds/60)}:${fiveSecconds - Math.floor(fiveSecconds/60) * 60 === 0 ? '00' : fiveSecconds - Math.floor(fiveSecconds/60) * 60}`}
                                     </text>
                                 {/if}
@@ -294,8 +298,8 @@ $inspect(videoLaughs.map(l => l.eventTimeSeconds))
                         {/each}
                         
                         {#each videoLaughs as laugh}
-                            <g class={`laugh-icon laugh-icon-${laugh.eventTimeSeconds}`} transform={`translate(${laughsBarScale(+laugh.eventTimeSeconds) + 10}, 40)`}>
-                                <Laugh width={laughWidth - 20} height={laughWidth - 20} />
+                            <g class={`laugh-icon laugh-icon-${laugh.eventTimeSeconds}`} transform={`translate(${laughsBarScale(+laugh.eventTimeSeconds)}, 40)`}>
+                                <Laugh width={innerWidth >= 900 ? laughWidth - 20 : laughWidth} height={innerWidth >= 900 ? laughWidth - 20 : laughWidth} />
                             </g>
                         {/each}
 
