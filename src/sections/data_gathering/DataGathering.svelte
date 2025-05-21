@@ -57,6 +57,6 @@
     <div>
         <DataGatheringDetails {laughData} />
         <EpisodeExample {episodeInfo} {episodeData} {laughData} />
-		<AllEpisodes {episodesData} bind:reduceStripHeight />
+		<AllEpisodes {episodesData} bind:reduceStripHeight {stripHeight} />
     </div>
 </section>
