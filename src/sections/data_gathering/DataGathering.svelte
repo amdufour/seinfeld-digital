@@ -17,15 +17,15 @@
 	);
 	const episodeData = $derived(
 		episodesData.filter(
-			(/** @type {{ season: string; episode: string; eventCategory: string; }} */ d) =>
-				d.season === 'Season5' && d.episode === '14'
-		)
+			(/** @type {{ season: number; episode: number; }} */ d) =>
+				d.season === 5 && d.episode === 14
+		).map((/** @type {{ data: any; }} */ d) => d.data)[0]
 	);
 	const laughData = $derived(
 		episodesData.filter(
-			(/** @type {{ season: string; episode: string; eventCategory: string; }} */ d) =>
-				d.season === 'Season5' && d.episode === '14' && d.eventCategory === 'CAUSES THE LAUGH'
-		)
+			(/** @type {{ season: number; episode: number; }} */ d) =>
+				d.season === 5 && d.episode === 14
+		).map((/** @type {{ laughs: any; }} */ d) => d.laughs)[0]
 	);
 
     onMount(() => {

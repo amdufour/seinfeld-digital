@@ -1,6 +1,6 @@
 <script>
 	// @ts-ignore
-	import { csv } from 'd3-fetch';
+	import { csv, json } from 'd3-fetch';
 	import { onMount } from 'svelte';
 	import { inview } from 'svelte-inview';
 	import { navBarColor } from '../stores/navbarColor';
@@ -21,7 +21,7 @@
 	import MethodologyAndCredits from '../sections/MethodologyAndCredits.svelte';
 	import Footer from '../sections/Footer.svelte';
 
-	const episodesDataUrl = 'https://amdufour.github.io/hosted-data/apis/episodesData.csv';
+	const episodesDataUrl = 'https://amdufour.github.io/hosted-data/apis/episodes_laughs.min.json';
 	const sonificationCharactersDataUrl =
 		'https://amdufour.github.io/hosted-data/apis/sonificationCharactersData.csv';
 	const sonificationLocationDataUrl =
@@ -38,7 +38,7 @@
 
 <main>
 	<Navbar />
-	<!-- <div
+	<div
 		class="text-white"
 		use:inview={options}
 		oninview_change={(/** @type {{ detail: { inView: any; }; }} */ event) => {
@@ -51,23 +51,23 @@
 			<SoundAuthPopup />
 		{/if}
 		<Title />
-	</div> -->
+	</div>
 	<div class="bg-white text-black">
-		<!-- <Calendar />
-		{#await csv(episodesDataUrl) then episodesData}
+		<Calendar />
+		{#await json(episodesDataUrl) then episodesData}
 			<DataGathering {episodesData} />
-		{/await} -->
+		{/await}
 		<!-- <Quotes />
 		<MainCharsSection />
 		<SupportingCharsSection />
 		<LocationsSection /> -->
-		{#await csv(episodesDataUrl) then episodesData}
+		<!-- {#await csv(episodesDataUrl) then episodesData}
 			{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 				{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
 					<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} />
 				{/await}
 			{/await}
-		{/await}
+		{/await} -->
 		<!-- <Quotes />
 		<MethodologyAndCredits />
 		<Footer /> -->

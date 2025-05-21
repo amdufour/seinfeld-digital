@@ -24,7 +24,6 @@
 
     let innerWidth = $state(1600);
     let videoWidth = $state(800);
-    $inspect(videoWidth)
 	let sideSpacing = $derived(innerWidth >= 1280 ? (innerWidth - 1280) / 2 + 16 + 25 : 32)
     
     let isMuted = $state(true);
