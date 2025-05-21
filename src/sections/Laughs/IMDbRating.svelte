@@ -37,6 +37,14 @@
 <div class="relative ml-8">
     <svg width={width + 40} height={barsHeight + 70} style="margin-top: -35px; padding-top: {topMargin}px;">
         <g transform="translate(20, 0)">
+            <!-- Background -->
+            <rect 
+                x={0} 
+                y={35} 
+                width={width} 
+                height={barsHeight} 
+                fill="rgba(231, 28, 128, 0.15)" />
+                
             <!-- Percentages -->
             <PercentageAxes {barsHeight} {width} secondLabel="10" />
 
