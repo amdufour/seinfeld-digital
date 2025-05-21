@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { onMount } from "svelte";
     import gsap from "gsap";
     import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -7,6 +7,7 @@
     import DataGatheringDetails from "./DataGatheringDetails.svelte";
     import EpisodeExample from "./EpisodeExample.svelte";
 	import AllEpisodes from "./AllEpisodes.svelte";
+	import type { Episode } from "$lib/types/episode";
 	import { episodesInfo } from '$lib/data/episodesInfo';
 
     let { episodesData } = $props();
@@ -24,15 +25,15 @@
 	);
 	const episodeData = $derived(
 		episodesData.filter(
-			(/** @type {{ season: number; episode: number; }} */ d) =>
+			(d: Episode) =>
 				d.season === 5 && d.episode === 14
-		).map((/** @type {{ data: any; }} */ d) => d.data)[0]
+		).map((d: Episode) => d.data)[0]
 	);
 	const laughData = $derived(
 		episodesData.filter(
-			(/** @type {{ season: number; episode: number; }} */ d) =>
+			(d: Episode) =>
 				d.season === 5 && d.episode === 14
-		).map((/** @type {{ laughs: any; }} */ d) => d.laughs)[0]
+		).map((d: { laughs: any; }) => d.laughs)[0]
 	);
 
     onMount(() => {
@@ -45,8 +46,8 @@
 		});
     })
 
-	function reduceStripHeight() {
-		isAllEpisodesInView = true;
+	function reduceStripHeight(direction: string) {
+		isAllEpisodesInView = direction === 'in' ? true : false;
 	}
 </script>
 

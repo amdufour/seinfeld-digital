@@ -1,55 +1,46 @@
 <script lang="ts">
     import { max } from "d3-array";
-    import { scaleLinear, scaleBand } from "d3-scale";
+    import { scaleLinear } from "d3-scale";
     import type { Episode } from "$lib/types/episode";
+    import type { ScaleBand } from "d3-scale";
     import ArrowDown from "../../icons/ArrowDown.svelte";
-    import EpisodeTooltip from "../../UI/EpisodeTooltip.svelte";
-    import { episodesInfo } from "$lib/data/episodesInfo";
 
-    let { episodesData, barsHeight }: { episodesData: Episode[]; barsHeight: number } = $props();
+    let { 
+          episodesData, 
+          barsHeight, 
+          width, 
+          topMargin, 
+          episodeVerticalPositionScale,
+          handleMouseEnter = $bindable(), 
+          handleMouseLeave = $bindable() 
+        } : { 
+          episodesData: Episode[]; 
+          barsHeight: number; 
+          width: number; 
+          topMargin: number; 
+          episodeVerticalPositionScale: ScaleBand<string>;
+          handleMouseEnter: (e: MouseEvent & { currentTarget: EventTarget & SVGRectElement; }, episode: Episode) => void, 
+          handleMouseLeave: () => void  
+        } = $props();
 
     let innerWidth = $state(1600);
     let innerHeight = $state(800);
-    let barsMaxWidth = $derived( 2 * innerWidth / 3);
-    let topMargin = $derived((innerHeight - barsHeight) / 2);
 
     let episodeMaxDuration = $derived(max(episodesData, d => d.duration) ?? 0);
 
     let episodeTimeScale = $derived(
         scaleLinear()
             .domain([0, episodeMaxDuration])
-            .range([0, barsMaxWidth])
-    );
-    let episodeVerticalPositionScale = $derived(
-        scaleBand()
-            .domain(episodesData.map(d => `${d.season}-${d.episode}`))
-            .range([0, barsHeight])
+            .range([0, width])
     );
 
     let minutes = ['00', "05", "10", "15", "20", "25", "30"];
-
-    let isTooltipVisible = $state(false);
-	let hoveredEpisode = $state();
-	let mousePosition = $state();
-	const handleMouseEnter = (
-		e: MouseEvent & { currentTarget: EventTarget & SVGRectElement; },
-		episode: Episode
-	) => {
-		mousePosition = [e.clientX, e.clientY];
-		isTooltipVisible = true;    
-		hoveredEpisode = episodesInfo.find(
-            (e) => e.season === episode.season && e.episode === episode.episode
-        );
-	};
-	const handleMouseLeave = () => {
-		isTooltipVisible = false;
-	};
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div class="absolute z-10" style="padding-top: {topMargin}px;">
-    <svg width={barsMaxWidth + 50} height={barsHeight + 70} style="margin-top: -35px; margin-left: -25px;">
+<div class="relative z-10" style="padding-top: {topMargin}px;">
+    <svg width={width + 50} height={barsHeight + 70} style="margin-top: -35px; margin-left: -25px;">
         <g transform="translate(20, 105) rotate(-90)">
             <text class="small accent">Episodes</text>
         </g>
@@ -118,9 +109,4 @@
             {/each}
         </g>
     </svg>
-
-    <!-- Tooltip -->
-	{#if isTooltipVisible && innerWidth >= 793}
-		<EpisodeTooltip episode={hoveredEpisode} position={mousePosition} />
-	{/if}
 </div>
