@@ -2,9 +2,11 @@
     import { max } from "d3-array";
     import { scaleLinear, scaleBand } from "d3-scale";
     import type { Episode } from "$lib/types/episode";
+    import ArrowDown from "../../icons/ArrowDown.svelte";
+    import EpisodeTooltip from "../../UI/EpisodeTooltip.svelte";
+    import { episodesInfo } from "$lib/data/episodesInfo";
 
     let { episodesData, barsHeight }: { episodesData: Episode[]; barsHeight: number } = $props();
-    $inspect(episodesData, barsHeight);
 
     let innerWidth = $state(1600);
     let innerHeight = $state(800);
@@ -25,12 +27,36 @@
     );
 
     let minutes = ['00', "05", "10", "15", "20", "25", "30"];
+
+    let isTooltipVisible = $state(false);
+	let hoveredEpisode = $state();
+	let mousePosition = $state();
+	const handleMouseEnter = (
+		e: MouseEvent & { currentTarget: EventTarget & SVGRectElement; },
+		episode: Episode
+	) => {
+		mousePosition = [e.clientX, e.clientY];
+		isTooltipVisible = true;    
+		hoveredEpisode = episodesInfo.find(
+            (e) => e.season === episode.season && e.episode === episode.episode
+        );
+	};
+	const handleMouseLeave = () => {
+		isTooltipVisible = false;
+	};
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div style="padding-top: {topMargin}px;">
+<div class="absolute z-10" style="padding-top: {topMargin}px;">
     <svg width={barsMaxWidth + 50} height={barsHeight + 70} style="margin-top: -35px; margin-left: -25px;">
+        <g transform="translate(20, 105) rotate(-90)">
+            <text class="small accent">Episodes</text>
+        </g>
+        <g transform="translate(13, 111)">
+            <ArrowDown />
+        </g>
+
         <g transform="translate(25, 0)">
             <!-- Time -->
             {#each minutes as minute}
@@ -73,6 +99,9 @@
                     width={episodeTimeScale(episode.duration)}
                     height={episodeVerticalPositionScale.bandwidth()}
                     fill="#DDDBDC"
+                    role="document"
+					onmouseenter={(e) => handleMouseEnter(e, episode)}
+					onmouseleave={handleMouseLeave}
                 />
 
                 <!-- Laugh bars -->
@@ -89,4 +118,9 @@
             {/each}
         </g>
     </svg>
+
+    <!-- Tooltip -->
+	{#if isTooltipVisible && innerWidth >= 793}
+		<EpisodeTooltip episode={hoveredEpisode} position={mousePosition} />
+	{/if}
 </div>
