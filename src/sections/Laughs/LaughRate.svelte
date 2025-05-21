@@ -1,23 +1,34 @@
 <script lang="ts">
+    import { mean } from "d3-array";
     import type { Episode } from "$lib/types/episode";
     import type { ScaleBand, ScaleLinear } from "d3-scale";
     import PercentageAxes from "./PercentageAxes.svelte";
 
-    let { episodesData, 
+    let { 
+          episodesData, 
           barsHeight, 
           width, 
           topMargin, 
           episodeVerticalPositionScale, 
           percentageScale, 
           handleMouseEnter = $bindable(), 
-          handleMouseLeave = $bindable() } : { 
+          handleMouseLeave = $bindable() 
+        } : { 
           episodesData: Episode[]; 
           barsHeight: number; 
           width: number; topMargin: number; 
           episodeVerticalPositionScale: ScaleBand<string>; 
           percentageScale: ScaleLinear<number, number>, 
           handleMouseEnter: (e: MouseEvent & { currentTarget: EventTarget & SVGRectElement; }, episode: Episode) => void, 
-          handleMouseLeave: () => void } = $props();
+          handleMouseLeave: () => void 
+        } = $props();
+
+    const laughRates = [] as number[];
+    episodesData.forEach(episode => {
+        const laughRate = episode.laughs.length * 5 / episode.duration;
+        laughRates.push(laughRate);
+    });
+    const meanLaughRate = Math.round((mean(laughRates) ?? 0) * 100);
 </script>
 
 <div class="relative ml-8">
@@ -46,7 +57,22 @@
 					    onmouseleave={handleMouseLeave}
                     />
                 {/each}
+
+                <!-- Mean -->
+                <line
+                    x1={percentageScale(meanLaughRate / 100)}
+                    y1={0}
+                    x2={percentageScale(meanLaughRate / 100)}
+                    y2={barsHeight}
+                    stroke="#12020A"
+                    stroke-width={2} />
             </g>
         </g>
     </svg>
+
+    <!-- Average label -->
+    <div class="small absolute text-center px-2 py-1 rounded-md" style="top: {100}px; left: {percentageScale(meanLaughRate / 100) - 38}px; background-color: rgba(249, 245, 247, 0.9);">
+        <div>avg</div>
+        <div>{`${meanLaughRate}%`}</div>
+    </div>
 </div>
