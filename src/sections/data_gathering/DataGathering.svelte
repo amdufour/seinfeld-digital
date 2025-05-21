@@ -6,9 +6,16 @@
     import SeasonsStrip from "../../UI/SeasonsStrip.svelte";
     import DataGatheringDetails from "./DataGatheringDetails.svelte";
     import EpisodeExample from "./EpisodeExample.svelte";
+	import AllEpisodes from "./AllEpisodes.svelte";
 	import { episodesInfo } from '$lib/data/episodesInfo';
 
     let { episodesData } = $props();
+
+	let innerHeight = $state(800);
+	let isAllEpisodesInView = $state(false);
+	let stripHeight = $derived.by(() => {
+		return isAllEpisodesInView ? innerHeight - 100 : innerHeight;
+	});
 
     const currentSeason = 5;
 	const currentEpisode = 14;
@@ -37,12 +44,19 @@
 			pin: '#data-gathering #seasons-strip'
 		});
     })
+
+	function reduceStripHeight() {
+		isAllEpisodesInView = true;
+	}
 </script>
 
+<svelte:window bind:innerHeight />
+
 <section id="data-gathering" class="flex">
-    <SeasonsStrip />
+    <SeasonsStrip {stripHeight} />
     <div>
         <DataGatheringDetails {laughData} />
         <EpisodeExample {episodeInfo} {episodeData} {laughData} />
+		<AllEpisodes {episodesData} bind:reduceStripHeight />
     </div>
 </section>

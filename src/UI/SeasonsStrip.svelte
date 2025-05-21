@@ -7,10 +7,16 @@
 	 * @type {number}
 	 */
 	const width = 25;
-	$: innerHeight = 0;
+	let innerHeight = $state(800);
 
-	let seasonScale;
-	$: seasonScale = scaleLinear().domain([0, totalNumEpisodes]).range([0, innerHeight]);
+	let { stripHeight } = $props();
+	let topSpace = $derived(stripHeight < innerHeight ? (innerHeight - stripHeight) / 2 : 0);
+
+	let seasonScale = $derived(
+		scaleLinear()
+			.domain([0, totalNumEpisodes])
+			.range([topSpace, innerHeight - topSpace])
+	);
 </script>
 
 <svelte:window bind:innerHeight />
@@ -18,11 +24,12 @@
 <div id="seasons-strip">
 	<svg {width} height={innerHeight}>
 		{#each seasons as season, i}
+			$inspect(season, i)
 			<rect
 				x={0}
 				y={seasonScale(sum(seasons.slice(0, i), (d) => d.numEpisodes))}
 				width={25}
-				height={seasonScale(season.numEpisodes)}
+				height={seasonScale(season.numEpisodes) - topSpace}
 				fill={season.color}
 			/>
 		{/each}
@@ -30,8 +37,7 @@
 </div>
 
 <style>
-	#seasons-strip {
-		width: 25px;
-		height: 100vh;
+	#seasons-strip rect {
+		transition: all 1s ease-out;
 	}
 </style>
