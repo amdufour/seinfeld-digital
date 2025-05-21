@@ -1,5 +1,5 @@
 <script lang="ts">
-    let { barsHeight, width } : { barsHeight: number; width: number; } = $props();
+    let { barsHeight, width, secondLabel } : { barsHeight: number; width: number; secondLabel: string; } = $props();
 </script>
 
 <text
@@ -15,7 +15,7 @@
     y={20}
     text-anchor="middle"
     fill="#928D90"
->100%</text>
+>{secondLabel}</text>
 <line
     x1={0}
     y1={25}
@@ -43,4 +43,4 @@
     y={barsHeight + 60}
     text-anchor="middle"
     fill="#928D90"
->100%</text>
+>{secondLabel}</text>

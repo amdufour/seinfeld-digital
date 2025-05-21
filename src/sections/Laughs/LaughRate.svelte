@@ -35,13 +35,13 @@
     <svg width={width + 40} height={barsHeight + 70} style="margin-top: -35px; padding-top: {topMargin}px;">
         <g transform="translate(20, 0)">
             <!-- Percentages -->
-            <PercentageAxes {barsHeight} {width} />
+            <PercentageAxes {barsHeight} {width} secondLabel="100%" />
 
             <!-- Label -->
             <text 
                 class="small accent" 
-                x={10} 
-                y={20}>Laugh rate</text>
+                x={6} 
+                y={30}>Laugh rate</text>
 
             <g transform="translate(0, 35)">
                 <!-- Laugh rate bars -->
@@ -71,7 +71,12 @@
     </svg>
 
     <!-- Average label -->
-    <div class="small absolute text-center px-2 py-1 rounded-md" style="top: {100}px; left: {percentageScale(meanLaughRate / 100) - 38}px; background-color: rgba(249, 245, 247, 0.9);">
+    <div class="small absolute text-center px-2 py-1 rounded-md"
+         style="
+            top: {100}px; 
+            left: {percentageScale(meanLaughRate / 100) - 38}px; 
+            background-color: rgba(249, 245, 247, 0.9);"
+    >
         <div>avg</div>
         <div>{`${meanLaughRate}%`}</div>
     </div>

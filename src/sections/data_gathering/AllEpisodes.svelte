@@ -4,6 +4,7 @@
     import { episodesInfo } from '$lib/data/episodesInfo';
     import EpisodeBars from '../Laughs/EpisodeBars.svelte';
     import LaughRate from '../Laughs/LaughRate.svelte';
+    import ImDbRating from '../Laughs/IMDbRating.svelte';
     import type { Episode } from '$lib/types/episode';
     import EpisodeTooltip from '../../UI/EpisodeTooltip.svelte';
 
@@ -56,6 +57,15 @@
         bind:handleMouseEnter
         bind:handleMouseLeave />
     <LaughRate 
+        {episodesData} 
+        barsHeight={stripHeight} 
+        width={smallChartWidth} 
+        {topMargin} 
+        {episodeVerticalPositionScale} 
+        {percentageScale}
+        bind:handleMouseEnter
+        bind:handleMouseLeave />
+    <ImDbRating
         {episodesData} 
         barsHeight={stripHeight} 
         width={smallChartWidth} 
