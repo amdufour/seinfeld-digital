@@ -56,6 +56,13 @@
 			end: 'bottom bottom',
 			pin: '#all-episodes-visualizations'
 		});
+
+        const tlText1 = gsap.timeline({
+			scrollTrigger: {
+                trigger: '#all-episodes-1',
+                start: 'top top'
+	        }
+		});
 	});
 </script>
 
@@ -99,7 +106,7 @@
 
     <!-- Tooltip -->
 	{#if isTooltipVisible && innerWidth >= 793}
-        <div class="absolute z-20" style="pointer-events: none">
+        <div class="fixed top-0 z-20 h-screen" style="width: calc(100vw - 25px); left: 25px; pointer-events: none;">
 		    <EpisodeTooltip episode={hoveredEpisode} position={mousePosition} />
         </div>
 	{/if}
