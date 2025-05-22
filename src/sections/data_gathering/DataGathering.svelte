@@ -42,9 +42,9 @@
 			trigger: '#data-gathering',
 			start: 'top top',
 			end: 'bottom bottom',
-			pin: '#data-gathering #seasons-strip',
-			markers: true
+			pin: '#data-gathering #seasons-strip'
 		});
+		
 		// Change seasons strip height on scroll
 		ScrollTrigger.create({
 			trigger: '#all-episodes',

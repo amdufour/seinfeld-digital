@@ -12,8 +12,8 @@
 	import Title from '../sections/Title.svelte';
 	import Calendar from '../sections/calendar/Calendar.svelte';
 	import DataGathering from '../sections/data_gathering/DataGathering.svelte';
-	import EpisodeExample from '../sections/data_gathering/EpisodeExample.svelte';
 	import Quotes from '../sections/quotes/Quotes.svelte';
+	import IntroEnd from '../sections/IntroEnd.svelte';
 	import MainCharsSection from '../sections/main_characters/MainCharsSection.svelte';
 	import SupportingCharsSection from '../sections/supporting_characters/SupportingCharsSection.svelte';
 	import LocationsSection from '../sections/locations/locationsSection.svelte';
@@ -57,6 +57,7 @@
 		{#await json(episodesDataUrl) then episodesData}
 			<DataGathering {episodesData} />
 		{/await}
+		<IntroEnd />
 		<Quotes />
 		<MainCharsSection />
 		<SupportingCharsSection />
