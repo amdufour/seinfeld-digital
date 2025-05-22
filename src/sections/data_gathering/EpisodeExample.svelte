@@ -247,7 +247,7 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <div id="episode-example-container" class="relative" style="width: calc(100vw - 25px); height: auto;">
-	<div id="episode-example" class="absolute">
+	<div id="episode-example" class="absolute h-screen">
 		<div class="relative overflow-scroll">
 			<!-- Episode details -->
 			<div class="mask self-start">

@@ -57,10 +57,10 @@
 		{#await json(episodesDataUrl) then episodesData}
 			<DataGathering {episodesData} />
 		{/await}
-		<!-- <Quotes />
+		<Quotes />
 		<MainCharsSection />
 		<SupportingCharsSection />
-		<LocationsSection /> -->
+		<LocationsSection />
 		<!-- {#await csv(episodesDataUrl) then episodesData}
 			{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 				{#await csv(sonificationLocationDataUrl) then sonificationLocationData}

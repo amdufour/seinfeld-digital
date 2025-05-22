@@ -2,9 +2,9 @@
 	import { onMount } from 'svelte';
 	import { scaleTime } from 'd3-scale';
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
+	import { range } from 'd3-array';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	import { range } from 'd3-array';
 	gsap.registerPlugin(ScrollTrigger);
 
 	import { seasons } from '$lib/data/seasons';
