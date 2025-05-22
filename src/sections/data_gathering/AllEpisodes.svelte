@@ -56,13 +56,6 @@
 			end: 'bottom bottom',
 			pin: '#all-episodes-visualizations'
 		});
-
-        const tlText1 = gsap.timeline({
-			scrollTrigger: {
-                trigger: '#all-episodes-1',
-                start: 'top top'
-	        }
-		});
 	});
 </script>
 
@@ -73,29 +66,31 @@
         <EpisodeBars 
             {episodesData} 
             barsHeight={stripHeight} 
-            width={ 2 * innerWidth / 3 - 25} 
+            width={ innerWidth >= 1066 ? 2 * innerWidth / 3 - 25 : innerWidth - 50} 
             {topMargin} 
             {episodeVerticalPositionScale}
             bind:handleMouseEnter
             bind:handleMouseLeave />
-        <LaughRate 
-            {episodesData} 
-            barsHeight={stripHeight} 
-            width={smallChartWidth} 
-            {topMargin} 
-            {episodeVerticalPositionScale} 
-            {percentageScale}
-            bind:handleMouseEnter
-            bind:handleMouseLeave />
-        <ImDbRating
-            {episodesData} 
-            barsHeight={stripHeight} 
-            width={smallChartWidth} 
-            {topMargin} 
-            {episodeVerticalPositionScale} 
-            {percentageScale}
-            bind:handleMouseEnter
-            bind:handleMouseLeave />
+        {#if innerWidth >= 1066}
+            <LaughRate 
+                {episodesData} 
+                barsHeight={stripHeight} 
+                width={smallChartWidth} 
+                {topMargin} 
+                {episodeVerticalPositionScale} 
+                {percentageScale}
+                bind:handleMouseEnter
+                bind:handleMouseLeave />
+            <ImDbRating
+                {episodesData} 
+                barsHeight={stripHeight} 
+                width={smallChartWidth} 
+                {topMargin} 
+                {episodeVerticalPositionScale} 
+                {percentageScale}
+                bind:handleMouseEnter
+                bind:handleMouseLeave />
+        {/if}
     </div>
 
     <!-- Scrolling Texts -->

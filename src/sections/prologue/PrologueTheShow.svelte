@@ -3,7 +3,6 @@
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
-	import Lenis from 'lenis';
 	import { soundIsAuth } from '../../stores/soundAuthStore';
 	import tv_noise from '$lib/assets/tv_noise.png';
 
@@ -136,34 +135,6 @@
                 stagger: .1
             })
             .from('#the-show-5 .video-container', videoTransform, "-=.3")
-		
-		// Add parallax effect to videos
-		let videos = gsap.utils.toArray('.video-container');
-		videos.forEach((video) => {
-			const speed = video.dataset.speed;
-			gsap.to(video, {
-				yPercent: speed * 50,
-				ease: 'none',
-				scrollTrigger: {
-					trigger: video,
-					start: 'top bottom',
-					scrub: true
-				}
-			});
-		});
-
-		// Smooth scroll
-		const lenis = new Lenis();
-
-		/**
-		 * @param {number} time
-		 */
-		function raf(time) {
-			lenis.raf(time);
-			requestAnimationFrame(raf);
-		}
-
-		requestAnimationFrame(raf);
 	});
 </script>
 
@@ -182,7 +153,7 @@
 				<div class="text">It only took a handful of episodes for me to find myself completely hooked. Seinfeld was written in a different key, deviating from the traditional rules of sitcoms, focusing on - and amplifying of - the minutiae of daily life, earning its reputation as <a href="https://www.latimes.com/archives/la-xpm-1993-03-04-ca-474-story.html" target="_blank">the show about nothing</a>.</div></div>
 			<div class="col-span-5">
 				<!-- svelte-ignore a11y_media_has_caption -->
-				 <div class="relative video-container" data-speed="1">
+				 <div class="relative video-container">
 					<video playsinline autoplay bind:muted={isMuted1} loop>
 						<source
 							src="https://amdufour.github.io/hosted-data/apis/videos/6c.ShowAboutNothing.mp4"
@@ -211,7 +182,7 @@
 		>
 			<div class="col-span-5 md:col-span-7">
 				<!-- svelte-ignore a11y_media_has_caption -->
-				 <div class="relative video-container" data-speed="1.3">
+				 <div class="relative video-container">
 					<video playsinline autoplay bind:muted={isMuted2} loop>
 						<source
 							src="https://amdufour.github.io/hosted-data/apis/videos/32.Minutiae.mp4"
@@ -251,7 +222,7 @@
 				</div>
 				<div>
 					<!-- svelte-ignore a11y_media_has_caption -->
-					<div class="relative video-container" data-speed="1">
+					<div class="relative video-container">
 						<video playsinline autoplay bind:muted={isMuted3} loop>
 							<source
 								src="https://amdufour.github.io/hosted-data/apis/videos/11a.GoodSamaritan.mp4"
@@ -285,7 +256,7 @@
 			</div>
 			<div class="col-span-5 md:col-span-5">
 				<!-- svelte-ignore a11y_media_has_caption -->
-				 <div class="relative video-container" data-speed="1.2">
+				 <div class="relative video-container">
 					<video playsinline autoplay bind:muted={isMuted4} loop>
 						<source
 							src="https://amdufour.github.io/hosted-data/apis/videos/13a.TheNose.mp4"
@@ -320,7 +291,7 @@
 				</div>
 				<div>
 					<!-- svelte-ignore a11y_media_has_caption -->
-					<div class="relative video-container" data-speed="0.9">
+					<div class="relative video-container">
 						<video playsinline autoplay bind:muted={isMuted5} loop>
 							<source
 								src="https://amdufour.github.io/hosted-data/apis/videos/14.ElaineDancing.mp4"

@@ -142,7 +142,7 @@
 			{#each videos as video}
 				<div
 					class={`parallax ${video.id} absolute w-80`}
-					data-speed="-1"
+					data-speed={Math.floor(Math.random() * 3 + 1)}
 					style={video.position}
 					role="presentation"
 					onmouseenter={handleVideoMouseEnter}

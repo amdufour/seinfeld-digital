@@ -6,7 +6,6 @@
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
-    import Lenis from 'lenis';
     import { scaleLinear } from 'd3-scale';
     import { flatGroup, range } from 'd3-array';
 
@@ -192,34 +191,6 @@
             .to('.laugh-icon-1245', laughIconReveal, 1245 - videoStartTime)
             .to('.laugh-icon-1250', laughIconReveal, 1250 - videoStartTime)
             .to('.laugh-icon-1255', laughIconReveal, 1255 - videoStartTime);
-
-        // Add parallax effect to images
-		let images = gsap.utils.toArray('.data-gathering-parallax');
-		images.forEach((image) => {
-			const speed = image.dataset.speed;
-			gsap.to(image, {
-				yPercent: speed * 50,
-				ease: 'none',
-				scrollTrigger: {
-					trigger: image,
-					start: 'top bottom',
-					scrub: true
-				}
-			});
-		});
-
-		// Smooth scroll
-		const lenis = new Lenis();
-
-		/**
-		 * @param {number} time
-		 */
-		function raf(time) {
-			lenis.raf(time);
-			requestAnimationFrame(raf);
-		}
-
-		requestAnimationFrame(raf);
     });
 </script>
 
@@ -239,7 +210,7 @@
             <div class="col-span-2 md:col-span-6"></div>
             <div class="col-span-2 md:col-span-4"></div>
             <div class="col-span-10 md:col-span-8 mt-8" style="margin-right: -{sideSpacing}px;">
-                <img class="data-gathering-parallax" src="https://amdufour.github.io/hosted-data/apis/images/audience.jpg" alt="Jerry Seinfeld talking with the audience during taping." data-speed="0.5" />
+                <img class="data-gathering-parallax" src="https://amdufour.github.io/hosted-data/apis/images/audience.jpg" alt="Jerry Seinfeld talking with the audience during taping." />
                 <div class="number text pt-2" style="background-color: rgba(249, 245, 247, 0.6);">Source: <a href="https://www.facebook.com/story.php?story_fbid=539096318663826&id=100076903884453" target="_blank">The Seinfeld World</a></div>
             </div>
         </div>
@@ -247,7 +218,7 @@
         <div id="data-gathering-2" class="grid grid-cols-12 mb-48">
             <div class="col-auto md:col-span-1"></div>
             <div class="col-span-7" style="margin-right: -50px;">
-                <img class="data-gathering-parallax" src="https://amdufour.github.io/hosted-data/apis/images/data_gathering.png" alt="Data spreadsheet and tv during data gathering." data-speed="0.3" />
+                <img class="data-gathering-parallax" src="https://amdufour.github.io/hosted-data/apis/images/data_gathering.png" alt="Data spreadsheet and tv during data gathering." />
             </div>
             {#if innerWidth < 768}
                 <div class="col-span-4"></div>
@@ -268,7 +239,7 @@
             </div>
             <div class="col-span-12" style="margin-left: {innerWidth >= 768 ? 0 : -sideSpacing + 25}px; margin-right: {innerWidth >= 768 ? 0 : -sideSpacing}px;">
                 <!-- svelte-ignore a11y_media_has_caption -->
-				 <div class="relative video-container" data-speed="1">
+				 <div class="relative video-container">
 					<video id="demo-video" playsinline bind:muted={isMuted} bind:clientWidth={videoWidth}>
 						<source
 							src="https://amdufour.github.io/hosted-data/apis/videos/MarineBiologist_edited.mp4"

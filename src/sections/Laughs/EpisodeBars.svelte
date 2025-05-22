@@ -85,6 +85,7 @@
             <!-- Episodes bars -->
             {#each episodesData as episode}
                 <rect
+                    class="episode-bar"
                     x={0}
                     y={episodeVerticalPositionScale(`${episode.season}-${episode.episode}`)}
                     width={episodeTimeScale(episode.duration)}
@@ -98,6 +99,7 @@
                 <!-- Laugh bars -->
                 {#each episode.laughs as laugh}
                     <rect
+                        class="laugh-bar"
                         x={episodeTimeScale(+laugh.eventTimeSeconds)}
                         y={episodeVerticalPositionScale(`${episode.season}-${episode.episode}`)}
                         width={episodeTimeScale(5)}

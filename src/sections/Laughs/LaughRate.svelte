@@ -31,7 +31,7 @@
     const meanLaughRate = Math.round((mean(laughRates) ?? 0) * 100);
 </script>
 
-<div class="relative ml-8">
+<div class="relative ml-4">
     <svg width={width + 40} height={barsHeight + 70} style="margin-top: -35px; padding-top: {topMargin}px;">
         <g transform="translate(20, 0)">
             <!-- Background -->
