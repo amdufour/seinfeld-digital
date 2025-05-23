@@ -1,4 +1,4 @@
-<script>
+<script type="module">
 	import { csv, json } from 'd3-fetch';
 	import { onMount } from 'svelte';
 	import { inview } from 'svelte-inview';
