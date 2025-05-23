@@ -67,8 +67,8 @@
 				{/await}
 			{/await}
 		{/await}
-		<!-- <Quotes />
+		<Quotes />
 		<MethodologyAndCredits />
-		<Footer /> -->
+		<Footer />
 	</div>
 </main>
