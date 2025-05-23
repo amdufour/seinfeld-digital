@@ -9,10 +9,10 @@
 	/**
 	 * @type {number}
 	 */
-	$: innerWidth = 0;
+	// $: innerWidth = 0;
 </script>
 
-<svelte:window bind:innerWidth />
+<!-- <svelte:window bind:innerWidth /> -->
 
 <section>
 	<PrologueLateArrival />

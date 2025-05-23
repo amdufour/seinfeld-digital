@@ -38,20 +38,20 @@
 
 <main>
 	<!-- <Navbar /> -->
-	<!-- <div
+	<div
 		class="text-white"
 		use:inview={options}
 		oninview_change={(/** @type {{ detail: { inView: any; }; }} */ event) => {
 			const { inView } = event.detail;
 			$navBarColor = inView ? 'white' : 'pink';
 		}}
-	> -->
+	>
 		<Prologue />
 		<!-- {#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
 		{/if} -->
 		<!-- <Title /> -->
-	<!-- </div> -->
+	</div>
 	<div class="bg-white text-black">
 		<!-- <Calendar /> -->
 		{#await json(episodesDataUrl) then episodesData}
