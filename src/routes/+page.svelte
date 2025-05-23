@@ -1,11 +1,12 @@
 <script>
-	// @ts-ignore
 	import { csv, json } from 'd3-fetch';
 	import { onMount } from 'svelte';
 	import { inview } from 'svelte-inview';
+	import { gsap, ScrollTrigger } from 'gsap/all';
+  gsap.registerPlugin(ScrollTrigger);
+
 	import { navBarColor } from '../stores/navbarColor';
 	import { soundAuthModaleIsOpen } from '../stores/soundAuthStore';
-	// @ts-ignore
 	import Navbar from '../UI/Navbar.svelte';
 	import Prologue from '../sections/prologue/Prologue.svelte';
 	import SoundAuthPopup from '../UI/SoundAuthPopup.svelte';
