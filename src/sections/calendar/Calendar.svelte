@@ -4,12 +4,13 @@
 	import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 	import { range } from 'd3-array';
 	import { gsap } from 'gsap/dist/gsap';
-	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 	import { seasons } from '$lib/data/seasons';
 	import { episodesInfo } from '$lib/data/episodesInfo';
 	import EpisodeTooltip from '../../UI/EpisodeTooltip.svelte';
 	import CalendarTexts from './CalendarTexts.svelte';
+
+	let { ScrollTrigger } = $props();
 
 	/**
 	 * @type {number}

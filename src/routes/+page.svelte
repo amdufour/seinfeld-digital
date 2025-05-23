@@ -55,7 +55,7 @@
 		<Title />
 	</div>
 	<div class="bg-white text-black">
-		<!-- <Calendar /> -->
+		<Calendar {ScrollTrigger} />
 		{#await json(episodesDataUrl) then episodesData}
 			<!-- <DataGathering {episodesData} /> -->
 			<IntroEnd />
