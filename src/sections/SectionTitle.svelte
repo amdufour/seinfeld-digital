@@ -154,16 +154,11 @@
 					/>
 				</video>
 				<div class="z-1 absolute bottom-0 left-0 right-0 top-0" style="background: rgba(18, 2, 10, 0.3); width: {tilesWidth}px;"></div>
-					<div
-						class="absolute z-10 bottom-0 left-0 right-0 top-0"
-						style="background-image: url('{tv_noise}'); width: {tilesWidth}px;"
-					></div>
+				<div
+					class="absolute z-10 bottom-0 left-0 right-0 top-0"
+					style="background-image: url('{tv_noise}'); width: {tilesWidth}px;"
+				></div>
 				<div class="info absolute bottom-0 left-0 right-0 z-20">
-					<div class="z-1 absolute bottom-0 left-0 right-0 top-0" style="background: rgba(18, 2, 10, 0.3); width: {tilesWidth}px;"></div>
-					<div
-						class="absolute z-10 bottom-0 left-0 right-0 top-0"
-						style="background-image: url('{tv_noise}'); width: {tilesWidth}px;"
-					></div>
 					<div
 						class="details px-4"
 						style="color: {section === 'locations'
@@ -180,9 +175,13 @@
 					</div>
 				</div>
 				<div
-					class="overlay absolute left-0 right-0 top-0 z-30 opacity-50"
-					style="background-color: {getOverlayColor(tile)};"
-				></div>
+					class="overlay absolute left-0 right-0 top-0 z-30"
+				>
+					<div class="absolute left-0 right-0 top-0 bottom-0"
+						style="background: rgba(18, 2, 10, 0.4);"></div>
+					<div class="absolute left-0 right-0 top-0 bottom-0 opacity-30"
+						style="background-color: {getOverlayColor(tile)};"></div>
+				</div>
 			</div>
 		{/each}
 	</div>
@@ -215,7 +214,6 @@
 	.overlay {
 		height: 100%;
 		max-height: 100%;
-		opacity: 0.7;
 	}
 	.info {
 		height: 100%;
