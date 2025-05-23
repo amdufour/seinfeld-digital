@@ -1,9 +1,9 @@
-<script type="module">
+<script>
 	import { csv, json } from 'd3-fetch';
 	import { onMount } from 'svelte';
 	import { inview } from 'svelte-inview';
-	import { gsap, ScrollTrigger } from 'gsap/all';
-  gsap.registerPlugin(ScrollTrigger);
+	// import { gsap, ScrollTrigger } from 'gsap/all';
+  // gsap.registerPlugin(ScrollTrigger);
 
 	import { navBarColor } from '../stores/navbarColor';
 	import { soundAuthModaleIsOpen } from '../stores/soundAuthStore';
