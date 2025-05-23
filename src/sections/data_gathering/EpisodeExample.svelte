@@ -123,12 +123,7 @@
 			translateY: 0,
 			opacity: 1,
 			ease: 'power3.out',
-			duration: 0.3,
-			stagger: {
-				each: 0.02,
-				ease: 'circ.out',
-				from: 'random'
-			}
+			duration: 1
 		});
 		gsap.to('#duration-example .label', {
 			translateY: 0,
@@ -169,12 +164,7 @@
 			translateX: 0,
 			opacity: 1,
 			ease: 'power3.out',
-			duration: 0.3,
-			stagger: {
-				each: 0.02,
-				ease: 'circ.out',
-				from: 'random'
-			}
+			duration: 1
 		});
 	};
 
@@ -183,12 +173,7 @@
 			translateY: 0,
 			opacity: 1,
 			ease: 'power3.out',
-			duration: 0.3,
-			stagger: {
-				each: 0.02,
-				ease: 'circ.out',
-				from: 'random'
-			}
+			duration: 1
 		});
 	};
 
@@ -203,12 +188,7 @@
 			translateX: 0,
 			opacity: 1,
 			ease: 'power3.out',
-			duration: 0.3,
-			stagger: {
-				each: 0.02,
-				ease: 'circ.out',
-				from: 'random'
-			}
+			duration: 0.3
 		});
 	};
 
