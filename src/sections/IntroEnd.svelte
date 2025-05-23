@@ -1,27 +1,27 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
+  // import { onMount } from 'svelte';
+  // import { gsap } from 'gsap';
+  // import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  // gsap.registerPlugin(ScrollTrigger);
 
-  onMount(() => {
-    const tl = gsap.timeline({
-			scrollTrigger: {
-				trigger: '#intro-end',
-				start: 'top top',
-        end: 'bottom top',
-				toggleActions: 'play reverse play reverse'
-			}
-		});
+  // onMount(() => {
+  //   const tl = gsap.timeline({
+	// 		scrollTrigger: {
+	// 			trigger: '#intro-end',
+	// 			start: 'top top',
+  //       end: 'bottom top',
+	// 			toggleActions: 'play reverse play reverse'
+	// 		}
+	// 	});
 
-    tl.to('#intro-end .highlight', {
-        webkitTextFillColor: 'transparent',
-        backgroundPosition: '200% center',
-        duration: 2,
-        delay: 1,
-        ease: 'power3.out'
-    })
-  })
+  //   tl.to('#intro-end .highlight', {
+  //       webkitTextFillColor: 'transparent',
+  //       backgroundPosition: '200% center',
+  //       duration: 2,
+  //       delay: 1,
+  //       ease: 'power3.out'
+  //   })
+  // })
 </script>
 
 <div class="pt-80 bg-black text-white">
