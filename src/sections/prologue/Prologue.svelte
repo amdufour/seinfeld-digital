@@ -16,9 +16,9 @@
 
 <section>
 	<PrologueLateArrival />
-	<PrologueVideo />
+	<!-- <PrologueVideo />
 	<PrologueTimeline />
 	<PrologueTheShow />
 	<PrologueRythmAndTexture />
-	<PrologueBook />
+	<PrologueBook /> -->
 </section>
