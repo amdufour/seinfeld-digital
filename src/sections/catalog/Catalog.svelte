@@ -108,7 +108,7 @@
 >
 	{#if innerWidth >= 1280}
 		<div id="seasons-strip">
-			<SeasonsStrip />
+			<SeasonsStrip stripHeight={innerHeight} />
 		</div>
 	{/if}
 	<div style="width: calc(100vw - {innerWidth >= 1280 ? 25 : 0}px);">

@@ -56,7 +56,7 @@
 		<!-- <Calendar /> -->
 		{#await json(episodesDataUrl) then episodesData}
 			<!-- <DataGathering {episodesData} /> -->
-			<IntroEnd />
+			<!-- <IntroEnd /> -->
 			<Quotes />
 			<!-- <MainCharsSection />
 			<SupportingCharsSection />
