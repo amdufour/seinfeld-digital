@@ -23,7 +23,7 @@
 				duration: 1,
 				ease: 'power3.out'
 			},
-			'-=.5'
+			'-=1.5'
 		);
 
 		// Hide down icon

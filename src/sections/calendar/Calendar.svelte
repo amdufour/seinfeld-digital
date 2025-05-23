@@ -400,16 +400,18 @@
 				</g>
 			{/each}
 		</svg>
-
-		<!-- Tooltip -->
-		{#if isTooltipVisible && innerWidth >= 793}
-			<EpisodeTooltip episode={hoveredEpisode} position={mousePosition} />
-		{/if}
 	</div>
 
 	<!-- Scrolling Texts -->
-	<div class="z-1000 relative" style="pointer-events: none">
+	<div class="z-10 relative pointer-events-none">
 		<CalendarTexts bind:showEpisodes />
 	</div>
+
+	<!-- Tooltip -->
+	{#if isTooltipVisible && innerWidth >= 793}
+		<div class="fixed z-20 top-0 left-0 right-0 bottom-0 pointer-events-none">
+			<EpisodeTooltip episode={hoveredEpisode} position={mousePosition} />
+		</div>
+	{/if}
 </div>
 

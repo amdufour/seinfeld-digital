@@ -65,6 +65,7 @@
         }, pauseDuration);
     };
 
+    let tlVideo;
     onMount(() => {
         preloadLaughs();
         
@@ -78,6 +79,7 @@
 			scrollTrigger: {
 				trigger: '#data-gathering-1',
 				start: 'top center',
+                end: 'bottom top',
 				toggleActions: 'play reverse play reverse',
                 onEnter: () => playLaughs(),
                 onEnterBack: () => playLaughs(),
@@ -89,6 +91,7 @@
 			scrollTrigger: {
 				trigger: '#data-gathering-2',
 				start: 'top center',
+                end: 'bottom top',
 				toggleActions: 'play reverse play reverse'
 			}
 		});
@@ -96,6 +99,7 @@
 			scrollTrigger: {
 				trigger: '#data-gathering-3',
 				start: 'top center',
+                end: 'bottom top',
 				toggleActions: 'play reverse play reverse'
 			}
 		});
@@ -157,11 +161,11 @@
             video?.pause();
             video.currentTime = 0;
         };
-        gsap.set('.laugh-icon', { yPercent: 50, opacity: 0 });
-        const tlVideo = gsap.timeline({
+        tlVideo = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#data-gathering-3 svg',
 				start: 'top bottom-=10%',
+                end: 'bottom top',
 				toggleActions: 'play reset play reset',
                 onEnter: () => playVideo(),
                 onLeave: () => pauseVideo(),
@@ -169,28 +173,35 @@
                 onLeaveBack: () => pauseVideo(),
 			}
 		});
-        const laughIconReveal = { yPercent: 0, opacity: 1, duration: 1, ease: 'power3.out' };
-        tlVideo
-            .to('#data-gathering-3 circle', {
-                x: videoWidth,
-                ease: 'none',
-                duration: videoDuration
-            })
-            .to('.laugh-icon-1165', laughIconReveal, 1165 - videoStartTime)
-            .to('.laugh-icon-1170', laughIconReveal, 1170 - videoStartTime)
-            .to('.laugh-icon-1185', laughIconReveal, 1185 - videoStartTime)
-            .to('.laugh-icon-1190', laughIconReveal, 1190 - videoStartTime)
-            .to('.laugh-icon-1195', laughIconReveal, 1195 - videoStartTime)
-            .to('.laugh-icon-1200', laughIconReveal, 1200 - videoStartTime)
-            .to('.laugh-icon-1205', laughIconReveal, 1205 - videoStartTime)
-            .to('.laugh-icon-1210', laughIconReveal, 1210 - videoStartTime)
-            .to('.laugh-icon-1215', laughIconReveal, 1215 - videoStartTime)
-            .to('.laugh-icon-1220', laughIconReveal, 1220 - videoStartTime)
-            .to('.laugh-icon-1225', laughIconReveal, 1225 - videoStartTime)
-            .to('.laugh-icon-1230', laughIconReveal, 1230 - videoStartTime)
-            .to('.laugh-icon-1245', laughIconReveal, 1245 - videoStartTime)
-            .to('.laugh-icon-1250', laughIconReveal, 1250 - videoStartTime)
-            .to('.laugh-icon-1255', laughIconReveal, 1255 - videoStartTime);
+
+        setTimeout(() => {
+            gsap.set('.laugh-icon', { yPercent: 50, opacity: 0 });
+            const laughIconReveal = { yPercent: 0, opacity: 1, duration: 1, ease: 'power3.out' };
+            tlVideo
+                .from('#data-gathering-3 circle', {
+                    cx: 0,
+                    ease: 'none',
+                    duration: videoDuration
+                })
+                .to('.laugh-icon-1165', laughIconReveal, 1165 - videoStartTime)
+                .to('.laugh-icon-1170', laughIconReveal, 1170 - videoStartTime)
+                .to('.laugh-icon-1185', laughIconReveal, 1185 - videoStartTime)
+                .to('.laugh-icon-1190', laughIconReveal, 1190 - videoStartTime)
+                .to('.laugh-icon-1195', laughIconReveal, 1195 - videoStartTime)
+                .to('.laugh-icon-1200', laughIconReveal, 1200 - videoStartTime)
+                .to('.laugh-icon-1205', laughIconReveal, 1205 - videoStartTime)
+                .to('.laugh-icon-1210', laughIconReveal, 1210 - videoStartTime)
+                .to('.laugh-icon-1215', laughIconReveal, 1215 - videoStartTime)
+                .to('.laugh-icon-1220', laughIconReveal, 1220 - videoStartTime)
+                .to('.laugh-icon-1225', laughIconReveal, 1225 - videoStartTime)
+                .to('.laugh-icon-1230', laughIconReveal, 1230 - videoStartTime)
+                .to('.laugh-icon-1245', laughIconReveal, 1245 - videoStartTime)
+                .to('.laugh-icon-1250', laughIconReveal, 1250 - videoStartTime)
+                .to('.laugh-icon-1255', laughIconReveal, 1255 - videoStartTime);
+            
+            laughsBarScale.range([0, videoWidth]);
+            laughWidth = laughsBarScale(videoStartTime + 5);
+        }, 3000)
     });
 </script>
 
@@ -246,14 +257,14 @@
 							type="video/mp4"
 						/>
 					</video>
-					<div class="z-1 absolute bottom-0 left-0 right-0 top-0" style="background: rgba(18, 2, 10, 0.3);"></div>
+					<div class="z-1 absolute bottom-0 left-0 right-0 top-0" style="background: rgba(18, 2, 10, 0.3); width: {videoWidth}px;"></div>
 					<div
 						class="absolute z-10 bottom-0 left-0 right-0 top-0"
-						style="background-image: url('{tv_noise}')"
+						style="background-image: url('{tv_noise}'); width: {videoWidth}px;"
 					></div>
 				</div>
                 <svg class="mt-8" width={videoWidth + 50} height={100} style="margin-left: -25px;">
-                    <g transform="translate(25, 1)">
+                    <g transform="translate(25, 10)">
                         <line x1={0} y1={0} x2={videoWidth} y2={0} stroke="#928D90" />
 
                         {#each fiveSecondsArray as fiveSecconds, i}
@@ -268,12 +279,12 @@
                         {/each}
                         
                         {#each videoLaughs as laugh}
-                            <g class={`laugh-icon laugh-icon-${laugh.eventTimeSeconds}`} transform={`translate(${laughsBarScale(+laugh.eventTimeSeconds)}, 40)`}>
+                            <g class={`laugh-icon laugh-icon-${laugh.eventTimeSeconds}`} transform={`translate(${laughsBarScale(+laugh.eventTimeSeconds)}, 30)`}>
                                 <Laugh width={innerWidth >= 900 ? laughWidth - 20 : laughWidth} height={innerWidth >= 900 ? laughWidth - 20 : laughWidth} />
                             </g>
                         {/each}
 
-                        <circle cx={0} cy={40} r={10} fill="#E71D80" />
+                        <circle cx={laughsBarScale(videoEndTime + 5)} cy={0} r={10} fill="#E71D80" />
                     </g>
                 </svg>
             </div>

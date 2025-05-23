@@ -23,17 +23,16 @@
 	onMount(() => {
 		const tl = gsap.timeline({
 			scrollTrigger: {
-				trigger: '#stroked-title-s4e4',
-				start: 'bottom bottom',
-				end: 'top center',
+				trigger: '#prologue-video',
+				start: 'top top',
+				end: 'bottom center',
 				toggleActions: 'play reverse play reverse'
 			}
 		});
 		tl.from('#stroked-title-s4e4', {
 			translateY: -50,
 			ease: 'power3.out',
-			duration: 1,
-			delay: 1
+			duration: 1
 		});
 	});
 </script>
@@ -41,6 +40,7 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <div
+	id="prologue-video"
 	class="relative flex h-screen items-center"
 	role="presentation"
 	onmouseenter={handleMouseEnter}

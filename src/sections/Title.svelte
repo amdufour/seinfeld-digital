@@ -108,11 +108,11 @@
 		{/each}
 	</svg>
 	<div class="container h-full">
-		<div style="margin-top: -25px;">
+		<div style="margin-top: -25px; max-width: 940px;">
 			<h1>The Seinfield Chronicles</h1>
 		</div>
 		<div>
-			<p id="subtitle" class="subtitle">
+			<p id="subtitle" class="subtitle" style="max-width: 840px;">
 				An unnecessary data exploration by
 				<span class="name">
 					<span class="highlight">Andy Kirk</span>
@@ -123,6 +123,7 @@
 						src="https://amdufour.github.io/hosted-data/apis/portraits/andy.jpg"
 					/>
 				</span>,
+				<br />
 				<span class="name">
 					<span class="highlight">Anne-Marie Dufour</span>
 					<img
@@ -187,7 +188,7 @@
 	}
 	@media screen and (min-width: 996px) {
 		.subtitle {
-			font-size: 1.5rem;
+			font-size: 1.7rem;
 		}
 	}
 </style>
