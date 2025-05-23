@@ -24,9 +24,11 @@
   })
 </script>
 
-<div id="intro-end" class="h-screen w-screen bg-black text-white">
-  <div class="h-screen container flex content-center flex-wrap">
-    <div style="max-width: 900px;">How did Jerry Seinfeld and Larry David, with the support of their group of talented writers, achieve such consistent brilliance? Much like a football coach seeks to assemble the right players, in the right combinations, to win a game, we wanted to see how the Seinfeld coaching team used their resources, assembling the right characters, in the right scenes, <span class="highlight">to win the laughter</span>. 
+<div class="py-80 bg-black text-white">
+  <div id="intro-end" class="h-screen w-screen">
+    <div class="h-screen container flex content-center flex-wrap">
+      <div style="max-width: 900px;">How did Jerry Seinfeld and Larry David, with the support of their group of talented writers, achieve such consistent brilliance? Much like a football coach seeks to assemble the right players, in the right combinations, to win a game, we wanted to see how the Seinfeld coaching team used their resources, assembling the right characters, in the right scenes, <span class="highlight">to win the laughter</span>. 
+      </div>
     </div>
   </div>
 </div>

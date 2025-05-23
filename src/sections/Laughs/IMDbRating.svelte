@@ -34,7 +34,7 @@
     const meanIMDbRating = Math.round((mean(imdbRatings) ?? 0) * 10) / 10;
 </script>
 
-<div class="relative ml-8">
+<div id="imdb-rating" class="relative ml-8">
     <svg width={width + 40} height={barsHeight + 70} style="margin-top: -35px; padding-top: {topMargin}px;">
         <g transform="translate(20, 0)">
             <!-- Background -->
@@ -78,6 +78,7 @@
 
                 <!-- Mean -->
                 <line
+                  class="avg-line"
                   x1={percentageScale(meanIMDbRating / 10)}
                   y1={0}
                   x2={percentageScale(meanIMDbRating / 10)}
@@ -89,7 +90,7 @@
     </svg>
 
     <!-- Average label -->
-    <div class="small absolute text-center px-2 py-1 rounded-md"
+    <div class="avg-label small absolute text-center px-2 py-1 rounded-md"
          style="
             top: {100}px; 
             left: {percentageScale(meanIMDbRating / 10) - 53}px; 

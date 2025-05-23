@@ -56,6 +56,68 @@
 			end: 'bottom bottom',
 			pin: '#all-episodes-visualizations'
 		});
+
+        // Texts timelines
+        gsap.set('#all-episodes #episode-bars, #all-episodes #laugh-rate rect, #all-episodes #imdb-rating rect', {
+            translateX: -100,
+            opacity: 0
+        });
+        gsap.set('#all-episodes .avg-label, #all-episodes .avg-line', {
+            translateY: 50,
+            opacity: 0
+        });
+        const tl1 = gsap.timeline({
+			scrollTrigger: {
+				trigger: '#all-episodes-1',
+				start: 'top center'
+			}
+		});
+        tl1.to('#all-episodes #episode-bars',{
+            translateX: 0,
+            opacity: 1,
+            ease: 'power3.out',
+            duration: 2
+        });
+
+        const tl2 = gsap.timeline({
+			scrollTrigger: {
+				trigger: '#all-episodes-2',
+				start: 'top center'
+			}
+		});
+        tl2
+            .to('#all-episodes #laugh-rate rect',{
+                translateX: 0,
+                opacity: 1,
+                ease: 'power3.out',
+                duration: 2
+            })
+            .to('#all-episodes #laugh-rate .avg-label, #all-episodes #laugh-rate .avg-line',{
+                translateY: 0,
+                opacity: 1,
+                ease: 'power3.out',
+                duration: 1
+            }, '<0.8');
+
+        const tl3 = gsap.timeline({
+			scrollTrigger: {
+				trigger: '#all-episodes-3',
+				start: 'top center'
+			}
+		});
+        tl3
+            .to('#all-episodes #imdb-rating rect',{
+                translateX: 0,
+                opacity: 1,
+                ease: 'power3.out',
+                duration: 2
+            })
+            .to('#all-episodes #imdb-rating .avg-label, #all-episodes #imdb-rating .avg-line',{
+                translateY: 0,
+                opacity: 1,
+                ease: 'power3.out',
+                duration: 1
+            }, '<0.8')
 	});
 </script>
 

@@ -39,7 +39,7 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div class="relative z-10" style="padding-top: {topMargin}px;">
+<div id="episode-bars" class="relative z-10" style="padding-top: {topMargin}px;">
     <svg width={width + 50} height={barsHeight + 70} style="margin-top: -35px; margin-left: -25px;">
         <g transform="translate(20, 105) rotate(-90)">
             <text class="small accent">Episodes</text>

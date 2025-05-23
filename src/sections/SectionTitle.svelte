@@ -8,6 +8,7 @@
 	import { locationsTiles } from '$lib/data/locations';
 	import { getRandom } from '../utils/getRandom';
 	import { soundIsAuth } from '../stores/soundAuthStore';
+  import tv_noise from '$lib/assets/tv_noise.png';
 
 	let { section, title } = $props();
 
@@ -84,9 +85,7 @@
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: `#tiles-container-${section}`,
-				start: 'top center',
-				end: 'bottom center',
-				toggleActions: 'play reverse play reverse'
+				start: 'top center'
 			}
 		});
 		tl.from(`.tile-container-${section}`, {
@@ -144,7 +143,7 @@
 				></div>
 				<!-- svelte-ignore a11y_media_has_caption -->
 				<video
-					class="absolute bottom-0 bottom-0 left-0 right-0 z-0"
+					class="absolute bottom-0 left-0 right-0 z-0"
 					playsinline
 					preload="none"
 					data-object-fit="cover"
@@ -156,7 +155,17 @@
 						type="video/mp4"
 					/>
 				</video>
+				<div class="z-1 absolute bottom-0 left-0 right-0 top-0" style="background: rgba(18, 2, 10, 0.3); width: {tilesWidth}px;"></div>
+					<div
+						class="absolute z-10 bottom-0 left-0 right-0 top-0"
+						style="background-image: url('{tv_noise}'); width: {tilesWidth}px;"
+					></div>
 				<div class="info absolute bottom-0 left-0 right-0 z-20">
+					<div class="z-1 absolute bottom-0 left-0 right-0 top-0" style="background: rgba(18, 2, 10, 0.3); width: {tilesWidth}px;"></div>
+					<div
+						class="absolute z-10 bottom-0 left-0 right-0 top-0"
+						style="background-image: url('{tv_noise}'); width: {tilesWidth}px;"
+					></div>
 					<div
 						class="details px-4"
 						style="color: {section === 'locations'
@@ -173,7 +182,7 @@
 					</div>
 				</div>
 				<div
-					class="overlay absolute left-0 right-0 top-0 z-30"
+					class="overlay absolute left-0 right-0 top-0 z-30 opacity-50"
 					style="background-color: {getOverlayColor(tile)};"
 				></div>
 			</div>

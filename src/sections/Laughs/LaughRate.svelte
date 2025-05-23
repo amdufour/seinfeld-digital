@@ -31,7 +31,7 @@
     const meanLaughRate = Math.round((mean(laughRates) ?? 0) * 100);
 </script>
 
-<div class="relative ml-4">
+<div id="laugh-rate" class="relative ml-4">
     <svg width={width + 40} height={barsHeight + 70} style="margin-top: -35px; padding-top: {topMargin}px;">
         <g transform="translate(20, 0)">
             <!-- Background -->
@@ -68,6 +68,7 @@
 
                 <!-- Mean -->
                 <line
+                    class="avg-line"
                     x1={percentageScale(meanLaughRate / 100)}
                     y1={0}
                     x2={percentageScale(meanLaughRate / 100)}
@@ -79,7 +80,7 @@
     </svg>
 
     <!-- Average label -->
-    <div class="small absolute text-center px-2 py-1 rounded-md"
+    <div class="avg-label small absolute text-center px-2 py-1 rounded-md"
          style="
             top: {100}px; 
             left: {percentageScale(meanLaughRate / 100) - 38}px; 
