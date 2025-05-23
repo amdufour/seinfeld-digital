@@ -5,14 +5,7 @@
 	import PrologueVideo from './PrologueVideo.svelte';
 	import PrologueRythmAndTexture from './PrologueRythmAndTexture.svelte';
 	import PrologueBook from './PrologueBook.svelte';
-
-	/**
-	 * @type {number}
-	 */
-	// $: innerWidth = 0;
 </script>
-
-<!-- <svelte:window bind:innerWidth /> -->
 
 <section>
 	<PrologueLateArrival />
