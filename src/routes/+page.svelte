@@ -50,7 +50,7 @@
 		<!-- {#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
 		{/if} -->
-		<Title />
+		<!-- <Title /> -->
 	</div>
 	<div class="bg-white text-black">
 		<!-- <Calendar /> -->
@@ -63,7 +63,7 @@
 			<LocationsSection /> -->
 			{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 				{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
-					<!-- <Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} /> -->
+					<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} />
 				{/await}
 			{/await}
 		{/await}
