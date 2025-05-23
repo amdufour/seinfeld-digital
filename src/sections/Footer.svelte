@@ -4,7 +4,7 @@
 </script>
 
 <footer class="bg-black text-white">
-	<div class="container py-3 text-xs md:text-sm">
+	<div class="container px-12 py-3 text-xs md:text-sm">
 		Copyright © {year} Visualising Data Ltd - All rights reserved
 	</div>
 </footer>

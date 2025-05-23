@@ -7,9 +7,9 @@
 	import PaintIcon from '../icons/PaintIcon.svelte';
 
 	const credits = [
-		{ name: 'Andy Kirk', role: 'Ideation, Data Analysis, Data Visualisation & Original Design' },
-		{ name: 'Anne-Marie Dufour', role: 'Digital Design & Development' },
-		{ name: 'Loud Numbers', role: 'Sonification' },
+		{ name: 'Andy Kirk', url: 'https://visualisingdata.com/', role: 'Ideation, Data Analysis, Data Visualisation & Original Design' },
+		{ name: 'Anne-Marie Dufour', url: 'https://www.delightfuldata.art/', role: 'Digital Design & Development' },
+		{ name: 'Loud Numbers', url: 'https://www.loudnumbers.net/', role: 'Sonification' },
 		{ name: 'Mark Knott', role: 'Illustrations' },
 		{ name: 'Rob Barker', role: 'Data Collection & Research' }
 	];
@@ -73,7 +73,11 @@
 						{/if}
 					</div>
 					<div class="pl-4">
-						<div class="font-semibold">{credit.name}</div>
+						{#if credit.url}
+							<a href={credit.url} target="_blank" class="font-semibold">{credit.name}</a>
+						{:else}
+							<div class="font-semibold">{credit.name}</div>
+						{/if}
 						<div class="leading-tight">{credit.role}</div>
 					</div>
 				</div>

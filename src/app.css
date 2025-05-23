@@ -74,6 +74,7 @@
     color: #E71D80;
     font-weight: 600;
     text-decoration: underline;
+    cursor: pointer;
   }
   ul {
     margin: 0;

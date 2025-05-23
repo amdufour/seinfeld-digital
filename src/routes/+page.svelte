@@ -56,21 +56,19 @@
 		<Calendar />
 		{#await json(episodesDataUrl) then episodesData}
 			<DataGathering {episodesData} />
-		{/await}
-		<IntroEnd />
-		<Quotes />
-		<MainCharsSection />
-		<SupportingCharsSection />
-		<LocationsSection />
-		<!-- {#await csv(episodesDataUrl) then episodesData}
+			<IntroEnd />
+			<Quotes />
+			<MainCharsSection />
+			<SupportingCharsSection />
+			<LocationsSection />
 			{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 				{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
 					<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} />
 				{/await}
 			{/await}
-		{/await} -->
-		<!-- <Quotes />
+		{/await}
+		<Quotes />
 		<MethodologyAndCredits />
-		<Footer /> -->
+		<Footer />
 	</div>
 </main>

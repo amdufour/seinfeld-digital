@@ -47,8 +47,8 @@
 	let currentEpisodeData = $derived(
 		episodesData.filter(
 			(/** @type { any } */ e) =>
-				e.season === `Season${currentSeason}` && +e.episode === currentEpisode
-		)
+				e.season === currentSeason && +e.episode === currentEpisode
+		)[0].data
 	);
 
 	let currentEpisodeSonificationCharactersData = $derived(
