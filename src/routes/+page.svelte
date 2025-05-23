@@ -51,7 +51,7 @@
 		<!-- {#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
 		{/if} -->
-		<!-- <Title /> -->
+		<Title />
 	</div>
 	<div class="bg-white text-black">
 		<!-- <Calendar /> -->
