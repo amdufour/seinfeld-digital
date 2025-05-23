@@ -1,14 +1,15 @@
 <script>
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap/dist/gsap';
-	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	import { scaleLinear } from 'd3-scale';
+
+	let { ScrollTrigger } = $props();
 
 	/**
 	 * @type {number}
 	 */
-	$: innerWidth = 0;
-	$: innerHeight = 0;
+	let innerWidth = $state(1600);
+	let innerHeight = $state(800);
 
 	onMount(() => {
 		const yearsScale = scaleLinear()

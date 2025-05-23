@@ -9,9 +9,8 @@
     import EpisodeTooltip from '../../UI/EpisodeTooltip.svelte';
     import AllEpisodesTexts from './AllEpisodesTexts.svelte';
 	import { gsap } from 'gsap/dist/gsap';
-	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
-    let { episodesData, stripHeight } = $props();
+    let { episodesData, stripHeight, ScrollTrigger } = $props();
 
     let innerWidth = $state(1600);
     let innerHeight = $state(800);

@@ -48,7 +48,7 @@
 			$navBarColor = inView ? 'white' : 'pink';
 		}}
 	>
-		<!-- <Prologue /> -->
+		<Prologue {ScrollTrigger} />
 		{#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
 		{/if}
@@ -57,7 +57,7 @@
 	<div class="bg-white text-black">
 		<Calendar {ScrollTrigger} />
 		{#await json(episodesDataUrl) then episodesData}
-			<!-- <DataGathering {episodesData} /> -->
+			<DataGathering {episodesData} {ScrollTrigger} />
 			<IntroEnd />
 			<Quotes />
 			<MainCharsSection />

@@ -5,13 +5,15 @@
 	import PrologueVideo from './PrologueVideo.svelte';
 	import PrologueRythmAndTexture from './PrologueRythmAndTexture.svelte';
 	import PrologueBook from './PrologueBook.svelte';
+
+	let { ScrollTrigger } = $props();
 </script>
 
 <section>
 	<PrologueLateArrival />
 	<PrologueVideo />
-	<PrologueTimeline />
+	<PrologueTimeline {ScrollTrigger} />
 	<PrologueTheShow />
-	<PrologueRythmAndTexture />
-	<PrologueBook />
+	<PrologueRythmAndTexture {ScrollTrigger} />
+	<PrologueBook {ScrollTrigger} />
 </section>

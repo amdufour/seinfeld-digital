@@ -2,14 +2,13 @@
 	import { onMount } from 'svelte';
 	import { scaleLinear } from 'd3-scale';
 	import { gsap } from 'gsap/dist/gsap';
-	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 	import { formatTime } from '../../utils/formatTime';
 	import EpisodeDetails from '../catalog/EpisodeDetails.svelte';
 	import EpisodeScore from '../catalog/episodeScore/EpisodeScore.svelte';
 	import EpisodeTexts from './EpisodeTexts.svelte';
 
-	let { episodeInfo, episodeData, laughData } = $props();
+	let { episodeInfo, episodeData, laughData, ScrollTrigger } = $props();
 
 	let innerWidth = $state(1200);
 	let innerHeight = $state(800);

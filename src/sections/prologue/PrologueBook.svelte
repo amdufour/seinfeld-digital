@@ -1,7 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap/dist/gsap';
-	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	import Lenis from 'lenis';
 
 	import BookCover from '$lib/assets/book/book_cover.jpg';
@@ -12,6 +11,8 @@
 	import BookQuotes from '$lib/assets/book/book_quotes.jpg';
 	import BookCatalog1 from '$lib/assets/book/book_catalog1.png';
 	import BookCatalog2 from '$lib/assets/book/book_catalog2.png';
+
+	let { ScrollTrigger } = $props();
 
 	let innerWidth = $state(1600);
 	let innerHeight = $state(800);

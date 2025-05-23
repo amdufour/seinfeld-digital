@@ -1,8 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import gsap from "gsap";
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	gsap.registerPlugin(ScrollTrigger);
   import SeasonsStrip from "../../UI/SeasonsStrip.svelte";
   import DataGatheringDetails from "./DataGatheringDetails.svelte";
   import EpisodeExample from "./EpisodeExample.svelte";
@@ -10,7 +8,7 @@
 	import type { Episode } from "$lib/types/episode";
 	import { episodesInfo } from '$lib/data/episodesInfo';
 
-  let { episodesData } = $props();
+  let { episodesData, ScrollTrigger } = $props();
 
 	let innerHeight = $state(800);
 	let isAllEpisodesInView = $state(false);
@@ -66,7 +64,7 @@
 		</div>
     <div class="w-screen" style="padding-left: 25px;">
         <DataGatheringDetails {laughData} />
-        <EpisodeExample {episodeInfo} {episodeData} {laughData} />
-				<AllEpisodes {episodesData} {stripHeight} />
+        <EpisodeExample {episodeInfo} {episodeData} {laughData} {ScrollTrigger} />
+				<AllEpisodes {episodesData} {stripHeight} {ScrollTrigger} />
     </div>
 </section>

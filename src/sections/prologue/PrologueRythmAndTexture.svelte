@@ -3,10 +3,11 @@
 
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap/dist/gsap';
-	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	import { soundIsAuth } from '../../stores/soundAuthStore';
 	import Lenis from 'lenis';
-	import tv_noise from "$lib/assets/tv_noise.png"
+	import tv_noise from "$lib/assets/tv_noise.png";
+
+	let { ScrollTrigger } = $props();
 
 	onMount(() => {
 		// Pin text
