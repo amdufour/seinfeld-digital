@@ -39,7 +39,7 @@
 </script>
 
 <main>
-	<!-- <Navbar /> -->
+	<Navbar />
 	<div
 		class="text-white"
 		use:inview={options}
@@ -48,21 +48,21 @@
 			$navBarColor = inView ? 'white' : 'pink';
 		}}
 	>
-		<!-- <Prologue /> -->
-		<!-- {#if $soundAuthModaleIsOpen}
+		<Prologue />
+		{#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
-		{/if} -->
+		{/if}
 		<Title />
 	</div>
 	<div class="bg-white text-black">
-		<!-- <Calendar /> -->
+		<Calendar />
 		{#await json(episodesDataUrl) then episodesData}
-			<!-- <DataGathering {episodesData} /> -->
+			<DataGathering {episodesData} />
 			<IntroEnd />
 			<Quotes />
-			<!-- <MainCharsSection />
+			<MainCharsSection />
 			<SupportingCharsSection />
-			<LocationsSection /> -->
+			<LocationsSection />
 			{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 				{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
 					<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} />

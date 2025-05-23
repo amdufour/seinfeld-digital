@@ -30,7 +30,7 @@
 				<SoundIcon width={100} height={165 / 2} />
 			</div>
 			<div class="ml-4 mt-2" style="max-width: {innerWidth >= 793 ? 'none' : '400px'}">
-				<p>This project is an immersive audio experience. Turn your sound up!</p>
+				<p>This project is an immersive audio experience. Turn your sound on!</p>
 			</div>
 		</div>
 		<div class="mt-8 flex leading-5 md:ml-4 md:mt-0 md:justify-end">

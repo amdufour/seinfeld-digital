@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { gsap } from 'gsap';
+	import { gsap } from 'gsap/dist/gsap';
 	import { soundIsAuth } from '../../stores/soundAuthStore';
 	import tv_noise from '$lib/assets/tv_noise.png';
 

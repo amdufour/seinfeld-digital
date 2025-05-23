@@ -1,8 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	gsap.registerPlugin(ScrollTrigger);
+	import { gsap } from 'gsap/dist/gsap';
+	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	import Lenis from 'lenis';
 
 	import BookCover from '$lib/assets/book/book_cover.jpg';

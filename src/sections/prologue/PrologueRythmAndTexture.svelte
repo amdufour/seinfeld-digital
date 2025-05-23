@@ -2,10 +2,9 @@
 	// @ts-nocheck
 
 	import { onMount } from 'svelte';
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { gsap } from 'gsap/dist/gsap';
+	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	import { soundIsAuth } from '../../stores/soundAuthStore';
-	gsap.registerPlugin(ScrollTrigger);
 	import Lenis from 'lenis';
 	import tv_noise from "$lib/assets/tv_noise.png"
 

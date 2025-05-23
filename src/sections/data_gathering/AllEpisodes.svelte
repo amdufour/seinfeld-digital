@@ -8,9 +8,8 @@
     import type { Episode } from '$lib/types/episode';
     import EpisodeTooltip from '../../UI/EpisodeTooltip.svelte';
     import AllEpisodesTexts from './AllEpisodesTexts.svelte';
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	gsap.registerPlugin(ScrollTrigger);
+	import { gsap } from 'gsap/dist/gsap';
+	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
     let { episodesData, stripHeight } = $props();
 

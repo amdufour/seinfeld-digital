@@ -1,9 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
 	import { scaleLinear } from 'd3-scale';
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	gsap.registerPlugin(ScrollTrigger);
+	import { gsap } from 'gsap/dist/gsap';
+	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 	import { formatTime } from '../../utils/formatTime';
 	import EpisodeDetails from '../catalog/EpisodeDetails.svelte';

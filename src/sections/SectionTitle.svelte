@@ -1,8 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	gsap.registerPlugin(ScrollTrigger);
+	import { gsap } from 'gsap/dist/gsap';
 
 	import { supportingCharacterTiles, characters, mainCharacterTiles } from '$lib/data/characters';
 	import { locationsTiles } from '$lib/data/locations';

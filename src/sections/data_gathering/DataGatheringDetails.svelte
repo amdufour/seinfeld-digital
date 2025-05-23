@@ -3,9 +3,7 @@
 
     import { onMount } from 'svelte';
     import * as Tone from 'tone';
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	gsap.registerPlugin(ScrollTrigger);
+	import { gsap } from 'gsap/dist/gsap';
     import { scaleLinear } from 'd3-scale';
     import { flatGroup, range } from 'd3-array';
 
