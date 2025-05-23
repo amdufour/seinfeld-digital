@@ -197,7 +197,7 @@
 					<h5 class="mt-2">S8E3 - The Bizzaro Jerry</h5>
 				</div>
 			</div>
-			<div class="col-span-7 md:col-span-5 mask">
+			<div class="col-span-7 md:col-span-3 mask">
 				<div class="text">I loved the irreverent characters - with their absurd obsessions and neurotic tendencies - and the hilariously avoidable situations they found themselves in.</div>
 			</div>
 		</div>

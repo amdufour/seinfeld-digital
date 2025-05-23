@@ -115,13 +115,13 @@
                 duration: 2,
                 delay: 1,
                 ease: 'power3.out'
-            }, "-=2")
+            }, "<2")
             .from(["#data-gathering-1 svg"], {
                 yPercent: 140,
                 opacity: 0,
                 duration: 1,
                 ease: 'bounce.out'
-            }, "-=1.2");
+            }, 0.5);
 
         tl2
             .from(["#data-gathering-2 .text"], {
