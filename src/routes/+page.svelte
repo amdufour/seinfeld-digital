@@ -58,9 +58,9 @@
 			<!-- <DataGathering {episodesData} /> -->
 			<IntroEnd />
 			<Quotes />
-			<MainCharsSection />
+			<!-- <MainCharsSection />
 			<SupportingCharsSection />
-			<LocationsSection />
+			<LocationsSection /> -->
 			{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 				{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
 					<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} />
