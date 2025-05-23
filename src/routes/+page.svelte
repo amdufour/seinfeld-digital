@@ -55,12 +55,12 @@
 	<div class="bg-white text-black">
 		<!-- <Calendar /> -->
 		{#await json(episodesDataUrl) then episodesData}
-			<!-- <DataGathering {episodesData} />
+			<DataGathering {episodesData} />
 			<IntroEnd />
 			<Quotes />
 			<MainCharsSection />
 			<SupportingCharsSection />
-			<LocationsSection /> -->
+			<LocationsSection />
 			{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 				{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
 					<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} />
