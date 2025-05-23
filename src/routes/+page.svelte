@@ -47,28 +47,28 @@
 		}}
 	>
 		<Prologue />
-		{#if $soundAuthModaleIsOpen}
+		<!-- {#if $soundAuthModaleIsOpen}
 			<SoundAuthPopup />
-		{/if}
-		<Title />
+		{/if} -->
+		<!-- <Title /> -->
 	</div>
 	<div class="bg-white text-black">
-		<Calendar />
+		<!-- <Calendar /> -->
 		{#await json(episodesDataUrl) then episodesData}
-			<DataGathering {episodesData} />
+			<!-- <DataGathering {episodesData} />
 			<IntroEnd />
 			<Quotes />
 			<MainCharsSection />
 			<SupportingCharsSection />
-			<LocationsSection />
+			<LocationsSection /> -->
 			{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 				{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
-					<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} />
+					<!-- <Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} /> -->
 				{/await}
 			{/await}
 		{/await}
-		<Quotes />
+		<!-- <Quotes />
 		<MethodologyAndCredits />
-		<Footer />
+		<Footer /> -->
 	</div>
 </main>
