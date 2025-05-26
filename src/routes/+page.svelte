@@ -76,7 +76,7 @@
 				<Lazy keep={true} height="100vh" offset="100vh">
 					{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 						{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
-							<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} />
+							<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} {ScrollTrigger} />
 						{/await}
 					{/await}
 				</Lazy>

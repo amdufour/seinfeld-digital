@@ -1,6 +1,5 @@
 <script>
-	import { inview } from 'svelte-inview';
-	import { catalogIsInView } from '../../stores/catalogIsInView';
+  import { onMount } from "svelte";
 	import { episodesInfo } from '$lib/data/episodesInfo';
 	import { formatTime } from '../../utils/formatTime';
 	import { scaleLinear } from 'd3-scale';
@@ -10,7 +9,7 @@
 	import SonificationPlayer from './sonification/SonificationPlayer.svelte';
 	import EpisodeScore from './episodeScore/EpisodeScore.svelte';
 
-	let { episodesData, sonificationCharactersData, sonificationLocationData } = $props();
+	let { episodesData, sonificationCharactersData, sonificationLocationData, ScrollTrigger } = $props();
 
 	let innerWidth = $state(1200);
 	let innerHeight = $state(800);
@@ -91,20 +90,22 @@
 			.range([0, scenesWidth])
 	);
 
-	const options = {};
+	onMount(() => {
+    // Pin seasons strip
+		ScrollTrigger.create({
+			trigger: '#catalog',
+			start: 'top top',
+			end: 'bottom bottom',
+			pin: '#catalog #seasons-strip'
+		});
+	});
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <div
 	id="catalog"
-	class="flex w-screen overflow-hidden pb-12"
-	style="height: {innerWidth <= 539 ? 'calc(100vh + 56px)' : '100vh'};"
-	use:inview={options}
-	oninview_change={(/** @type {{ detail: { inView: any; }; }} */ event) => {
-		const { inView } = event.detail;
-		$catalogIsInView = inView;
-	}}
+	class="flex w-screen pb-12"
 >
 	{#if innerWidth >= 1280}
 		<div id="seasons-strip">
@@ -135,7 +136,7 @@
 
 		<!-- Episode data -->
 		<div class="score-wrapper">
-			<div style="max-height: {vizHeight}px; overflow: scroll; padding-bottom: 20px;">
+			<div style="padding-bottom: 20px;">
 				<EpisodeScore
 					episodeData={currentEpisodeData}
 					width={scenesWidth}
@@ -156,15 +157,5 @@
 <style>
 	.score-wrapper {
 		position: relative;
-	}
-	.score-wrapper:after {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 50px;
-		background: rgb(249, 245, 247);
-		background: linear-gradient(0deg, rgba(249, 245, 247, 1) 0%, rgba(249, 245, 247, 0) 100%);
 	}
 </style>

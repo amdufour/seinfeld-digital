@@ -1,4 +1,6 @@
 <script>
+	import { inview } from 'svelte-inview';
+	import { navBarColor } from '../../stores/navbarColor';
 	import { seasons } from '$lib/data/seasons';
 	import { isEpisodeValid } from '../../utils/isEpisodeValid';
 	import { getRandomEpisode } from '../../utils/getRandom';
@@ -72,6 +74,11 @@
 
 <div
 	style="width: {innerWidth >= 1280 ? 'calc(100vw - 425px)' : '100vw'}; background-color: #E71D80;"
+	use:inview={{}}
+	oninview_change={(/** @type {{ detail: { inView: any; }; }} */ event) => {
+		const { inView } = event.detail;
+		$navBarColor = inView ? 'white' : 'pink';
+	}}
 >
 	<div
 		class="flex flex-nowrap items-center justify-between px-4 py-3"

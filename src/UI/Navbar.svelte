@@ -18,18 +18,7 @@
 		showMenu = !showMenu;
 	};
 
-	let color = $derived.by(() => {
-		switch (true) {
-			// case catalogIsInView && innerWidth >= 540:
-			// 	return '#F9F5F7';
-			// case catalogIsInView && innerWidth < 540:
-			// 	return '#E71D80';
-			case $navBarColor === 'white':
-				return '#F9F5F7';
-			default:
-				return '#E71D80';
-		}
-	});
+	let color = $derived($navBarColor === 'white' ? '#F9F5F7' : '#E71D80');
 </script>
 
 <svelte:window bind:innerWidth />
