@@ -1,4 +1,4 @@
-type EpisodeData = {
+export type EpisodeData = {
     doubleLocation: string;
     episode: string;
     eventAttribute: string;

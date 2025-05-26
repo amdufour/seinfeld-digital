@@ -65,7 +65,7 @@
 					<Quotes />
 				</Lazy>
 				<Lazy keep={true} height="100vh" offset="100vh">
-					<MainCharsSection />
+					<MainCharsSection {episodesData} />
 				</Lazy>
 				<Lazy keep={true} height="100vh" offset="100vh">
 					<SupportingCharsSection />

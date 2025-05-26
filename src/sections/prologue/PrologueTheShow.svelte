@@ -5,7 +5,7 @@
 	import tv_noise from '$lib/assets/tv_noise.png';
 
 	let innerWidth = $state(1600);
-	let sideSpacing = $derived(innerWidth >= 1280 ? (innerWidth - 1280) / 2 : 30)
+	let sideSpacing = $derived(innerWidth >= 1536 ? (innerWidth - 1536) / 2 : 30)
 
 	let isMouseOn1 = $state(false);
 	let isMouseOn2 = $state(false);

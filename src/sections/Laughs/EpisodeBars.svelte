@@ -35,7 +35,6 @@
     );
 
     let minutes = ['00', "05", "10", "15", "20", "25", "30"];
-    $inspect(topMargin)
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />

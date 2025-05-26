@@ -8,7 +8,7 @@
 <!-- Text 1 -->
 <div
 	class="flex w-screen items-center justify-center"
-	style="height: calc(150vh + 260px); padding-top: calc(50vh + 260px);"
+	style="height: calc(150vh + 260px);"
 >
 	<div class="text-overlay" use:inview={options} oninview_enter={() => episodeStepChange(1)}>
 		Let’s take <span class="em">The Marine Biologist</span>, episode 14 of Season 5, as a worked
