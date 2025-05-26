@@ -372,12 +372,13 @@ function execute_derived(derived) {
 }
 function update_derived(derived) {
   var value = execute_derived(derived);
-  var status = (skip_reaction || (derived.f & UNOWNED) !== 0) && derived.deps !== null ? MAYBE_DIRTY : CLEAN;
-  set_signal_status(derived, status);
   if (!derived.equals(value)) {
     derived.v = value;
     derived.wv = increment_write_version();
   }
+  if (is_destroying_effect) return;
+  var status = (skip_reaction || (derived.f & UNOWNED) !== 0) && derived.deps !== null ? MAYBE_DIRTY : CLEAN;
+  set_signal_status(derived, status);
 }
 const old_values = /* @__PURE__ */ new Map();
 function source(v, stack) {
