@@ -1,4 +1,5 @@
 <script>
+	import Lazy from 'svelte-lazy';
 	import PrologueLateArrival from './PrologueLateArrival.svelte';
 	import PrologueTimeline from './PrologueTimeline.svelte';
 	import PrologueTheShow from './PrologueTheShow.svelte';
@@ -13,7 +14,13 @@
 	<PrologueLateArrival />
 	<PrologueVideo />
 	<PrologueTimeline {ScrollTrigger} />
-	<PrologueTheShow />
-	<PrologueRythmAndTexture {ScrollTrigger} />
-	<PrologueBook {ScrollTrigger} />
+	<Lazy keep={true} height="100vh">
+		<PrologueTheShow />
+	</Lazy>
+	<Lazy keep={true} height="100vh">
+		<PrologueRythmAndTexture {ScrollTrigger} />
+	</Lazy>
+	<Lazy keep={true} height="100vh">
+		<PrologueBook {ScrollTrigger} />
+	</Lazy>
 </section>

@@ -44,9 +44,7 @@
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#title-screen',
-				start: 'top 20%',
-				end: 'bottom+=40% top',
-				toggleActions: 'play reverse play reverse'
+				start: 'top 20%'
 			}
 		});
 		tl.from('.season-rect', {
