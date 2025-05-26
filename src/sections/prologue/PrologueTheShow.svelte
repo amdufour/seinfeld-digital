@@ -194,7 +194,7 @@
 					></div>
 				</div>
 				<div class="mask">
-					<h5 class="mt-2">S8E3 - The Bizzaro Jerry</h5>
+					<h5 class="mt-2 ml-2">S8E3 - The Bizzaro Jerry</h5>
 				</div>
 			</div>
 			<div class="col-span-7 md:col-span-3 mask">
@@ -210,8 +210,8 @@
 			onmouseenter={() => handleMouseEnter(3)}
 			onmouseleave={() => handleMouseLeave(3)}
 		>
-			<div class="col-auto md:col-span-1"></div>
-			<div class="col-span-12 md:col-span-10">
+			<div class="col-auto md:col-span-2"></div>
+			<div class="col-span-12 md:col-span-8">
 				<div class="mask">
 					<div class="text">
 						<div>It rejected the classic three-act story, sidestepping sentimentality and the pursuit of resolution. With its mantra of <span class="em">no hugging*, no learning</span> the lead characters were insecure and entertainingly flawed, lacking any desire and capability for personal growth.</div>
