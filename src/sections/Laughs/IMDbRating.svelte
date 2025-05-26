@@ -50,7 +50,7 @@
 
             <!-- Label -->
             <text 
-                class="small accent" 
+                class="small accent label" 
                 x={6} 
                 y={30}>IMDb rating</text>
 
@@ -58,6 +58,7 @@
                 <!-- IMDb rating bars -->
                 {#each episodesData as episode}
                     <rect
+                      class="bar"
                       x={0}
                       y={episodeVerticalPositionScale(`${episode.season}-${episode.episode}`)}
                       width={

@@ -13,7 +13,7 @@
 	let innerHeight = $state(800);
 	let isAllEpisodesInView = $state(false);
 	let stripHeight = $derived.by(() => {
-		return isAllEpisodesInView ? innerHeight - 100 : innerHeight;
+		return isAllEpisodesInView ? innerHeight - 130 : innerHeight;
 	});
 
   const currentSeason = 5;

@@ -47,7 +47,7 @@
 
             <!-- Label -->
             <text 
-                class="small accent" 
+                class="small accent label" 
                 x={6} 
                 y={30}>Laugh rate</text>
 
@@ -55,6 +55,7 @@
                 <!-- Laugh rate bars -->
                 {#each episodesData as episode}
                     <rect
+                        class="bar"
                         x={0}
                         y={episodeVerticalPositionScale(`${episode.season}-${episode.episode}`)}
                         width={percentageScale(episode.laughs.length * 5 / episode.duration)}

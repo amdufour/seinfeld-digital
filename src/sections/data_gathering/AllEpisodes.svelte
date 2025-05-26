@@ -14,7 +14,7 @@
 
     let innerWidth = $state(1600);
     let innerHeight = $state(800);
-    let topMargin = $derived((innerHeight - (innerHeight - 100)) / 2);
+    let topMargin = $derived((innerHeight - stripHeight) / 2);
     let smallChartWidth = $derived(innerWidth / 10);
 
     let episodeVerticalPositionScale = $derived(
@@ -56,8 +56,19 @@
 		});
 
         // Texts timelines
-        gsap.set('#all-episodes #episode-bars, #all-episodes #laugh-rate rect, #all-episodes #imdb-rating rect', {
-            translateX: -100,
+        gsap.set('#all-episodes .episode-bar, #all-episodes #laugh-rate .bar, #all-episodes #imdb-rating .bar', {
+            translateX: -200
+        });
+        gsap.set('#all-episodes #laughs', {
+            translateY: 50,
+            opacity: 0
+        });
+        gsap.set('#all-episodes #episode-bars .label', {
+            translateY: -50,
+            opacity: 0
+        });
+        gsap.set('#all-episodes #laugh-rate .label, #all-episodes #imdb-rating .label', {
+            translateX: -50,
             opacity: 0
         });
         gsap.set('#all-episodes .avg-label, #all-episodes .avg-line', {
@@ -70,12 +81,29 @@
 				start: 'top center'
 			}
 		});
-        tl1.to('#all-episodes #episode-bars',{
-            translateX: 0,
-            opacity: 1,
-            ease: 'power3.out',
-            duration: 2
-        });
+        tl1
+            .to('#all-episodes .episode-bar',{
+                translateX: 0,
+                ease: 'power3.out',
+                duration: 1,
+                stagger: {
+                    each: 0.01,
+                    from: 'start',
+                    ease: 'none'
+                }
+            })
+            .to('#all-episodes #laughs', {
+                translateY: 0,
+                opacity: 1,
+                ease: 'power3.out',
+                duration: 0.8
+            }, '>-1')
+            .to('#all-episodes #episode-bars .label', {
+                translateY: 0,
+                opacity: 1,
+                ease: 'power3.out',
+                duration: 1
+            }, '>-1');
 
         const tl2 = gsap.timeline({
 			scrollTrigger: {
@@ -84,18 +112,28 @@
 			}
 		});
         tl2
-            .to('#all-episodes #laugh-rate rect',{
+            .to('#all-episodes #laugh-rate .bar',{
+                translateX: 0,
+                ease: 'power3.out',
+                duration: 1,
+                stagger: {
+                    each: 0.01,
+                    from: 'start',
+                    ease: 'none'
+                }
+            })
+            .to('#all-episodes #laugh-rate .label',{
                 translateX: 0,
                 opacity: 1,
                 ease: 'power3.out',
-                duration: 2
-            })
+                duration: 1
+            }, '<-0.8')
             .to('#all-episodes #laugh-rate .avg-label, #all-episodes #laugh-rate .avg-line',{
                 translateY: 0,
                 opacity: 1,
                 ease: 'power3.out',
                 duration: 1
-            }, '<0.8');
+            }, '<-0.8');
 
         const tl3 = gsap.timeline({
 			scrollTrigger: {
@@ -104,18 +142,28 @@
 			}
 		});
         tl3
-            .to('#all-episodes #imdb-rating rect',{
+            .to('#all-episodes #imdb-rating .bar',{
+                translateX: 0,
+                ease: 'power3.out',
+                duration: 1,
+                stagger: {
+                    each: 0.01,
+                    from: 'start',
+                    ease: 'none'
+                }
+            })
+            .to('#all-episodes #imdb-rating .label',{
                 translateX: 0,
                 opacity: 1,
                 ease: 'power3.out',
-                duration: 2
-            })
+                duration: 1
+            }, '<-0.8')
             .to('#all-episodes #imdb-rating .avg-label, #all-episodes #imdb-rating .avg-line',{
                 translateY: 0,
                 opacity: 1,
                 ease: 'power3.out',
                 duration: 1
-            }, '<0.8')
+            }, '<-0.8')
 	});
 </script>
 
