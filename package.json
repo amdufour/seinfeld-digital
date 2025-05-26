@@ -45,7 +45,6 @@
 		"d3-scale": "^4.0.2",
 		"gsap": "^3.12.5",
 		"lenis": "^1.1.17",
-		"react-bootstrap": "^2.10.10",
 		"svelte-inview": "^4.0.4",
 		"tone": "^15.0.4"
 	}
