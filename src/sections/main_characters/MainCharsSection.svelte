@@ -6,11 +6,11 @@
 </script>
 
 <section>
-	<!-- <SectionTitle section="main_char" title="Lead Characters" /> -->
-	<!-- <div class="flex h-screen w-screen items-center">
+	<SectionTitle section="main_char" title="Lead Characters" />
+	<div class="flex h-screen w-screen items-center">
 		<div class="container">
 			<div>PLACEHOLDER Screen time details</div>
 		</div>
-	</div> -->
+	</div>
 	<Marimekko />
 </section>

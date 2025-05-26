@@ -36,14 +36,21 @@
 		}, 4000);
 	});
 
-	const options = {};
+	const showOnlyLatest = true;
 </script>
 
 <main>
 	<Navbar />
+	{#if showOnlyLatest}
+		{#await json(episodesDataUrl) then episodesData}
+			<div class="bg-white text-black">
+				<MainCharsSection {episodesData} />
+			</div>
+		{/await}
+	{:else}
 	<div
 		class="text-white"
-		use:inview={options}
+		use:inview={{}}
 		oninview_change={(/** @type {{ detail: { inView: any; }; }} */ event) => {
 			const { inView } = event.detail;
 			$navBarColor = inView ? 'white' : 'pink';
@@ -88,4 +95,5 @@
 		<MethodologyAndCredits />
 		<Footer />
 	</div>
+		{/if}
 </main>

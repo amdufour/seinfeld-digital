@@ -58,7 +58,7 @@
     <!-- Marimekko chart -->
     <svg width={chartWidth} height={chartHeight} style="border: 1px solid cyan;">
       <g transform='translate(30, {chartHeight / 2})'>
-        {#each charsData as char}
+        {#each charsData as char, i}
           <g transform='translate({char.paddingLeft}, 0)'>
             <!-- Name and Image -->
             <g transform='translate({char.screenTimeWidth / 2 - imageHeight / 2}, {-chartHeight / 2})'>
@@ -71,6 +71,50 @@
                 text-anchor="middle"
               >{char.label}</text>
             </g>
+
+            <!-- Labels -->
+            <line 
+              x1={0} 
+              y1={-char.laughsWidth - 4} 
+              x2={char.screenTimeWidth} 
+              y2={-char.laughsWidth - 4} 
+              stroke={i === 0 ? '#E71D80' : '#12020A'} 
+            />
+            <line 
+              x1={-4} 
+              y1={-char.laughsWidth} 
+              x2={-4} 
+              y2={char.noLaughsWidth} 
+              stroke={i === 0 ? '#E71D80' : '#12020A'} 
+            />
+            <line 
+              x1={-8} 
+              y1={0} 
+              x2={0} 
+              y2={0} 
+              stroke={i === 0 ? '#E71D80' : '#12020A'} 
+            />
+
+            {#if i === 0}
+              <text
+                class="small accent"
+                x={0}
+                y={-char.laughsWidth + 10}
+              >Relative screen time</text>
+              <text
+                class="small accent"
+                style="transform: translateX(94px) translateY(-8px) rotate(-90deg); transform-origin: 0 0;"
+                x={0}
+                y={-char.laughsWidth + 10}
+              >Laughter</text>
+              <text
+                class="small accent"
+                style="transform: translateX(94px) translateY(8px) rotate(-90deg); transform-origin: 0 0;"
+                x={0}
+                y={-char.laughsWidth + 10}
+                text-anchor="end"
+              >Non-laughter</text>
+            {/if}
 
             <!-- Laughs -->
             <rect
