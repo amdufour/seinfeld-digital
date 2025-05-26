@@ -61,7 +61,7 @@
 <svelte:window bind:innerWidth />
 
 <div class="bg-black text-white py-80">
-	<div class="container flex h-screen items-center">
+	<div class="px-4 flex h-screen items-center">
 		<ul class="quotes-list">
 			{#each quotesToDisplay as quote, i}
 				<li class="inline">

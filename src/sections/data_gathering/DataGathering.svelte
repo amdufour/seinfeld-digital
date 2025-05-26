@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import gsap from "gsap";
   import SeasonsStrip from "../../UI/SeasonsStrip.svelte";
   import DataGatheringDetails from "./DataGatheringDetails.svelte";
   import EpisodeExample from "./EpisodeExample.svelte";

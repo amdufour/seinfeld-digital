@@ -14,7 +14,7 @@
 
     let innerWidth = $state(1600);
     let innerHeight = $state(800);
-    let topMargin = $derived((innerHeight - stripHeight) / 2);
+    let topMargin = $derived((innerHeight - (innerHeight - 130)) / 2);
     let smallChartWidth = $derived(innerWidth / 10);
 
     let episodeVerticalPositionScale = $derived(
@@ -51,13 +51,13 @@
 		ScrollTrigger.create({
 			trigger: '#all-episodes',
 			start: 'top top',
-			end: 'bottom bottom',
+            end: 'bottom bottom',
 			pin: '#all-episodes-visualizations'
 		});
 
         // Texts timelines
         gsap.set('#all-episodes .episode-bar, #all-episodes #laugh-rate .bar, #all-episodes #imdb-rating .bar', {
-            translateX: -200
+            translateX: -300
         });
         gsap.set('#all-episodes #laughs', {
             translateY: 50,
@@ -169,7 +169,7 @@
 
 <svelte:window bind:innerWidth />
 
-<div id="all-episodes" class="relative mt-60" style="width: calc(100vw - 25);">
+<div id="all-episodes" class="relative my-60 pb-80" style="width: calc(100vw - 25);">
     <div id="all-episodes-visualizations" class="h-screen flex absolute top-0 left-0" style="width: calc(100vw - 25);">
         <EpisodeBars 
             {episodesData} 

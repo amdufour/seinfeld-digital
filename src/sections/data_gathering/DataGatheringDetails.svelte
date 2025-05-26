@@ -77,8 +77,6 @@
 			scrollTrigger: {
 				trigger: '#data-gathering-1',
 				start: 'top center',
-                end: 'bottom top',
-				toggleActions: 'play reverse play reverse',
                 onEnter: () => playLaughs(),
                 onEnterBack: () => playLaughs(),
                 onLeave: () => clearTimeout(playLoop),
@@ -88,17 +86,13 @@
 		const tl2 = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#data-gathering-2',
-				start: 'top center',
-                end: 'bottom top',
-				toggleActions: 'play reverse play reverse'
+				start: 'top center'
 			}
 		});
 		const tl3 = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#data-gathering-3',
-				start: 'top center',
-                end: 'bottom top',
-				toggleActions: 'play reverse play reverse'
+				start: 'top center'
 			}
 		});
 
