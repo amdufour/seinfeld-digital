@@ -13,7 +13,7 @@
 
   let chartWidth = $derived(containerWidth - 64 <= 1200 ? containerWidth - 64 : 1200);
   let chartHeight = $derived(innerHeight - headerHeight - 60);
-  let imageHeight = $derived(chartHeight / 5);
+  let imageHeight = $derived(chartHeight / 5.5);
 
   // Calculate the total width of the Marimekko bars
   let totalBarsScreenTime = $derived(
@@ -57,114 +57,123 @@
     </div>
 
     <!-- Marimekko chart -->
-    <svg width={chartWidth} height={chartHeight}>
-      <g transform='translate(40, {chartHeight / 2})'>
-        {#each charsData as char, i}
-          <g transform='translate({char.paddingLeft}, 0)'>
-            <!-- Name and Image -->
-            <g transform='translate({char.screenTimeWidth / 2 - imageHeight / 2}, {-chartHeight / 2})'>
-              <foreignobject width={imageHeight} height={imageHeight}>
-                <img src="{getCharacterImagePath(char.id)}" alt={char.label} style="width: 100%; height: auto; border-radius: 50%;" />
+    <div class="relative">
+      <svg width={chartWidth} height={chartHeight}>
+        <g transform='translate(40, {chartHeight / 2})'>
+          {#each charsData as char, i}
+            <g transform='translate({char.paddingLeft}, 0)'>
+              <!-- Name and Image -->
+              <g transform='translate({char.screenTimeWidth / 2 - imageHeight / 2}, {-chartHeight / 2})'>
+                <foreignobject width={imageHeight} height={imageHeight}>
+                  <img src="{getCharacterImagePath(char.id)}" alt={char.label} style="width: 100%; height: auto; border-radius: 50%;" />
+                </foreignobject>
+                <text
+                  x={imageHeight / 2}
+                  y={imageHeight + 22}
+                  text-anchor="middle"
+                >{char.label}</text>
+              </g>
+
+              <!-- Labels -->
+              <line 
+                x1={0} 
+                y1={-char.laughsWidth - 6} 
+                x2={char.screenTimeWidth} 
+                y2={-char.laughsWidth - 6} 
+                stroke={i === 0 ? '#E71D80' : '#12020A'} 
+              />
+              <line 
+                x1={-6} 
+                y1={-char.laughsWidth} 
+                x2={-6} 
+                y2={char.noLaughsWidth} 
+                stroke={i === 0 ? '#E71D80' : '#12020A'} 
+              />
+              <line 
+                x1={-12} 
+                y1={0} 
+                x2={0} 
+                y2={0} 
+                stroke={i === 0 ? '#E71D80' : '#12020A'} 
+              />
+              <g transform={`translate(${char.screenTimeWidth - 7}, ${-char.laughsWidth - 11.5})`}>
+                <ArrowHead color={i === 0 ? '#E71D80' : '#12020A'} />
+              </g>
+              <g transform={`translate(${-11.5}, ${-char.laughsWidth + 7.5}) rotate(-90)`}>
+                <ArrowHead color={i === 0 ? '#E71D80' : '#12020A'} />
+              </g>
+              <g transform={`translate(${-0.5}, ${char.noLaughsWidth - 7}) rotate(90)`}>
+                <ArrowHead color={i === 0 ? '#E71D80' : '#12020A'} />
+              </g>
+              <g class="number" style="font-size: 0.875rem;">
+                <text 
+                  x={char.screenTimeWidth - 10}
+                  y={-char.laughsWidth - 10}
+                  text-anchor="end"
+                >{char.screenTime * 100}%</text>
+                <text 
+                  x={-10}
+                  y={-char.laughsWidth + 6}
+                  text-anchor="end"
+                  dominant-baseline="hanging"
+                >{Math.floor(char.causeLaughsWhileOnScreen * 100)}%</text>
+                <text 
+                  x={-10}
+                  y={char.noLaughsWidth - 8}
+                  text-anchor="end"
+                >{Math.floor(char.onScreenWithoutLaughs * 100)}%</text>
+              </g>
+
+              {#if i === 0}
+                <text
+                  class="small accent"
+                  x={0}
+                  y={-char.laughsWidth + 8}
+                >Relative screen time</text>
+                <text
+                  class="small accent"
+                  style="transform: translateX(94px) translateY(-4px) rotate(-90deg); transform-origin: 0 0;"
+                  x={0}
+                  y={-char.laughsWidth + 4}
+                >Laughter</text>
+                <text
+                  class="small accent"
+                  style="transform: translateX(94px) translateY(4px) rotate(-90deg); transform-origin: 0 0;"
+                  x={0}
+                  y={-char.laughsWidth + 4}
+                  text-anchor="end"
+                >Non-laughter</text>
+              {/if}
+
+              <!-- Laughs -->
+              <rect
+                x={0}
+                y={-char.laughsWidth}
+                width={char.screenTimeWidth}
+                height={char.laughsWidth}
+                fill={characters.find(c => c.id === char.id)?.color || 'gray'}
+              />
+
+              <!-- No Laugh -->
+              <rect
+                x={0}
+                y={0}
+                width={char.screenTimeWidth}
+                height={char.noLaughsWidth}
+                fill={characters.find(c => c.id === char.id)?.color || 'gray'}
+                fill-opacity="0.5"
+              />
+
+              <!-- Text -->
+              <foreignobject width={char.screenTimeWidth} height={char.noLaughsWidth}>
+                <div class="px-4 py-2">
+                  <div class="small">{char.text}</div>
+                </div>
               </foreignobject>
-              <text
-                x={imageHeight / 2}
-                y={imageHeight + 22}
-                text-anchor="middle"
-              >{char.label}</text>
             </g>
-
-            <!-- Labels -->
-            <line 
-              x1={0} 
-              y1={-char.laughsWidth - 6} 
-              x2={char.screenTimeWidth} 
-              y2={-char.laughsWidth - 6} 
-              stroke={i === 0 ? '#E71D80' : '#12020A'} 
-            />
-            <line 
-              x1={-6} 
-              y1={-char.laughsWidth} 
-              x2={-6} 
-              y2={char.noLaughsWidth} 
-              stroke={i === 0 ? '#E71D80' : '#12020A'} 
-            />
-            <line 
-              x1={-12} 
-              y1={0} 
-              x2={0} 
-              y2={0} 
-              stroke={i === 0 ? '#E71D80' : '#12020A'} 
-            />
-            <g transform={`translate(${char.screenTimeWidth - 7}, ${-char.laughsWidth - 11.5})`}>
-              <ArrowHead color={i === 0 ? '#E71D80' : '#12020A'} />
-            </g>
-            <g transform={`translate(${-11.5}, ${-char.laughsWidth + 7.5}) rotate(-90)`}>
-              <ArrowHead color={i === 0 ? '#E71D80' : '#12020A'} />
-            </g>
-            <g transform={`translate(${-0.5}, ${char.noLaughsWidth - 7}) rotate(90)`}>
-              <ArrowHead color={i === 0 ? '#E71D80' : '#12020A'} />
-            </g>
-            <g class="number" style="font-size: 0.875rem;">
-              <text 
-                x={char.screenTimeWidth - 10}
-                y={-char.laughsWidth - 10}
-                text-anchor="end"
-              >{char.screenTime * 100}%</text>
-              <text 
-                x={-10}
-                y={-char.laughsWidth + 6}
-                text-anchor="end"
-                dominant-baseline="hanging"
-              >{Math.floor(char.causeLaughsWhileOnScreen * 100)}%</text>
-              <text 
-                x={-10}
-                y={char.noLaughsWidth - 8}
-                text-anchor="end"
-              >{Math.floor(char.onScreenWithoutLaughs * 100)}%</text>
-            </g>
-
-            {#if i === 0}
-              <text
-                class="small accent"
-                x={0}
-                y={-char.laughsWidth + 11}
-              >Relative screen time</text>
-              <text
-                class="small accent"
-                style="transform: translateX(94px) translateY(-4px) rotate(-90deg); transform-origin: 0 0;"
-                x={0}
-                y={-char.laughsWidth + 4}
-              >Laughter</text>
-              <text
-                class="small accent"
-                style="transform: translateX(94px) translateY(4px) rotate(-90deg); transform-origin: 0 0;"
-                x={0}
-                y={-char.laughsWidth + 4}
-                text-anchor="end"
-              >Non-laughter</text>
-            {/if}
-
-            <!-- Laughs -->
-            <rect
-              x={0}
-              y={-char.laughsWidth}
-              width={char.screenTimeWidth}
-              height={char.laughsWidth}
-              fill={characters.find(c => c.id === char.id)?.color || 'gray'}
-            />
-
-            <!-- No Laugh -->
-            <rect
-              x={0}
-              y={0}
-              width={char.screenTimeWidth}
-              height={char.noLaughsWidth}
-              fill={characters.find(c => c.id === char.id)?.color || 'gray'}
-              fill-opacity="0.5"
-            />
-          </g>
-        {/each}
-      </g>
-    </svg>
+          {/each}
+        </g>
+      </svg>
+    </div>
   </div>
 </div>
