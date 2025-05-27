@@ -47,7 +47,8 @@
 	};
 
     onMount(() => {
-		// Pin vsualizations
+		setTimeout(() => {
+            // Pin vsualizations
 		ScrollTrigger.create({
 			trigger: '#all-episodes',
 			start: 'top top',
@@ -67,7 +68,7 @@
             translateY: -50,
             opacity: 0
         });
-        gsap.set('#all-episodes #laugh-rate .label, #all-episodes #imdb-rating .label', {
+        gsap.set('#laugh-rate .label, #all-episodes #imdb-rating .label', {
             translateX: -50,
             opacity: 0
         });
@@ -75,6 +76,7 @@
             translateY: 50,
             opacity: 0
         });
+
         const tl1 = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#all-episodes-1',
@@ -85,12 +87,7 @@
             .to('#all-episodes .episode-bar',{
                 translateX: 0,
                 ease: 'power3.out',
-                duration: 1,
-                stagger: {
-                    each: 0.01,
-                    from: 'start',
-                    ease: 'none'
-                }
+                duration: 1
             })
             .to('#all-episodes #laughs', {
                 translateY: 0,
@@ -115,12 +112,7 @@
             .to('#all-episodes #laugh-rate .bar',{
                 translateX: 0,
                 ease: 'power3.out',
-                duration: 1,
-                stagger: {
-                    each: 0.01,
-                    from: 'start',
-                    ease: 'none'
-                }
+                duration: 1
             })
             .to('#all-episodes #laugh-rate .label',{
                 translateX: 0,
@@ -145,12 +137,7 @@
             .to('#all-episodes #imdb-rating .bar',{
                 translateX: 0,
                 ease: 'power3.out',
-                duration: 1,
-                stagger: {
-                    each: 0.01,
-                    from: 'start',
-                    ease: 'none'
-                }
+                duration: 1
             })
             .to('#all-episodes #imdb-rating .label',{
                 translateX: 0,
@@ -164,12 +151,13 @@
                 ease: 'power3.out',
                 duration: 1
             }, '<-0.8')
+        }, 3000);
 	});
 </script>
 
 <svelte:window bind:innerWidth />
 
-<div id="all-episodes" class="relative my-60 pb-80" style="width: calc(100vw - 25);">
+<div id="all-episodes" class="relative mt-96 mb-0 pb-80" style="width: calc(100vw - 25px);">
     <div id="all-episodes-visualizations" class="h-screen flex absolute top-0 left-0" style="width: calc(100vw - 25);">
         <EpisodeBars 
             {episodesData} 

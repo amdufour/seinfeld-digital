@@ -100,8 +100,8 @@
             {/each}
         </g>
     </svg>
-    <svg id="laughs" class="absolute top-0 left-0" width={width + 50} height={barsHeight + 70} style="margin-left: -25px;">
-        <g transform="translate(25, 50)">
+    <svg id="laughs" class="absolute top-0 left-0 pointer-events-none" width={width + 50} height={barsHeight + 70} style="margin-left: -25px;">
+        <g transform="translate(25, 65)">
             {#each episodesData as episode}
                 <!-- Laugh bars -->
                 {#each episode.laughs as laugh}

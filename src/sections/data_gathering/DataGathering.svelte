@@ -34,24 +34,26 @@
 	);
 
   onMount(() => {
-    // Pin seasons strip
-		ScrollTrigger.create({
-			trigger: '#data-gathering',
-			start: 'top top',
-			end: 'bottom bottom',
-			pin: '#data-gathering #seasons-strip'
-		});
-		
-		// Change seasons strip height on scroll
-		ScrollTrigger.create({
-			trigger: '#all-episodes',
-			start: 'top center',
-			end: 'bottom top',
-			onEnter: () => isAllEpisodesInView = true,
-			onLeave: () => isAllEpisodesInView = false,
-			onEnterBack: () => isAllEpisodesInView = true,
-			onLeaveBack: () => isAllEpisodesInView = false,
-		});
+    setTimeout(() => {
+			// Pin seasons strip
+			ScrollTrigger.create({
+				trigger: '#data-gathering',
+				start: 'top top',
+				end: 'bottom bottom',
+				pin: '#data-gathering #seasons-strip'
+			});
+			
+			// Change seasons strip height on scroll
+			ScrollTrigger.create({
+				trigger: '#all-episodes',
+				start: 'top center',
+				end: 'bottom top',
+				onEnter: () => isAllEpisodesInView = true,
+				onLeave: () => isAllEpisodesInView = false,
+				onEnterBack: () => isAllEpisodesInView = true,
+				onLeaveBack: () => isAllEpisodesInView = false,
+			});
+		}, 3000);
   })
 </script>
 
