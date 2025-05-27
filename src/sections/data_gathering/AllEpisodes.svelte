@@ -58,7 +58,8 @@
 
         // Texts timelines
         gsap.set('#all-episodes .episode-bar, #all-episodes #laugh-rate .bar, #all-episodes #imdb-rating .bar', {
-            translateX: -300
+            translateX: -300,
+            opacity: 0
         });
         gsap.set('#all-episodes #laughs', {
             translateY: 50,
@@ -86,6 +87,7 @@
         tl1
             .to('#all-episodes .episode-bar',{
                 translateX: 0,
+                opacity: 1,
                 ease: 'power3.out',
                 duration: 1
             })
@@ -111,6 +113,7 @@
         tl2
             .to('#all-episodes #laugh-rate .bar',{
                 translateX: 0,
+                opacity: 1,
                 ease: 'power3.out',
                 duration: 1
             })
@@ -136,6 +139,7 @@
         tl3
             .to('#all-episodes #imdb-rating .bar',{
                 translateX: 0,
+                opacity: 1,
                 ease: 'power3.out',
                 duration: 1
             })
