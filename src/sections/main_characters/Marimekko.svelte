@@ -48,7 +48,7 @@
 
 <svelte:window bind:innerWidth={innerWidth} bind:innerHeight={innerHeight} />
 
-<div class="h-screen w-screen">
+<div class="h-screen w-screen mb-60">
   <div class="container" bind:clientWidth={containerWidth}>
     <!-- Header -->
     <div bind:clientHeight={headerHeight} class="mb-8">

@@ -1,6 +1,7 @@
 <script>
 	import SectionTitle from '../SectionTitle.svelte';
 	import Marimekko from './Marimekko.svelte';
+	import PeakPerformances from './PeakPerformances.svelte';
 
 	let { episodesData } = $props();
 </script>
@@ -13,4 +14,5 @@
 		</div>
 	</div>
 	<Marimekko />
+	<PeakPerformances />
 </section>
