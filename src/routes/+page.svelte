@@ -63,8 +63,10 @@
 		<Title />
 	</div>
 	<div class="bg-white text-black">
-		<Calendar {ScrollTrigger} />
-		<Lazy keep={true}>
+		<Lazy keep={true} height="100vh" offset="100vh">
+			<Calendar {ScrollTrigger} />
+		</Lazy>
+		<Lazy keep={true} offset="100vh">
 			{#await json(episodesDataUrl) then episodesData}
 				<DataGathering {episodesData} {ScrollTrigger} />
 				<IntroEnd />

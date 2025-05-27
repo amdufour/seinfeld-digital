@@ -14,13 +14,13 @@
 	<PrologueLateArrival />
 	<PrologueVideo />
 	<PrologueTimeline {ScrollTrigger} />
-	<Lazy keep={true} height="100vh">
+	<Lazy keep={true} height="100vh" offset="100vh">
 		<PrologueTheShow />
 	</Lazy>
-	<Lazy keep={true} height="100vh">
+	<Lazy keep={true} height="100vh" offset="100vh">
 		<PrologueRythmAndTexture {ScrollTrigger} />
 	</Lazy>
-	<Lazy keep={true} height="100vh">
+	<Lazy keep={true} height="100vh" offset="100vh">
 		<PrologueBook {ScrollTrigger} />
 	</Lazy>
 </section>

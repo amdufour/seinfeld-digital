@@ -103,7 +103,7 @@
 			/>
 		{/each}
 	</svg>
-	<div class="container h-full">
+	<div class="container">
 		<div style="margin-top: -25px; max-width: 940px;">
 			<h1>The Seinfield Chronicles</h1>
 		</div>
