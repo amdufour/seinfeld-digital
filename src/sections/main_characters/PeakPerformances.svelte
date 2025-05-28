@@ -18,7 +18,7 @@
 
   let containerWidth = $state(1200);
 
-  let chartWidth = $derived(containerWidth - 64 <= 1200 ? containerWidth - 64 - 252 : 1200 - 252);
+  let chartWidth = $derived(containerWidth - 64 <= 1200 ? containerWidth - 64 - 400 : 1200 - 400);
   let chartHeight = 545;
 
   const charLaughterRateScale = $derived(
@@ -89,7 +89,7 @@
 
     <div class="flex items-stretch">
       <!-- Character Selector -->
-      <div class="flex flex-col items-center mr-8">
+      <div class="flex flex-col items-center shrink-0 mr-8">
         <div class="small flex items-center gap-2" style="max-width: 220px;">
           <span class="shrink"><HelpIcon color="#E71D80" /></span>
           <span class="relative top-1">Select a character to reveal their performances.</span>
@@ -108,7 +108,7 @@
       </div>
 
       <!-- Scatterplot -->
-      <svg width={chartWidth + 32} height={chartHeight + 32}>
+      <svg class="shrink-0" width={chartWidth + 32} height={chartHeight + 32}>
         <g transform='translate(30, 1)'>
           <rect
             x={0}
