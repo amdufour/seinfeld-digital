@@ -192,12 +192,21 @@
           </g>
 
           <!-- Circles size legend -->
-          <!-- <g transform="translate({chartWidth - 80}, 24)">
-            <circle
-              cx={50}
-
-            />
-          </g> -->
+          <g transform="translate({chartWidth - 160}, 40)" dominant-baseline="hanging">
+            <text class="small accent">Screen time</text>
+            <g transform="translate(18, 0)">
+              <circle cx={0} cy={28} r={10} fill="#DDDBDC" />
+              <text class="number" y={40} text-anchor="middle">100%</text>
+            </g>
+            <g transform="translate(70, 0)">
+              <circle cx={0} cy={28} r={6} fill="#DDDBDC" />
+              <text class="number" y={40} text-anchor="middle">60%</text>
+            </g>
+            <g transform="translate(122, 0)">
+              <circle cx={0} cy={28} r={3} fill="#DDDBDC" />
+              <text class="number" y={40} text-anchor="middle">30%</text>
+            </g>
+          </g>
         </g>
       </svg>
 
