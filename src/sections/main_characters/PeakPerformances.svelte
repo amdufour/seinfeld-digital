@@ -7,7 +7,13 @@
   import { episodesInfo } from "$lib/data/episodesInfo";
   import EpisodeTooltip from "../../UI/EpisodeTooltip.svelte";
 
-  const mainChars = $derived(characters.slice(0, 4));
+  const mainChars = characters.slice(0, 4);
+  const orderedChars = $state(mainChars.map(char => {
+    return {
+      ...char,
+      isActive: false
+    }
+  }));
 
   let containerWidth = $state(1200);
 
@@ -42,6 +48,21 @@
 	const handleMouseLeave = () => {
 		isTooltipVisible = false;
 	};
+
+  const handleCharacterClick = (/** @type {string} */ char) => {
+    orderedChars.sort((a, b) => {
+      if (a.id === char) return 1;
+      else if (b.id === char) return -1;
+      else return 0;
+    });
+    orderedChars.forEach(c => {
+      if (c.id === char) {
+        c.isActive = !c.isActive; // Toggle active state
+      } else {
+        c.isActive = false; // Deactivate others
+      }
+    });
+  };
 </script>
 
 <div id="peak-performances-container" class="w-screen pb-80 relative">
@@ -63,7 +84,7 @@
         <ul class="flex flex-col mt-4">
           {#each mainChars as char}
             <li class="my-2">
-              <button class="flex flex-col character-button">
+              <button class="flex flex-col character-button {orderedChars.find(c => c.id === char.id)?.isActive ? 'active' : ''}" onclick={() => handleCharacterClick(char.id)}>
                 <div class="character rounded-full bg-contain bg-center opacity-50" 
                      style="background-image: url('{getCharacterImagePath(char.id)}'); width: 75px; height: 75px;"></div>
                 <div>{char.label}</div>
@@ -101,10 +122,10 @@
           <text class="number" x={charLaughterRateScale(0.5) + 4} y={chartHeight - 4}>50%</text>
           <text class="number" x={4} y={charShareLaughScale(0.5) - 4}>50%</text>
 
-          {#each mainChars as char}
+          {#each orderedChars as char}
             {#each performances as episode}
               <circle
-                class="performance performance-{char.id}"
+                class="performance performance-{char.id} {char.isActive ? 'active' : ''}"
                 cx={charLaughterRateScale(episode.charsBreakdown.find(c => c.id === char.id).laughterRate)}
                 cy={charShareLaughScale(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs)}
                 r={relativeScreenTimeRateScale(episode.charsBreakdown.find(c => c.id === char.id).relativeScreenTime)}
@@ -132,22 +153,27 @@
   .character {
     transition: opacity 0.3s ease-out;
   }
-  .character-button:hover .character {
+  .character-button:hover .character,
+  .character-button.active .character {
     opacity: 1;
   }
   .performance {
     transition: fill 0.3s ease-out;
   }
-  .performance-JERRY:hover {
+  .performance-JERRY:hover,
+  .performance-JERRY.active {
     fill: #5FA8D3;
   }
-  .performance-GEORGE:hover {
+  .performance-GEORGE:hover,
+  .performance-GEORGE.active {
     fill: #EB6447;
   }
-  .performance-ELAINE:hover {
+  .performance-ELAINE:hover,
+  .performance-ELAINE.active {
     fill: #FBBA3A;
   }
-  .performance-KRAMER:hover {
+  .performance-KRAMER:hover,
+  .performance-KRAMER.active {
     fill: #83C8C3;
   }
 </style>
