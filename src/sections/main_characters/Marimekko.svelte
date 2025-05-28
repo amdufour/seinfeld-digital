@@ -128,7 +128,7 @@
                 <text
                   class="small accent"
                   x={0}
-                  y={-char.laughsWidth + 8}
+                  y={-char.laughsWidth}
                 >Relative screen time</text>
                 <text
                   class="small accent"

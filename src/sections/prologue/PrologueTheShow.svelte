@@ -1,11 +1,14 @@
 <script>
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap/dist/gsap';
+	import Lazy from 'svelte-lazy';
 	import { soundIsAuth } from '../../stores/soundAuthStore';
 	import tv_noise from '$lib/assets/tv_noise.png';
 
 	let innerWidth = $state(1600);
-	let sideSpacing = $derived(innerWidth >= 1536 ? (innerWidth - 1536) / 2 : 30)
+	let sideSpacing = $derived(innerWidth >= 1536 ? (innerWidth - 1536) / 2 : 30);
+	let gridWidth = $state(1500);
+	let colWidth = $derived((gridWidth - 11 * 16) / 12);
 
 	let isMouseOn1 = $state(false);
 	let isMouseOn2 = $state(false);
@@ -143,7 +146,9 @@
 		<!-- The show about nothing -->
 		<div
 			id="the-show-1"
-			class="grid grid-cols-12 gap-4 mb-24" role="presentation"
+			class="grid grid-cols-12 gap-4 mb-24" 
+			role="presentation"
+			bind:clientWidth={gridWidth}
 			onmouseenter={() => handleMouseEnter(1)}
 			onmouseleave={() => handleMouseLeave(1)}
 		>
@@ -152,12 +157,14 @@
 			<div class="col-span-5">
 				<!-- svelte-ignore a11y_media_has_caption -->
 				 <div class="relative video-container">
-					<video playsinline autoplay bind:muted={isMuted1} loop>
-						<source
-							src="https://amdufour.github.io/hosted-data/apis/videos/6c.ShowAboutNothing.mp4"
-							type="video/mp4"
-						/>
-					</video>
+					<Lazy keep={true} height={340 * 5 * colWidth / 604} offset="100vh">
+						<video playsinline autoplay bind:muted={isMuted1} loop>
+							<source
+								src="https://amdufour.github.io/hosted-data/apis/videos/6c.ShowAboutNothing.mp4"
+								type="video/mp4"
+							/>
+						</video>
+					</Lazy>
 					<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
 					<div
 						class="absolute z-10 bottom-0 left-0 right-0 top-0"
@@ -181,12 +188,14 @@
 			<div class="col-span-5 md:col-span-7">
 				<!-- svelte-ignore a11y_media_has_caption -->
 				 <div class="relative video-container">
-					<video playsinline autoplay bind:muted={isMuted2} loop>
-						<source
-							src="https://amdufour.github.io/hosted-data/apis/videos/32.Minutiae.mp4"
-							type="video/mp4"
-						/>
-					</video>
+					<Lazy keep={true} height={340 * 7 * colWidth / 604} offset="100vh">
+						<video playsinline autoplay bind:muted={isMuted2} loop>
+							<source
+								src="https://amdufour.github.io/hosted-data/apis/videos/32.Minutiae.mp4"
+								type="video/mp4"
+							/>
+						</video>
+					</Lazy>
 					<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
 					<div
 						class="absolute bottom-0 left-0 right-0 top-0"
@@ -214,19 +223,21 @@
 			<div class="col-span-12 md:col-span-8">
 				<div class="mask">
 					<div class="text">
-						<div>It rejected the classic three-act story, sidestepping sentimentality and the pursuit of resolution. With its mantra of <span class="em">no hugging*, no learning</span> the lead characters were insecure and entertainingly flawed, lacking any desire and capability for personal growth.</div>
+						<div>It rejected the classic three-act story, sidestepping sentimentality and the pursuit of resolution. With its mantra of <span class="highlight" style="-webkit-text-fill-color: transparent">no hugging*, no learning</span> the lead characters were insecure and entertainingly flawed, lacking any desire and capability for personal growth.</div>
 						<div class="number mt-2 mb-4">* the earlier clip not withstanding!</div>
 					</div>
 				</div>
 				<div>
 					<!-- svelte-ignore a11y_media_has_caption -->
 					<div class="relative video-container">
-						<video playsinline autoplay bind:muted={isMuted3} loop>
-							<source
-								src="https://amdufour.github.io/hosted-data/apis/videos/11a.GoodSamaritan.mp4"
-								type="video/mp4"
-							/>
-						</video>
+						<Lazy keep={true} height={340 * 8 * colWidth / 604} offset="100vh">
+							<video playsinline autoplay bind:muted={isMuted3} loop>
+								<source
+									src="https://amdufour.github.io/hosted-data/apis/videos/11a.GoodSamaritan.mp4"
+									type="video/mp4"
+								/>
+							</video>
+						</Lazy>
 						<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
 						<div
 							class="absolute bottom-0 left-0 right-0 top-0"
@@ -252,15 +263,17 @@
 			<div class="col-span-6 md:col-span-5 mask">
 				<div class="text">As with any shows from its time, as <a href="https://www.theguardian.com/culture/2024/oct/16/jerry-seinfeld-tom-papa-breaking-bad-podcast-interview-politics-comedy-extreme-left-pc-crap-#:~:text=%E2%80%9CDoes%20culture%20change,my%20skiing%20analogy.%E2%80%9D" target="_blank">culture and society evolve</a> a contemporary lens exposes negative stereotypes and flashes of chauvinism and sizeism, to name but two isms. The amoral instincts of these <a href="https://www.theguardian.com/tv-and-radio/2018/may/10/no-hugging-no-learning-20-years-on-seinfelds-mantra-still-looms-large" target="_blank">anti-heroes</a> was most on-show in their romantic encounters and when faced with the slightest adversity or irrational annoyance.</div>
 			</div>
-			<div class="col-span-5 md:col-span-5">
+			<div class="col-span-5">
 				<!-- svelte-ignore a11y_media_has_caption -->
 				 <div class="relative video-container">
-					<video playsinline autoplay bind:muted={isMuted4} loop>
-						<source
-							src="https://amdufour.github.io/hosted-data/apis/videos/13a.TheNose.mp4"
-							type="video/mp4"
-						/>
-					</video>
+					<Lazy keep={true} height={340 * 5 * colWidth / 604} offset="100vh">
+						<video playsinline autoplay bind:muted={isMuted4} loop>
+							<source
+								src="https://amdufour.github.io/hosted-data/apis/videos/13a.TheNose.mp4"
+								type="video/mp4"
+							/>
+						</video>
+					</Lazy>
 					<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
 					<div
 						class="absolute bottom-0 left-0 right-0 top-0"
@@ -290,12 +303,14 @@
 				<div>
 					<!-- svelte-ignore a11y_media_has_caption -->
 					<div class="relative video-container">
-						<video playsinline autoplay bind:muted={isMuted5} loop>
-							<source
-								src="https://amdufour.github.io/hosted-data/apis/videos/14.ElaineDancing.mp4"
-								type="video/mp4"
-							/>
-						</video>
+						<Lazy keep={true} height={340 * 10 * colWidth / 604} offset="100vh">
+							<video playsinline autoplay bind:muted={isMuted5} loop>
+								<source
+									src="https://amdufour.github.io/hosted-data/apis/videos/14.ElaineDancing.mp4"
+									type="video/mp4"
+								/>
+							</video>
+						</Lazy>
 						<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
 						<div
 							class="absolute bottom-0 left-0 right-0 top-0"

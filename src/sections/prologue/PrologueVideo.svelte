@@ -24,9 +24,7 @@
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#prologue-video',
-				start: 'top top',
-				end: 'bottom center',
-				toggleActions: 'play reverse play reverse'
+				start: 'top top'
 			}
 		});
 		tl.from('#stroked-title-s4e4', {

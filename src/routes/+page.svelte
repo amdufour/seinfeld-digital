@@ -5,7 +5,6 @@
 	import { gsap } from 'gsap/dist/gsap';
 	import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 	gsap.registerPlugin(ScrollTrigger);
-	import Lazy from 'svelte-lazy';
 
 	import { navBarColor } from '../stores/navbarColor';
 	import { soundAuthModaleIsOpen } from '../stores/soundAuthStore';
@@ -63,35 +62,21 @@
 		<Title />
 	</div>
 	<div class="bg-white text-black">
-		<Lazy keep={true} height="100vh" offset="100vh">
 			<Calendar {ScrollTrigger} />
-		</Lazy>
-		<Lazy keep={true} offset="100vh">
 			{#await json(episodesDataUrl) then episodesData}
 				<DataGathering {episodesData} {ScrollTrigger} />
 				<IntroEnd />
-				<Lazy keep={true} height="100vh" offset="100vh">
-					<Quotes />
-				</Lazy>
-				<Lazy keep={true} height="100vh" offset="100vh">
-					<MainCharsSection {episodesData} />
-				</Lazy>
-				<Lazy keep={true} height="100vh" offset="100vh">
-					<SupportingCharsSection />
-				</Lazy>
-				<Lazy keep={true} height="100vh" offset="100vh">
-					<LocationsSection />
-				</Lazy>
+				<Quotes />
+				<MainCharsSection {episodesData} />
+				<SupportingCharsSection />
+				<LocationsSection />
 				{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 					{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
 						<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} {ScrollTrigger} />
 					{/await}
 				{/await}
 			{/await}
-		</Lazy>
-		<Lazy keep={true} height="100vh" offset="100vh">
 			<Quotes />
-		</Lazy>
 		<MethodologyAndCredits />
 		<Footer />
 	</div>

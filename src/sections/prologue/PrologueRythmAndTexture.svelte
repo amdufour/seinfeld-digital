@@ -69,6 +69,7 @@
 			id: 'parallax-2',
 			isMuted: true,
 			position: 'top: 0px; right: 150px; width: 500px;',
+			height: 500 * 349 / 604,
 			fileName: '8.KramerCigarette',
 			episode: ' S5E4 - The Sniffing Accountant'
 		},
@@ -76,6 +77,7 @@
 			id: 'parallax-3',
 			isMuted: true,
 			position: 'top: 400px; left: 50px; width: 280px;',
+			height: 280 * 349 / 604,
 			fileName: 'Elaine1b',
 			episode: 'S8E12 - The Money'
 		},
@@ -83,6 +85,7 @@
 			id: 'parallax-4',
 			isMuted: true,
 			position: 'top: 600px; left: 50%; width: 300px;',
+			height: 300 * 349 / 604,
 			fileName: '26.JerryFriend',
 			episode: 'S1E4 - Male Unbonding'
 		},
@@ -90,6 +93,7 @@
 			id: 'parallax-1',
 			isMuted: true,
 			position: 'top: 800px; left: 50%; transform: translate(-110%); width: 600px;',
+			height: 600 * 349 / 604,
 			fileName: '24b.Jerrys',
 			episode: 'S3E2 - The Truth'
 		},
@@ -97,6 +101,7 @@
 			id: 'parallax-5',
 			isMuted: true,
 			position: 'top: 1200px; right: 50px; width: 300px;',
+			height: 300 * 349 / 604,
 			fileName: 'KramerJeans2',
 			episode: 'S7E21 - The Wait Out'
 		}
@@ -111,6 +116,7 @@
 		videos.find((vid) => vid.id === e.target.classList[1]).isMuted = true;
 	};
 </script>
+
 
 <div style="padding-bottom: 300px">
 	<div class="relative">
