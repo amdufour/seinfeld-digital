@@ -1,4 +1,5 @@
 <script>
+	import Lazy from 'svelte-lazy';
 	import { quotes } from '$lib/data/quotes';
 	import { seasons } from '$lib/data/seasons';
 	import { soundIsAuth } from '../../stores/soundAuthStore';
@@ -60,35 +61,38 @@
 
 <svelte:window bind:innerWidth />
 
+
 <div class="bg-black text-white py-80">
-	<div class="container px-4 flex h-screen items-center">
-		<ul class="quotes-list">
-			{#each quotesToDisplay as quote, i}
-				<li class="inline">
-					{#if i > 0}
-						<span class="px-4">{'•'}</span>
-					{/if}
-					<div
-						class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-						style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.color}`}
-					>
-						{#if quote.revised_quote_text.length > 0}
-							{quote.revised_quote_text}
-						{:else}
-							{quote.quote}
+	<Lazy keep={true} height="100vh" offset="100vh">
+		<div class="container px-4 flex h-screen items-center">
+			<ul class="quotes-list">
+				{#each quotesToDisplay as quote, i}
+					<li class="inline">
+						{#if i > 0}
+							<span class="px-4">{'•'}</span>
 						{/if}
-						<span
-							class="quote-info small absolute left-0 top-7 w-96"
-							role="contentinfo"
-							onmouseenter={() => playQuote(quote.audio_clip_id, quote.duration)}
-							onfocus={() => {}}
-							>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
+						<div
+							class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
+							style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.color}`}
 						>
-					</div>
-				</li>
-			{/each}
-		</ul>
-	</div>
+							{#if quote.revised_quote_text.length > 0}
+								{quote.revised_quote_text}
+							{:else}
+								{quote.quote}
+							{/if}
+							<span
+								class="quote-info small absolute left-0 top-7 w-96"
+								role="contentinfo"
+								onmouseenter={() => playQuote(quote.audio_clip_id, quote.duration)}
+								onfocus={() => {}}
+								>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
+							>
+						</div>
+					</li>
+				{/each}
+			</ul>
+		</div>
+	</Lazy>
 </div>
 
 <style>
