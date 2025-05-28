@@ -4,9 +4,14 @@
 	import Lenis from 'lenis';
 	import { soundIsAuth } from '../../stores/soundAuthStore';
 	import tv_noise from '$lib/assets/tv_noise.png';
+  import { characters } from '$lib/data/characters';
+  import { getCharacterImagePath } from '../../utils/getCharacterImagePath';
+
+  const supportingChars = $derived(characters.slice(4, characters.length - 1));
+  $inspect(supportingChars)
 
   onMount(() => {
-    gsap.set('#supporting_chars p', { translateY: 100, opacity: 0 });
+    gsap.set('#supporting_chars p, #supporting_chars .supporting-char', { translateY: 100, opacity: 0 });
 
     const tl1 = gsap.timeline({
       scrollTrigger: {
@@ -36,7 +41,7 @@
         start: 'top top<20%'
       }
     });
-    tl1
+    tl2
       .to('#supporting_chars_screen_2 p', {
         translateY: 0,
         opacity: 1,
@@ -49,6 +54,35 @@
         duration: 2,
         delay: 1,
         ease: 'power3.out'
+      }, '<-0.5');
+
+    const tl3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#supporting_chars_screen_3',
+        start: 'top center'
+      }
+    });
+    tl3
+      .to('#supporting_chars_screen_3 p', {
+        translateY: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out',
+        stagger: { each: 0.3 }
+      })
+      .to('#supporting_chars_screen_3 .highlight', {
+        webkitTextFillColor: 'transparent',
+        backgroundPosition: '200% center',
+        duration: 2,
+        delay: 1,
+        ease: 'power3.out'
+      }, '<-0.5')
+      .to('#supporting_chars_screen_3 .supporting-char', {
+        translateY: 0,
+        opacity: 1,
+        duration: 0.7,
+        ease: 'power3.out',
+        stagger: { each: 0.1, from: 'random' }
       }, '<-0.5');
 
     // Add parallax effect to videos
@@ -83,8 +117,7 @@
   let video1IsMuted = $state(true);
   let video2IsMuted = $state(true);
   const handleVideoMouseEnter = (/** @type {number} */ video) => {
-    console.log(video)
-		if ($soundIsAuth) {
+    if ($soundIsAuth) {
 			video1IsMuted = video === 1 ? false : true;
 			video2IsMuted = video === 2 ? false : true;
 		}
@@ -121,7 +154,7 @@
             <div class="col-span-3">
               <div
                 class={`parallax`}
-                data-speed={-0.5}
+                data-speed={0.5}
                 role="presentation"
                 onmouseenter={() => handleVideoMouseEnter(1)}
                 onmouseleave={handleVideoMouseLeave}
@@ -172,6 +205,28 @@
     </div>
   </div>
 
+  <!-- Screen 3 -->
+  <div id="supporting_chars_screen_3" class="h-screen w-screen">
+    <div class="container">
+      <div class="grid grid-cols-12 gap-20">
+        <div class="col-span-7 h-screen flex flex-col justify-center">
+          <p>The ultimate decision was to create categories for the four respective families of the lead characters, as well as groupings for acquaintances - specifically, love interests, friends, neighbours, colleagues - and then a final other persons group to sweep up the growing list of transient characters.</p>
+          <p>When classifying supporting characters, it was <span class="highlight">their central purpose in that episode</span> that informed their grouping, e.g. a friend of Elaine's who dates George would be considered a love interest, rather than a friend. Some supporting characters were therefore alternated into different groupings across the show (e.g. a former love interest may shift to become a friend, and vice-versa).</p>
+        </div>
+        <div class="col-span-4 flex items-center">
+          <div class="grid grid-cols-2 gap-8 flex-wrap">
+            {#each supportingChars as char}
+              <div class="supporting-char flex flex-col items-center">
+                <div class="character rounded-full bg-contain bg-center" 
+                     style="background-image: url('{getCharacterImagePath(char.id)}'); width: 75px; height: 75px;"></div>
+                <div>{char.label}</div>
+              </div>
+            {/each}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
