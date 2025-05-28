@@ -16,7 +16,7 @@
 
 	let tooltipWidth = $derived(innerWidth < 500 ? innerWidth - 40 : 432);
 	let tooltipLeftPosition = $derived(
-		position[0] > innerWidth / 2 ? position[0] - tooltipWidth - 10 : position[0] + 10
+		position[0] > innerWidth / 2 ? position[0] - tooltipWidth - 20 : position[0] + 20
 	);
 	let tooltipTopPosition = $derived.by(() => {
 		switch (true) {

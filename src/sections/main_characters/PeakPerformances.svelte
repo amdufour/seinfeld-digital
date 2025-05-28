@@ -7,6 +7,7 @@
   import { episodesInfo } from "$lib/data/episodesInfo";
   import EpisodeTooltip from "../../UI/EpisodeTooltip.svelte";
   import ArrowDown from "../../icons/ArrowDown.svelte";
+  $inspect(performances, 'performances');
 
   const mainChars = characters.slice(0, 4);
   const orderedChars = $state(mainChars.map(char => {
@@ -37,18 +38,22 @@
 
   let isTooltipVisible = $state(false);
 	let hoveredEpisode = $state();
+	let hoveredChar = $state('');
 	let mousePosition = $state();
 	const handleMouseEnter = (
 		/** @type {MouseEvent & { currentTarget: EventTarget & SVGGElement; }} */ e,
-		/** @type {any} */ episode
+		/** @type {any} */ episode,
+		/** @type {string} */ char
 	) => {
 		mousePosition = [e.clientX, e.clientY];
 		isTooltipVisible = true;
+    hoveredChar = char;
 		hoveredEpisode = episodesInfo.find(ep => ep.season === episode.seasonNum && ep.episode === episode.episode);
   };
 	const handleMouseLeave = () => {
 		isTooltipVisible = false;
 	};
+  $inspect(hoveredEpisode, 'hoveredEpisode');
 
   const handleCharacterClick = (/** @type {string} */ char) => {
     orderedChars.sort((a, b) => {
@@ -120,12 +125,46 @@
             y2={charShareLaughScale(0.5)}
             stroke="#BEBABC"
           />
-          <text class="number" x={charLaughterRateScale(0.5) + 4} y={chartHeight - 4}>50%</text>
-          <text class="number" x={4} y={charShareLaughScale(0.5) - 4}>50%</text>
+          <g class="number" fill-opacity={isTooltipVisible ? 0 : 1}>
+            <text x={charLaughterRateScale(0.5) + 4} y={chartHeight - 4}>50%</text>
+            <text x={4} y={charShareLaughScale(0.5) - 4}>50%</text>
+          </g>
 
           <g>
             {#each orderedChars as char}
               {#each performances as episode}
+                {#if isTooltipVisible && hoveredEpisode.season === episode.seasonNum && hoveredEpisode.episode === episode.episode && char.id === hoveredChar}
+                  <line
+                    x1={charLaughterRateScale(episode.charsBreakdown.find(c => c.id === char.id).laughterRate)}
+                    y1={0}
+                    x2={charLaughterRateScale(episode.charsBreakdown.find(c => c.id === char.id).laughterRate)}
+                    y2={chartHeight}
+                    stroke="#12020A"
+                    stroke-dasharray="5 5"
+                  />
+                  <line
+                    x1={0}
+                    y1={charShareLaughScale(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs)}
+                    x2={chartWidth}
+                    y2={charShareLaughScale(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs)}
+                    stroke="#12020A"
+                    stroke-dasharray="5 5"
+                  />
+                  <text 
+                    class="number"
+                    x={charLaughterRateScale(episode.charsBreakdown.find(c => c.id === char.id).laughterRate) - 4} 
+                    y={chartHeight - 4}
+                    text-anchor="end">
+                      {`${Math.floor(episode.charsBreakdown.find(c => c.id === char.id).laughterRate * 100)}%`}
+                    </text>
+                  <text 
+                    class="number"
+                    x={4} 
+                    y={charShareLaughScale(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs) > 50 ? charShareLaughScale(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs) - 4 : charShareLaughScale(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs) + 16}>
+                      {`${Math.floor(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs * 100)}%`}
+                    </text>
+                {/if}
+
                 <circle
                   class="performance performance-{char.id} {char.isActive ? 'active' : ''}"
                   cx={charLaughterRateScale(episode.charsBreakdown.find(c => c.id === char.id).laughterRate)}
@@ -133,7 +172,7 @@
                   r={relativeScreenTimeRateScale(episode.charsBreakdown.find(c => c.id === char.id).relativeScreenTime)}
                   fill={"#DDDBDC"}
                   role="document"
-                  onmouseenter={(e) => handleMouseEnter(e, episode)}
+                  onmouseenter={(e) => handleMouseEnter(e, episode, char.id)}
                   onmouseleave={handleMouseLeave}
                 />
               {/each}
@@ -153,8 +192,10 @@
               <ArrowDown />
             </g>
           </g>
-          <text class="small accent" x={4} y={16}>Higher share of laughs</text>
-          <text class="small accent" x={chartWidth - 4} y={chartHeight - 6} text-anchor="end">Higher rate of laughs</text>
+          <g class="small accent">
+            <text x={4} y={16}>Higher share of laughs</text>
+            <text x={chartWidth - 4} y={chartHeight - 6} text-anchor="end">Higher rate of laughs</text>
+          </g>
         </g>
       </svg>
     </div>
