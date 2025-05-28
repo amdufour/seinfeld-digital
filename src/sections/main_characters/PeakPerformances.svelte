@@ -7,7 +7,6 @@
   import { episodesInfo } from "$lib/data/episodesInfo";
   import EpisodeTooltip from "../../UI/EpisodeTooltip.svelte";
   import ArrowDown from "../../icons/ArrowDown.svelte";
-  $inspect(performances, 'performances');
 
   const mainChars = characters.slice(0, 4);
   const orderedChars = $state(mainChars.map(char => {
@@ -38,6 +37,7 @@
 
   let isTooltipVisible = $state(false);
 	let hoveredEpisode = $state();
+	let hoveredEpisodeData = $state();
 	let hoveredChar = $state('');
 	let mousePosition = $state();
 	const handleMouseEnter = (
@@ -48,6 +48,7 @@
 		mousePosition = [e.clientX, e.clientY];
 		isTooltipVisible = true;
     hoveredChar = char;
+    hoveredEpisodeData = episode;
 		hoveredEpisode = episodesInfo.find(ep => ep.season === episode.seasonNum && ep.episode === episode.episode);
   };
 	const handleMouseLeave = () => {
@@ -69,6 +70,12 @@
       }
     });
   };
+
+  const statWidth = 80;
+  const statHeight = 10;
+  const statScale = scaleLinear()
+    .domain([0, 1])
+    .range([0, statWidth]);
 </script>
 
 <div id="peak-performances-container" class="w-screen pb-80 relative">
@@ -80,7 +87,7 @@
     </div>
     </div>
 
-    <div class="flex">
+    <div class="flex items-stretch">
       <!-- Character Selector -->
       <div class="flex flex-col items-center mr-8">
         <div class="small flex items-center gap-2" style="max-width: 220px;">
@@ -150,19 +157,6 @@
                     stroke="#12020A"
                     stroke-dasharray="5 5"
                   />
-                  <text 
-                    class="number"
-                    x={charLaughterRateScale(episode.charsBreakdown.find(c => c.id === char.id).laughterRate) - 4} 
-                    y={chartHeight - 4}
-                    text-anchor="end">
-                      {`${Math.floor(episode.charsBreakdown.find(c => c.id === char.id).laughterRate * 100)}%`}
-                    </text>
-                  <text 
-                    class="number"
-                    x={4} 
-                    y={charShareLaughScale(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs) > 50 ? charShareLaughScale(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs) - 4 : charShareLaughScale(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs) + 16}>
-                      {`${Math.floor(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs * 100)}%`}
-                    </text>
                 {/if}
 
                 <circle
@@ -196,8 +190,66 @@
             <text x={4} y={16}>Higher share of laughs</text>
             <text x={chartWidth - 4} y={chartHeight - 6} text-anchor="end">Higher rate of laughs</text>
           </g>
+
+          <!-- Circles size legend -->
+          <!-- <g transform="translate({chartWidth - 80}, 24)">
+            <circle
+              cx={50}
+
+            />
+          </g> -->
         </g>
       </svg>
+
+      <!-- Stats -->
+      {#if isTooltipVisible && innerWidth >= 793}
+        <div class="ml-2 pb-8 flex flex-col justify-center gap-4">
+          <!-- Laughter rate -->
+          <div>
+            <div class="small">Episode laughter rate</div>
+            <svg width={statWidth} height={statHeight + 18}>
+              <text 
+                class="number baselin"
+                dominant-baseline="hanging"
+              >
+                {`${Math.floor(hoveredEpisodeData.charsBreakdown.find(c => c.id === hoveredChar).laughterRate * 100)}%`}
+              </text>
+              <rect y={18} width={statWidth} height={statHeight} fill="#EEECED" />
+              <rect y={18} width={statScale(hoveredEpisodeData.charsBreakdown.find(c => c.id === hoveredChar).laughterRate)} height={statHeight} fill={mainChars.find(c => c.id === hoveredChar).color} />
+            </svg>
+          </div>
+
+          <!-- Share of episode laughs -->
+          <div>
+            <div class="small">Share of episode laughs</div>
+            <svg width={statWidth} height={statHeight + 18}>
+              <text 
+                class="number baselin"
+                dominant-baseline="hanging"
+              >
+                {`${Math.floor(hoveredEpisodeData.charsBreakdown.find(c => c.id === hoveredChar).shareOfLaughs * 100)}%`}
+              </text>
+              <rect y={18} width={statWidth} height={statHeight} fill="#EEECED" />
+              <rect y={18} width={statScale(hoveredEpisodeData.charsBreakdown.find(c => c.id === hoveredChar).shareOfLaughs)} height={statHeight} fill={mainChars.find(c => c.id === hoveredChar).color} />
+            </svg>
+          </div>
+
+          <!-- Screen time -->
+          <div>
+            <div class="small">Screen time</div>
+            <svg width={statWidth} height={statHeight + 18}>
+              <text 
+                class="number"
+                dominant-baseline="hanging"
+              >
+                {`${Math.floor(hoveredEpisodeData.charsBreakdown.find(c => c.id === hoveredChar).relativeScreenTime * 100)}%`}
+              </text>
+              <rect y={18} width={statWidth} height={statHeight} fill="#EEECED" />
+              <rect y={18} width={statScale(hoveredEpisodeData.charsBreakdown.find(c => c.id === hoveredChar).relativeScreenTime)} height={statHeight} fill={mainChars.find(c => c.id === hoveredChar).color} />
+            </svg>
+          </div>
+        </div>
+      {/if}
     </div>
   </div>
 
