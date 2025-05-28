@@ -4,7 +4,8 @@
   import { characters } from "$lib/data/characters";
   import { getCharacterImagePath } from "../../utils/getCharacterImagePath";
   import { performances } from "$lib/data/perfomances";
-  $inspect(performances);
+  import { episodesInfo } from "$lib/data/episodesInfo";
+  import EpisodeTooltip from "../../UI/EpisodeTooltip.svelte";
 
   const mainChars = $derived(characters.slice(0, 4));
 
@@ -17,18 +18,33 @@
     scaleLinear()
       .domain([0, 1])
       .range([0, chartWidth])
-  )
+  );
   const charShareLaughScale = $derived(
     scaleLinear()
       .domain([0, 0.7])
       .range([chartHeight, 0])
-  )
+  );
   const relativeScreenTimeRateScale = scaleRadial()
     .domain([0, 1])
-    .range([0, 10])
+    .range([0, 10]);
+
+  let isTooltipVisible = $state(false);
+	let hoveredEpisode = $state();
+	let mousePosition = $state();
+	const handleMouseEnter = (
+		/** @type {MouseEvent & { currentTarget: EventTarget & SVGGElement; }} */ e,
+		/** @type {any} */ episode
+	) => {
+		mousePosition = [e.clientX, e.clientY];
+		isTooltipVisible = true;
+		hoveredEpisode = episodesInfo.find(ep => ep.season === episode.seasonNum && ep.episode === episode.episode);
+  };
+	const handleMouseLeave = () => {
+		isTooltipVisible = false;
+	};
 </script>
 
-<div class="w-screen pb-80">
+<div id="peak-performances-container" class="w-screen pb-80 relative">
   <div class="container" bind:clientWidth={containerWidth}>
     <!-- Header -->
     <div class="mb-8">
@@ -41,7 +57,7 @@
       <!-- Character Selector -->
       <div class="flex flex-col items-center mr-8">
         <div class="small flex items-center gap-2" style="max-width: 220px;">
-          <span class="shrink"><HelpIcon /></span>
+          <span class="shrink"><HelpIcon color="#E71D80" /></span>
           <span class="relative top-1">Select a character to reveal their performances.</span>
         </div>
         <ul class="flex flex-col mt-4">
@@ -88,10 +104,14 @@
           {#each mainChars as char}
             {#each performances as episode}
               <circle
+                class="performance performance-{char.id}"
                 cx={charLaughterRateScale(episode.charsBreakdown.find(c => c.id === char.id).laughterRate)}
                 cy={charShareLaughScale(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs)}
                 r={relativeScreenTimeRateScale(episode.charsBreakdown.find(c => c.id === char.id).relativeScreenTime)}
                 fill={"#DDDBDC"}
+                role="document"
+					      onmouseenter={(e) => handleMouseEnter(e, episode)}
+					      onmouseleave={handleMouseLeave}
               />
             {/each}
           {/each}
@@ -99,6 +119,13 @@
       </svg>
     </div>
   </div>
+
+  <!-- Tooltip -->
+	{#if isTooltipVisible && innerWidth >= 793}
+		<div class="fixed z-20 top-0 left-0 right-0 bottom-0 pointer-events-none">
+			<EpisodeTooltip episode={hoveredEpisode} position={mousePosition} />
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -107,5 +134,20 @@
   }
   .character-button:hover .character {
     opacity: 1;
+  }
+  .performance {
+    transition: fill 0.3s ease-out;
+  }
+  .performance-JERRY:hover {
+    fill: #5FA8D3;
+  }
+  .performance-GEORGE:hover {
+    fill: #EB6447;
+  }
+  .performance-ELAINE:hover {
+    fill: #FBBA3A;
+  }
+  .performance-KRAMER:hover {
+    fill: #83C8C3;
   }
 </style>
