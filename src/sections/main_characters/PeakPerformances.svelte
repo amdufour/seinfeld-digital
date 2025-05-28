@@ -6,6 +6,7 @@
   import { performances } from "$lib/data/perfomances";
   import { episodesInfo } from "$lib/data/episodesInfo";
   import EpisodeTooltip from "../../UI/EpisodeTooltip.svelte";
+  import ArrowDown from "../../icons/ArrowDown.svelte";
 
   const mainChars = characters.slice(0, 4);
   const orderedChars = $state(mainChars.map(char => {
@@ -95,7 +96,7 @@
       </div>
 
       <!-- Scatterplot -->
-      <svg width={chartWidth + 32} height={chartHeight + 2}>
+      <svg width={chartWidth + 32} height={chartHeight + 32}>
         <g transform='translate(30, 1)'>
           <rect
             x={0}
@@ -122,20 +123,38 @@
           <text class="number" x={charLaughterRateScale(0.5) + 4} y={chartHeight - 4}>50%</text>
           <text class="number" x={4} y={charShareLaughScale(0.5) - 4}>50%</text>
 
-          {#each orderedChars as char}
-            {#each performances as episode}
-              <circle
-                class="performance performance-{char.id} {char.isActive ? 'active' : ''}"
-                cx={charLaughterRateScale(episode.charsBreakdown.find(c => c.id === char.id).laughterRate)}
-                cy={charShareLaughScale(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs)}
-                r={relativeScreenTimeRateScale(episode.charsBreakdown.find(c => c.id === char.id).relativeScreenTime)}
-                fill={"#DDDBDC"}
-                role="document"
-					      onmouseenter={(e) => handleMouseEnter(e, episode)}
-					      onmouseleave={handleMouseLeave}
-              />
+          <g>
+            {#each orderedChars as char}
+              {#each performances as episode}
+                <circle
+                  class="performance performance-{char.id} {char.isActive ? 'active' : ''}"
+                  cx={charLaughterRateScale(episode.charsBreakdown.find(c => c.id === char.id).laughterRate)}
+                  cy={charShareLaughScale(episode.charsBreakdown.find(c => c.id === char.id).shareOfLaughs)}
+                  r={relativeScreenTimeRateScale(episode.charsBreakdown.find(c => c.id === char.id).relativeScreenTime)}
+                  fill={"#DDDBDC"}
+                  role="document"
+                  onmouseenter={(e) => handleMouseEnter(e, episode)}
+                  onmouseleave={handleMouseLeave}
+                />
+              {/each}
             {/each}
-          {/each}
+          </g>
+
+          <!-- Axis labels -->
+          <g transform="translate(0, {chartHeight + 16})">
+            <text class="small accent" x={0} y={0}>Episode laughter rate</text>
+            <g transform="translate(144, -1) rotate(-90)">
+              <ArrowDown />
+            </g>
+          </g>
+          <g transform="translate(-8, {chartHeight}) rotate(-90)">
+            <text class="small accent" x={0} y={0}>Share of episode laughs</text>
+            <g transform="translate(163, -1) rotate(-90)">
+              <ArrowDown />
+            </g>
+          </g>
+          <text class="small accent" x={4} y={16}>Higher share of laughs</text>
+          <text class="small accent" x={chartWidth - 4} y={chartHeight - 6} text-anchor="end">Higher rate of laughs</text>
         </g>
       </svg>
     </div>
