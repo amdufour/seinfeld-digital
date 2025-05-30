@@ -1,6 +1,7 @@
 <script>
 	import Lazy from 'svelte-lazy';
 	import SectionTitle from '../SectionTitle.svelte';
+	import Marimekko from './Marimekko.svelte';
 </script>
 
 <section>
@@ -14,4 +15,5 @@
 			<div>PLACEHOLDER Locations section</div>
 		</div>
 	</div>
+	<Marimekko />
 </section>

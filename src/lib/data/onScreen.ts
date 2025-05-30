@@ -13,3 +13,17 @@ export const charsScreenTime = [
   { id: "Work colleague", label: "Colleague", screenTime: 0.08, causeLaughsWhileOnScreen: 0.26, onScreenWithoutLaughs: 0.74 },
   { id: "Other", label: "Other persons", screenTime: 0.21, causeLaughsWhileOnScreen: 0.21, onScreenWithoutLaughs: 0.79 },
 ];
+
+export const locationsScreenTime = [
+  { id: "Jerry's home", label: "Jerry's home", screenTime: 0.28, causeLaughsWhileOnScreen: 0.62, onScreenWithoutLaughs: 0.38 },
+  { id: "George's home", label: "George's home", screenTime: 0.01, causeLaughsWhileOnScreen: 0.60, onScreenWithoutLaughs: 0.40 },
+  { id: "Elaine's home", label: "Elaine's home", screenTime: 0.02, causeLaughsWhileOnScreen: 0.57, onScreenWithoutLaughs: 0.43 },
+  { id: "Kramer's home", label: "Kramer's home", screenTime: 0.01, causeLaughsWhileOnScreen: 0.71, onScreenWithoutLaughs: 0.29 },
+  { id: "Other family home", label: "Family home", screenTime: 0.02, causeLaughsWhileOnScreen: 0.63, onScreenWithoutLaughs: 0.37 },
+  { id: "Diner", label: "Diner", screenTime: 0.11, causeLaughsWhileOnScreen: 0.61, onScreenWithoutLaughs: 0.39 },
+  { id: "Place of leisure", label: "Place of leisure", screenTime: 0.10, causeLaughsWhileOnScreen: 0.58, onScreenWithoutLaughs: 0.42 },
+  { id: "Workplace", label: "Workplace", screenTime: 0.12, causeLaughsWhileOnScreen: 0.61, onScreenWithoutLaughs: 0.39 },
+  { id: "Transport", label: "Transport", screenTime: 0.05, causeLaughsWhileOnScreen: 0.58, onScreenWithoutLaughs: 0.42 },
+  { id: "Outside", label: "Outside", screenTime: 0.08, causeLaughsWhileOnScreen: 0.56, onScreenWithoutLaughs: 0.44 },
+  { id: "Other location", label: "Other location", screenTime: 0.19, causeLaughsWhileOnScreen: 0.59, onScreenWithoutLaughs: 0.41 }
+];

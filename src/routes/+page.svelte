@@ -43,7 +43,7 @@
 	{#if showOnlyLatest}
 		{#await json(episodesDataUrl) then episodesData}
 			<div class="bg-white text-black">
-				<SupportingCharsSection />
+				<LocationsSection />
 			</div>
 		{/await}
 	{:else}

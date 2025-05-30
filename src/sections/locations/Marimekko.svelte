@@ -2,8 +2,8 @@
   import { scaleLinear } from "d3-scale";
 
   import { characters } from "$lib/data/characters";
-  import { charsScreenTime } from "$lib/data/onScreen";
-  import { getCharacterImagePath } from "../../utils/getCharacterImagePath";
+  import { locationsScreenTime } from "$lib/data/onScreen";
+  import { getLocationIconPath } from "../../utils/getLocationIconPath";
   import ArrowHead from "../../icons/ArrowHead.svelte";
 
   let innerWidth = $state(1600);
@@ -13,13 +13,15 @@
 
   let chartWidth = $derived(containerWidth - 64);
   let chartHeight = $derived(innerHeight - headerHeight - 60 > 700 ? innerHeight - headerHeight - 60 : 700);
+  let chartMidPoint = $derived(chartHeight - chartHeight / 3.5);
   let imageHeight = 60;
 
   // Calculate the total width of the Marimekko bars
   let totalBarsScreenTime = $derived(
-    charsScreenTime.reduce((acc, char) => acc + char.screenTime, 0)
+    locationsScreenTime.reduce((acc, char) => acc + char.screenTime, 0)
   );
-  let widthCoverage = $derived(chartWidth - 80 - 12 * 50);
+  let widthCoverage = $derived(chartWidth - 80 - 10 * 50);
+  $inspect(chartWidth, widthCoverage)
 
   let screenTimeScale = $derived(
     scaleLinear()
@@ -29,15 +31,15 @@
 
   const laughsScale = $derived(
     scaleLinear()
-      .domain([0, Math.max(...charsScreenTime.map((char) => char.onScreenWithoutLaughs))])
-      .range([0, chartHeight / 2 - 8])
+      .domain([0, Math.max(...locationsScreenTime.map((char) => char.onScreenWithoutLaughs))])
+      .range([0, chartHeight / 3.5])
   );
 
   const charsData = $derived.by(() => {
-    const array = charsScreenTime;
+    const array = locationsScreenTime;
     array.forEach((char, i) => {
       char['screenTimeWidth'] = screenTimeScale(char.screenTime);
-      char['paddingLeft'] = i === 0 ? 0 : charsScreenTime.slice(0, i).reduce((acc, c) => acc + c.screenTimeWidth + 50, 0);
+      char['paddingLeft'] = i === 0 ? 0 : locationsScreenTime.slice(0, i).reduce((acc, c) => acc + c.screenTimeWidth + 50, 0);
       char['laughsWidth'] = laughsScale(char.causeLaughsWhileOnScreen);
       char['noLaughsWidth'] = laughsScale(char.onScreenWithoutLaughs);
     });
@@ -59,15 +61,15 @@
     <!-- Marimekko chart -->
     <div class="relative">
       <svg width={chartWidth} height={chartHeight}>
-        <g transform='translate(40, {chartHeight / 2})'>
+        <g transform='translate(40, {chartMidPoint})'>
           {#each charsData as char, i}
             <g transform='translate({char.paddingLeft}, 0)'>
-              <g transform='translate({char.screenTimeWidth / 2 - imageHeight / 2 - 10}, {-chartHeight / 2 + (i % 2 == 0 ? 0 : imageHeight + 16)})'>
+              <g transform='translate({char.screenTimeWidth / 2 - imageHeight / 2 - 10}, {-chartMidPoint + (i % 2 == 0 ? 0 : imageHeight + 16)})'>
                 <line
                   x1={imageHeight / 2 + 10}
                   y1={imageHeight + 10}
                   x2={imageHeight / 2 + 10}
-                  y2={chartHeight / 2 - char.laughsWidth - (i % 2 == 0 ? 30 : (imageHeight + 50))}
+                  y2={chartMidPoint - char.laughsWidth - (i % 2 == 0 ? 30 : (imageHeight + 50))}
                   stroke="#12020A"
                 />
                 <foreignobject width={imageHeight + 20} height={2 * imageHeight}>
@@ -79,9 +81,9 @@
           {#each charsData as char, i}
             <g transform='translate({char.paddingLeft}, 0)'>
               <!-- Name and Image -->
-              <g transform='translate({char.screenTimeWidth / 2 - imageHeight / 2 - 10}, {-chartHeight / 2 + (i % 2 == 0 ? 0 : imageHeight + 16)})'>
+              <g transform='translate({char.screenTimeWidth / 2 - imageHeight / 2 - 10}, {-chartMidPoint + (i % 2 == 0 ? 0 : imageHeight + 16)})'>
                 <foreignobject width={imageHeight + 20} height={2 * imageHeight}>
-                  <img src="{getCharacterImagePath(char.id)}" alt={char.label} style="width: {imageHeight}px; height: {imageHeight}px; border-radius: 50%; margin: 0 auto;" />
+                  <img src="{getLocationIconPath(char.id)}" alt={char.label} style="width: {imageHeight}px; height: {imageHeight}px; border-radius: 50%; margin: 0 auto;" />
                 </foreignobject>
               </g>
 
@@ -121,10 +123,10 @@
                   x={char.screenTime === 0.00 ? char.screenTimeWidth  : char.screenTimeWidth - 10}
                   y={-char.laughsWidth - 12}
                   text-anchor="end"
-                >{char.screenTime === 0.00 ? '<1' : char.screenTime * 100}%</text>
+                >{char.screenTime === 0.00 ? '<1' : Math.floor(char.screenTime * 100)}%</text>
                 <text 
                   x={-10}
-                  y={-char.laughsWidth}
+                  y={-char.laughsWidth + 6}
                   text-anchor="end"
                   dominant-baseline="hanging"
                 >{Math.floor(char.causeLaughsWhileOnScreen * 100)}%</text>
@@ -143,13 +145,13 @@
                 >Relative screen time</text>
                 <text
                   class="small accent"
-                  style="transform: translateX(94px) translateY(-4px) rotate(-90deg); transform-origin: 0 0;"
+                  style="transform: translateX(266px) translateY(-4px) rotate(-90deg); transform-origin: 0 0;"
                   x={0}
                   y={-char.laughsWidth + 4}
                 >Laughter</text>
                 <text
                   class="small accent"
-                  style="transform: translateX(94px) translateY(4px) rotate(-90deg); transform-origin: 0 0;"
+                  style="transform: translateX(266px) translateY(4px) rotate(-90deg); transform-origin: 0 0;"
                   x={0}
                   y={-char.laughsWidth + 4}
                   text-anchor="end"
@@ -162,7 +164,7 @@
                 y={-char.laughsWidth}
                 width={char.screenTimeWidth === 0 ? 1 : char.screenTimeWidth}
                 height={char.laughsWidth}
-                fill={characters.find(c => c.id === char.id)?.color || 'gray'}
+                fill={characters.find(c => c.id === char.id)?.color || '#12020A'}
               />
 
               <!-- No Laugh -->
@@ -171,7 +173,7 @@
                 y={0}
                 width={char.screenTimeWidth === 0 ? 1 : char.screenTimeWidth}
                 height={char.noLaughsWidth}
-                fill={characters.find(c => c.id === char.id)?.color || 'gray'}
+                fill={characters.find(c => c.id === char.id)?.color || '#12020A'}
                 fill-opacity="0.5"
               />
             </g>
