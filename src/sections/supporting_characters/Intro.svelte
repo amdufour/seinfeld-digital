@@ -130,10 +130,10 @@
 
 <div id="supporting_chars" class="bg-black text-white">
   <!-- Screen 1 -->
-  <div id="supporting_chars_screen_1" class="h-screen w-screen">
+  <div id="supporting_chars_screen_1" class="md:h-screen w-screen py-60 md:py-0">
     <div class="container">
       <div class="grid grid-cols-12 gap-4">
-        <div class="col-span-7 h-screen flex flex-col justify-center">
+        <div class="col-span-12 md:col-span-7 h-screen flex flex-col justify-center">
           <p>As a show grows, it is inevitable that so does the universe of different characters. And as the list of potential characters grows, so too does the temptation to use them more to deliver the storylines.</p>
           <p>In any sitcom, you will have permanent lead characters, supporting or recurring characters, and transient characters. At the start of the data-gathering exercise, it wasn't necessarily obvious how to best categorise and distinguish those non-lead characters.</p>
           <p><span class="highlight">Supporting characters</span> come and go but will appear quite frequently, are quite popular, and are usually played by the same actors for continuity. <span class="highlight">Transient characters</span> tend to appear just once, are often unnamed, and primarily exist to help progress a single strand of an episode story.</p>
@@ -143,13 +143,13 @@
   </div>
 
   <!-- Screen 2 -->
-  <div id="supporting_chars_screen_2" class="h-screen w-screen">
+  <div id="supporting_chars_screen_2" class="md:h-screen w-screen py-30 md:py-0">
     <div class="container">
       <div class="grid grid-cols-12 gap-4">
-        <div class="col-span-7 h-screen flex flex-col justify-center">
+        <div class="col-span-12 md:col-span-7 md:h-screen flex flex-col justify-center">
           <p>The main struggle was to strike a balance between creating enough distinct character categories, with sufficient individuality for those who warrant it, but not carving out too many that the list becomes excessive and unwieldy. For instance, recurring characters like Jerry and Kramer's neighbour, <span class="highlight">Newman</span>, or Elaine's boss, <span class="highlight">J. Peterman</span>, have a cult following that made it tempting to mark them out as distinct individual characters.</p>
         </div>
-        <div class="col-span-5">
+        <div class="col-span-12 md:col-span-5">
           <div class="grid grid-cols-5 mt-16">
             <div class="col-span-3">
               <div
@@ -206,14 +206,14 @@
   </div>
 
   <!-- Screen 3 -->
-  <div id="supporting_chars_screen_3" class="h-screen w-screen">
+  <div id="supporting_chars_screen_3" class="md:h-screen w-screen py-60 md:py-0">
     <div class="container">
-      <div class="grid grid-cols-12 gap-20">
-        <div class="col-span-7 h-screen flex flex-col justify-center">
+      <div class="grid grid-cols-12 md:gap-20">
+        <div class="col-span-12 md:col-span-7 md:h-screen md:flex md:flex-col md:justify-center">
           <p>The ultimate decision was to create categories for the four respective families of the lead characters, as well as groupings for acquaintances - specifically, love interests, friends, neighbours, colleagues - and then a final other persons group to sweep up the growing list of transient characters.</p>
           <p>When classifying supporting characters, it was <span class="highlight">their central purpose in that episode</span> that informed their grouping, e.g. a friend of Elaine's who dates George would be considered a love interest, rather than a friend. Some supporting characters were therefore alternated into different groupings across the show (e.g. a former love interest may shift to become a friend, and vice-versa).</p>
         </div>
-        <div class="col-span-4 flex items-center">
+        <div class="col-span-12 md:col-span-4 flex items-center">
           <div class="grid grid-cols-2 gap-8 flex-wrap">
             {#each supportingChars as char}
               <div class="supporting-char flex flex-col items-center">

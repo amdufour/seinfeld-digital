@@ -265,6 +265,6 @@
 		opacity: 0;
 	}
 	.section-title h2 {
-		line-height: 1.4;
+		line-height: 1.2;
 	}
 </style>
