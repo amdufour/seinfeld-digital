@@ -11,13 +11,14 @@
   let containerWidth = $state(1200);
   let headerHeight = $state(100);
 
+  const mainCharsScreenTime = charsScreenTime.slice(0, 4);
   let chartWidth = $derived(containerWidth - 64 <= 1200 ? containerWidth - 64 : 1200);
   let chartHeight = $derived(innerHeight - headerHeight - 60);
   let imageHeight = $derived(chartHeight / 5.5);
 
   // Calculate the total width of the Marimekko bars
   let totalBarsScreenTime = $derived(
-    charsScreenTime.reduce((acc, char) => acc + char.screenTime, 0)
+    mainCharsScreenTime.reduce((acc, char) => acc + char.screenTime, 0)
   );
   let widthCoverage = $derived(chartWidth - 80 - 150);
 
@@ -29,15 +30,15 @@
 
   const laughsScale = $derived(
     scaleLinear()
-      .domain([0, Math.max(...charsScreenTime.map((char) => char.onScreenWithoutLaughs))])
+      .domain([0, Math.max(...mainCharsScreenTime.map((char) => char.onScreenWithoutLaughs))])
       .range([0, chartHeight / 2 - 8])
   );
 
   const charsData = $derived.by(() => {
-    const array = charsScreenTime;
+    const array = mainCharsScreenTime;
     array.forEach((char, i) => {
       char['screenTimeWidth'] = screenTimeScale(char.screenTime);
-      char['paddingLeft'] = i === 0 ? 0 : charsScreenTime.slice(0, i).reduce((acc, c) => acc + c.screenTimeWidth + 50, 0);
+      char['paddingLeft'] = i === 0 ? 0 : mainCharsScreenTime.slice(0, i).reduce((acc, c) => acc + c.screenTimeWidth + 50, 0);
       char['laughsWidth'] = laughsScale(char.causeLaughsWhileOnScreen);
       char['noLaughsWidth'] = laughsScale(char.onScreenWithoutLaughs);
     });
