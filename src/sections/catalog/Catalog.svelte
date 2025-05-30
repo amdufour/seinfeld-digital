@@ -4,6 +4,7 @@
 	import { formatTime } from '../../utils/formatTime';
 	import { scaleLinear } from 'd3-scale';
 	import { getRandomEpisode } from '../../utils/getRandom';
+	import CatalogIntro from "./CatalogIntro.svelte";
 	import SeasonsStrip from '../../UI/SeasonsStrip.svelte';
 	import EpisodeDetails from './EpisodeDetails.svelte';
 	import SonificationPlayer from './sonification/SonificationPlayer.svelte';
@@ -103,6 +104,8 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
+<section>
+	<CatalogIntro />
 <div
 	id="catalog"
 	class="flex w-screen pb-12"
@@ -152,7 +155,8 @@
 			</div>
 		</div>
 	</div>
-</div>
+	</div>
+</section>
 
 <style>
 	.score-wrapper {
