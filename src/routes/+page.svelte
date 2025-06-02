@@ -44,7 +44,7 @@
 	{#if showOnlyLatest}
 		{#await json(episodesDataUrl) then episodesData}
 			<div class="bg-white text-black">
-				<SupportingCharsSection />
+				<SupportingCharsSection {episodesData} />
 			</div>
 		{/await}
 	{:else}
@@ -69,7 +69,7 @@
 				<IntroEnd />
 				<Quotes />
 				<MainCharsSection {episodesData} />
-				<SupportingCharsSection />
+				<SupportingCharsSection {episodesData} />
 				<LocationsSection />
 				<LaughsExploration />
 				{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}

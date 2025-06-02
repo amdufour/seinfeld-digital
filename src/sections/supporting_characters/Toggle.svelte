@@ -12,7 +12,7 @@
   };
 </script>
 
-<div class="relative rounded-full overflow-hidden" style="width: 608px;">
+<div class="relative rounded-full overflow-hidden mb-4" style="width: 608px;">
   <!-- Background color -->
   <div class="button-background relative z-0 {isScreenTimeSelected ? 'left' : 'right'}"></div>
 
