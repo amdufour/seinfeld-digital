@@ -104,7 +104,7 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<section>
+<section id="catalog-section">
 	<CatalogIntro />
 <div
 	id="catalog"

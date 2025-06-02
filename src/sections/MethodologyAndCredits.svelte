@@ -15,7 +15,7 @@
 	];
 </script>
 
-<div class="container mt-20 grid grid-cols-1 lg:grid-cols-3">
+<section id="methodology" class="container mt-20 grid grid-cols-1 lg:grid-cols-3">
 	<div class="col-span-2 mb-10 px-4">
 		<h3>Methodology</h3>
 		<div>
@@ -84,4 +84,4 @@
 			{/each}
 		</div>
 	</div>
-</div>
+</section>

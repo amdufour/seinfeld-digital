@@ -24,7 +24,6 @@
 <div id="seasons-strip">
 	<svg {width} height={innerHeight}>
 		{#each seasons as season, i}
-			$inspect(season, i)
 			<rect
 				x={0}
 				y={seasonScale(sum(seasons.slice(0, i), (d) => d.numEpisodes))}

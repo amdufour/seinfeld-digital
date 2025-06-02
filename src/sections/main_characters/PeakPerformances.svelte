@@ -54,7 +54,6 @@
 	const handleMouseLeave = () => {
 		isTooltipVisible = false;
 	};
-  $inspect(hoveredEpisode, 'hoveredEpisode');
 
   const handleCharacterClick = (/** @type {string} */ char) => {
     orderedChars.sort((a, b) => {

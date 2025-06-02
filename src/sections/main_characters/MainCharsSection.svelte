@@ -7,7 +7,7 @@
 	let { episodesData } = $props();
 </script>
 
-<section>
+<section id="lead-chars">
 	<Lazy keep={true} height="100vh" offset="100vh">
 		<div class="bg-black">
 			<SectionTitle section="main_char" title="Lead Characters" />

@@ -19,6 +19,7 @@
 	import MainCharsSection from '../sections/main_characters/MainCharsSection.svelte';
 	import SupportingCharsSection from '../sections/supporting_characters/SupportingCharsSection.svelte';
 	import LocationsSection from '../sections/locations/locationsSection.svelte';
+	import LaughsExploration from '../sections/laughs-exploration/LaughsExploration.svelte';
 	import Catalog from '../sections/catalog/Catalog.svelte';
 	import MethodologyAndCredits from '../sections/MethodologyAndCredits.svelte';
 	import Footer from '../sections/Footer.svelte';
@@ -70,6 +71,7 @@
 				<MainCharsSection {episodesData} />
 				<SupportingCharsSection />
 				<LocationsSection />
+				<LaughsExploration />
 				{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 					{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
 						<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} {ScrollTrigger} />

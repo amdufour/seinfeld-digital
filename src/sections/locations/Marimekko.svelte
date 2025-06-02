@@ -21,7 +21,6 @@
     locationsScreenTime.reduce((acc, char) => acc + char.screenTime, 0)
   );
   let widthCoverage = $derived(chartWidth - 80 - 10 * 50);
-  $inspect(chartWidth, widthCoverage)
 
   let screenTimeScale = $derived(
     scaleLinear()

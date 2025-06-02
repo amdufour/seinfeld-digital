@@ -8,7 +8,6 @@
   import { getCharacterImagePath } from '../../utils/getCharacterImagePath';
 
   const supportingChars = $derived(characters.slice(4, characters.length - 1));
-  $inspect(supportingChars)
 
   onMount(() => {
     gsap.set('#supporting_chars p, #supporting_chars .supporting-char', { translateY: 100, opacity: 0 });
