@@ -2,6 +2,7 @@
 	import Lazy from 'svelte-lazy';
 	import SectionTitle from '../SectionTitle.svelte';
 	import Intro from './Intro.svelte';
+	import ScreenTimeVsLaughRate from './ScreenTimeVsLaughRate.svelte';
 	import Marimekko from './Marimekko.svelte';
 </script>
 
@@ -12,10 +13,6 @@
 		</div>
 	</Lazy>
 	<Intro />
-	<div class="flex h-screen w-screen items-center">
-		<div class="container">
-			<div>PLACEHOLDER Supporting Characters section</div>
-		</div>
-	</div>
+	<ScreenTimeVsLaughRate />
 	<Marimekko />
 </section>

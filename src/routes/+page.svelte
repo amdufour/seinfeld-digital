@@ -36,7 +36,7 @@
 		}, 4000);
 	});
 
-	const showOnlyLatest = false;
+	const showOnlyLatest = true;
 </script>
 
 <main>
@@ -44,7 +44,7 @@
 	{#if showOnlyLatest}
 		{#await json(episodesDataUrl) then episodesData}
 			<div class="bg-white text-black">
-				<LocationsSection />
+				<SupportingCharsSection />
 			</div>
 		{/await}
 	{:else}
