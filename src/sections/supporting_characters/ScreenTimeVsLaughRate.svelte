@@ -81,6 +81,19 @@
     return breakdown;
   });
   $inspect('charData', charData)
+
+  let isMouseOver = $state(false);
+  let currentOverview = $state('');
+  let currentOverviewPercentage = $state(0);
+  const handleOverviewMouseEnter = (episode) => {
+    isMouseOver = true;
+    currentOverview = `${episode.season}-${episode.episode}`;
+    currentOverviewPercentage = Math.round(episode.onScreen.length * 5 / episode.duration * 100);
+  }
+  const handleOverviewMouseLeave = () => {
+    isMouseOver = false;
+    currentOverview = '';
+  }
 </script>
 
 <div class="mt-20 mb-52">
@@ -210,7 +223,7 @@
                     y2={visualizationsInnerHeight + 12}
                     stroke="#928D90"
                   />
-                  <g class="number" fill="#928D90" text-anchor="middle">
+                  <g class="number" fill="#928D90" text-anchor="middle" fill-opacity={isMouseOver ? 0 : 1}>
                     <text
                       x={0}
                       y={-18}
@@ -232,14 +245,48 @@
                 <g transform="translate(0, {episodesVerticalScale(`${d.season}-${d.episode}`)})">
                   <!-- Screen time -->
                   <rect
+                    class="overview-rect"
                     x={0}
                     y={0}
                     width={episodeOverviewScale((d.onScreen.length * 5) / d.duration)}
                     height={episodesVerticalScale.bandwidth()}
                     fill={characters.find(char => char.id === activeCharacter)?.color}
+                    fill-opacity={(isMouseOver && currentOverview === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
+                    role="document"
+                    onmouseenter={() => handleOverviewMouseEnter(d)}
+                    onmouseleave={() => handleOverviewMouseLeave()}
                   />
                 </g>
               {/each}
+
+              <!-- Overview tooltip -->
+              {#if isMouseOver}
+                <g transform="translate({episodeOverviewScale(currentOverviewPercentage / 100)}, 0)">
+                  <line
+                    x1={0}
+                    y1={-12}
+                    x2={0}
+                    y2={visualizationsInnerHeight + 12}
+                    stroke="#12020A"
+                    stroke-width={2}
+                  />
+                  <g class="number" fill="#12020A" text-anchor="middle">
+                    <text
+                      x={0}
+                      y={-18}
+                    >
+                      {`${currentOverviewPercentage}%`}
+                    </text>
+                    <text
+                      x={0}
+                      y={visualizationsInnerHeight + 16}
+                      dominant-baseline="hanging"
+                    >
+                      {`${currentOverviewPercentage}%`}
+                    </text>
+                  </g>
+                </g>
+              {/if}
             </g>
           </svg>
         </div>
@@ -258,5 +305,8 @@
   }
   .character-button.active .character {
     cursor: default;
+  }
+  .overview-rect {
+    transition: fill-opacity 0.2s ease-out;
   }
 </style>
