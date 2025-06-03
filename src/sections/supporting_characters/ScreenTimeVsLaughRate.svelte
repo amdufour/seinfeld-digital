@@ -57,7 +57,9 @@
 
     episodesData.forEach(episode => {
       const onScreen = [];
+      const aggregatedScreenTime = [];
       const causesLaughs = [];
+      const aggregatedLaughs = [];
 
       episode.data.forEach(d => {
         if (d.eventCategory === 'CHARACTERS' && d.eventAttribute.includes(activeCharacter)) {
@@ -67,14 +69,38 @@
         if (d.eventCategory === 'CAUSES THE LAUGH' && d.eventAttribute.includes(activeCharacter)) {
           causesLaughs.push(d)
         }
+
+      })
+
+      let start
+      let currentTime
+      onScreen.forEach(d => {
+        console.log(d)
+        console.log(start, currentTime,+d.eventTimeSeconds )
+        if (!start && !currentTime) {
+          console.log('case 1')
+          start = +d.eventTimeSeconds
+          currentTime = +d.eventTimeSeconds
+        } else if (+d.eventTimeSeconds === currentTime + 5) {
+          console.log('case 2')
+          currentTime = +d.eventTimeSeconds
+        } else if (+d.eventTimeSeconds > currentTime + 5) {
+          console.log('case 3')
+          aggregatedScreenTime.push({
+            start: start,
+            duration: currentTime - start + 5
+          })
+          start = +d.eventTimeSeconds
+          currentTime = +d.eventTimeSeconds
+        }
       })
 
       breakdown.push({
         season: episode.season,
         episode: episode.episode,
         duration: episode.duration,
-        onScreen: onScreen,
-        causesLaughs: causesLaughs
+        onScreen: aggregatedScreenTime,
+        causesLaughs: aggregatedLaughs
       })
     })
 
@@ -83,16 +109,21 @@
   $inspect('charData', charData)
 
   let isMouseOver = $state(false);
-  let currentOverview = $state('');
-  let currentOverviewPercentage = $state(0);
+  let highlightedEpisode = $state('');
+  let highlightedEpisodePosition = $state();
+  let highlightedEpisodeOverviewPercentage = $state(0);
   const handleOverviewMouseEnter = (episode) => {
     isMouseOver = true;
-    currentOverview = `${episode.season}-${episode.episode}`;
-    currentOverviewPercentage = Math.round(episode.onScreen.length * 5 / episode.duration * 100);
+    highlightedEpisode = `${episode.season}-${episode.episode}`;
+    highlightedEpisodeOverviewPercentage = Math.round((episode.onScreen.reduce((acc, value) => acc + value.duration, 0)) / episode.duration * 100);
+  }
+  const handleTimeMouseOver = (e, episode) => {
+    console.log(e)
+    highlightedEpisodePosition = e.offsetX;
   }
   const handleOverviewMouseLeave = () => {
     isMouseOver = false;
-    currentOverview = '';
+    highlightedEpisode = '';
   }
 </script>
 
@@ -188,20 +219,52 @@
                     width={episodeTimeScale(d.duration)}
                     height={episodesVerticalScale.bandwidth()}
                     fill="#DDDBDC"
+                    fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.1}
                   />
 
                   <!-- Screen time -->
                   {#each d.onScreen as screenMoment}
                     <rect
-                      x={episodeTimeScale(+screenMoment.eventTimeSeconds)}
+                      class="pointer-events-none"
+                      x={episodeTimeScale(screenMoment.start)}
                       y={0}
-                      width={episodeTimeScale(5)}
+                      width={episodeTimeScale(screenMoment.duration)}
                       height={episodesVerticalScale.bandwidth()}
                       fill={characters.find(char => char.id === activeCharacter)?.color}
+                      fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.1}
                     />
                   {/each}
                 </g>
               {/each}
+
+              <!-- Time tooltip -->
+              {#if isMouseOver}
+                <g transform="translate({highlightedEpisodePosition - margin.left}, 0)">
+                  <line
+                    x1={0}
+                    y1={-12}
+                    x2={0}
+                    y2={visualizationsInnerHeight + 12}
+                    stroke="#12020A"
+                    stroke-width={2}
+                  />
+                  <g class="number" fill="#12020A" text-anchor="middle">
+                    <text
+                      x={0}
+                      y={-18}
+                    >
+                      {`${highlightedEpisodeOverviewPercentage}%`}
+                    </text>
+                    <text
+                      x={0}
+                      y={visualizationsInnerHeight + 16}
+                      dominant-baseline="hanging"
+                    >
+                      {`${highlightedEpisodeOverviewPercentage}%`}
+                    </text>
+                  </g>
+                </g>
+              {/if}
             </g>
 
             <!-- Episode overviews -->
@@ -244,24 +307,25 @@
               {#each charData as d}
                 <g transform="translate(0, {episodesVerticalScale(`${d.season}-${d.episode}`)})">
                   <!-- Screen time -->
-                  <rect
-                    class="overview-rect"
-                    x={0}
-                    y={0}
-                    width={episodeOverviewScale((d.onScreen.length * 5) / d.duration)}
-                    height={episodesVerticalScale.bandwidth()}
-                    fill={characters.find(char => char.id === activeCharacter)?.color}
-                    fill-opacity={(isMouseOver && currentOverview === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
-                    role="document"
-                    onmouseenter={() => handleOverviewMouseEnter(d)}
-                    onmouseleave={() => handleOverviewMouseLeave()}
-                  />
+                  {#if episodeOverviewScale((d.onScreen.length * 5) / d.duration)}
+                    <rect
+                      x={0}
+                      y={0}
+                      width={episodeOverviewScale((d.onScreen.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
+                      height={episodesVerticalScale.bandwidth()}
+                      fill={characters.find(char => char.id === activeCharacter)?.color}
+                      fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
+                      role="document"
+                      onmouseenter={() => handleOverviewMouseEnter(d)}
+                      onmouseleave={() => handleOverviewMouseLeave()}
+                    />
+                  {/if}
                 </g>
               {/each}
 
               <!-- Overview tooltip -->
               {#if isMouseOver}
-                <g transform="translate({episodeOverviewScale(currentOverviewPercentage / 100)}, 0)">
+                <g transform="translate({episodeOverviewScale(highlightedEpisodeOverviewPercentage / 100)}, 0)">
                   <line
                     x1={0}
                     y1={-12}
@@ -275,14 +339,14 @@
                       x={0}
                       y={-18}
                     >
-                      {`${currentOverviewPercentage}%`}
+                      {`${highlightedEpisodeOverviewPercentage}%`}
                     </text>
                     <text
                       x={0}
                       y={visualizationsInnerHeight + 16}
                       dominant-baseline="hanging"
                     >
-                      {`${currentOverviewPercentage}%`}
+                      {`${highlightedEpisodeOverviewPercentage}%`}
                     </text>
                   </g>
                 </g>
@@ -306,7 +370,7 @@
   .character-button.active .character {
     cursor: default;
   }
-  .overview-rect {
+  rect {
     transition: fill-opacity 0.2s ease-out;
   }
 </style>
