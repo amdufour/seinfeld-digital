@@ -51,6 +51,36 @@
 
   const timeLabels = [0, 5, 10, 15, 20, 25, 30];
   const overviewLabels = [0, 100];
+
+  let charData = $derived.by(() => {
+    const breakdown = [];
+
+    episodesData.forEach(episode => {
+      const onScreen = [];
+      const causesLaughs = [];
+
+      episode.data.forEach(d => {
+        if (d.eventCategory === 'CHARACTERS' && d.eventAttribute.includes(activeCharacter)) {
+          onScreen.push(d)
+        }
+
+        if (d.eventCategory === 'CAUSES THE LAUGH' && d.eventAttribute.includes(activeCharacter)) {
+          causesLaughs.push(d)
+        }
+      })
+
+      breakdown.push({
+        season: episode.season,
+        episode: episode.episode,
+        duration: episode.duration,
+        onScreen: onScreen,
+        causesLaughs: causesLaughs
+      })
+    })
+
+    return breakdown;
+  });
+  $inspect('charData', charData)
 </script>
 
 <div class="mt-20 mb-52">
@@ -136,18 +166,29 @@
                 </g>
               {/each}
 
-              <!-- Episode durations -->
-              <g>
-                {#each episodesData as d}
+              {#each charData as d}
+                <g transform="translate(0, {episodesVerticalScale(`${d.season}-${d.episode}`)})">
+                  <!-- Episode durations -->
                   <rect
                     x={0}
-                    y={episodesVerticalScale(`${d.season}-${d.episode}`)}
+                    y={0}
                     width={episodeTimeScale(d.duration)}
                     height={episodesVerticalScale.bandwidth()}
                     fill="#DDDBDC"
                   />
-                {/each}
-              </g>
+
+                  <!-- Screen time -->
+                  {#each d.onScreen as screenMoment}
+                    <rect
+                      x={episodeTimeScale(+screenMoment.eventTimeSeconds)}
+                      y={0}
+                      width={episodeTimeScale(5)}
+                      height={episodesVerticalScale.bandwidth()}
+                      fill={characters.find(char => char.id === activeCharacter)?.color}
+                    />
+                  {/each}
+                </g>
+              {/each}
             </g>
 
             <!-- Episode overviews -->
@@ -184,6 +225,19 @@
                       {`${overviewLabel}%`}
                     </text>
                   </g>
+                </g>
+              {/each}
+
+              {#each charData as d}
+                <g transform="translate(0, {episodesVerticalScale(`${d.season}-${d.episode}`)})">
+                  <!-- Screen time -->
+                  <rect
+                    x={0}
+                    y={0}
+                    width={episodeOverviewScale((d.onScreen.length * 5) / d.duration)}
+                    height={episodesVerticalScale.bandwidth()}
+                    fill={characters.find(char => char.id === activeCharacter)?.color}
+                  />
                 </g>
               {/each}
             </g>
