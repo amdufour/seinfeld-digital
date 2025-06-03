@@ -75,18 +75,31 @@
       let start
       let currentTime
       onScreen.forEach(d => {
-        console.log(d)
-        console.log(start, currentTime,+d.eventTimeSeconds )
         if (!start && !currentTime) {
-          console.log('case 1')
           start = +d.eventTimeSeconds
           currentTime = +d.eventTimeSeconds
         } else if (+d.eventTimeSeconds === currentTime + 5) {
-          console.log('case 2')
           currentTime = +d.eventTimeSeconds
         } else if (+d.eventTimeSeconds > currentTime + 5) {
-          console.log('case 3')
           aggregatedScreenTime.push({
+            start: start,
+            duration: currentTime - start + 5
+          })
+          start = +d.eventTimeSeconds
+          currentTime = +d.eventTimeSeconds
+        }
+      })
+
+      start = undefined
+      currentTime = undefined
+      causesLaughs.forEach(d => {
+        if (!start && !currentTime) {
+          start = +d.eventTimeSeconds
+          currentTime = +d.eventTimeSeconds
+        } else if (+d.eventTimeSeconds === currentTime + 5) {
+          currentTime = +d.eventTimeSeconds
+        } else if (+d.eventTimeSeconds > currentTime + 5) {
+          aggregatedLaughs.push({
             start: start,
             duration: currentTime - start + 5
           })
@@ -220,6 +233,11 @@
                     height={episodesVerticalScale.bandwidth()}
                     fill="#DDDBDC"
                     fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.1}
+                    role="document"
+                    onmouseenter={() => handleOverviewMouseEnter(d)}
+                    onmouseleave={() => handleOverviewMouseLeave()}
+                    onmouseover={(e) => handleTimeMouseOver(e, d)}
+                    onfocus={(e) => handleTimeMouseOver(e, d)}
                   />
 
                   <!-- Screen time -->
