@@ -1,9 +1,10 @@
 <script>
   import { scaleLinear, scaleBand } from 'd3-scale';
-  import { max } from 'd3-array';
+  import { max, sum } from 'd3-array';
   import { episodesInfo } from '$lib/data/episodesInfo';
   import { characters } from '$lib/data/characters';
   import { getCharacterImagePath } from '../../utils/getCharacterImagePath';
+  import { seasons, totalNumEpisodes } from '$lib/data/seasons';
   import Toggle from './Toggle.svelte';
   import HelpIcon from '../../icons/HelpIcon.svelte';
   import ArrowDown from '../../icons/ArrowDown.svelte';
@@ -17,6 +18,7 @@
 
   let visualizationsWidth = $state(800);
   const episodesOverviewWidth = 150;
+  const marginEnd = 22;
   let episodeDetailsWidth = $derived(visualizationsWidth - episodesOverviewWidth);
   let visualizationsContainerHeight = $state(800);
   let visualizationsHeight = $derived(visualizationsContainerHeight - 50 - 16);
@@ -25,20 +27,30 @@
   let episodeDetailsInnerWidth = $derived(episodeDetailsWidth - margin.left - margin.right);
   let visualizationsInnerHeight = $derived(visualizationsHeight - margin.top - margin.bottom);
 
-  let episodesScale = $derived(
+  let episodesVerticalScale = $derived(
     scaleBand()
       .domain(episodesInfo.map(d => `${d.season}-${d.episode}`))
       .range([0, visualizationsInnerHeight])
   );
   let episodeMaxDuration = $derived(max(episodesData, d => d.duration) ?? 0);
-  $inspect(episodeMaxDuration)
   let episodeTimeScale = $derived(
     scaleLinear()
         .domain([0, episodeMaxDuration])
         .range([0, episodeDetailsInnerWidth])
   );
+  let seasonScale = $derived(
+		scaleLinear()
+			.domain([0, totalNumEpisodes])
+			.range([0, visualizationsInnerHeight])
+	);
+  let episodeOverviewScale = $derived(
+		scaleLinear()
+			.domain([0, 1])
+			.range([0, episodesOverviewWidth - marginEnd])
+	);
 
   const timeLabels = [0, 5, 10, 15, 20, 25, 30];
+  const overviewLabels = [0, 100];
 </script>
 
 <div class="mt-20 mb-52">
@@ -68,7 +80,8 @@
         <Toggle />
         <div class="flex" bind:clientWidth={visualizationsWidth}>
           <!-- Episode details -->
-          <svg width={episodeDetailsWidth} height={visualizationsHeight} style="border: 1px solid cyan;">
+          <svg width={visualizationsWidth} height={visualizationsHeight}>
+            <!-- Episode details -->
             <g transform="translate(0, {margin.top})">
               <text text-anchor="end" style="transform: translate(10px, 0px) rotate(-90deg); transform-origin: 0 0;" class="small accent">Episodes</text>
               <g transform="translate(3, 64)">
@@ -79,8 +92,23 @@
               </g>
             </g>
 
-            <!-- Time labels -->
+            <!-- Season separators -->
             <g transform="translate({margin.left}, {margin.top})">
+              {#each seasons as season, i}
+                {#if i < seasons.length - 1}
+                  <line
+                    x1={0}
+                    y1={seasonScale(sum(seasons.slice(0, i), (d) => d.numEpisodes)) + seasonScale(season.numEpisodes)}
+                    x2={visualizationsWidth - margin.left}
+                    y2={seasonScale(sum(seasons.slice(0, i), (d) => d.numEpisodes)) + seasonScale(season.numEpisodes)}
+                    stroke="#928D90"
+                  />
+                {/if}
+              {/each}
+            </g>
+
+            <g transform="translate({margin.left}, {margin.top})">
+              <!-- Time labels -->
               {#each timeLabels as timeLabel}
                 <g transform="translate({episodeTimeScale(timeLabel * 60)}, 0)">
                   <line
@@ -107,11 +135,59 @@
                   </g>
                 </g>
               {/each}
+
+              <!-- Episode durations -->
+              <g>
+                {#each episodesData as d}
+                  <rect
+                    x={0}
+                    y={episodesVerticalScale(`${d.season}-${d.episode}`)}
+                    width={episodeTimeScale(d.duration)}
+                    height={episodesVerticalScale.bandwidth()}
+                    fill="#DDDBDC"
+                  />
+                {/each}
+              </g>
+            </g>
+
+            <!-- Episode overviews -->
+            <g transform="translate({visualizationsWidth - episodesOverviewWidth}, {margin.top})">
+              <rect
+                x={0}
+                y={0}
+                width={episodesOverviewWidth - marginEnd}
+                height={visualizationsInnerHeight}
+                fill="#DDDBDC"
+              />
+              <!-- Vertical Axes -->
+              {#each overviewLabels as overviewLabel}
+                <g transform="translate({episodeOverviewScale(overviewLabel / 100)}, 0)">
+                  <line
+                    x1={0}
+                    y1={-12}
+                    x2={0}
+                    y2={visualizationsInnerHeight + 12}
+                    stroke="#928D90"
+                  />
+                  <g class="number" fill="#928D90" text-anchor="middle">
+                    <text
+                      x={0}
+                      y={-18}
+                    >
+                      {`${overviewLabel}%`}
+                    </text>
+                    <text
+                      x={0}
+                      y={visualizationsInnerHeight + 16}
+                      dominant-baseline="hanging"
+                    >
+                      {`${overviewLabel}%`}
+                    </text>
+                  </g>
+                </g>
+              {/each}
             </g>
           </svg>
-
-          <!-- Episode overview -->
-          <svg width={episodesOverviewWidth} height={visualizationsHeight} style="border: 1px solid magenta;"></svg>
         </div>
       </div>
     </div>
