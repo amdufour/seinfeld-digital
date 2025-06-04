@@ -1,5 +1,6 @@
 <script>
 	import { range } from 'd3-array';
+	import { formatTimeLabel } from '../../../utils/formatTime';
 
 	let {
 		labelsWidth,
@@ -18,11 +19,7 @@
 	const numMinutes = $derived(Math.ceil(episodeDuration / 60));
 	let minutesArray = $derived(range(0, numMinutes + 1));
 
-	const minHoveredTime = $derived(Math.floor(hoveredTime / 60));
-	const secHoveredTime = $derived(Math.floor(hoveredTime - minHoveredTime * 60));
-	const formattedHoveredTime = $derived(
-		`${minHoveredTime < 10 ? '0' : ''}${minHoveredTime}:${secHoveredTime < 10 ? '0' : ''}${secHoveredTime}`
-	);
+	const formattedHoveredTime = formatTimeLabel(hoveredTime);
 </script>
 
 <svelte:window bind:innerWidth />

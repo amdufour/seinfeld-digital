@@ -5,6 +5,7 @@
   import { characters } from '$lib/data/characters';
   import { getCharacterImagePath } from '../../utils/getCharacterImagePath';
   import { seasons, totalNumEpisodes } from '$lib/data/seasons';
+  import { formatTimeLabel } from '../../utils/formatTime';
   import Toggle from './Toggle.svelte';
   import HelpIcon from '../../icons/HelpIcon.svelte';
   import ArrowDown from '../../icons/ArrowDown.svelte';
@@ -123,20 +124,35 @@
 
   let isMouseOver = $state(false);
   let highlightedEpisode = $state('');
-  let highlightedEpisodePosition = $state();
   let highlightedEpisodeOverviewPercentage = $state(0);
-  const handleOverviewMouseEnter = (episode) => {
+  let highlightedEpisodeTimePosition = $state(0);
+  let highlightedEpisodeTimeLabel = $state('');
+  const handleOverviewMouseEnter = () => {
     isMouseOver = true;
-    highlightedEpisode = `${episode.season}-${episode.episode}`;
-    highlightedEpisodeOverviewPercentage = Math.round((episode.onScreen.reduce((acc, value) => acc + value.duration, 0)) / episode.duration * 100);
   }
-  const handleTimeMouseOver = (e, episode) => {
-    console.log(e)
-    highlightedEpisodePosition = e.offsetX;
+  const handleMouseMove = (/** @type {MouseEvent & { currentTarget: EventTarget & SVGRectElement; }} */ e) => {
+    const x = e.offsetX - margin.left;
+    const y = e.offsetY - margin.top;
+
+    const bandHeight = episodesVerticalScale.bandwidth();
+    const episodeIndex = Math.ceil(y / bandHeight);
+    const episode = episodesInfo[episodeIndex - 1];
+    highlightedEpisode = `${episode.season}-${episode.episode}`;
+    const data = charData.find(e => e.season === episode.season && e.episode === episode.episode);
+    highlightedEpisodeOverviewPercentage = Math.round((data?.onScreen.reduce((acc, value) => acc + value.duration, 0)) / data?.duration * 100) ?? undefined;
+
+    const newXPosition = x <= episodeDetailsInnerWidth ? Math.round(x) : 0;
+    if (highlightedEpisodeTimePosition !== newXPosition) {
+      highlightedEpisodeTimePosition = newXPosition;
+    }
+    const timeInSeconds = x <= episodeDetailsInnerWidth ? Math.round(episodeTimeScale.invert(x)) : 0;
+    const newTimeLabel = formatTimeLabel(timeInSeconds)
+    if (highlightedEpisodeTimeLabel !== newTimeLabel) {
+      highlightedEpisodeTimeLabel = formatTimeLabel(timeInSeconds)
+    }
   }
   const handleOverviewMouseLeave = () => {
     isMouseOver = false;
-    highlightedEpisode = '';
   }
 </script>
 
@@ -179,8 +195,23 @@
               </g>
             </g>
 
-            <!-- Season separators -->
+            <!-- Background to detect mouse events -->
             <g transform="translate({margin.left}, {margin.top})">
+              <rect
+                x={0}
+                y={0}
+                width={visualizationsWidth - margin.left}
+                height={visualizationsInnerHeight}
+                fill="#F9F5F7"
+                role="document"
+                onmouseenter={handleOverviewMouseEnter}
+                onmousemove={(e) => handleMouseMove(e)}
+                onmouseleave={handleOverviewMouseLeave}
+              />
+            </g>
+
+            <!-- Season separators -->
+            <g transform="translate({margin.left}, {margin.top})" class="pointer-events-none">
               {#each seasons as season, i}
                 {#if i < seasons.length - 1}
                   <line
@@ -197,7 +228,7 @@
             <g transform="translate({margin.left}, {margin.top})">
               <!-- Time labels -->
               {#each timeLabels as timeLabel}
-                <g transform="translate({episodeTimeScale(timeLabel * 60)}, 0)">
+                <g transform="translate({episodeTimeScale(timeLabel * 60)}, 0)" class="pointer-events-none">
                   <line
                     x1={0}
                     y1={-12}
@@ -205,7 +236,7 @@
                     y2={visualizationsInnerHeight + 12}
                     stroke="#928D90"
                   />
-                  <g class="number" fill="#928D90" text-anchor="middle">
+                  <g class="number" fill="#928D90" text-anchor="middle" fill-opacity={isMouseOver ? 0.3 : 1}>
                     <text
                       x={0}
                       y={-18}
@@ -227,17 +258,13 @@
                 <g transform="translate(0, {episodesVerticalScale(`${d.season}-${d.episode}`)})">
                   <!-- Episode durations -->
                   <rect
+                    class="pointer-events-none"
                     x={0}
                     y={0}
                     width={episodeTimeScale(d.duration)}
                     height={episodesVerticalScale.bandwidth()}
-                    fill="#DDDBDC"
-                    fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.1}
-                    role="document"
-                    onmouseenter={() => handleOverviewMouseEnter(d)}
-                    onmouseleave={() => handleOverviewMouseLeave()}
-                    onmouseover={(e) => handleTimeMouseOver(e, d)}
-                    onfocus={(e) => handleTimeMouseOver(e, d)}
+                    fill="#BEBABC"
+                    fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
                   />
 
                   <!-- Screen time -->
@@ -249,7 +276,7 @@
                       width={episodeTimeScale(screenMoment.duration)}
                       height={episodesVerticalScale.bandwidth()}
                       fill={characters.find(char => char.id === activeCharacter)?.color}
-                      fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.1}
+                      fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
                     />
                   {/each}
                 </g>
@@ -257,7 +284,7 @@
 
               <!-- Time tooltip -->
               {#if isMouseOver}
-                <g transform="translate({highlightedEpisodePosition - margin.left}, 0)">
+                <g transform="translate({highlightedEpisodeTimePosition}, 0)" class="pointer-events-none">
                   <line
                     x1={0}
                     y1={-12}
@@ -271,14 +298,14 @@
                       x={0}
                       y={-18}
                     >
-                      {`${highlightedEpisodeOverviewPercentage}%`}
+                      {highlightedEpisodeTimeLabel}
                     </text>
                     <text
                       x={0}
                       y={visualizationsInnerHeight + 16}
                       dominant-baseline="hanging"
                     >
-                      {`${highlightedEpisodeOverviewPercentage}%`}
+                      {highlightedEpisodeTimeLabel}
                     </text>
                   </g>
                 </g>
@@ -288,15 +315,16 @@
             <!-- Episode overviews -->
             <g transform="translate({visualizationsWidth - episodesOverviewWidth}, {margin.top})">
               <rect
+                class="pointer-events-none"
                 x={0}
                 y={0}
                 width={episodesOverviewWidth - marginEnd}
                 height={visualizationsInnerHeight}
-                fill="#DDDBDC"
+                fill="#BEBABC"
               />
               <!-- Vertical Axes -->
               {#each overviewLabels as overviewLabel}
-                <g transform="translate({episodeOverviewScale(overviewLabel / 100)}, 0)">
+                <g transform="translate({episodeOverviewScale(overviewLabel / 100)}, 0)" class="pointer-events-none">
                   <line
                     x1={0}
                     y1={-12}
@@ -304,7 +332,7 @@
                     y2={visualizationsInnerHeight + 12}
                     stroke="#928D90"
                   />
-                  <g class="number" fill="#928D90" text-anchor="middle" fill-opacity={isMouseOver ? 0 : 1}>
+                  <g class="number" fill="#928D90" text-anchor="middle" fill-opacity={isMouseOver ? 0.3 : 1}>
                     <text
                       x={0}
                       y={-18}
@@ -327,15 +355,13 @@
                   <!-- Screen time -->
                   {#if episodeOverviewScale((d.onScreen.length * 5) / d.duration)}
                     <rect
+                      class="pointer-events-none"
                       x={0}
                       y={0}
                       width={episodeOverviewScale((d.onScreen.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
                       height={episodesVerticalScale.bandwidth()}
                       fill={characters.find(char => char.id === activeCharacter)?.color}
                       fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
-                      role="document"
-                      onmouseenter={() => handleOverviewMouseEnter(d)}
-                      onmouseleave={() => handleOverviewMouseLeave()}
                     />
                   {/if}
                 </g>
