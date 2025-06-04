@@ -19,6 +19,12 @@
   const supportingChars = $derived(characters.slice(4, characters.length - 1));
   let activeCharacter = $state("Jerry's family");
 
+  const FILTER = {
+    SCREEN_TIME: 'screenTime',
+    LAUGHS: 'causesLaughs'
+  }
+  let activeFilter = $state(FILTER.LAUGHS);
+
   const handleCharacterClick = (char) => {
     activeCharacter = char.id;
   }
@@ -138,6 +144,8 @@
     isMouseOver = true;
   }
   const handleMouseMove = (/** @type {MouseEvent & { currentTarget: EventTarget & SVGRectElement; }} */ e) => {
+    if (!isMouseOver) isMouseOver = true;
+    
     const x = e.offsetX - margin.left;
     const y = e.offsetY - margin.top;
 
@@ -149,7 +157,7 @@
       highlightedEpisodeInfo = episode;
     }
     const data = charData.find(e => e.season === episode.season && e.episode === episode.episode);
-    highlightedEpisodeOverviewPercentage = Math.round((data?.onScreen.reduce((acc, value) => acc + value.duration, 0)) / data?.duration * 100) ?? undefined;
+    highlightedEpisodeOverviewPercentage = Math.round((data[activeFilter === FILTER.SCREEN_TIME ? 'onScreen' : 'causesLaughs'].reduce((acc, value) => acc + value.duration, 0)) / data?.duration * 100) ?? undefined;
 
     const newXPosition = x <= episodeDetailsInnerWidth ? Math.round(x) : 0;
     if (highlightedEpisodeTimePosition !== newXPosition) {
@@ -200,7 +208,7 @@
       </div>
 
       <div class="col-span-12 md:col-span-9" bind:clientHeight={visualizationsContainerHeight}>
-        <Toggle />
+        <Toggle selectedOption={activeFilter} />
         <div class="flex" bind:clientWidth={visualizationsWidth}>
           <!-- Episode details -->
           <svg width={visualizationsWidth} height={visualizationsHeight}>
@@ -296,6 +304,19 @@
                       width={episodeTimeScale(screenMoment.duration)}
                       height={episodesVerticalScale.bandwidth()}
                       fill={characters.find(char => char.id === activeCharacter)?.color}
+                      fill-opacity={activeFilter === FILTER.LAUGHS ? 0.3 : (isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
+                    />
+                  {/each}
+
+                  <!-- Laughs -->
+                  {#each d.causesLaughs as screenMoment}
+                    <rect
+                      class="pointer-events-none"
+                      x={episodeTimeScale(screenMoment.start)}
+                      y={0}
+                      width={episodeTimeScale(screenMoment.duration)}
+                      height={episodesVerticalScale.bandwidth()}
+                      fill={characters.find(char => char.id === activeCharacter)?.color}
                       fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
                     />
                   {/each}
@@ -341,6 +362,7 @@
                 width={episodesOverviewWidth - marginEnd}
                 height={visualizationsInnerHeight}
                 fill="#BEBABC"
+                fill-opacity={isMouseOver ? 0.3 : 1}
               />
               <!-- Vertical Axes -->
               {#each overviewLabels as overviewLabel}
@@ -372,17 +394,32 @@
 
               {#each charData as d}
                 <g transform="translate(0, {episodesVerticalScale(`${d.season}-${d.episode}`)})">
-                  <!-- Screen time -->
-                  {#if episodeOverviewScale((d.onScreen.length * 5) / d.duration)}
-                    <rect
-                      class="pointer-events-none"
-                      x={0}
-                      y={0}
-                      width={episodeOverviewScale((d.onScreen.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
-                      height={episodesVerticalScale.bandwidth()}
-                      fill={characters.find(char => char.id === activeCharacter)?.color}
-                      fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
-                    />
+                  {#if activeFilter === FILTER.SCREEN_TIME}
+                    <!-- Screen time -->
+                    {#if episodeOverviewScale((d.onScreen.length * 5) / d.duration)}
+                      <rect
+                        class="pointer-events-none"
+                        x={0}
+                        y={0}
+                        width={episodeOverviewScale((d.onScreen.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
+                        height={episodesVerticalScale.bandwidth()}
+                        fill={characters.find(char => char.id === activeCharacter)?.color}
+                        fill-opacity={activeFilter === FILTER.LAUGHS ? 0.3 : (isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
+                      />
+                    {/if}
+                  {:else}
+                    <!-- Laugh rate -->
+                    {#if episodeOverviewScale((d.causesLaughs.length * 5) / d.duration)}
+                     <rect
+                       class="pointer-events-none"
+                       x={0}
+                       y={0}
+                       width={episodeOverviewScale((d.causesLaughs.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
+                       height={episodesVerticalScale.bandwidth()}
+                       fill={characters.find(char => char.id === activeCharacter)?.color}
+                       fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
+                     />
+                    {/if}
                   {/if}
                 </g>
               {/each}

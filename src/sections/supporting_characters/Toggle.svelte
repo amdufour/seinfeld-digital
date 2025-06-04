@@ -2,7 +2,8 @@
   import TvIcon from "../../icons/TvIcon.svelte";
   import Laugh from "../../icons/Laugh.svelte";
 
-  let isScreenTimeSelected = $state(true);
+  let { selectedOption } = $props();
+  let isScreenTimeSelected = $state(selectedOption === 'screenTime');
 
   const selectScreenTime = () => {
     isScreenTimeSelected = true;
