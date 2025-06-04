@@ -10,9 +10,11 @@
   import HelpIcon from '../../icons/HelpIcon.svelte';
   import ArrowDown from '../../icons/ArrowDown.svelte';
   import SeasonsStripSingle from '../../UI/SeasonsStripSingle.svelte';
+  import EpisodeTooltip from '../../UI/EpisodeTooltip.svelte';
 
   let { episodesData } = $props();
-  $inspect(episodesData)
+
+  let innerWidth = $state(1600);
 
   const supportingChars = $derived(characters.slice(4, characters.length - 1));
   const activeCharacter = $state("Jerry's family");
@@ -124,9 +126,11 @@
 
   let isMouseOver = $state(false);
   let highlightedEpisode = $state('');
+  let highlightedEpisodeInfo = $state();
   let highlightedEpisodeOverviewPercentage = $state(0);
   let highlightedEpisodeTimePosition = $state(0);
   let highlightedEpisodeTimeLabel = $state('');
+  let episodeTooltipPosition = $state();
   const handleOverviewMouseEnter = () => {
     isMouseOver = true;
   }
@@ -137,7 +141,10 @@
     const bandHeight = episodesVerticalScale.bandwidth();
     const episodeIndex = Math.ceil(y / bandHeight);
     const episode = episodesInfo[episodeIndex - 1];
-    highlightedEpisode = `${episode.season}-${episode.episode}`;
+    if (episode) {
+      highlightedEpisode = `${episode.season}-${episode.episode}`;
+      highlightedEpisodeInfo = episode;
+    }
     const data = charData.find(e => e.season === episode.season && e.episode === episode.episode);
     highlightedEpisodeOverviewPercentage = Math.round((data?.onScreen.reduce((acc, value) => acc + value.duration, 0)) / data?.duration * 100) ?? undefined;
 
@@ -150,17 +157,21 @@
     if (highlightedEpisodeTimeLabel !== newTimeLabel) {
       highlightedEpisodeTimeLabel = formatTimeLabel(timeInSeconds)
     }
+
+    episodeTooltipPosition = [-58, y];
   }
   const handleOverviewMouseLeave = () => {
     isMouseOver = false;
   }
 </script>
 
+<svelte:window bind:innerWidth />
+
 <div class="mt-20 mb-52">
   <div class="container">
     <h3 class="my-8">Screen time vs laughter rate</h3>
     <div class="grid grid-cols-12 md:gap-20">
-      <div class="col-span-12 md:col-span-3 flex flex-col items-center">
+      <div class="col-span-12 md:col-span-3 flex flex-col items-center relative">
         <div class="small flex items-center gap-2 mb-6" style="max-width: 320px;">
           <span class="shrink"><HelpIcon color="#E71D80" /></span>
           <span class="relative top-1">Select a character to explore their screen time and laughter rate.</span>
@@ -176,7 +187,11 @@
               </button>
             </li>
           {/each}
-          </ul>
+        </ul>
+
+        {#if isMouseOver && innerWidth >= 793}
+          <EpisodeTooltip episode={highlightedEpisodeInfo} position={episodeTooltipPosition} />
+        {/if}
       </div>
 
       <div class="col-span-12 md:col-span-9" bind:clientHeight={visualizationsContainerHeight}>

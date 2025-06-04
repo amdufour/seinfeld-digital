@@ -52,7 +52,7 @@
 				</span>
 				<span class="ml-1">
 					<span class="mr-1 font-semibold">IMDb rating:</span>
-					<span>{episode.IMDB_rating.replace(',', '.')}/10</span>
+					<span>{episode?.IMDB_rating.replace(',', '.')}/10</span>
 				</span>
 			</div>
 			<div class="tooltip-tag tooltip-tag-tv flex items-center">
