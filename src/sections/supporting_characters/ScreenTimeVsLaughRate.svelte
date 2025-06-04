@@ -17,7 +17,11 @@
   let innerWidth = $state(1600);
 
   const supportingChars = $derived(characters.slice(4, characters.length - 1));
-  const activeCharacter = $state("Jerry's family");
+  let activeCharacter = $state("Jerry's family");
+
+  const handleCharacterClick = (char) => {
+    activeCharacter = char.id;
+  }
 
   let visualizationsWidth = $state(800);
   const episodesOverviewWidth = 150;
@@ -122,7 +126,6 @@
 
     return breakdown;
   });
-  $inspect('charData', charData)
 
   let isMouseOver = $state(false);
   let highlightedEpisode = $state('');
@@ -180,7 +183,9 @@
         <ul class="grid grid-cols-2 gap-6 flex-wrap">
           {#each supportingChars as char}
             <li class="flex justify-center">
-              <button class="character-button flex flex-col items-center max-w-28 {activeCharacter === char.id ? 'active' : ''}">
+              <button 
+                class="character-button flex flex-col items-center max-w-28 {activeCharacter === char.id ? 'active' : ''}"
+                onclick={() => handleCharacterClick(char)}>
                 <div class="character rounded-full bg-contain bg-center opacity-50" 
                     style="background-image: url('{getCharacterImagePath(char.id)}'); width: 75px; height: 75px;"></div>
                 <div class="text-center pt-1" style="font-size: 1.25rem; line-height: 1.2;">{char.label}</div>
