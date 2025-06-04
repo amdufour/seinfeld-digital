@@ -42,7 +42,7 @@
 <style>
   button {
     width: 304px;
-    padding: 8px 24px 8px;
+    padding: 6px 24px 7px;
     border: 1px solid;
     transition: all 300ms ease-out;
   }

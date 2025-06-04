@@ -15,6 +15,6 @@
 		</div>
 	</Lazy>
 	<Intro />
-	<ScreenTimeVsLaughRate {episodesData} />
+	<ScreenTimeVsLaughRate {episodesData} currentSection="supporting_chars" />
 	<Marimekko />
 </section>

@@ -3,7 +3,9 @@
   import { max, sum } from 'd3-array';
   import { episodesInfo } from '$lib/data/episodesInfo';
   import { characters } from '$lib/data/characters';
+  import { locations } from '$lib/data/locations';
   import { getCharacterImagePath } from '../../utils/getCharacterImagePath';
+  import { getLocationIconPath } from '../../utils/getLocationIconPath';
   import { seasons, totalNumEpisodes } from '$lib/data/seasons';
   import { formatTimeLabel } from '../../utils/formatTime';
   import Toggle from './Toggle.svelte';
@@ -12,12 +14,31 @@
   import SeasonsStripSingle from '../../UI/SeasonsStripSingle.svelte';
   import EpisodeTooltip from '../../UI/EpisodeTooltip.svelte';
 
-  let { episodesData } = $props();
+  let { episodesData, currentSection } = $props();
 
   let innerWidth = $state(1600);
 
-  const supportingChars = $derived(characters.slice(4, characters.length - 1));
-  let activeCharacter = $state("Jerry's family");
+  let currentChars = $derived.by(() => {
+    switch (currentSection) {
+      case "supporting_chars":
+        return characters.slice(4, characters.length - 1);
+      case "locations":
+        return locations;
+      default:
+        return characters.slice(0, 3);
+    }
+  });
+  let activeCharacter = $state(() => {
+      switch (currentSection) {
+        case "supporting_chars":
+          return "Jerry's family";
+        case "locations":
+          return "Jerry's home";
+        default:
+          return "JERRY";
+      }
+    }  
+  );
 
   const FILTER = {
     SCREEN_TIME: 'screenTime',
@@ -75,11 +96,17 @@
       const aggregatedLaughs = [];
 
       episode.data.forEach(d => {
-        if (d.eventCategory === 'CHARACTERS' && d.eventAttribute.includes(activeCharacter)) {
+        if ((currentSection === "locations" ? d.eventCategory === 'LOCATION' : d.eventCategory === 'CHARACTERS') && d.eventAttribute.includes(activeCharacter())) {
           onScreen.push(d)
+
+          // Returns empty array
+          const time = d.eventTimeSeconds;
+          if (currentSection === "locations" && episodesData.find(e => e.eventCategory === 'CAUSES THE LAUGH' && e.eventTimeSeconds === time)) {
+            causesLaughs.push(episodesData.find(e => e.eventCategory === 'CAUSES THE LAUGH' && e.eventTimeSeconds === time))
+          }
         }
 
-        if (d.eventCategory === 'CAUSES THE LAUGH' && d.eventAttribute.includes(activeCharacter)) {
+        if (currentSection !== "locations" && d.eventCategory === 'CAUSES THE LAUGH' && d.eventAttribute.includes(activeCharacter())) {
           causesLaughs.push(d)
         }
 
@@ -132,6 +159,9 @@
 
     return breakdown;
   });
+
+  $inspect('episodesData', episodesData)
+  $inspect(charData)
 
   let isMouseOver = $state(false);
   let highlightedEpisode = $state('');
@@ -189,13 +219,13 @@
         </div>
 
         <ul class="grid grid-cols-2 gap-6 flex-wrap">
-          {#each supportingChars as char}
+          {#each currentChars as char}
             <li class="flex justify-center">
               <button 
-                class="character-button flex flex-col items-center max-w-28 {activeCharacter === char.id ? 'active' : ''}"
+                class="character-button flex flex-col items-center max-w-28 {activeCharacter() === char.id ? 'active' : ''}"
                 onclick={() => handleCharacterClick(char)}>
                 <div class="character rounded-full bg-contain bg-center opacity-50" 
-                    style="background-image: url('{getCharacterImagePath(char.id)}'); width: 75px; height: 75px;"></div>
+                    style="background-image: url('{currentSection === "locations" ? getLocationIconPath(char.id) : getCharacterImagePath(char.id)}'); width: 75px; height: 75px;"></div>
                 <div class="text-center pt-1" style="font-size: 1.25rem; line-height: 1.2;">{char.label}</div>
               </button>
             </li>
@@ -303,7 +333,7 @@
                       y={0}
                       width={episodeTimeScale(screenMoment.duration)}
                       height={episodesVerticalScale.bandwidth()}
-                      fill={characters.find(char => char.id === activeCharacter)?.color}
+                      fill={characters.find(char => char.id === activeCharacter())?.color}
                       fill-opacity={activeFilter === FILTER.LAUGHS ? 0.3 : (isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
                     />
                   {/each}
@@ -317,7 +347,7 @@
                         y={0}
                         width={episodeTimeScale(screenMoment.duration)}
                         height={episodesVerticalScale.bandwidth()}
-                        fill={characters.find(char => char.id === activeCharacter)?.color}
+                        fill={characters.find(char => char.id === activeCharacter())?.color}
                         fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
                       />
                     {/each}
@@ -405,7 +435,7 @@
                         y={0}
                         width={episodeOverviewScale((d.onScreen.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
                         height={episodesVerticalScale.bandwidth()}
-                        fill={characters.find(char => char.id === activeCharacter)?.color}
+                        fill={characters.find(char => char.id === activeCharacter())?.color}
                         fill-opacity={activeFilter === FILTER.LAUGHS ? 0.3 : (isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
                       />
                     {/if}
@@ -418,7 +448,7 @@
                        y={0}
                        width={episodeOverviewScale((d.causesLaughs.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
                        height={episodesVerticalScale.bandwidth()}
-                       fill={characters.find(char => char.id === activeCharacter)?.color}
+                       fill={characters.find(char => char.id === activeCharacter())?.color}
                        fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
                      />
                     {/if}

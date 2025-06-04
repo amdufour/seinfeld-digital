@@ -3,6 +3,9 @@
 	import SectionTitle from '../SectionTitle.svelte';
 	import Intro from './Intro.svelte';
 	import Marimekko from './Marimekko.svelte';
+	import ScreenTimeVsLaughRate from '../supporting_characters/ScreenTimeVsLaughRate.svelte';
+
+	let { episodesData } = $props();
 </script>
 
 <section id="locations">
@@ -12,10 +15,6 @@
 		</div>
 	</Lazy>
 	<Intro />
-	<div class="flex h-screen w-screen items-center">
-		<div class="container">
-			<div>PLACEHOLDER Locations section</div>
-		</div>
-	</div>
+	<ScreenTimeVsLaughRate {episodesData} currentSection="locations" />
 	<Marimekko />
 </section>
