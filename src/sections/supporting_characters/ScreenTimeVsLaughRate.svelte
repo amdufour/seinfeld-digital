@@ -99,10 +99,9 @@
         if ((currentSection === "locations" ? d.eventCategory === 'LOCATION' : d.eventCategory === 'CHARACTERS') && d.eventAttribute.includes(activeCharacter())) {
           onScreen.push(d)
 
-          // Returns empty array
           const time = d.eventTimeSeconds;
-          if (currentSection === "locations" && episodesData.find(e => e.eventCategory === 'CAUSES THE LAUGH' && e.eventTimeSeconds === time)) {
-            causesLaughs.push(episodesData.find(e => e.eventCategory === 'CAUSES THE LAUGH' && e.eventTimeSeconds === time))
+          if (currentSection === "locations" && episode.data.find(e => e.eventCategory === 'CAUSES THE LAUGH' && e.eventTimeSeconds === time)) {
+            causesLaughs.push(episode.data.find(e => e.eventCategory === 'CAUSES THE LAUGH' && e.eventTimeSeconds === time))
           }
         }
 
@@ -159,9 +158,6 @@
 
     return breakdown;
   });
-
-  $inspect('episodesData', episodesData)
-  $inspect(charData)
 
   let isMouseOver = $state(false);
   let highlightedEpisode = $state('');
