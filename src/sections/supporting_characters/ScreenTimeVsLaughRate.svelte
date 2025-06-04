@@ -23,7 +23,7 @@
     SCREEN_TIME: 'screenTime',
     LAUGHS: 'causesLaughs'
   }
-  let activeFilter = $state(FILTER.LAUGHS);
+  let activeFilter = $state(FILTER.SCREEN_TIME);
 
   const handleCharacterClick = (char) => {
     activeCharacter = char.id;
@@ -208,7 +208,7 @@
       </div>
 
       <div class="col-span-12 md:col-span-9" bind:clientHeight={visualizationsContainerHeight}>
-        <Toggle selectedOption={activeFilter} />
+        <Toggle bind:activeFilter />
         <div class="flex" bind:clientWidth={visualizationsWidth}>
           <!-- Episode details -->
           <svg width={visualizationsWidth} height={visualizationsHeight}>
@@ -309,17 +309,19 @@
                   {/each}
 
                   <!-- Laughs -->
-                  {#each d.causesLaughs as screenMoment}
-                    <rect
-                      class="pointer-events-none"
-                      x={episodeTimeScale(screenMoment.start)}
-                      y={0}
-                      width={episodeTimeScale(screenMoment.duration)}
-                      height={episodesVerticalScale.bandwidth()}
-                      fill={characters.find(char => char.id === activeCharacter)?.color}
-                      fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
-                    />
-                  {/each}
+                  {#if activeFilter === FILTER.LAUGHS}
+                    {#each d.causesLaughs as screenMoment}
+                      <rect
+                        class="pointer-events-none"
+                        x={episodeTimeScale(screenMoment.start)}
+                        y={0}
+                        width={episodeTimeScale(screenMoment.duration)}
+                        height={episodesVerticalScale.bandwidth()}
+                        fill={characters.find(char => char.id === activeCharacter)?.color}
+                        fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
+                      />
+                    {/each}
+                  {/if}
                 </g>
               {/each}
 
