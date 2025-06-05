@@ -18,7 +18,7 @@
 	import IntroEnd from '../sections/IntroEnd.svelte';
 	import MainCharsSection from '../sections/main_characters/MainCharsSection.svelte';
 	import SupportingCharsSection from '../sections/supporting_characters/SupportingCharsSection.svelte';
-	import LocationsSection from '../sections/locations/LocationsSection.svelte';
+	import LocationsSection from '../sections/locations/locationsSection.svelte';
 	import LaughsExploration from '../sections/laughs-exploration/LaughsExploration.svelte';
 	import Catalog from '../sections/catalog/Catalog.svelte';
 	import MethodologyAndCredits from '../sections/MethodologyAndCredits.svelte';
