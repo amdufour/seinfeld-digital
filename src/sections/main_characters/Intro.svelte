@@ -2,13 +2,35 @@
   import { onMount } from 'svelte';
 	import { gsap } from 'gsap/dist/gsap';
 	import Lenis from 'lenis';
+  import * as Tone from 'tone';
 	import { soundIsAuth } from '../../stores/soundAuthStore';
   import { characters } from "$lib/data/characters";
   import { getCharacterImagePath } from "../../utils/getCharacterImagePath";
 
   const mainChars = characters.slice(0, 4);
 
+  /**
+	 * @type {Tone.Players}
+	 */
+    // TODO: Add different laugh tracks
+	let charNamesTrack;
+	const preloadCharNames = () => {
+		// @ts-ignore
+		charNamesTrack = new Tone.Player('https://amdufour.github.io/hosted-data/apis/audio_quotes/3a.Characters.mp3').toDestination(); //connects to the system sound output
+    charNamesTrack.fadeIn = 1;
+    charNamesTrack.fadeOut = 1;
+  };
+
+  const playCharNames = () => {
+    if ($soundIsAuth && charNamesTrack) {
+      // @ts-ignore
+      charNamesTrack.start();
+    }
+  };
+
   onMount(() => {
+    preloadCharNames();
+    
     gsap.set('#lead-chars-intro p', { translateY: 100, opacity: 0 });
 
     const tl1 = gsap.timeline({
@@ -16,7 +38,9 @@
         trigger: '#lead-chars-intro',
         start: 'top top',
         end: 'bottom top',
-        pin: '#lead-chars-intro-text-container'
+        pin: '#lead-chars-intro-text-container',
+        onEnter: () => playCharNames(),
+        onEnterBack: () => playCharNames()
       }
     });
     tl1
@@ -90,7 +114,7 @@
                     data-speed={i % 2 === 0 ? 3 : 0.5} 
                   >
                     <div 
-                      class="relative character rounded-full bg-contain bg-center" 
+                      class="relative character rounded-full bg-contain bg-center shadow-md" 
                       style="
                         background-image: url('{getCharacterImagePath(char.id)}'); 
                         width: 100px; 
