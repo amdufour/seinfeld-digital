@@ -12,9 +12,14 @@
   const orderedChars = $state(mainChars.map(char => {
     return {
       ...char,
-      isActive: false
+      isActive: char.id === 'JERRY' ? true : false
     }
-  }));
+  })
+  .sort((a, b) => {
+      if (a.id === 'JERRY') return 1;
+      else if (b.id === 'JERRY') return -1;
+      else return 0;
+    }));
 
   let containerWidth = $state(1200);
 
@@ -56,6 +61,8 @@
 	};
 
   const handleCharacterClick = (/** @type {string} */ char) => {
+    if (orderedChars.find(c => c.id === char)?.isActive) return;
+
     orderedChars.sort((a, b) => {
       if (a.id === char) return 1;
       else if (b.id === char) return -1;
@@ -277,6 +284,10 @@
   .character-button.active .character {
     opacity: 1;
   }
+  .character-button.active {
+    cursor: default;
+  }
+
   .performance {
     transition: fill 0.3s ease-out;
   }
