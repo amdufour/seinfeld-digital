@@ -30,7 +30,7 @@
 
   onMount(() => {
     preloadCharNames();
-    
+
     gsap.set('#lead-chars-intro p', { translateY: 100, opacity: 0 });
 
     const tl1 = gsap.timeline({
@@ -40,7 +40,9 @@
         end: 'bottom top',
         pin: '#lead-chars-intro-text-container',
         onEnter: () => playCharNames(),
-        onEnterBack: () => playCharNames()
+        onEnterBack: () => playCharNames(),
+        onLeave: () => charNamesTrack.stop(),
+        onLeaveBack: () => charNamesTrack.stop(),
       }
     });
     tl1
@@ -110,7 +112,7 @@
                 <li class="my-2">
                   <div 
                     class="lead-char-parallax relative flex flex-col items-center"
-                    style="top: {i % 2 === 0 ? 0 : '160px'}"
+                    style="top: {i % 2 === 0 ? 0 : '160px'}; background-color: rgba(18, 2, 10, 0.7);"
                     data-speed={i % 2 === 0 ? 3 : 0.5} 
                   >
                     <div 

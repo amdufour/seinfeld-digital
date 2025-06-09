@@ -4,6 +4,7 @@
 	import Marimekko from './Marimekko.svelte';
 	import PeakPerformances from './PeakPerformances.svelte';
 	import Intro from './Intro.svelte';
+	import ScreenTimeVsLaughRate from '../supporting_characters/ScreenTimeVsLaughRate.svelte';
 
 	let { episodesData } = $props();
 </script>
@@ -15,6 +16,7 @@
 		</div>
 	</Lazy>
 	<Intro/>
+	<ScreenTimeVsLaughRate {episodesData} currentSection="main_chars" />
 	<Marimekko />
 	<PeakPerformances />
 </section>
