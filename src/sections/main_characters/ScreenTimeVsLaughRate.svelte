@@ -82,6 +82,8 @@
       const aggregatedLaughs = [];
       const withoutJerry = [];
       const aggregatedWithoutJerry = [];
+      const firstSceneWithoutJerry = [];
+      const aggregatedFirstSceneWithoutJerry = [];
 
       episode.data.forEach(d => {
         if (d.eventCategory === 'CHARACTERS' && d.eventAttribute.includes(activeCharacter)) {
@@ -100,6 +102,12 @@
           withoutJerry.push(d)
         }
 
+        if (activeCharacter === 'JERRY' && +d.sceneNumber === 1 && 
+            !episode.data.find(e => +e.sceneNumber === 1 && e.eventAttribute === "JERRY")
+        ) {
+         firstSceneWithoutJerry.push(d)
+        }
+
         if (d.eventCategory === 'CAUSES THE LAUGH' && d.eventAttribute.includes(activeCharacter)) {
           causesLaughs.push(d)
         }
@@ -114,8 +122,8 @@
           currentTime = +d.eventTimeSeconds
         } else if (+d.eventTimeSeconds > currentTime + 5 || i === onScreen.length - 1) {
           aggregatedScreenTime.push({
-            start: start,
-            duration: currentTime - start + 5
+            start: start - 5,
+            duration: currentTime - start
           })
           start = +d.eventTimeSeconds
           currentTime = +d.eventTimeSeconds
@@ -132,8 +140,8 @@
           currentTime = +d.eventTimeSeconds
         } else if (+d.eventTimeSeconds > currentTime + 5 || i === onScreenAtWork.length - 1) {
           aggregatedScreenTimeAtWork.push({
-            start: start,
-            duration: currentTime - start + 5
+            start: start - 5,
+            duration: currentTime - start
           })
           start = +d.eventTimeSeconds
           currentTime = +d.eventTimeSeconds
@@ -150,8 +158,26 @@
           currentTime = +d.eventTimeSeconds
         } else if (+d.eventTimeSeconds > currentTime + 5 || i === withoutJerry.length - 1) {
           aggregatedWithoutJerry.push({
-            start: start,
-            duration: currentTime - start + 5
+            start: start - 5,
+            duration: currentTime - start
+          })
+          start = +d.eventTimeSeconds
+          currentTime = +d.eventTimeSeconds
+        } else if (+d.eventTimeSeconds === currentTime + 5) {
+          currentTime = +d.eventTimeSeconds
+        }
+      })
+
+      start = undefined
+      currentTime = undefined
+      firstSceneWithoutJerry.forEach((d, i) => {
+        if (!start && !currentTime) {
+          start = +d.eventTimeSeconds
+          currentTime = +d.eventTimeSeconds
+        } else if (+d.eventTimeSeconds > currentTime + 5 || i === firstSceneWithoutJerry.length - 1) {
+          aggregatedFirstSceneWithoutJerry.push({
+            start: start - 5,
+            duration: currentTime - start
           })
           start = +d.eventTimeSeconds
           currentTime = +d.eventTimeSeconds
@@ -168,8 +194,8 @@
           currentTime = +d.eventTimeSeconds
         } else if (+d.eventTimeSeconds > currentTime + 5 || i === onScreenAtWork.length - 1) {
           aggregatedLaughs.push({
-            start: start,
-            duration: currentTime - start + 5
+            start: start - 5,
+            duration: currentTime - start
           })
           start = +d.eventTimeSeconds
           currentTime = +d.eventTimeSeconds
@@ -185,7 +211,8 @@
         onScreen: aggregatedScreenTime,
         onScreenAtWork: aggregatedScreenTimeAtWork,
         causesLaughs: aggregatedLaughs,
-        withoutJerry: aggregatedWithoutJerry
+        withoutJerry: aggregatedWithoutJerry,
+        firstSceneWithoutJerry: aggregatedFirstSceneWithoutJerry
       })
     })
 
@@ -244,14 +271,13 @@
       }
     });
 
-    const tlJerryText1 = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#jerry-text-2',
-        start: 'top bottom'
-      }
-    });
-    tlJerryText1
-      .to('.JERRY-onscreen', { opacity: 0.3 })
+    const highlightAnimation = {
+        webkitTextFillColor: 'transparent',
+        backgroundPosition: '200% center',
+        duration: 2,
+        delay: 1,
+        ease: 'power3.out'
+    }
 
     const tlJerryText2 = gsap.timeline({
       scrollTrigger: {
@@ -262,7 +288,9 @@
       }
     });
     tlJerryText2
-      .to('.jerry-at-work', { opacity: 1 })
+      .to('.JERRY-onscreen', { opacity: 0.3 })
+      .to('.jerry-at-work', { opacity: 1 }, 0)
+      .to('#jerry-text-2 .highlight', highlightAnimation, "<-0.7")
 
     const tlJerryText3 = gsap.timeline({
       scrollTrigger: {
@@ -273,7 +301,9 @@
       }
     });
     tlJerryText3
-      .to('.without-jerry', { opacity: 1 })
+      .to('.jerry-at-work', { opacity: 0 })
+      .to('.without-jerry', { opacity: 1 }, 0)
+      .to('#jerry-text-3 .highlight', highlightAnimation, "<-0.7")
 
     const tlJerryText4 = gsap.timeline({
       scrollTrigger: {
@@ -284,11 +314,65 @@
       }
     });
     tlJerryText4
-      .to('.JERRY-onscreen.season-1', { opacity: 1 })
+      .to('.without-jerry', { opacity: 0 })
+      .to('.JERRY-onscreen', { opacity: 0.3 }, 0)
+      .to('.JERRY-onscreen.season-1', { opacity: 1 }, 0)
+      .to('#jerry-text-4 .highlight', highlightAnimation, "<-0.7")
+
+    const tlJerryText5 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#jerry-text-5',
+        start: 'top bottom',
+        end: 'top top',
+        toggleActions: 'play reverse play reverse'
+      }
+    });
+    tlJerryText5
+      .to('.JERRY-onscreen', { opacity: 0.3 })
+      .to('.first-scene-without-jerry', { opacity: 1 }, 0)
+      .to('#jerry-text-5 .highlight', highlightAnimation, "<-0.7")
+
+    const tlJerryText6 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#jerry-text-6',
+        start: 'top bottom',
+        end: 'top top',
+        toggleActions: 'play none play none'
+      }
+    });
+    tlJerryText6
+      .to('.first-scene-without-jerry', { opacity: 0 })
+      .to('.JERRY-laugh', { opacity: 0 }, 0)
+      .to('.JERRY-onscreen, .JERRY-onscreen.season-1', { opacity: 1 }, 0)
+      .to('#jerry-text-6 .highlight', highlightAnimation, "<-0.7")
+
+    const tlJerryText7 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#jerry-text-7',
+        start: 'top bottom',
+        end: 'top top',
+        toggleActions: 'play none play none',
+        onEnter: () => activeFilter = FILTER.LAUGHS
+      }
+    });
+    tlJerryText7
+      .to('.JERRY-onscreen', { opacity: 0.3 })
+      .to('.JERRY-laugh', { opacity: 1 }, 0)
+      .to('#jerry-text-7 .highlight', highlightAnimation, "<-0.7")
+
+    const tlJerryText8 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#jerry-text-8',
+        start: 'top bottom',
+        end: 'top top',
+        toggleActions: 'play none play none',
+        onEnter: () => activeFilter = FILTER.LAUGHS
+      }
+    });
   })
 
   const numTextScreens = 8;
-  $inspect(charData)
+  $inspect(episodesData)
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -419,7 +503,7 @@
                         width={episodeTimeScale(screenMoment.duration)}
                         height={episodesVerticalScale.bandwidth()}
                         fill={characters.find(char => char.id === activeCharacter)?.color}
-                        fill-opacity={activeFilter === FILTER.LAUGHS ? 0.3 : (isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
+                        style="opacity: {activeFilter === FILTER.LAUGHS ? 0.3 : (isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3};"
                       />
                     {/each}
 
@@ -449,19 +533,32 @@
                           style="opacity: 0;"
                         />
                       {/each}
+
+                      <!-- First scene without Jerry -->
+                      {#each d.firstSceneWithoutJerry as screenMoment}
+                        <rect
+                          class="pointer-events-none first-scene-without-jerry"
+                          x={episodeTimeScale(screenMoment.start)}
+                          y={0}
+                          width={episodeTimeScale(screenMoment.duration)}
+                          height={episodesVerticalScale.bandwidth()}
+                          fill="#E71D80"
+                          style="opacity: 0;"
+                        />
+                      {/each}
                     {/if}
 
                     <!-- Laughs -->
                     {#if activeFilter === FILTER.LAUGHS}
                       {#each d.causesLaughs as screenMoment}
                         <rect
-                          class="pointer-events-none"
+                          class="pointer-events-none {activeCharacter}-laugh"
                           x={episodeTimeScale(screenMoment.start)}
                           y={0}
                           width={episodeTimeScale(screenMoment.duration)}
                           height={episodesVerticalScale.bandwidth()}
                           fill={characters.find(char => char.id === activeCharacter)?.color}
-                          fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
+                          style="opacity: {(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3};"
                         />
                       {/each}
                     {/if}

@@ -35,7 +35,7 @@
 <div class="flex h-screen w-screen items-center justify-center">
   <div id="jerry-text-4" class="text-overlay flex flex-col items-center">
     <div class="mb-4">
-      Perhaps inevitably Jerry appeared in all scenes and almost every second of run-time during episodes in Season 1, offering a safe pair of hands as the show was establishing itself.
+      Perhaps inevitably Jerry appeared in all scenes and <span class="highlight">almost every second</span> of run-time during episodes in Season 1, offering a safe pair of hands as the show was establishing itself.
     </div>
   </div>
 </div>
@@ -44,7 +44,7 @@
 <div class="flex h-screen w-screen items-center justify-center">
   <div id="jerry-text-5" class="text-overlay flex flex-col items-center">
     <div class="mb-4">
-      Other than in S3E18 "The Boyfriend (Part 2)", which was the second episode of a two-part storyline, S7E1 "The Engagement" was the first in which Jerry did not appear in the opening scene. It happened again in S7E11 "The Rye". Although skewed by the absence of his opening monologues, across Season 8 and 9, when he has taken over from Larry David as the show's Executive Producer, there were <span class="highlight">11 episodes</span> in which he did not appear in the opening scene (and, in S8E5 "The Package", not until scene 4).
+      Other than in S3E18 "The Boyfriend (Part 2)", which was the second episode of a two-part storyline, S7E1 "The Engagement" was the first in which Jerry did not appear in the opening scene. It happened again in S7E11 "The Rye". Although skewed by the absence of his opening monologues, across Season 8 and 9, when he has taken over from Larry David as the show's Executive Producer, there were <span class="highlight">11 episodes in which he did not appear in the opening scene</span> (and, in S8E5 "The Package", not until scene 4).
     </div>
   </div>
 </div>
