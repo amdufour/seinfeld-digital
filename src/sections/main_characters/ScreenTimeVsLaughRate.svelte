@@ -283,8 +283,8 @@
       scrollTrigger: {
         trigger: '#jerry-text-2',
         start: 'top bottom',
-        end: 'top top',
-        toggleActions: 'play reverse play reverse'
+        // end: 'top top',
+        toggleActions: 'play none play none'
       }
     });
     tlJerryText2
@@ -296,8 +296,8 @@
       scrollTrigger: {
         trigger: '#jerry-text-3',
         start: 'top bottom',
-        end: 'top top',
-        toggleActions: 'play reverse play reverse'
+        // end: 'top top',
+        toggleActions: 'play none play none'
       }
     });
     tlJerryText3
@@ -309,8 +309,8 @@
       scrollTrigger: {
         trigger: '#jerry-text-4',
         start: 'top bottom',
-        end: 'top top',
-        toggleActions: 'play reverse play reverse'
+        // end: 'top top',
+        toggleActions: 'play none play none'
       }
     });
     tlJerryText4
@@ -323,8 +323,8 @@
       scrollTrigger: {
         trigger: '#jerry-text-5',
         start: 'top bottom',
-        end: 'top top',
-        toggleActions: 'play reverse play reverse'
+        // end: 'top top',
+        toggleActions: 'play none play none'
       }
     });
     tlJerryText5
@@ -336,7 +336,7 @@
       scrollTrigger: {
         trigger: '#jerry-text-6',
         start: 'top bottom',
-        end: 'top top',
+        // end: 'top top',
         toggleActions: 'play none play none'
       }
     });
@@ -350,9 +350,10 @@
       scrollTrigger: {
         trigger: '#jerry-text-7',
         start: 'top bottom',
-        end: 'top top',
+        // end: 'top top',
         toggleActions: 'play none play none',
-        onEnter: () => activeFilter = FILTER.LAUGHS
+        onEnter: () => activeFilter = FILTER.LAUGHS,
+        onLeaveBack: () => activeFilter = FILTER.SCREEN_TIME
       }
     });
     tlJerryText7
@@ -363,12 +364,12 @@
     const tlJerryText8 = gsap.timeline({
       scrollTrigger: {
         trigger: '#jerry-text-8',
-        start: 'top bottom',
-        end: 'top top',
-        toggleActions: 'play none play none',
-        onEnter: () => activeFilter = FILTER.LAUGHS
+        start: 'bottom top'
       }
     });
+    gsap.set('#lead-chars-episodes .hint', { opacity: 0, translateY: 30 })
+    tlJerryText8
+      .to('#lead-chars-episodes .hint', { opacity: 1, translateY: 0, ease: 'bounce.out', duration: 1 })
   })
 
   const numTextScreens = 8;
@@ -383,7 +384,7 @@
       <h3 class="my-8">Screen time vs laughter rate</h3>
       <div class="grid grid-cols-12 md:gap-8">
         <div class="col-span-12 md:col-span-2 flex flex-col items-center relative">
-          <div class="small flex items-center gap-2 mb-6" style="max-width: 320px;">
+          <div class="hint small flex items-center gap-2 mb-6" style="max-width: 320px;">
             <span class="shrink"><HelpIcon color="#E71D80" /></span>
             <span class="relative top-1">Select a character to explore their screen time and laughter rate.</span>
           </div>
