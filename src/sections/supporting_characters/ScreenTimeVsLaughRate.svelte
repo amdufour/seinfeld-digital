@@ -28,17 +28,7 @@
         return characters.slice(0, 3);
     }
   });
-  let activeCharacter = $state(() => {
-      switch (currentSection) {
-        case "supporting_chars":
-          return "Jerry's family";
-        case "locations":
-          return "Jerry's home";
-        default:
-          return "JERRY";
-      }
-    }  
-  );
+  let activeCharacter = $state(currentSection === 'locations' ? "Jerry's home" : "Jerry's family");
 
   const FILTER = {
     SCREEN_TIME: 'screenTime',
@@ -96,7 +86,7 @@
       const aggregatedLaughs = [];
 
       episode.data.forEach(d => {
-        if ((currentSection === "locations" ? d.eventCategory === 'LOCATION' : d.eventCategory === 'CHARACTERS') && d.eventAttribute.includes(activeCharacter())) {
+        if ((currentSection === "locations" ? d.eventCategory === 'LOCATION' : d.eventCategory === 'CHARACTERS') && d.eventAttribute.includes(activeCharacter)) {
           onScreen.push(d)
 
           const time = d.eventTimeSeconds;
@@ -105,7 +95,7 @@
           }
         }
 
-        if (currentSection !== "locations" && d.eventCategory === 'CAUSES THE LAUGH' && d.eventAttribute.includes(activeCharacter())) {
+        if (currentSection !== "locations" && d.eventCategory === 'CAUSES THE LAUGH' && d.eventAttribute.includes(activeCharacter)) {
           causesLaughs.push(d)
         }
 
@@ -211,14 +201,14 @@
       <div class="col-span-12 md:col-span-3 flex flex-col items-center relative">
         <div class="small flex items-center gap-2 mb-6" style="max-width: 320px;">
           <span class="shrink"><HelpIcon color="#E71D80" /></span>
-          <span class="relative top-1">Select a character to explore their screen time and laughter rate.</span>
+          <span class="relative top-1">{`Select a ${currentSection === 'locations' ? 'location' : 'character'} to explore their screen time and laughter rate.`}</span>
         </div>
 
         <ul class="grid grid-cols-2 gap-6 flex-wrap">
           {#each currentChars as char}
             <li class="flex justify-center">
               <button 
-                class="character-button flex flex-col items-center max-w-28 {activeCharacter() === char.id ? 'active' : ''}"
+                class="character-button flex flex-col items-center max-w-28 {activeCharacter === char.id ? 'active' : ''}"
                 onclick={() => handleCharacterClick(char)}>
                 <div class="character rounded-full bg-contain bg-center opacity-50" 
                     style="background-image: url('{currentSection === "locations" ? getLocationIconPath(char.id) : getCharacterImagePath(char.id)}'); width: 75px; height: 75px;"></div>
@@ -329,7 +319,7 @@
                       y={0}
                       width={episodeTimeScale(screenMoment.duration)}
                       height={episodesVerticalScale.bandwidth()}
-                      fill={characters.find(char => char.id === activeCharacter())?.color}
+                      fill={characters.find(char => char.id === activeCharacter)?.color}
                       fill-opacity={activeFilter === FILTER.LAUGHS ? 0.3 : (isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
                     />
                   {/each}
@@ -343,7 +333,7 @@
                         y={0}
                         width={episodeTimeScale(screenMoment.duration)}
                         height={episodesVerticalScale.bandwidth()}
-                        fill={characters.find(char => char.id === activeCharacter())?.color}
+                        fill={characters.find(char => char.id === activeCharacter)?.color}
                         fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
                       />
                     {/each}
@@ -431,7 +421,7 @@
                         y={0}
                         width={episodeOverviewScale((d.onScreen.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
                         height={episodesVerticalScale.bandwidth()}
-                        fill={characters.find(char => char.id === activeCharacter())?.color}
+                        fill={characters.find(char => char.id === activeCharacter)?.color}
                         fill-opacity={activeFilter === FILTER.LAUGHS ? 0.3 : (isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
                       />
                     {/if}
@@ -444,7 +434,7 @@
                        y={0}
                        width={episodeOverviewScale((d.causesLaughs.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
                        height={episodesVerticalScale.bandwidth()}
-                       fill={characters.find(char => char.id === activeCharacter())?.color}
+                       fill={characters.find(char => char.id === activeCharacter)?.color}
                        fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
                      />
                     {/if}
