@@ -58,7 +58,8 @@
     <div class="mb-4">
       Although his absolute screen-time levels continued to be high, you can see a <span class="highlight">clear trend of reduction</span> as the seasons pass.
     </div>
-    <Sparkline {charData} />
+    <div class="small mb-2">Average screen-time per season</div>
+    <Sparkline charData={charData.JERRY} showLabels={true} charId="JERRY" />
   </div>
 </div>
 
@@ -68,7 +69,8 @@
     <div class="mb-4">
       This is mirrored in the trends for his share of <span class="highlight">episode laughs</span>, which peaked in Season 1 at 54% but dropped by Season 9 to around 20%.
     </div>
-    <div>CHART PLACEHOLDER</div>
+    <div class="small mb-2">Average laughter share per season</div>
+    <Sparkline charData={charData.JERRY} isScreenTime={false} showLabels={true} charId="JERRY" />
   </div>
 </div>
 
@@ -76,8 +78,25 @@
 <div class="flex h-screen w-screen items-center justify-center">
   <div id="jerry-text-8" class="text-overlay flex flex-col">
     <div class="mb-4">
-      Perhaps this came about as the other lead characters found their voice and the supporting cast grew. There was an up-tick during Season 9, as seen across almost all character groups.
+      Perhaps this came about as the <span class="highlight">other lead characters found their voice</span> and the supporting cast grew. There was an up-tick during Season 9, as seen across almost all character groups.
     </div>
-    <div>CHART PLACEHOLDER</div>
+    <div>
+      <div class="small mb-2">Average screen-time per season</div>
+      <div class="flex gap-3">
+        <Sparkline charData={charData.JERRY} showLabels={true} charId="JERRY" />
+        <Sparkline charData={charData.GEORGE} charId="GEORGE" />
+        <Sparkline charData={charData.ELAINE} charId="ELAINE" />
+        <Sparkline charData={charData.KRAMER} charId="KRAMER" />
+      </div>
+      <div class="mt-8">
+        <div class="small mb-2">Average laughter share per season</div>
+        <div class="flex gap-3">
+          <Sparkline charData={charData.JERRY} isScreenTime={false} showLabels={true} showCharBadge={true} charId="JERRY" />
+          <Sparkline charData={charData.GEORGE} isScreenTime={false} showCharBadge={true} charId="GEORGE" />
+          <Sparkline charData={charData.ELAINE} isScreenTime={false} showCharBadge={true} charId="ELAINE" />
+          <Sparkline charData={charData.KRAMER} isScreenTime={false} showCharBadge={true} charId="KRAMER" />
+        </div>
+      </div>
+    </div>
   </div>
 </div>

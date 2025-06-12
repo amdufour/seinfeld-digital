@@ -71,154 +71,161 @@
   const overviewLabels = [0, 100];
 
   let charData = $derived.by(() => {
-    const breakdown = [];
+    const mainCharsData = {}
 
-    episodesData.forEach(episode => {
-      const onScreen = [];
-      const onScreenAtWork = [];
-      const aggregatedScreenTime = [];
-      const aggregatedScreenTimeAtWork = [];
-      const causesLaughs = [];
-      const aggregatedLaughs = [];
-      const withoutJerry = [];
-      const aggregatedWithoutJerry = [];
-      const firstSceneWithoutJerry = [];
-      const aggregatedFirstSceneWithoutJerry = [];
+    currentChars.forEach(char => {
+      const breakdown = [];
 
-      episode.data.forEach(d => {
-        if (d.eventCategory === 'CHARACTERS' && d.eventAttribute.includes(activeCharacter)) {
-          onScreen.push(d)
-        }
+      episodesData.forEach(episode => {
+        const onScreen = [];
+        const onScreenAtWork = [];
+        const aggregatedScreenTime = [];
+        const aggregatedScreenTimeAtWork = [];
+        const causesLaughs = [];
+        const aggregatedLaughs = [];
+        const withoutJerry = [];
+        const aggregatedWithoutJerry = [];
+        const firstSceneWithoutJerry = [];
+        const aggregatedFirstSceneWithoutJerry = [];
 
-        if (activeCharacter === 'JERRY' && d.eventCategory === 'LOCATION' && d.eventAttribute === 'Workplace') {
-          onScreenAtWork.push(d)
-        }
+        episode.data.forEach(d => {
+          if (d.eventCategory === 'CHARACTERS' && d.eventAttribute.includes(char.id)) {
+            onScreen.push(d)
+          }
 
-        if (activeCharacter === 'JERRY' && d.eventCategory === 'CHARACTERS' && d.eventAttribute === 'GEORGE' &&
-            episode.data.find(e => e.eventAttribute === "ELAINE" && e.eventTimeSeconds === d.eventTimeSeconds) &&
-            episode.data.find(e => e.eventAttribute === "KRAMER" && e.eventTimeSeconds === d.eventTimeSeconds) &&
-            !episode.data.find(e => e.eventAttribute === "JERRY" && e.eventTimeSeconds === d.eventTimeSeconds)
-        ) {
-          withoutJerry.push(d)
-        }
+          if (char.id === 'JERRY' && d.eventCategory === 'LOCATION' && d.eventAttribute === 'Workplace') {
+            onScreenAtWork.push(d)
+          }
 
-        if (activeCharacter === 'JERRY' && +d.sceneNumber === 1 && 
-            !episode.data.find(e => +e.sceneNumber === 1 && e.eventAttribute === "JERRY")
-        ) {
-         firstSceneWithoutJerry.push(d)
-        }
+          if (char.id === 'JERRY' && d.eventCategory === 'CHARACTERS' && d.eventAttribute === 'GEORGE' &&
+              episode.data.find(e => e.eventAttribute === "ELAINE" && e.eventTimeSeconds === d.eventTimeSeconds) &&
+              episode.data.find(e => e.eventAttribute === "KRAMER" && e.eventTimeSeconds === d.eventTimeSeconds) &&
+              !episode.data.find(e => e.eventAttribute === "JERRY" && e.eventTimeSeconds === d.eventTimeSeconds)
+          ) {
+            withoutJerry.push(d)
+          }
 
-        if (d.eventCategory === 'CAUSES THE LAUGH' && d.eventAttribute.includes(activeCharacter)) {
-          causesLaughs.push(d)
-        }
+          if (char.id === 'JERRY' && +d.sceneNumber === 1 && 
+              !episode.data.find(e => +e.sceneNumber === 1 && e.eventAttribute === "JERRY")
+          ) {
+          firstSceneWithoutJerry.push(d)
+          }
 
+          if (d.eventCategory === 'CAUSES THE LAUGH' && d.eventAttribute.includes(char.id)) {
+            causesLaughs.push(d)
+          }
+
+        })
+
+        let start
+        let currentTime
+        onScreen.forEach((d, i) => {
+          if (!start && !currentTime) {
+            start = +d.eventTimeSeconds
+            currentTime = +d.eventTimeSeconds
+          } else if (+d.eventTimeSeconds > currentTime + 5 || i === onScreen.length - 1) {
+            aggregatedScreenTime.push({
+              start: start - 5,
+              duration: currentTime - start
+            })
+            start = +d.eventTimeSeconds
+            currentTime = +d.eventTimeSeconds
+          } else if (+d.eventTimeSeconds === currentTime + 5) {
+            currentTime = +d.eventTimeSeconds
+          }
+        })
+
+        start = undefined
+        currentTime = undefined
+        onScreenAtWork.forEach((d, i) => {
+          if (!start && !currentTime) {
+            start = +d.eventTimeSeconds
+            currentTime = +d.eventTimeSeconds
+          } else if (+d.eventTimeSeconds > currentTime + 5 || i === onScreenAtWork.length - 1) {
+            aggregatedScreenTimeAtWork.push({
+              start: start - 5,
+              duration: currentTime - start
+            })
+            start = +d.eventTimeSeconds
+            currentTime = +d.eventTimeSeconds
+          } else if (+d.eventTimeSeconds === currentTime + 5) {
+            currentTime = +d.eventTimeSeconds
+          }
+        })
+
+        start = undefined
+        currentTime = undefined
+        withoutJerry.forEach((d, i) => {
+          if (!start && !currentTime) {
+            start = +d.eventTimeSeconds
+            currentTime = +d.eventTimeSeconds
+          } else if (+d.eventTimeSeconds > currentTime + 5 || i === withoutJerry.length - 1) {
+            aggregatedWithoutJerry.push({
+              start: start - 5,
+              duration: currentTime - start
+            })
+            start = +d.eventTimeSeconds
+            currentTime = +d.eventTimeSeconds
+          } else if (+d.eventTimeSeconds === currentTime + 5) {
+            currentTime = +d.eventTimeSeconds
+          }
+        })
+
+        start = undefined
+        currentTime = undefined
+        firstSceneWithoutJerry.forEach((d, i) => {
+          if (!start && !currentTime) {
+            start = +d.eventTimeSeconds
+            currentTime = +d.eventTimeSeconds
+          } else if (+d.eventTimeSeconds > currentTime + 5 || i === firstSceneWithoutJerry.length - 1) {
+            aggregatedFirstSceneWithoutJerry.push({
+              start: start - 5,
+              duration: currentTime - start
+            })
+            start = +d.eventTimeSeconds
+            currentTime = +d.eventTimeSeconds
+          } else if (+d.eventTimeSeconds === currentTime + 5) {
+            currentTime = +d.eventTimeSeconds
+          }
+        })
+
+        start = undefined
+        currentTime = undefined
+        causesLaughs.forEach((d, i) => {
+          if (!start && !currentTime) {
+            start = +d.eventTimeSeconds
+            currentTime = +d.eventTimeSeconds
+          } else if (+d.eventTimeSeconds > currentTime + 5 || i === onScreenAtWork.length - 1) {
+            aggregatedLaughs.push({
+              start: start - 5,
+              duration: currentTime - start
+            })
+            start = +d.eventTimeSeconds
+            currentTime = +d.eventTimeSeconds
+          } else if (+d.eventTimeSeconds === currentTime + 5) {
+            currentTime = +d.eventTimeSeconds
+          }
+        })
+
+        breakdown.push({
+          season: episode.season,
+          episode: episode.episode,
+          duration: episode.duration,
+          onScreen: onScreen,
+          aggregatedOnScreen: aggregatedScreenTime,
+          onScreenAtWork: aggregatedScreenTimeAtWork,
+          causesLaughs: causesLaughs,
+          episodeLaughs: episode.laughs,
+          aggregatedLaughs: aggregatedLaughs,
+          withoutJerry: aggregatedWithoutJerry,
+          firstSceneWithoutJerry: aggregatedFirstSceneWithoutJerry
+        })
       })
 
-      let start
-      let currentTime
-      onScreen.forEach((d, i) => {
-        if (!start && !currentTime) {
-          start = +d.eventTimeSeconds
-          currentTime = +d.eventTimeSeconds
-        } else if (+d.eventTimeSeconds > currentTime + 5 || i === onScreen.length - 1) {
-          aggregatedScreenTime.push({
-            start: start - 5,
-            duration: currentTime - start
-          })
-          start = +d.eventTimeSeconds
-          currentTime = +d.eventTimeSeconds
-        } else if (+d.eventTimeSeconds === currentTime + 5) {
-          currentTime = +d.eventTimeSeconds
-        }
-      })
-
-      start = undefined
-      currentTime = undefined
-      onScreenAtWork.forEach((d, i) => {
-        if (!start && !currentTime) {
-          start = +d.eventTimeSeconds
-          currentTime = +d.eventTimeSeconds
-        } else if (+d.eventTimeSeconds > currentTime + 5 || i === onScreenAtWork.length - 1) {
-          aggregatedScreenTimeAtWork.push({
-            start: start - 5,
-            duration: currentTime - start
-          })
-          start = +d.eventTimeSeconds
-          currentTime = +d.eventTimeSeconds
-        } else if (+d.eventTimeSeconds === currentTime + 5) {
-          currentTime = +d.eventTimeSeconds
-        }
-      })
-
-      start = undefined
-      currentTime = undefined
-      withoutJerry.forEach((d, i) => {
-        if (!start && !currentTime) {
-          start = +d.eventTimeSeconds
-          currentTime = +d.eventTimeSeconds
-        } else if (+d.eventTimeSeconds > currentTime + 5 || i === withoutJerry.length - 1) {
-          aggregatedWithoutJerry.push({
-            start: start - 5,
-            duration: currentTime - start
-          })
-          start = +d.eventTimeSeconds
-          currentTime = +d.eventTimeSeconds
-        } else if (+d.eventTimeSeconds === currentTime + 5) {
-          currentTime = +d.eventTimeSeconds
-        }
-      })
-
-      start = undefined
-      currentTime = undefined
-      firstSceneWithoutJerry.forEach((d, i) => {
-        if (!start && !currentTime) {
-          start = +d.eventTimeSeconds
-          currentTime = +d.eventTimeSeconds
-        } else if (+d.eventTimeSeconds > currentTime + 5 || i === firstSceneWithoutJerry.length - 1) {
-          aggregatedFirstSceneWithoutJerry.push({
-            start: start - 5,
-            duration: currentTime - start
-          })
-          start = +d.eventTimeSeconds
-          currentTime = +d.eventTimeSeconds
-        } else if (+d.eventTimeSeconds === currentTime + 5) {
-          currentTime = +d.eventTimeSeconds
-        }
-      })
-
-      start = undefined
-      currentTime = undefined
-      causesLaughs.forEach((d, i) => {
-        if (!start && !currentTime) {
-          start = +d.eventTimeSeconds
-          currentTime = +d.eventTimeSeconds
-        } else if (+d.eventTimeSeconds > currentTime + 5 || i === onScreenAtWork.length - 1) {
-          aggregatedLaughs.push({
-            start: start - 5,
-            duration: currentTime - start
-          })
-          start = +d.eventTimeSeconds
-          currentTime = +d.eventTimeSeconds
-        } else if (+d.eventTimeSeconds === currentTime + 5) {
-          currentTime = +d.eventTimeSeconds
-        }
-      })
-
-      breakdown.push({
-        season: episode.season,
-        episode: episode.episode,
-        duration: episode.duration,
-        onScreen: onScreen,
-        aggregatedOnScreen: aggregatedScreenTime,
-        onScreenAtWork: aggregatedScreenTimeAtWork,
-        causesLaughs: causesLaughs,
-        aggregatedLaughs: aggregatedLaughs,
-        withoutJerry: aggregatedWithoutJerry,
-        firstSceneWithoutJerry: aggregatedFirstSceneWithoutJerry
-      })
+      mainCharsData[char.id] = breakdown
     })
 
-    return breakdown;
+    return mainCharsData
   });
 
   let isMouseOver = $state(false);
@@ -244,7 +251,7 @@
       highlightedEpisode = `${episode.season}-${episode.episode}`;
       highlightedEpisodeInfo = episode;
     }
-    const data = charData.find(e => e.season === episode.season && e.episode === episode.episode);
+    const data = charData[activeCharacter].find(e => e.season === episode.season && e.episode === episode.episode);
     highlightedEpisodeOverviewPercentage = Math.round((data[activeFilter === FILTER.SCREEN_TIME ? 'onScreen' : 'causesLaughs'].reduce((acc, value) => acc + value.duration, 0)) / data?.duration * 100) ?? undefined;
 
     const newXPosition = x <= episodeDetailsInnerWidth ? Math.round(x) : 0;
@@ -366,11 +373,20 @@
     const tlJerryText8 = gsap.timeline({
       scrollTrigger: {
         trigger: '#jerry-text-8',
+        start: 'top bottom'
+      }
+    });
+    tlJerryText8
+      .to('#jerry-text-8 .highlight', highlightAnimation, "<-0.7")
+
+    const tlJerryText9 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#jerry-text-8',
         start: 'bottom top'
       }
     });
     gsap.set('#lead-chars-episodes .hint', { opacity: 0, translateY: 30 })
-    tlJerryText8
+    tlJerryText9
       .to('#lead-chars-episodes .hint', { opacity: 1, translateY: 0, ease: 'bounce.out', duration: 1 })
   })
 
@@ -483,7 +499,7 @@
                   </g>
                 {/each}
 
-                {#each charData as d}
+                {#each charData[activeCharacter] as d}
                   <g transform="translate(0, {episodesVerticalScale(`${d.season}-${d.episode}`)})">
                     <!-- Episode durations -->
                     <rect
@@ -636,7 +652,7 @@
                   </g>
                 {/each}
 
-                {#each charData as d}
+                {#each charData[activeCharacter] as d}
                   <g transform="translate(0, {episodesVerticalScale(`${d.season}-${d.episode}`)})">
                     {#if activeFilter === FILTER.SCREEN_TIME}
                       <!-- Screen time -->
@@ -653,12 +669,12 @@
                       {/if}
                     {:else}
                       <!-- Laugh rate -->
-                      {#if episodeOverviewScale((d.aggregatedLaughs.length * 5) / d.duration)}
+                      {#if episodeOverviewScale(d.causesLaughs.length / d.episodeLaughs.length)}
                       <rect
                         class="pointer-events-none"
                         x={0}
                         y={0}
-                        width={episodeOverviewScale((d.aggregatedLaughs.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
+                        width={episodeOverviewScale(d.causesLaughs.length / d.episodeLaughs.length)}
                         height={episodesVerticalScale.bandwidth()}
                         fill={characters.find(char => char.id === activeCharacter)?.color}
                         fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
