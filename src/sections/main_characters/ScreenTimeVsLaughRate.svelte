@@ -208,9 +208,11 @@
         season: episode.season,
         episode: episode.episode,
         duration: episode.duration,
-        onScreen: aggregatedScreenTime,
+        onScreen: onScreen,
+        aggregatedOnScreen: aggregatedScreenTime,
         onScreenAtWork: aggregatedScreenTimeAtWork,
-        causesLaughs: aggregatedLaughs,
+        causesLaughs: causesLaughs,
+        aggregatedLaughs: aggregatedLaughs,
         withoutJerry: aggregatedWithoutJerry,
         firstSceneWithoutJerry: aggregatedFirstSceneWithoutJerry
       })
@@ -373,7 +375,6 @@
   })
 
   const numTextScreens = 8;
-  $inspect(episodesData)
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -496,7 +497,7 @@
                     />
 
                     <!-- Screen time -->
-                    {#each d.onScreen as screenMoment}
+                    {#each d.aggregatedOnScreen as screenMoment}
                       <rect
                         class="pointer-events-none {activeCharacter}-onscreen season-{d.season}"
                         x={episodeTimeScale(screenMoment.start)}
@@ -551,7 +552,7 @@
 
                     <!-- Laughs -->
                     {#if activeFilter === FILTER.LAUGHS}
-                      {#each d.causesLaughs as screenMoment}
+                      {#each d.aggregatedLaughs as screenMoment}
                         <rect
                           class="pointer-events-none {activeCharacter}-laugh"
                           x={episodeTimeScale(screenMoment.start)}
@@ -639,12 +640,12 @@
                   <g transform="translate(0, {episodesVerticalScale(`${d.season}-${d.episode}`)})">
                     {#if activeFilter === FILTER.SCREEN_TIME}
                       <!-- Screen time -->
-                      {#if episodeOverviewScale((d.onScreen.length * 5) / d.duration)}
+                      {#if episodeOverviewScale((d.aggregatedOnScreen.length * 5) / d.duration)}
                         <rect
                           class="pointer-events-none"
                           x={0}
                           y={0}
-                          width={episodeOverviewScale((d.onScreen.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
+                          width={episodeOverviewScale((d.aggregatedOnScreen.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
                           height={episodesVerticalScale.bandwidth()}
                           fill={characters.find(char => char.id === activeCharacter)?.color}
                           fill-opacity={activeFilter === FILTER.LAUGHS ? 0.3 : (isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
@@ -652,12 +653,12 @@
                       {/if}
                     {:else}
                       <!-- Laugh rate -->
-                      {#if episodeOverviewScale((d.causesLaughs.length * 5) / d.duration)}
+                      {#if episodeOverviewScale((d.aggregatedLaughs.length * 5) / d.duration)}
                       <rect
                         class="pointer-events-none"
                         x={0}
                         y={0}
-                        width={episodeOverviewScale((d.causesLaughs.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
+                        width={episodeOverviewScale((d.aggregatedLaughs.reduce((acc, value) => acc + value.duration, 0)) / d.duration)}
                         height={episodesVerticalScale.bandwidth()}
                         fill={characters.find(char => char.id === activeCharacter)?.color}
                         fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
@@ -705,7 +706,7 @@
 
   <!-- Texts -->
   <div class="z-10 relative" style="top: 100vh; height: {numTextScreens * 100}vh;">
-   <MainCharsTexts />
+   <MainCharsTexts {charData} />
   </div>
 </div>
 

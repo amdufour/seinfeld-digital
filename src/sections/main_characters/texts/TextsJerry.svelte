@@ -1,5 +1,8 @@
 <script>
   import { characters } from '$lib/data/characters';
+  import Sparkline from '../Sparkline.svelte';
+
+  let { charData } = $props()
 
   const color = characters.find(char => char.id === 'JERRY')?.color;
 </script>
@@ -55,7 +58,7 @@
     <div class="mb-4">
       Although his absolute screen-time levels continued to be high, you can see a <span class="highlight">clear trend of reduction</span> as the seasons pass.
     </div>
-    <div>CHART PLACEHOLDER</div>
+    <Sparkline {charData} />
   </div>
 </div>
 
