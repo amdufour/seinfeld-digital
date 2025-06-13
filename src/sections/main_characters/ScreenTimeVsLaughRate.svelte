@@ -288,6 +288,7 @@
         ease: 'power3.out'
     }
 
+    // Jerry
     const tlJerryText2 = gsap.timeline({
       scrollTrigger: {
         trigger: '#jerry-text-2',
@@ -379,18 +380,65 @@
     tlJerryText8
       .to('#jerry-text-8 .highlight', highlightAnimation, "<-0.7")
 
-    const tlJerryText9 = gsap.timeline({
+
+    // George
+    const tlGeorgeText1 = gsap.timeline({
       scrollTrigger: {
-        trigger: '#jerry-text-8',
+        trigger: '#george-text-1',
+        start: 'top bottom',
+        // end: 'top top',
+        toggleActions: 'play none play none',
+        onEnter: () => {
+          activeCharacter = 'GEORGE'
+          activeFilter = FILTER.SCREEN_TIME
+        },
+        onLeaveBack: () => {
+          activeCharacter = 'JERRY'
+          activeFilter = FILTER.LAUGHS
+        },
+      }
+    });
+
+    const tlGeorgeText2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#george-text-2',
+        start: 'top bottom',
+        // end: 'top top',
+        toggleActions: 'play none play none'
+      }
+    });
+    tlGeorgeText2
+      .to('#george-text-2 .highlight', highlightAnimation, "<-0.7")
+
+    
+    const tlGeorgeText3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#george-text-3',
+        start: 'top bottom',
+        // end: 'top top',
+        toggleActions: 'play none play none',
+        onEnter: () => {
+          activeFilter = FILTER.LAUGHS
+        },
+        onLeaveBack: () => {
+          activeFilter = FILTER.SCREEN_TIME
+        },
+      }
+    });
+
+    // Hint
+    const tlHint = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#',
         start: 'bottom top'
       }
     });
     gsap.set('#lead-chars-episodes .hint', { opacity: 0, translateY: 30 })
-    tlJerryText9
+    tlHint
       .to('#lead-chars-episodes .hint', { opacity: 1, translateY: 0, ease: 'bounce.out', duration: 1 })
   })
 
-  const numTextScreens = 8;
+  const numTextScreens = 11;
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
