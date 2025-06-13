@@ -463,7 +463,7 @@
       }
     });
     tlElaineText3
-      .to('.episode-duration.season-1-episode-1, .episode-duration.season-4-episode-1, .episode-duration.season-4-episode-2, .episode-duration.season-4-episode-3, .episode-duration.season-4-episode-4', { fill: '#BEBABC' })
+      .to('.episode-duration.season-1-episode-1, .episode-duration.season-4-episode-1, .episode-duration.season-4-episode-2, .episode-duration.season-4-episode-3, .episode-duration.season-4-episode-4', { fill: '#EEECED' })
       .to('#elaine-text-3 .highlight', highlightAnimation, "<-0.7")
 
     const tlElaineText4 = gsap.timeline({
@@ -483,6 +483,53 @@
     tlElaineText4
       .to('#elaine-text-3 .highlight', highlightAnimation, "<-0.7")
 
+    
+    // Kramer
+    const tlKramerText1 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#kramer-text-1',
+        start: 'top bottom',
+        // end: 'top top',
+        toggleActions: 'play none play none',
+        onEnter: () => {
+          activeCharacter = 'KRAMER'
+          activeFilter = FILTER.SCREEN_TIME
+        },
+        onLeaveBack: () => {
+          activeCharacter = 'ELAINE'
+          activeFilter = FILTER.LAUGHS
+        },
+      }
+    });
+
+    const tlKramerText2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#kramer-text-2',
+        start: 'top bottom',
+        // end: 'top top',
+        toggleActions: 'play none play none'
+      }
+    });
+    tlKramerText2
+      .to('#kramer-text-2 .highlight', highlightAnimation, "<-0.7")
+
+    const tlKramerText3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#kramer-text-3',
+        start: 'top bottom',
+        // end: 'top top',
+        toggleActions: 'play none play none',
+        onEnter: () => {
+          activeFilter = FILTER.LAUGHS
+        },
+        onLeaveBack: () => {
+          activeFilter = FILTER.SCREEN_TIME
+        },
+      }
+    });
+    tlKramerText3
+      .to('#kramer-text-3 .highlight', highlightAnimation, "<-0.7")
+
     // Hint
     const tlHint = gsap.timeline({
       scrollTrigger: {
@@ -495,7 +542,7 @@
       .to('#lead-chars-episodes .hint', { opacity: 1, translateY: 0, ease: 'bounce.out', duration: 1 })
   })
 
-  const numTextScreens = 15;
+  const numTextScreens = 18;
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -613,7 +660,7 @@
                       y={0}
                       width={episodeTimeScale(d.duration)}
                       height={episodesVerticalScale.bandwidth()}
-                      fill="#BEBABC"
+                      fill="#EEECED"
                       fill-opacity={(isMouseOver && highlightedEpisode === `${d.season}-${d.episode}`) || !isMouseOver ? 1 : 0.3}
                     />
 
@@ -726,7 +773,7 @@
                   y={0}
                   width={episodesOverviewWidth - marginEnd}
                   height={visualizationsInnerHeight}
-                  fill="#BEBABC"
+                  fill="#EEECED"
                   fill-opacity={isMouseOver ? 0.3 : 1}
                 />
                 <!-- Vertical Axes -->
