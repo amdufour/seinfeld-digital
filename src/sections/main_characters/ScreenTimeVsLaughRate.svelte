@@ -380,7 +380,6 @@
     tlJerryText8
       .to('#jerry-text-8 .highlight', highlightAnimation, "<-0.7")
 
-
     // George
     const tlGeorgeText1 = gsap.timeline({
       scrollTrigger: {
@@ -409,7 +408,6 @@
     });
     tlGeorgeText2
       .to('#george-text-2 .highlight', highlightAnimation, "<-0.7")
-
     
     const tlGeorgeText3 = gsap.timeline({
       scrollTrigger: {
@@ -426,6 +424,65 @@
       }
     });
 
+    // Elaine
+    const tlElaineText1 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#elaine-text-1',
+        start: 'top bottom',
+        // end: 'top top',
+        toggleActions: 'play none play none',
+        onEnter: () => {
+          activeCharacter = 'ELAINE'
+          activeFilter = FILTER.SCREEN_TIME
+        },
+        onLeaveBack: () => {
+          activeCharacter = 'GEORGE'
+          activeFilter = FILTER.LAUGHS
+        },
+      }
+    });
+
+    const tlElaineText2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#elaine-text-2',
+        start: 'top bottom',
+        // end: 'top top',
+        toggleActions: 'play none play none'
+      }
+    });
+    tlElaineText2
+      .to('.episode-duration.season-1-episode-1, .episode-duration.season-4-episode-1, .episode-duration.season-4-episode-2, .episode-duration.season-4-episode-3, .episode-duration.season-4-episode-4', { fill: '#E71D80' })
+      .to('#elaine-text-2 .highlight', highlightAnimation, "<-0.7")
+
+    const tlElaineText3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#elaine-text-3',
+        start: 'top bottom',
+        // end: 'top top',
+        toggleActions: 'play none play none'
+      }
+    });
+    tlElaineText3
+      .to('.episode-duration.season-1-episode-1, .episode-duration.season-4-episode-1, .episode-duration.season-4-episode-2, .episode-duration.season-4-episode-3, .episode-duration.season-4-episode-4', { fill: '#BEBABC' })
+      .to('#elaine-text-3 .highlight', highlightAnimation, "<-0.7")
+
+    const tlElaineText4 = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#elaine-text-4',
+        start: 'top bottom',
+        // end: 'top top',
+        toggleActions: 'play none play none',
+        onEnter: () => {
+          activeFilter = FILTER.LAUGHS
+        },
+        onLeaveBack: () => {
+          activeFilter = FILTER.SCREEN_TIME
+        },
+      }
+    });
+    tlElaineText4
+      .to('#elaine-text-3 .highlight', highlightAnimation, "<-0.7")
+
     // Hint
     const tlHint = gsap.timeline({
       scrollTrigger: {
@@ -438,7 +495,7 @@
       .to('#lead-chars-episodes .hint', { opacity: 1, translateY: 0, ease: 'bounce.out', duration: 1 })
   })
 
-  const numTextScreens = 11;
+  const numTextScreens = 15;
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -551,7 +608,7 @@
                   <g transform="translate(0, {episodesVerticalScale(`${d.season}-${d.episode}`)})">
                     <!-- Episode durations -->
                     <rect
-                      class="pointer-events-none"
+                      class="pointer-events-none episode-duration season-{d.season}-episode-{d.episode}"
                       x={0}
                       y={0}
                       width={episodeTimeScale(d.duration)}
