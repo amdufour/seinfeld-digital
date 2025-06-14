@@ -8,7 +8,7 @@
 
 	const credits = [
 		{ name: 'Andy Kirk', url: 'https://visualisingdata.com/', role: 'Ideation, Data Analysis, Data Visualisation & Original Design' },
-		{ name: 'Anne-Marie Dufour', url: 'https://www.delightfuldata.art/', role: 'Digital Design & Development' },
+		{ name: 'Anne-Marie Dufour', url: 'https://www.delightfuldata.art/', role: 'Data Visualisation, Digital Design & Development' },
 		{ name: 'Loud Numbers', url: 'https://www.loudnumbers.net/', role: 'Sonification' },
 		{ name: 'Mark Knott', role: 'Illustrations' },
 		{ name: 'Rob Barker', role: 'Data Collection & Research' }

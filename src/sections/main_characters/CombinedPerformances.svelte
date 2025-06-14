@@ -1,5 +1,4 @@
 <script>
-  import { range } from "d3-array";
   import { characters } from "$lib/data/characters";
   import { getCharacterImagePath } from "../../utils/getCharacterImagePath";
   import HelpIcon from "../../icons/HelpIcon.svelte";
