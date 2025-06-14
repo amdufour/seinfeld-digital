@@ -1,4 +1,5 @@
 <script>
+  import { range } from "d3-array";
   import { characters } from "$lib/data/characters";
   import { getCharacterImagePath } from "../../utils/getCharacterImagePath";
   import HelpIcon from "../../icons/HelpIcon.svelte";
@@ -81,7 +82,7 @@
               location: d.location
             })
           }
-          
+
           start = +d.eventTimeSeconds
           currentTime = +d.eventTimeSeconds
           currentScene = +d.sceneNumber
@@ -95,13 +96,49 @@
         episode: d.episode,
         duration: d.duration,
         onScreenTogether: aggregatedSharedMoments,
-        causeLaughterTogether: aggregatedLaughterMoments
+        causeLaughterTogether: aggregatedLaughterMoments,
+        maxSceneWithSharedLaughter: currentScene
       })
     })
 
     return episodes
   })
   $inspect('sharedMoments', sharedMoments)
+
+  const hierarchicalData = $derived.by(() => {
+    const data = {
+      name: 'All episodes',
+      children: []
+    }
+
+    sharedMoments.forEach(e => {
+      const scenes = []
+      e.causeLaughterTogether.forEach(l => {
+        if (!scenes.includes(l.sceneNum)) scenes.push(l.sceneNum)
+      })
+      
+      const episodeData = {
+        name: `season-${e.season}-episode-${e.episode}`,
+        season: e.season,
+        episode: e.episode,
+        duration: e.duration,
+        children: scenes.map(s => {
+          return {
+            name: `season-${e.season}-episode-${e.episode}-scene-${s}`,
+            season: e.season,
+            episode: e.episode,
+            scene: s,
+            children: e.causeLaughterTogether.filter(d => d.sceneNum === s)
+          }
+        })
+      }
+
+      data.children.push(episodeData)
+    })
+
+    return data
+  })
+  $inspect('hierarchicalData', hierarchicalData)
 
   const handleCharacterClick = (charId) => {
     
