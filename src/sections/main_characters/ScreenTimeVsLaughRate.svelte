@@ -533,7 +533,7 @@
     // Hint
     const tlHint = gsap.timeline({
       scrollTrigger: {
-        trigger: '#',
+        trigger: '#kramer-text-3',
         start: 'bottom top'
       }
     });
