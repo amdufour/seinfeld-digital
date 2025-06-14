@@ -14,12 +14,13 @@
 
   const sharedMoments = $derived.by(() => {
     const episodes = []
-    const momentsArray = []
 
     episodesData.forEach(d => {
       const charsData = d.data.filter(e => e.eventCategory === 'CHARACTERS')
       const locationsData = d.data.filter(e => e.eventCategory === 'LOCATION')
+      const laughterData = d.data.filter(e => e.eventCategory === 'CAUSES THE LAUGH')
       const groupedCharsData = []
+      const groupedLaughterData = []
 
       charsData.forEach(c => {
         const currentTime = c.eventTimeSeconds
@@ -29,6 +30,14 @@
             eventAttribute: [activeCharacter[0], activeCharacter[1]],
             location: locationsData.find(m => m.eventTimeSeconds === currentTime).eventAttribute
           })
+
+          if (laughterData.find(m => m.eventTimeSeconds === currentTime && activeCharacter.includes(m.eventAttribute))) {
+            groupedLaughterData.push({
+              ...c,
+              eventAttribute: [activeCharacter[0], activeCharacter[1]],
+              location: locationsData.find(m => m.eventTimeSeconds === currentTime).eventAttribute
+            })
+          }
         }
       })
 
@@ -55,11 +64,38 @@
         }
       })
 
+      start = undefined
+      currentTime = undefined
+      currentScene = 1
+      const aggregatedLaughterMoments = []
+      groupedLaughterData.forEach((d, i) => {
+        if (!start && !currentTime) {
+          start = +d.eventTimeSeconds
+          currentTime = +d.eventTimeSeconds
+        } else if (+d.eventTimeSeconds > currentTime + 5 || i === groupedLaughterData.length - 1 || +d.sceneNumber !== currentScene) {
+          if (currentTime - start > 0) {
+            aggregatedLaughterMoments.push({
+              start: start - 5,
+              duration: currentTime - start,
+              sceneNum: currentScene,
+              location: d.location
+            })
+          }
+          
+          start = +d.eventTimeSeconds
+          currentTime = +d.eventTimeSeconds
+          currentScene = +d.sceneNumber
+        } else if (+d.eventTimeSeconds === currentTime + 5) {
+          currentTime = +d.eventTimeSeconds
+        }
+      })
+
       episodes.push({
         season: d.season,
         episode: d.episode,
         duration: d.duration,
-        sharedMoments: aggregatedSharedMoments
+        onScreenTogether: aggregatedSharedMoments,
+        causeLaughterTogether: aggregatedLaughterMoments
       })
     })
 
