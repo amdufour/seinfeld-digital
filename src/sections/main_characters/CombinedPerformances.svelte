@@ -8,13 +8,14 @@
   $inspect('episodesData', episodesData)
 
   let currentChars = characters.slice(0, 4);
-  let activeCharacter = $state(['JERRY', 'GEORGE']);
+  let activeCharacter = $state(['JERRY', 'GEORGE', 'ELAINE']);
 
   let headerHeight = $state(300)
   let containerWidth = $state(1200)
 
   const sharedMoments = $derived.by(() => {
     const episodes = []
+    const otherChars = activeCharacter.slice(1)
 
     episodesData.forEach(d => {
       const charsData = d.data.filter(e => e.eventCategory === 'CHARACTERS')
@@ -25,19 +26,28 @@
 
       charsData.forEach(c => {
         const currentTime = c.eventTimeSeconds
-        if (c.eventAttribute === activeCharacter[0] && charsData.find(m => m.eventAttribute === activeCharacter[1] && m.eventTimeSeconds === currentTime)) {
-          groupedCharsData.push({
-            ...c,
-            eventAttribute: [activeCharacter[0], activeCharacter[1]],
-            location: locationsData.find(m => m.eventTimeSeconds === currentTime).eventAttribute
+        if (c.eventAttribute === activeCharacter[0]) {
+          let hasAllOtherChars = true
+          otherChars.forEach(c => {
+            if (!charsData.find(m => m.eventAttribute === c && m.eventTimeSeconds === currentTime)) {
+              hasAllOtherChars = false
+            }
           })
-
-          if (laughterData.find(m => m.eventTimeSeconds === currentTime && activeCharacter.includes(m.eventAttribute))) {
-            groupedLaughterData.push({
+          
+          if (hasAllOtherChars) {
+            groupedCharsData.push({
               ...c,
-              eventAttribute: [activeCharacter[0], activeCharacter[1]],
+              eventAttribute: activeCharacter.map(c => c),
               location: locationsData.find(m => m.eventTimeSeconds === currentTime).eventAttribute
             })
+
+            if (laughterData.find(m => m.eventTimeSeconds === currentTime && activeCharacter.includes(m.eventAttribute))) {
+              groupedLaughterData.push({
+                ...c,
+                eventAttribute: activeCharacter.map(c => c),
+                location: locationsData.find(m => m.eventTimeSeconds === currentTime).eventAttribute
+              })
+            }
           }
         }
       })
