@@ -63,7 +63,7 @@
 
 
 <div class="bg-black text-white py-80">
-	<Lazy keep={true} height="100vh" offset="100vh">
+	<!-- <Lazy keep={true} height="100vh" offset="100vh"> -->
 		<div class="container px-4 flex h-screen items-center">
 			<ul class="quotes-list">
 				{#each quotesToDisplay as quote, i}
@@ -92,7 +92,7 @@
 				{/each}
 			</ul>
 		</div>
-	</Lazy>
+	<!-- </Lazy> -->
 </div>
 
 <style>

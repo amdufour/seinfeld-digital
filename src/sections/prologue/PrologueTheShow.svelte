@@ -157,14 +157,14 @@
 			<div class="col-span-5">
 				<!-- svelte-ignore a11y_media_has_caption -->
 				 <div class="relative video-container">
-					<Lazy keep={true} height={340 * 5 * colWidth / 604} offset="100vh">
+					<!-- <Lazy keep={true} height={340 * 5 * colWidth / 604} offset="100vh"> -->
 						<video playsinline autoplay bind:muted={isMuted1} loop>
 							<source
 								src="https://amdufour.github.io/hosted-data/apis/videos/6c.ShowAboutNothing.mp4"
 								type="video/mp4"
 							/>
 						</video>
-					</Lazy>
+					<!-- </Lazy> -->
 					<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
 					<div
 						class="absolute z-10 bottom-0 left-0 right-0 top-0"
@@ -188,14 +188,14 @@
 			<div class="col-span-5 md:col-span-7">
 				<!-- svelte-ignore a11y_media_has_caption -->
 				 <div class="relative video-container">
-					<Lazy keep={true} height={340 * 7 * colWidth / 604} offset="100vh">
+					<!-- <Lazy keep={true} height={340 * 7 * colWidth / 604} offset="100vh"> -->
 						<video playsinline autoplay bind:muted={isMuted2} loop>
 							<source
 								src="https://amdufour.github.io/hosted-data/apis/videos/32.Minutiae.mp4"
 								type="video/mp4"
 							/>
 						</video>
-					</Lazy>
+					<!-- </Lazy> -->
 					<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
 					<div
 						class="absolute bottom-0 left-0 right-0 top-0"
@@ -230,14 +230,14 @@
 				<div>
 					<!-- svelte-ignore a11y_media_has_caption -->
 					<div class="relative video-container">
-						<Lazy keep={true} height={340 * 8 * colWidth / 604} offset="100vh">
+						<!-- <Lazy keep={true} height={340 * 8 * colWidth / 604} offset="100vh"> -->
 							<video playsinline autoplay bind:muted={isMuted3} loop>
 								<source
 									src="https://amdufour.github.io/hosted-data/apis/videos/11a.GoodSamaritan.mp4"
 									type="video/mp4"
 								/>
 							</video>
-						</Lazy>
+						<!-- </Lazy> -->
 						<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
 						<div
 							class="absolute bottom-0 left-0 right-0 top-0"
@@ -266,14 +266,14 @@
 			<div class="col-span-5">
 				<!-- svelte-ignore a11y_media_has_caption -->
 				 <div class="relative video-container">
-					<Lazy keep={true} height={340 * 5 * colWidth / 604} offset="100vh">
+					<!-- <Lazy keep={true} height={340 * 5 * colWidth / 604} offset="100vh"> -->
 						<video playsinline autoplay bind:muted={isMuted4} loop>
 							<source
 								src="https://amdufour.github.io/hosted-data/apis/videos/13a.TheNose.mp4"
 								type="video/mp4"
 							/>
 						</video>
-					</Lazy>
+					<!-- </Lazy> -->
 					<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
 					<div
 						class="absolute bottom-0 left-0 right-0 top-0"
@@ -303,14 +303,14 @@
 				<div>
 					<!-- svelte-ignore a11y_media_has_caption -->
 					<div class="relative video-container">
-						<Lazy keep={true} height={340 * 10 * colWidth / 604} offset="100vh">
+						<!-- <Lazy keep={true} height={340 * 10 * colWidth / 604} offset="100vh"> -->
 							<video playsinline autoplay bind:muted={isMuted5} loop>
 								<source
 									src="https://amdufour.github.io/hosted-data/apis/videos/14.ElaineDancing.mp4"
 									type="video/mp4"
 								/>
 							</video>
-						</Lazy>
+						<!-- </Lazy> -->
 						<div class="readable-layer z-1 absolute bottom-0 left-0 right-0 top-0"></div>
 						<div
 							class="absolute bottom-0 left-0 right-0 top-0"

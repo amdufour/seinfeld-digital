@@ -9,11 +9,11 @@
 </script>
 
 <section id="locations">
-	<Lazy keep={true} height="100vh" offset="100vh">
+	<!-- <Lazy keep={true} height="100vh" offset="100vh"> -->
 		<div class="bg-black">
 			<SectionTitle section="locations" title="Locations" />
 		</div>
-	</Lazy>
+	<!-- </Lazy> -->
 	<Intro />
 	<ScreenTimeVsLaughRate {episodesData} currentSection="locations" />
 	<Marimekko />

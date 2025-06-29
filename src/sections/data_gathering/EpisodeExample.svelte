@@ -59,7 +59,8 @@
 			trigger: '#episode-example-container',
 			start: 'top top',
 			end: 'bottom bottom',
-			pin: '#episode-example'
+			pin: '#episode-example',
+			preventOverlaps: true
 		});
 
 		gsap.set('#episode-detail-container', {

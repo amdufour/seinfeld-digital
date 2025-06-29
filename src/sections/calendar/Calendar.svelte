@@ -238,7 +238,9 @@
 			trigger: '#intro-calendar-container',
 			start: 'top top',
 			end: 'bottom bottom',
-			pin: '#intro-calendar'
+			pin: '#intro-calendar',
+			preventOverlaps: true,
+			markers: true
 		});
 
 		setTimeout(() => {

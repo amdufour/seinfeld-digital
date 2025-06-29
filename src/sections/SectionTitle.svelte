@@ -83,7 +83,8 @@
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: `#tiles-container-${section}`,
-				start: 'top center'
+				start: 'top center',
+				preventOverlaps: true
 			}
 		});
 		tl.from(`.tile-container-${section}`, {

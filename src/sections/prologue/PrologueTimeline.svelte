@@ -22,7 +22,8 @@
 				trigger: '#timeline-container',
 				start: 'top top',
 				end: 'bottom center',
-				pin: '#timeline'
+				pin: '#timeline',
+				preventOverlaps: true
 			});
 		}
 

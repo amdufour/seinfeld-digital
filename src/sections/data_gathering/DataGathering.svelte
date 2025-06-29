@@ -40,7 +40,8 @@
 				trigger: '#data-gathering',
 				start: 'top top',
 				end: 'bottom bottom',
-				pin: '#data-gathering #seasons-strip'
+				pin: '#data-gathering #seasons-strip',
+				preventOverlaps: true
 			});
 			
 			// Change seasons strip height on scroll
@@ -48,6 +49,7 @@
 				trigger: '#all-episodes',
 				start: 'top center',
 				end: 'bottom top',
+				preventOverlaps: true,
 				onEnter: () => isAllEpisodesInView = true,
 				onLeave: () => isAllEpisodesInView = false,
 				onEnterBack: () => isAllEpisodesInView = true,

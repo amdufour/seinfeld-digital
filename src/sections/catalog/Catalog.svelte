@@ -97,7 +97,8 @@
 			trigger: '#catalog',
 			start: 'top top',
 			end: 'bottom bottom',
-			pin: '#catalog #seasons-strip'
+			pin: '#catalog #seasons-strip',
+			preventOverlaps: true
 		});
 	});
 </script>

@@ -53,7 +53,8 @@
 			trigger: '#all-episodes',
 			start: 'top top',
             end: 'bottom bottom',
-			pin: '#all-episodes-visualizations'
+			pin: '#all-episodes-visualizations',
+			preventOverlaps: true
 		});
 
         // Texts timelines

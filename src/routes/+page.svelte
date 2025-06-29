@@ -71,7 +71,7 @@
 				<MainCharsSection {episodesData} />
 				<SupportingCharsSection {episodesData} />
 				<LocationsSection {episodesData} />
-				<LaughsExploration />
+				<LaughsExploration {episodesData} />
 				{#await csv(sonificationCharactersDataUrl) then sonificationCharactersData}
 					{#await csv(sonificationLocationDataUrl) then sonificationLocationData}
 						<Catalog {episodesData} {sonificationCharactersData} {sonificationLocationData} {ScrollTrigger} />

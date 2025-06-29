@@ -22,7 +22,8 @@
 		ScrollTrigger.create({
 			trigger: '#books-inner-container',
 			start: 'bottom bottom',
-			pin: '#book-cover-container'
+			pin: '#book-cover-container',
+			preventOverlaps: true
 		});
 
 		// Handle horizontal scroll

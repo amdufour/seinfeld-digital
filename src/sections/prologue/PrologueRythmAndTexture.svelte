@@ -15,7 +15,8 @@
 			trigger: '#prologue-videos',
 			start: 'top bottom',
 			end: 'bottom bottom',
-			pin: '#prologue-videos-text'
+			pin: '#prologue-videos-text',
+			preventOverlaps: true
 		});
 
 		// Highlight keywords
@@ -118,7 +119,7 @@
 </script>
 
 
-<div style="padding-bottom: 300px">
+<div style="margin-top: 500px; padding-bottom: 300px;">
 	<div class="relative">
 		<div id="prologue-videos-text" class="relative flex h-screen items-center">
 			<div class="container grid grid-cols-1 lg:grid-cols-2">
