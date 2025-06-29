@@ -239,8 +239,7 @@
 			start: 'top top',
 			end: 'bottom bottom',
 			pin: '#intro-calendar',
-			preventOverlaps: true,
-			markers: true
+			preventOverlaps: true
 		});
 
 		setTimeout(() => {

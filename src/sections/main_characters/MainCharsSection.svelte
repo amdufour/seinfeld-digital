@@ -20,5 +20,6 @@
 	<ScreenTimeVsLaughRate {episodesData} currentSection="main_chars" />
 	<Marimekko />
 	<PeakPerformances />
+	<!-- TODO: Lazy load pr perform calc on worker? -->
 	<!-- <CombinedPerformances {episodesData} /> -->
 </section>

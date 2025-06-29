@@ -541,13 +541,11 @@
     tlHint
       .to('#lead-chars-episodes .hint', { opacity: 1, translateY: 0, ease: 'bounce.out', duration: 1 })
   })
-
-  const numTextScreens = 18;
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div id="lead-chars-episodes-container" class="relative mt-20 mb-52" style="padding-bottom: {(numTextScreens - 1) * 100}vh;">
+<div id="lead-chars-episodes-container" class="relative mt-20 mb-52" style="padding-bottom: 200vh;">
   <div id="lead-chars-episodes" class="absolute h-screen w-screen top-0 left-0">
     <div class="container">
       <h3 class="my-8">Screen time vs laughter rate</h3>
@@ -873,7 +871,7 @@
   </div>
 
   <!-- Texts -->
-  <div class="z-10 relative" style="top: 100vh; height: {numTextScreens * 100}vh;">
+  <div class="z-10 relative" style="top: 100vh;">
    <MainCharsTexts {charData} />
   </div>
 </div>
