@@ -142,7 +142,7 @@
 <svelte:window bind:innerWidth />
 
 <section id="the-show">
-	<div class="container">
+	<div class="container pt-96">
 		<!-- The show about nothing -->
 		<div
 			id="the-show-1"

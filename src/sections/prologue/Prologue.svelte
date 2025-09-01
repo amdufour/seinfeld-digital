@@ -11,8 +11,8 @@
 
 <section id="intro">
 	<PrologueLateArrival />
-	<PrologueVideo />
 	<PrologueTimeline {ScrollTrigger} />
+	<PrologueVideo />
 	<PrologueTheShow />
 	<PrologueRythmAndTexture {ScrollTrigger} />
 	<PrologueBook {ScrollTrigger} />

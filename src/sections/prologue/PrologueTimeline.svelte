@@ -21,7 +21,7 @@
 			ScrollTrigger.create({
 				trigger: '#timeline-container',
 				start: 'top top',
-				end: 'bottom center',
+				end: 'bottom top',
 				pin: '#timeline',
 				preventOverlaps: true
 			});
