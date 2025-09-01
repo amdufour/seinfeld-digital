@@ -107,38 +107,39 @@
 		<div style="margin-top: -25px; max-width: 940px;">
 			<h1>The Seinfield Chronicles</h1>
 		</div>
-		<div>
-			<p id="subtitle" class="subtitle" style="max-width: 840px;">
-				An unnecessary data exploration by
-				<span class="name">
-					<span class="highlight">Andy Kirk</span>
-					<img
-						id="portrait-andy"
-						class="portrait"
-						alt="Portrait of Andy Kirk"
-						src="https://amdufour.github.io/hosted-data/apis/portraits/andy.jpg"
-					/>
-				</span>,
-				<br />
-				<span class="name">
-					<span class="highlight">Anne-Marie Dufour</span>
-					<img
-						id="portrait-am"
-						class="portrait"
-						alt="Portrait of Anne-Marie Dufour"
-						src="https://amdufour.github.io/hosted-data/apis/portraits/annemarie_square_closeup.jpg"
-					/>
-				</span>, and
-				<span class="name">
-					<span class="highlight">Loud Numbers</span>
-					<img
-						id="portrait-ln"
-						class="portrait"
-						alt="Loud Numbers logo"
-						src="https://amdufour.github.io/hosted-data/apis/portraits/loud_numbers.jpg"
-					/>
-				</span>
-			</p>
+		<div id="subtitle" class="subtitle number mt-6">
+			An unnecessary data exploration by
+			<span class="name">
+				<span class="highlight">Andy Kirk</span>
+				<img
+					id="portrait-andy"
+					class="portrait"
+					alt="Portrait of Andy Kirk"
+					src="https://amdufour.github.io/hosted-data/apis/portraits/andy.jpg"
+				/>
+			</span>
+			<span style="margin-left: -10px;">...</span>
+			<br />
+			<span>...unleashed in digital form by</span>
+			<span class="name">
+				<span class="highlight">Anne-Marie Dufour</span>
+				<img
+					id="portrait-am"
+					class="portrait"
+					alt="Portrait of Anne-Marie Dufour"
+					src="https://amdufour.github.io/hosted-data/apis/portraits/annemarie_square_closeup.jpg"
+				/>
+			</span>
+			<span style="margin-left: -10px;">, and </span>
+			<span class="name">
+				<span class="highlight">Loud Numbers</span>
+				<img
+					id="portrait-ln"
+					class="portrait"
+					alt="Loud Numbers logo"
+					src="https://amdufour.github.io/hosted-data/apis/portraits/loud_numbers.jpg"
+				/>
+			</span>
 		</div>
 	</div>
 </section>
@@ -149,7 +150,7 @@
 	}
 	.subtitle {
 		font-size: 1rem;
-		line-height: 1.4;
+		line-height: 1.6;
 	}
 	.name {
 		position: relative;
@@ -177,14 +178,9 @@
 		opacity: 1;
 		transform: translate(-50%, -40px) scale(1.2);
 	}
-	@media screen and (min-width: 768px) {
-		.subtitle {
-			font-size: 1.25rem;
-		}
-	}
 	@media screen and (min-width: 996px) {
 		.subtitle {
-			font-size: 1.7rem;
+			font-size: 1.1rem;
 		}
 	}
 </style>
