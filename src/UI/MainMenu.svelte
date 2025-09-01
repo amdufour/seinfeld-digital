@@ -6,7 +6,7 @@
 	let { toggleMenu } = $props();
 
 	const menuLinks = [
-		{ label: 'Introduction', anchor: 'intro' },
+		{ label: 'Prologue', anchor: 'intro' },
 		{ label: 'The Show', anchor: 'intro-calendar-container' },
 		{ label: 'Lead Characters', anchor: 'lead-chars' },
 		{ label: 'Supporting Characters', anchor: 'supporting-chars' },
