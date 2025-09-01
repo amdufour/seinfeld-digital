@@ -134,7 +134,7 @@
 		</div>
 		<div class="flex h-screen flex-col justify-center">
 			<p id="prologue-2">
-				It wasn't until I was in my 30s when Seinfeld reappeared on UK TV in a prime-time slot.
+				It wasn't until the 2010s when Seinfeld reappeared on UK TV in a prime-time slot.
 				Fully aware of the show's standing in the canon of popular culture this was my best
 				opportunity to tune in.
 			</p>
@@ -156,7 +156,7 @@
 				<div id="year-us" class="year" style="width: {innerWidth >= 768 ? 176 : 60}px;">1989</div>
 				<div id="circle-us" class="circle bg-white"></div>
 				{#if innerWidth >= 996}
-					<div id="desc-us" style={`margin-left: 24px`}>Seinfeld first aired on NBC in the USA</div>
+					<div id="desc-us" class="timeline-description" style={`margin-left: 24px`}>Seinfeld first aired on NBC in the USA</div>
 				{/if}
 			</div>
 		</div>
@@ -169,7 +169,7 @@
 				<div id="year-uk" class="year" style="width: {innerWidth >= 768 ? 176 : 60}px;">1993</div>
 				<div id="circle-uk" class="circle bg-white"></div>
 				{#if innerWidth >= 996}
-					<div id="desc-uk" style={`margin-left: 24px`}>Seinfeld first aired on BBC2 in the UK</div>
+					<div id="desc-uk" class="timeline-description" style={`margin-left: 24px`}>Seinfeld first aired on BBC2 in the UK</div>
 				{/if}
 			</div>
 		</div>
@@ -178,8 +178,8 @@
 				<div id="year-andy" class="year" style="width: {innerWidth >= 768 ? 176 : 60}px;">2012</div>
 				<div id="circle-andy" class="pulse circle bg-accent"></div>
 				{#if innerWidth >= 996}
-					<div id="desc-andy" style={`margin-left: 24px`}>
-						Seinfeld returns to prime-time on Sky TV in the UK
+					<div id="desc-andy" class="timeline-description" style={`margin-left: 24px`}>
+						Seinfeld returns to UK prime-time on Sky TV
 					</div>
 				{/if}
 			</div>
@@ -214,6 +214,9 @@
 		min-width: 28px;
 		height: 28px;
 		border-radius: 50%;
+	}
+	.timeline-description {
+		line-height: 1.4;
 	}
 	.pulse {
 		animation: pulse-animation 2s infinite;

@@ -30,12 +30,19 @@
 	const sonificationLocationDataUrl =
 		'https://amdufour.github.io/hosted-data/apis/sonificationLocationsData.csv';
 
+	let soundAuthWasShown = false
+	const showSoundAuth = () => {
+		if (!soundAuthWasShown) {
+			$soundAuthModaleIsOpen = true
+			soundAuthWasShown = true
+		}
+	}
 	onMount(() => {
 		// Show sound auth
 		ScrollTrigger.create({
 			trigger: '#prologue-video',
 			start: 'top top',
-			onEnter: () => 	$soundAuthModaleIsOpen = true
+			onEnter: () => 	showSoundAuth()
 		});
 	});
 

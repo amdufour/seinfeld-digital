@@ -153,7 +153,7 @@
 			onmouseleave={() => handleMouseLeave(1)}
 		>
 			<div class="col-span-7 md:col-span-4 mask">
-				<div class="text">It only took a handful of episodes for me to find myself completely hooked. Seinfeld was written in a different key, deviating from the traditional rules of sitcoms, focusing on - and amplifying of - the minutiae of daily life, earning its reputation as <a href="https://www.latimes.com/archives/la-xpm-1993-03-04-ca-474-story.html" target="_blank">the show about nothing</a>.</div></div>
+				<div class="text">It only took a handful of episodes for me to find myself completely hooked. Seinfeld was written in a different key, deviating from the traditional rules of sitcoms, focusing on - and amplifying - the minutiae of daily life, earning its reputation as <a href="https://www.latimes.com/archives/la-xpm-1993-03-04-ca-474-story.html" target="_blank">the show about nothing</a>.</div></div>
 			<div class="col-span-5">
 				<!-- svelte-ignore a11y_media_has_caption -->
 				 <div class="relative video-container">
@@ -207,7 +207,7 @@
 				</div>
 			</div>
 			<div class="col-span-7 md:col-span-3 mask">
-				<div class="text">I loved the irreverent characters - with their absurd obsessions and neurotic tendencies - and the hilariously avoidable situations they found themselves in.</div>
+				<div class="text">I loved the irreverent characters, with their absurd obsessions and neurotic tendencies, and the hilariously avoidable situations they found themselves in.</div>
 			</div>
 		</div>
 
@@ -224,7 +224,7 @@
 				<div class="mask">
 					<div class="text">
 						<div>It rejected the classic three-act story, sidestepping sentimentality and the pursuit of resolution. With its mantra of <span class="highlight" style="-webkit-text-fill-color: transparent">no hugging*, no learning</span> the lead characters were insecure and entertainingly flawed, lacking any desire and capability for personal growth.</div>
-						<div class="number mt-2 mb-4">* the earlier clip not withstanding!</div>
+						<div class="number mb-2 text-right">*the earlier clip notwithstanding!</div>
 					</div>
 				</div>
 				<div>
