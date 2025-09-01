@@ -20,15 +20,32 @@
 				{
 					translateY: 0,
 					opacity: 1,
-					duration: 1,
+					duration: 2,
 					ease: 'power3.out'
 				},
-				'+=1.5'
+				'-=0.5'
 			);
+
+		// Hide down icons
+		const tl2 = gsap.timeline({
+			scrollTrigger: {
+				trigger: '#prologue-container',
+				start: 'bottom center',
+				// end: 'bottom center',
+				// toggleActions: 'play reverse play reverse',
+				// markers: true
+			}
+		});
+		tl2.to('#down-icons', {
+			translateY: -40,
+			opacity: 0,
+			duration: 2,
+			ease: 'power3.out'
+		});
 	});
 </script>
 
-<div class="relative flex h-screen items-center">
+<div id="prologue-container" class="relative flex h-screen items-center">
 	<div class="container">
 		<div id="prologue-1">I was a late arrival to Seinfeld fandom.</div>
 	</div>
