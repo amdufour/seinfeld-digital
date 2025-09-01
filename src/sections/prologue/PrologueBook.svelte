@@ -100,7 +100,7 @@
 				<p>
 					The first product of this work was my 2020 publishing of The Seinfeld Chronicles, a
 					limited-edition printed book presenting all my extensive analysis. With 176 copies
-					released, matching the number of written episodes, this reached a small but exclusive
+					released, matching the number of written episodes, this reached a small but exclusive - and passionate - 
 					audience. In 2024 I decided it was time to work on a new product, to reach a wider
 					audience with a completely new format: The Seinfeld Chronicles digital edition.
 				</p>

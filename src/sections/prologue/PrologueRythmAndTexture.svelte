@@ -77,7 +77,7 @@
 		{
 			id: 'parallax-3',
 			isMuted: true,
-			position: 'top: 400px; left: 50px; width: 280px;',
+			position: 'top: 350px; left: 50%; width: 280px;',
 			height: 280 * 349 / 604,
 			fileName: 'Elaine1b',
 			episode: 'S8E12 - The Money'
@@ -85,7 +85,7 @@
 		{
 			id: 'parallax-4',
 			isMuted: true,
-			position: 'top: 600px; left: 50%; width: 300px;',
+			position: 'top: 600px; right: 0; width: 300px;',
 			height: 300 * 349 / 604,
 			fileName: '26.JerryFriend',
 			episode: 'S1E4 - Male Unbonding'
@@ -93,7 +93,7 @@
 		{
 			id: 'parallax-1',
 			isMuted: true,
-			position: 'top: 800px; left: 50%; transform: translate(-110%); width: 600px;',
+			position: 'top: 800px; left: 70%; width: 400px;',
 			height: 600 * 349 / 604,
 			fileName: '24b.Jerrys',
 			episode: 'S3E2 - The Truth'
