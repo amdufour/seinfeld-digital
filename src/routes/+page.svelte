@@ -31,9 +31,12 @@
 		'https://amdufour.github.io/hosted-data/apis/sonificationLocationsData.csv';
 
 	onMount(() => {
-		setTimeout(() => {
-			$soundAuthModaleIsOpen = true;
-		}, 4000);
+		// Show sound auth
+		ScrollTrigger.create({
+			trigger: '#prologue-video',
+			start: 'top top',
+			onEnter: () => 	$soundAuthModaleIsOpen = true
+		});
 	});
 
 	const showOnlyLatest = false;
