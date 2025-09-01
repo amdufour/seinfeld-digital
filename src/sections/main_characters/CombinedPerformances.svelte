@@ -1,15 +1,21 @@
 <script>
   import { pack } from "d3-hierarchy"
+  import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
+  import { scaleBand } from "d3-scale";
+
   import { jsonToHierarchy } from "../../utils/jsonToHierarchy"
   import { characters } from "$lib/data/characters";
   import { combinedPerformances } from "$lib/data/combinedPerformances";
   import { getCharacterImagePath } from "../../utils/getCharacterImagePath";
+  import { seasons } from "$lib/data/seasons";
+  import { episodesInfo } from "$lib/data/episodesInfo";
   import HelpIcon from "../../icons/HelpIcon.svelte";
 
   let { episodesData } = $props()
 
   let currentChars = characters.slice(0, 4);
   let activeCharacter = $state(['JERRY', 'KRAMER']);
+  // Get combined perf via worker and return hierarchical data with force layout
   const sharedData = $derived(combinedPerformances[activeCharacter.join('-')])
   $inspect(activeCharacter.join('-'))
   
@@ -43,12 +49,37 @@
 
     return initialRoot
   })
-  $inspect('circlePackData', root.descendants())
+  const descendantsToDisplay = $derived.by(() => {
+    return root.descendants().filter(d => d.depth > 0)
+    // return root.descendants().filter(d => d.depth === 1 && d.children)
+  })
+  $inspect('circlePackData', descendantsToDisplay)
+
+  // let nodes = $state([]);
+  // const episodesScale = $derived(
+  //   scaleBand()
+  //     .domain(episodesInfo.map(d => `${d.season}-${d.episode}`))
+  //     .range([0, vizContainerWidth])
+  // )
+
+	// $effect(() => {
+  //   let simulation = forceSimulation(descendantsToDisplay);
+  //   simulation.on('tick', () => {
+  //     nodes = simulation.nodes();
+  //   });
+  //   simulation
+  //     .force('x', forceX((d) => episodesScale(`${d.data.season}-${d.data.episode}`)).strength(1))
+  //     .force('y', forceY(() => 300).strength(0.1))
+  //     .force('collide', forceCollide().radius(d => d.r).strength(1))
+  //     .alpha(0.5)
+  //     .alphaDecay(0.1);
+  // })
+  // $inspect('nodes', nodes)
 </script>
 
 <svelte:window bind:innerHeight={screenHeight} />
 
-<div class="h-screen w-screen mb-60">
+<div class="w-screen mb-60">
   <div class="container">
     <!-- Header -->
     <div bind:clientHeight={headerHeight} class="mb-8">
@@ -84,15 +115,25 @@
           <div>Select at least two characters</div>
         {:else}
           <svg width={vizContainerWidth} height={600} style="border: 1px solid cyan;">
-            {#each root.descendants() as circle}
+            {#each descendantsToDisplay as circle}
               <circle
+                class={circle.depth === 1 ? `episode ${circle.data.name}` : circle.depth === 2 ? `scene ${circle.data.name}` : `location ${circle.data.location}`}
                 cx={circle.x}
                 cy={circle.y}
                 r={circle.r}
-                fill="none"
-                stroke="black"
+                fill={circle.depth === 1 ? seasons.find(s => s.seasonNum === circle.data.season)?.color : circle.depth === 2 ? 'none' : '#12020A'}
+                stroke={circle.depth === 2 ? '#12020A' : 'none'}
               />
             {/each}
+            <!-- {#each nodes as circle}
+              <circle
+                class={`episode ${circle.data.name}`}
+                cx={circle.x}
+                cy={circle.y}
+                r={circle.r}
+                fill={seasons.find(s => s.seasonNum === circle.data.season)?.color}
+              />
+            {/each} -->
           </svg>
         {/if}
       </div>
