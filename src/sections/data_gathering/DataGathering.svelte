@@ -3,7 +3,7 @@
   import SeasonsStrip from "../../UI/SeasonsStrip.svelte";
   import DataGatheringDetails from "./DataGatheringDetails.svelte";
   import EpisodeExample from "./EpisodeExample.svelte";
-	import AllEpisodes from "./AllEpisodes.svelte";
+	import AllEpisodesTexts from "./AllEpisodesTexts.svelte";
 	import type { Episode } from "$lib/types/episode";
 	import { episodesInfo } from '$lib/data/episodesInfo';
 
@@ -11,9 +11,7 @@
 
 	let innerHeight = $state(800);
 	let isAllEpisodesInView = $state(false);
-	let stripHeight = $derived.by(() => {
-		return isAllEpisodesInView ? innerHeight - 130 : innerHeight;
-	});
+	let stripHeight = $derived(innerHeight);
 
   const currentSeason = 5;
 	const currentEpisode = 14;
@@ -68,6 +66,7 @@
     <div class="w-screen" style="padding-left: 25px;">
         <DataGatheringDetails {laughData} />
         <EpisodeExample {episodeInfo} {episodeData} {laughData} {ScrollTrigger} />
-				<AllEpisodes {episodesData} {stripHeight} {ScrollTrigger} />
+				<!-- <AllEpisodes {episodesData} {stripHeight} {ScrollTrigger} /> -->
+				 <AllEpisodesTexts />
     </div>
 </section>

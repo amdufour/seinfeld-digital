@@ -83,8 +83,6 @@
 							<span
 								class="quote-info small absolute left-0 top-7 w-96"
 								role="contentinfo"
-								onmouseenter={() => playQuote(quote.audio_clip_id, quote.duration)}
-								onfocus={() => {}}
 								>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
 							>
 						</div>
