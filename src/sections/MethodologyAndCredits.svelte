@@ -21,7 +21,7 @@
 		},
 		{ name: 'Loud Numbers', url: 'https://www.loudnumbers.net/', role: 'Sound design, composition, and sonification' },
 		{ name: 'Mark Knott', role: 'Illustrations' },
-		{ name: 'Rob Barker', role: 'Data Collection & Research' }
+		{ name: 'Rob Barker', role: 'Data Collection Support' }
 	];
 </script>
 
