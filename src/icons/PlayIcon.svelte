@@ -1,8 +1,8 @@
 <script>
-	let { color } = $props();
+	let { color, diameter = 44 } = $props();
 </script>
 
-<svg width="44" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width={diameter} height={diameter} viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
 	<g clip-path="url(#clip0_938_3273)">
 		<path
 			fill-rule="evenodd"
