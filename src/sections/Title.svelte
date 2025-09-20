@@ -105,7 +105,7 @@
 	</svg>
 	<div class="container">
 		<div style="margin-top: -25px; max-width: 940px;">
-			<h1>The Seinfield Chronicles</h1>
+			<h1>The Seinfeld Chronicles</h1>
 		</div>
 		<div id="subtitle" class="subtitle number mt-6">
 			An unnecessary data exploration by
@@ -130,7 +130,27 @@
 					src="https://amdufour.github.io/hosted-data/apis/portraits/annemarie_square_closeup.jpg"
 				/>
 			</span>
+			<span style="margin-left: -10px;">, </span>
+			<span class="name">
+				<span class="highlight">Miriam Quick</span>
+				<img
+					id="portrait-mq"
+					class="portrait"
+					alt="Portrait of Miriam Quick"
+					src="https://amdufour.github.io/hosted-data/apis/portraits/miriam_quick.jpg"
+				/>
+			</span>
 			<span style="margin-left: -10px;">, and </span>
+			<span class="name">
+				<span class="highlight">Duncan Geere</span>
+				<img
+					id="portrait-dg"
+					class="portrait"
+					alt="Portrait of Duncan Geere"
+					src="https://amdufour.github.io/hosted-data/apis/portraits/duncan_geere.jpeg"
+				/>
+			</span>
+			<span>{' { '}</span>
 			<span class="name">
 				<span class="highlight">Loud Numbers</span>
 				<img
@@ -140,6 +160,7 @@
 					src="https://amdufour.github.io/hosted-data/apis/portraits/loud_numbers.jpg"
 				/>
 			</span>
+			<span>{' }'}</span>
 		</div>
 	</div>
 </section>
@@ -150,10 +171,11 @@
 	}
 	.subtitle {
 		font-size: 1rem;
-		line-height: 1.6;
+		line-height: 2;
 	}
 	.name {
 		position: relative;
+		z-index: 1;
 		transition: color 350ms cubic-bezier(0.165, 0.84, 0.44, 1);
 	}
 	.name:hover {
@@ -164,19 +186,49 @@
 	}
 	.portrait {
 		position: absolute;
+		z-index: 2;
 		left: 50%;
 		top: -50px;
 		transform: translateX(-50%);
-		width: 80px;
+		width: 75px;
 		height: auto;
 		border-radius: 50%;
 		border: 5px solid #f9f5f7;
 		opacity: 0;
 		transition: all 350ms cubic-bezier(0.165, 0.84, 0.44, 1);
+		pointer-events: none;
 	}
 	.name:hover .portrait {
 		opacity: 1;
 		transform: translate(-50%, -40px) scale(1.2);
+	}
+	.portrait#portrait-am {
+		left: 0;
+		top: 70px;
+		transform: translateX(0%);
+	}
+	.name:hover .portrait#portrait-am {
+		opacity: 1;
+		transform: translate(0%, -35px) scale(1.2);
+	}
+	.portrait#portrait-mq {
+		left: auto;
+		right: -60px;
+		top: -60px;
+		transform: translateX(0%);
+	}
+	.name:hover .portrait#portrait-mq {
+		opacity: 1;
+		transform: translate(0%, -5px) scale(1.2);
+	}
+	.portrait#portrait-dg {
+		left: -75px;
+		top: -60px;
+		transform: translateX(0%);
+	}
+	.name:hover .portrait#portrait-dg {
+		opacity: 1;
+		transform: translate(0%, 75px) scale(1.2);
 	}
 	@media screen and (min-width: 996px) {
 		.subtitle {
