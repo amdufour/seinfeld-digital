@@ -1,4 +1,5 @@
 <script>
+  import * as Tone from 'tone';
   import { seasons } from "$lib/data/seasons";
   import PlayQuoteIcon from "./PlayQuoteIcon.svelte";
 
@@ -7,10 +8,19 @@
   let isQuoteHovered = $state(false)
   let isQuotePlaying = $state(false)
 
+  /**
+	 * @type {Tone.Player}
+	 */
+  let audio
   const playQuote = () => {
 		isQuotePlaying = true
-		const audio = new Audio(`https://amdufour.github.io/hosted-data/apis/audio_quotes/${quote.audio_clip_id}.m4a`)
-		audio.play()
+    // @ts-ignore
+		audio = new Tone.Player().toDestination()
+    audio.load(`https://amdufour.github.io/hosted-data/apis/audio_quotes/${quote.audio_clip_id}.m4a`).then(() => {
+      audio.fadeIn = 1
+      audio.fadeOut = 1
+      audio.start()
+    });
 
 		setTimeout(
 			() => {
@@ -19,6 +29,10 @@
 			(quote.duration + 1) * 1000
 		);
 	};
+  const stopQuote = () => {
+    audio.stop()
+    isQuotePlaying = false
+  }
 
 	const handleMouseEnter = (/** @type {number} */ id) => {
 		isQuoteHovered = true
@@ -33,10 +47,10 @@
 	onmouseenter={() => handleMouseEnter(quote.audio_clip_id)}
 	onmouseleave={handleMouseLeave}
 >
-  <button class="flex cursor-pointer" onclick={playQuote}>
+  <button class="flex cursor-pointer" onclick={isQuotePlaying ? stopQuote : playQuote}>
     <div class="pr-2 pt-3 flex justify-end" style={"width: 54px;"}>
       {#if isQuoteHovered}
-        <PlayQuoteIcon />
+        <PlayQuoteIcon isPlaying={isQuotePlaying} />
       {/if}
     </div>
     <div
