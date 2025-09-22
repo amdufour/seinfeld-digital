@@ -48,7 +48,7 @@
 	onmouseleave={handleMouseLeave}
 >
   <button class="flex cursor-pointer" onclick={isQuotePlaying ? stopQuote : playQuote}>
-    <div class="pr-2 pt-3 flex justify-end" style={"width: 54px;"}>
+    <div class="pr-2 pt-2 lg:pt-3 flex justify-end" style={"width: 54px;"}>
       {#if isQuoteHovered}
         <PlayQuoteIcon isPlaying={isQuotePlaying} />
       {/if}
@@ -63,7 +63,7 @@
         {quote.quote}
       {/if}
       <span
-        class="quote-info small absolute left-0 top-11"
+        class="quote-info small absolute left-0 top-9 lg:top-11"
         role="contentinfo"
         >{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
       >
