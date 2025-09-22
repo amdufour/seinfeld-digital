@@ -1,0 +1,11 @@
+<script>
+  import { fly } from 'svelte/transition';
+  import PlayIcon from "../../icons/PlayIcon.svelte";
+</script>
+
+<div
+  in:fly={{ duration: 250, x: 10 }}
+	out:fly={{ duration: 250, x: 10 }}
+>
+  <PlayIcon diameter={28} color="#F9F5F7" />
+</div>

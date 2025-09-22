@@ -1,8 +1,7 @@
 <script>
 	import { quotes } from '$lib/data/quotes';
 	import { seasons } from '$lib/data/seasons';
-	import { soundIsAuth } from '../../stores/soundAuthStore';
-	import PlayQuote from './PlayQuote.svelte';
+	import Quote from './Quote.svelte';
 
 	let widthQuotesSeason1 = $state()
 	let widthQuotesSeason2 = $state()
@@ -14,25 +13,6 @@
 	let widthQuotesSeason8 = $state()
 	let widthQuotesSeason9 = $state()
 
-	let canPlayQuote = $state(true);
-	let playingQuote = $state()
-	function playQuote (/** @type {number} */ id, /** @type {number} */ duration) {
-		canPlayQuote = false;
-		playingQuote = id
-		var quote = document.getElementsByClassName(`quote-${id}`);
-		quote[0].classList.add('playing');
-		const audio = new Audio(`https://amdufour.github.io/hosted-data/apis/audio_quotes/${id}.m4a`);
-		audio.muted = !$soundIsAuth;
-		audio.play();
-
-		setTimeout(
-			() => {
-				canPlayQuote = true;
-				quote[0].classList.remove('playing');
-			},
-			(duration + 1) * 1000
-		);
-	};
 </script>
 
 <div class="bg-black text-white py-80">
@@ -42,55 +22,13 @@
 				<ul class="quotes-list flex flex-nowrap">
 					<div bind:clientWidth={widthQuotesSeason1} class="flex scrolling-text-right" style="animation-duration: {widthQuotesSeason1 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 1) as quote}
-							<li class="inline whitespace-nowrap quote quote-${quote.audio_clip_id}">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 					<!-- Repeat for infinite scroll effect -->
 					<div class="flex scrolling-text-right" style="animation-duration: {widthQuotesSeason1 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 1) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 				</ul>
@@ -99,55 +37,13 @@
 				<ul class="quotes-list flex flex-nowrap">
 					<div bind:clientWidth={widthQuotesSeason2} class="flex scrolling-text-left" style="animation-duration: {widthQuotesSeason2 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 2) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 					<!-- Repeat for infinite scroll effect -->
 					<div class="flex scrolling-text-left" style="animation-duration: {widthQuotesSeason2 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 2) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 				</ul>
@@ -156,55 +52,13 @@
 				<ul class="quotes-list flex flex-nowrap">
 					<div bind:clientWidth={widthQuotesSeason3} class="flex scrolling-text-right" style="animation-duration: {widthQuotesSeason3 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 3) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 					<!-- Repeat for infinite scroll effect -->
 					<div class="flex scrolling-text-right" style="animation-duration: {widthQuotesSeason3 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 3) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 				</ul>
@@ -213,55 +67,13 @@
 				<ul class="quotes-list flex flex-nowrap">
 					<div bind:clientWidth={widthQuotesSeason4} class="flex scrolling-text-left" style="animation-duration: {widthQuotesSeason4 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 4) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 					<!-- Repeat for infinite scroll effect -->
 					<div class="flex scrolling-text-left" style="animation-duration: {widthQuotesSeason4 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 4) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 				</ul>
@@ -270,55 +82,13 @@
 				<ul class="quotes-list flex flex-nowrap">
 					<div bind:clientWidth={widthQuotesSeason5} class="flex scrolling-text-right" style="animation-duration: {widthQuotesSeason5 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 5) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 					<!-- Repeat for infinite scroll effect -->
 					<div class="flex scrolling-text-right" style="animation-duration: {widthQuotesSeason5 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 5) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 				</ul>
@@ -327,55 +97,13 @@
 				<ul class="quotes-list flex flex-nowrap">
 					<div bind:clientWidth={widthQuotesSeason6} class="flex scrolling-text-left" style="animation-duration: {widthQuotesSeason6 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 6) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 					<!-- Repeat for infinite scroll effect -->
 					<div class="flex scrolling-text-left" style="animation-duration: {widthQuotesSeason6 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 6) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 				</ul>
@@ -384,55 +112,13 @@
 				<ul class="quotes-list flex flex-nowrap">
 					<div bind:clientWidth={widthQuotesSeason7} class="flex scrolling-text-right" style="animation-duration: {widthQuotesSeason7 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 7) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 					<!-- Repeat for infinite scroll effect -->
 					<div class="flex scrolling-text-right" style="animation-duration: {widthQuotesSeason7 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 7) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 				</ul>
@@ -441,55 +127,13 @@
 				<ul class="quotes-list flex flex-nowrap">
 					<div bind:clientWidth={widthQuotesSeason8} class="flex scrolling-text-left" style="animation-duration: {widthQuotesSeason8 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 8) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 					<!-- Repeat for infinite scroll effect -->
 					<div class="flex scrolling-text-left" style="animation-duration: {widthQuotesSeason8 / 50}s;">
 						{#each quotes.filter((quote) => quote.season === 8) as quote}
-							<li class="inline whitespace-nowrap">
-								<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-								<div
-									class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-									style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-								>
-									{#if quote.revised_quote_text.length > 0}
-										{quote.revised_quote_text}
-									{:else}
-										{quote.quote}
-									{/if}
-									<span
-										class="quote-info small absolute left-0 top-7 w-96"
-										role="contentinfo"
-										>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-									>
-								</div>
-							</li>
+							<Quote {quote} />
 						{/each}
 					</div>
 				</ul>
@@ -498,55 +142,13 @@
 			<ul class="quotes-list flex flex-nowrap">
 				<div bind:clientWidth={widthQuotesSeason9} class="flex scrolling-text-right" style="animation-duration: {widthQuotesSeason9 / 50}s;">
 					{#each quotes.filter((quote) => quote.season === 9) as quote}
-						<li class="inline whitespace-nowrap">
-							<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-							<div
-								class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-								style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-							>
-								{#if quote.revised_quote_text.length > 0}
-									{quote.revised_quote_text}
-								{:else}
-									{quote.quote}
-								{/if}
-								<span
-									class="quote-info small absolute left-0 top-7 w-96"
-									role="contentinfo"
-									>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-								>
-							</div>
-						</li>
+						<Quote {quote} />
 					{/each}
 				</div>
 				<!-- Repeat for infinite scroll effect -->
 				<div class="flex scrolling-text-right" style="animation-duration: {widthQuotesSeason9 / 50}s;">
 					{#each quotes.filter((quote) => quote.season === 9) as quote}
-						<li class="inline whitespace-nowrap">
-							<PlayQuote 
-									bind:playQuote 
-									audioClipId={quote.audio_clip_id} 
-									duration={quote.duration} 
-									canPlayQuote={canPlayQuote || (!canPlayQuote && playingQuote === quote.audio_clip_id)} />
-							<div
-								class={`quote quote-${quote.audio_clip_id} relative inline cursor-default`}
-								style={`color: ${seasons.find((s) => s.seasonNum === quote.season)?.accessibleOverDarkColor}`}
-							>
-								{#if quote.revised_quote_text.length > 0}
-									{quote.revised_quote_text}
-								{:else}
-									{quote.quote}
-								{/if}
-								<span
-									class="quote-info small absolute left-0 top-7 w-96"
-									role="contentinfo"
-									>{`s${quote.season}e${quote.episode} ${quote.episode_title}, ${quote.who}`}</span
-								>
-							</div>
-						</li>
+						<Quote {quote} />
 					{/each}
 				</div>
 			</ul>
@@ -562,22 +164,6 @@
 	.quotes-list:hover .scrolling-text-right,
 	.quotes-list:hover .scrolling-text-left {
 		animation-play-state: paused;
-	}
-	.quote {
-		transition: color 250ms ease-out;
-	}
-	.quote.playing {
-		color: #e71d80 !important;
-	}
-	.quote-info {
-		transform: translateY(-10px);
-		opacity: 0;
-		transition: all 250ms ease-out;
-	}
-	.quote:hover .quote-info,
-	.quote.playing .quote-info {
-		transform: translateY(0);
-		opacity: 1;
 	}
 	.scrolling-text-right {
 		transform: translateX(0);
