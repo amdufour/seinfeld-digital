@@ -99,7 +99,7 @@
 				y={i * 12}
 				width={seasonScale(season.numEpisodes)}
 				height={8}
-				fill={season.color}
+				fill={season.accessibleOverDarkColor}
 			/>
 		{/each}
 	</svg>
@@ -118,7 +118,6 @@
 					src="https://amdufour.github.io/hosted-data/apis/portraits/andy.jpg"
 				/>
 			</span>
-			<span style="margin-left: -10px;">...</span>
 			<br />
 			<span>...unleashed in digital form by</span>
 			<span class="name">
